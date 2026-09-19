@@ -1,0 +1,32 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      # A GITHUB_TOKEN-authored PR needs a human approval GitHub itself
+      # injects (rules/releases.md's "RELEASE_TOKEN PAT is not automatically
+      # droppable"), and even with that approved, its squash-merge commit is
+      # GITHUB_TOKEN-authored too -- no workflow fires on it, so this job
+      # never re-runs to cut the actual tag. RELEASE_TOKEN (a real-identity
+      # PAT) sidesteps both. See release-auto-merge.yml for the other half.
+      #
+      # Not wrapped in nick-fields/retry (rules/releases.md's "Retry a
+      # release job through GitHub's transient rate limit") -- that action
+      # only retries a shell `command:`, not another `uses:` step, so it
+      # can't wrap a marketplace action directly. A rate-limited run here
+      # still needs a manual re-run until release-please-action grows its
+      # own retry or this gets rearchitected around a CLI invocation.
+      - uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7 # v5.0.0
+        with:
+          release-type: php
+          token: ${{ secrets.RELEASE_TOKEN }}

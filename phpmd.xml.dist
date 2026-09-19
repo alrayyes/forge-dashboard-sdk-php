@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<ruleset name="forge-dashboard-sdk-php"
+         xmlns="http://pmd.sf.net/ruleset/1.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd">
+  <description>
+    Complexity, coupling and dead-parameter checks for the hand-written
+    layer. naming and controversial are left out per rules/php.md -- they
+    fight Symfony/PSR conventions and produce noise nobody reads.
+  </description>
+
+  <rule ref="rulesets/cleancode.xml">
+    <!-- Guzzle's own API is static factories (HandlerStack::create(),
+         Middleware::retry()), and ApiError::fromGenerated() is a named
+         constructor. None of that is a smell to refactor away. -->
+    <exclude name="StaticAccess" />
+  </rule>
+  <rule ref="rulesets/codesize.xml" />
+
+  <rule ref="rulesets/design.xml">
+    <!-- Client is a thin facade over nine generated Api classes (one per
+         spec tag), which is what a typed SDK client's surface looks
+         like, not excess coupling to trim. -->
+    <exclude name="CouplingBetweenObjects" />
+  </rule>
+  <rule ref="rulesets/design.xml/CouplingBetweenObjects">
+    <properties>
+      <!-- Nine Api properties plus Configuration, Guzzle's Client/
+           ClientInterface/HandlerStack/Middleware and the retry
+           middleware puts Client itself at 16, raised from the
+           six-Api sibling's 15 rather than excluding the rule outright
+           so a real future increase still trips it. -->
+      <property name="maximum" value="20" />
+    </properties>
+  </rule>
+</ruleset>
