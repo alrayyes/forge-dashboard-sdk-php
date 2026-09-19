@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/alrayyes/forge-dashboard-sdk-php/compare/v0.1.1...v0.1.2) (2026-09-19)
+
+
+### Bug Fixes
+
+* drop .openapi-generator-ignore from the generator's own FILES manifest ([#4](https://github.com/alrayyes/forge-dashboard-sdk-php/issues/4)) ([3a786e9](https://github.com/alrayyes/forge-dashboard-sdk-php/commit/3a786e95877a31f9900f2653f863fb46ecd03a66))
+
 ## [0.1.1](https://github.com/alrayyes/forge-dashboard-sdk-php/compare/v0.1.0...v0.1.1) (2026-09-19)
 
 
