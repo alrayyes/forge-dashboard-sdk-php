@@ -2,8 +2,14 @@ name: Regenerate from spec
 
 on:
   schedule:
-    - cron: "0 6 * * 1" # weekly, Monday 06:00 UTC
+    - cron: "0 6 * * 1" # weekly, Monday 06:00 UTC, catch-all fallback
   workflow_dispatch: {}
+  # forge-dashboard's own CI fires this same-day whenever api/openapi.yaml
+  # changes on a merge to its main -- the weekly cron above is only the
+  # fallback for a dispatch that never arrives (a missed webhook delivery,
+  # this repo not existing yet at the time a spec change landed, ...).
+  repository_dispatch:
+    types: [openapi-spec-updated]
 
 permissions:
   contents: write
