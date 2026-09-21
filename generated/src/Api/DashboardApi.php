@@ -362,6 +362,10 @@ class DashboardApi
             }
         }
 
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
 
         $defaultHeaders = [];
         if ($this->config->getUserAgent()) {
@@ -603,6 +607,10 @@ class DashboardApi
             }
         }
 
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
 
         $defaultHeaders = [];
         if ($this->config->getUserAgent()) {
@@ -912,6 +920,10 @@ class DashboardApi
             }
         }
 
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
 
         $defaultHeaders = [];
         if ($this->config->getUserAgent()) {
@@ -937,35 +949,35 @@ class DashboardApi
     /**
      * Operation ignoreRepo
      *
-     * Hide one tracked repo&#39;s pull requests and issues from the dashboard and Insights
+     * Hide one tracked repo&#39;s pull requests, issues, or both from the dashboard and Insights
      *
-     * @param  \ForgeDashboard\Generated\Model\WebhookEnsureRequest $webhook_ensure_request webhook_ensure_request (required)
+     * @param  \ForgeDashboard\Generated\Model\RepoIgnoreRequest $repo_ignore_request repo_ignore_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['ignoreRepo'] to see the possible values for this operation
      *
      * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function ignoreRepo($webhook_ensure_request, string $contentType = self::contentTypes['ignoreRepo'][0])
+    public function ignoreRepo($repo_ignore_request, string $contentType = self::contentTypes['ignoreRepo'][0])
     {
-        $this->ignoreRepoWithHttpInfo($webhook_ensure_request, $contentType);
+        $this->ignoreRepoWithHttpInfo($repo_ignore_request, $contentType);
     }
 
     /**
      * Operation ignoreRepoWithHttpInfo
      *
-     * Hide one tracked repo&#39;s pull requests and issues from the dashboard and Insights
+     * Hide one tracked repo&#39;s pull requests, issues, or both from the dashboard and Insights
      *
-     * @param  \ForgeDashboard\Generated\Model\WebhookEnsureRequest $webhook_ensure_request (required)
+     * @param  \ForgeDashboard\Generated\Model\RepoIgnoreRequest $repo_ignore_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['ignoreRepo'] to see the possible values for this operation
      *
      * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function ignoreRepoWithHttpInfo($webhook_ensure_request, string $contentType = self::contentTypes['ignoreRepo'][0])
+    public function ignoreRepoWithHttpInfo($repo_ignore_request, string $contentType = self::contentTypes['ignoreRepo'][0])
     {
-        $request = $this->ignoreRepoRequest($webhook_ensure_request, $contentType);
+        $request = $this->ignoreRepoRequest($repo_ignore_request, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1019,17 +1031,17 @@ class DashboardApi
     /**
      * Operation ignoreRepoAsync
      *
-     * Hide one tracked repo&#39;s pull requests and issues from the dashboard and Insights
+     * Hide one tracked repo&#39;s pull requests, issues, or both from the dashboard and Insights
      *
-     * @param  \ForgeDashboard\Generated\Model\WebhookEnsureRequest $webhook_ensure_request (required)
+     * @param  \ForgeDashboard\Generated\Model\RepoIgnoreRequest $repo_ignore_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['ignoreRepo'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function ignoreRepoAsync($webhook_ensure_request, string $contentType = self::contentTypes['ignoreRepo'][0])
+    public function ignoreRepoAsync($repo_ignore_request, string $contentType = self::contentTypes['ignoreRepo'][0])
     {
-        return $this->ignoreRepoAsyncWithHttpInfo($webhook_ensure_request, $contentType)
+        return $this->ignoreRepoAsyncWithHttpInfo($repo_ignore_request, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1040,18 +1052,18 @@ class DashboardApi
     /**
      * Operation ignoreRepoAsyncWithHttpInfo
      *
-     * Hide one tracked repo&#39;s pull requests and issues from the dashboard and Insights
+     * Hide one tracked repo&#39;s pull requests, issues, or both from the dashboard and Insights
      *
-     * @param  \ForgeDashboard\Generated\Model\WebhookEnsureRequest $webhook_ensure_request (required)
+     * @param  \ForgeDashboard\Generated\Model\RepoIgnoreRequest $repo_ignore_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['ignoreRepo'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function ignoreRepoAsyncWithHttpInfo($webhook_ensure_request, string $contentType = self::contentTypes['ignoreRepo'][0])
+    public function ignoreRepoAsyncWithHttpInfo($repo_ignore_request, string $contentType = self::contentTypes['ignoreRepo'][0])
     {
         $returnType = '';
-        $request = $this->ignoreRepoRequest($webhook_ensure_request, $contentType);
+        $request = $this->ignoreRepoRequest($repo_ignore_request, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1079,19 +1091,19 @@ class DashboardApi
     /**
      * Create request for operation 'ignoreRepo'
      *
-     * @param  \ForgeDashboard\Generated\Model\WebhookEnsureRequest $webhook_ensure_request (required)
+     * @param  \ForgeDashboard\Generated\Model\RepoIgnoreRequest $repo_ignore_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['ignoreRepo'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function ignoreRepoRequest($webhook_ensure_request, string $contentType = self::contentTypes['ignoreRepo'][0])
+    public function ignoreRepoRequest($repo_ignore_request, string $contentType = self::contentTypes['ignoreRepo'][0])
     {
 
-        // verify the required parameter 'webhook_ensure_request' is set
-        if ($webhook_ensure_request === null || (is_array($webhook_ensure_request) && count($webhook_ensure_request) === 0)) {
+        // verify the required parameter 'repo_ignore_request' is set
+        if ($repo_ignore_request === null || (is_array($repo_ignore_request) && count($repo_ignore_request) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $webhook_ensure_request when calling ignoreRepo'
+                'Missing the required parameter $repo_ignore_request when calling ignoreRepo'
             );
         }
 
@@ -1114,16 +1126,16 @@ class DashboardApi
         );
 
         // for model (json/xml)
-        if (isset($webhook_ensure_request)) {
+        if (isset($repo_ignore_request)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
                 try {
-                    $httpBody = json_encode(ObjectSerializer::sanitizeForSerialization($webhook_ensure_request), JSON_THROW_ON_ERROR);
+                    $httpBody = json_encode(ObjectSerializer::sanitizeForSerialization($repo_ignore_request), JSON_THROW_ON_ERROR);
                 } catch (\JsonException $e) {
                     throw new \InvalidArgumentException('json_encode error: ' . $e->getMessage(), 0, $e);
                 }
             } else {
-                $httpBody = $webhook_ensure_request;
+                $httpBody = $repo_ignore_request;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1153,6 +1165,10 @@ class DashboardApi
             }
         }
 
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
 
         $defaultHeaders = [];
         if ($this->config->getUserAgent()) {
@@ -1433,6 +1449,10 @@ class DashboardApi
             }
         }
 
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
 
         $defaultHeaders = [];
         if ($this->config->getUserAgent()) {
@@ -1713,6 +1733,10 @@ class DashboardApi
             }
         }
 
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
 
         $defaultHeaders = [];
         if ($this->config->getUserAgent()) {
@@ -1954,6 +1978,10 @@ class DashboardApi
             }
         }
 
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
 
         $defaultHeaders = [];
         if ($this->config->getUserAgent()) {

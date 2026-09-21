@@ -1,6 +1,6 @@
 <?php
 /**
- * RegisterBeginRequest
+ * RegistrationStatus
  *
  * PHP version 8.1
  *
@@ -32,7 +32,7 @@ use \ArrayAccess;
 use \ForgeDashboard\Generated\ObjectSerializer;
 
 /**
- * RegisterBeginRequest Class Doc Comment
+ * RegistrationStatus Class Doc Comment
  *
  * @category Class
  * @package  ForgeDashboard\Generated
@@ -40,7 +40,7 @@ use \ForgeDashboard\Generated\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class RegisterBeginRequest implements ModelInterface, ArrayAccess, \JsonSerializable
+class RegistrationStatus implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -49,7 +49,7 @@ class RegisterBeginRequest implements ModelInterface, ArrayAccess, \JsonSerializ
      *
      * @var string
      */
-    protected static $openAPIModelName = 'RegisterBeginRequest';
+    protected static $openAPIModelName = 'RegistrationStatus';
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -57,9 +57,7 @@ class RegisterBeginRequest implements ModelInterface, ArrayAccess, \JsonSerializ
      * @var string[]
      */
     protected static $openAPITypes = [
-        'username' => 'string',
-        'display_name' => 'string',
-        'invite_token' => 'string'
+        'open' => 'bool'
     ];
 
     /**
@@ -70,9 +68,7 @@ class RegisterBeginRequest implements ModelInterface, ArrayAccess, \JsonSerializ
      * @psalm-var array<string, string|null>
      */
     protected static $openAPIFormats = [
-        'username' => null,
-        'display_name' => null,
-        'invite_token' => null
+        'open' => null
     ];
 
     /**
@@ -81,9 +77,7 @@ class RegisterBeginRequest implements ModelInterface, ArrayAccess, \JsonSerializ
      * @var boolean[]
      */
     protected static array $openAPINullables = [
-        'username' => false,
-        'display_name' => false,
-        'invite_token' => false
+        'open' => false
     ];
 
     /**
@@ -172,9 +166,7 @@ class RegisterBeginRequest implements ModelInterface, ArrayAccess, \JsonSerializ
      * @var string[]
      */
     protected static $attributeMap = [
-        'username' => 'username',
-        'display_name' => 'displayName',
-        'invite_token' => 'inviteToken'
+        'open' => 'open'
     ];
 
     /**
@@ -183,9 +175,7 @@ class RegisterBeginRequest implements ModelInterface, ArrayAccess, \JsonSerializ
      * @var string[]
      */
     protected static $setters = [
-        'username' => 'setUsername',
-        'display_name' => 'setDisplayName',
-        'invite_token' => 'setInviteToken'
+        'open' => 'setOpen'
     ];
 
     /**
@@ -194,9 +184,7 @@ class RegisterBeginRequest implements ModelInterface, ArrayAccess, \JsonSerializ
      * @var string[]
      */
     protected static $getters = [
-        'username' => 'getUsername',
-        'display_name' => 'getDisplayName',
-        'invite_token' => 'getInviteToken'
+        'open' => 'getOpen'
     ];
 
     /**
@@ -256,9 +244,7 @@ class RegisterBeginRequest implements ModelInterface, ArrayAccess, \JsonSerializ
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('username', $data ?? [], null);
-        $this->setIfExists('display_name', $data ?? [], null);
-        $this->setIfExists('invite_token', $data ?? [], null);
+        $this->setIfExists('open', $data ?? [], null);
     }
 
     /**
@@ -288,11 +274,8 @@ class RegisterBeginRequest implements ModelInterface, ArrayAccess, \JsonSerializ
     {
         $invalidProperties = [];
 
-        if ($this->container['username'] === null) {
-            $invalidProperties[] = "'username' can't be null";
-        }
-        if ($this->container['display_name'] === null) {
-            $invalidProperties[] = "'display_name' can't be null";
+        if ($this->container['open'] === null) {
+            $invalidProperties[] = "'open' can't be null";
         }
         return $invalidProperties;
     }
@@ -310,82 +293,28 @@ class RegisterBeginRequest implements ModelInterface, ArrayAccess, \JsonSerializ
 
 
     /**
-     * Gets username
+     * Gets open
      *
-     * @return string
+     * @return bool
      */
-    public function getUsername()
+    public function getOpen()
     {
-        return $this->container['username'];
+        return $this->container['open'];
     }
 
     /**
-     * Sets username
+     * Sets open
      *
-     * @param string $username username
+     * @param bool $open True only when the instance has zero registered users.
      *
      * @return self
      */
-    public function setUsername($username)
+    public function setOpen($open)
     {
-        if (is_null($username)) {
-            throw new \InvalidArgumentException('non-nullable username cannot be null');
+        if (is_null($open)) {
+            throw new \InvalidArgumentException('non-nullable open cannot be null');
         }
-        $this->container['username'] = $username;
-
-        return $this;
-    }
-
-    /**
-     * Gets display_name
-     *
-     * @return string
-     */
-    public function getDisplayName()
-    {
-        return $this->container['display_name'];
-    }
-
-    /**
-     * Sets display_name
-     *
-     * @param string $display_name Ignored once an invite is required (any account already exists) — the invite's own displayName (set by the admin who issued it) is what's actually used. Only the very first, bootstrap registration on a fresh instance takes this value.
-     *
-     * @return self
-     */
-    public function setDisplayName($display_name)
-    {
-        if (is_null($display_name)) {
-            throw new \InvalidArgumentException('non-nullable display_name cannot be null');
-        }
-        $this->container['display_name'] = $display_name;
-
-        return $this;
-    }
-
-    /**
-     * Gets invite_token
-     *
-     * @return string|null
-     */
-    public function getInviteToken()
-    {
-        return $this->container['invite_token'];
-    }
-
-    /**
-     * Sets invite_token
-     *
-     * @param string|null $invite_token Required once any account already exists (see GET /api/auth/registration-status) — a single-use token from POST /api/admin/invites, issued for exactly this username. Omitted or ignored for the very first, bootstrap registration.
-     *
-     * @return self
-     */
-    public function setInviteToken($invite_token)
-    {
-        if (is_null($invite_token)) {
-            throw new \InvalidArgumentException('non-nullable invite_token cannot be null');
-        }
-        $this->container['invite_token'] = $invite_token;
+        $this->container['open'] = $open;
 
         return $this;
     }

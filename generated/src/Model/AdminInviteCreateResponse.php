@@ -1,6 +1,6 @@
 <?php
 /**
- * RegisterBeginRequest
+ * AdminInviteCreateResponse
  *
  * PHP version 8.1
  *
@@ -32,15 +32,16 @@ use \ArrayAccess;
 use \ForgeDashboard\Generated\ObjectSerializer;
 
 /**
- * RegisterBeginRequest Class Doc Comment
+ * AdminInviteCreateResponse Class Doc Comment
  *
  * @category Class
+ * @description The one and only response that ever carries the raw invite token — shown to the admin once, at creation time, for them to copy into a &#x60;/login?invite&#x3D;&lt;token&gt;&#x60; link and hand to the invitee out of band. Only its hash is stored, so it can&#39;t be recovered from here again.
  * @package  ForgeDashboard\Generated
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class RegisterBeginRequest implements ModelInterface, ArrayAccess, \JsonSerializable
+class AdminInviteCreateResponse implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -49,7 +50,7 @@ class RegisterBeginRequest implements ModelInterface, ArrayAccess, \JsonSerializ
      *
      * @var string
      */
-    protected static $openAPIModelName = 'RegisterBeginRequest';
+    protected static $openAPIModelName = 'AdminInviteCreateResponse';
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -57,9 +58,10 @@ class RegisterBeginRequest implements ModelInterface, ArrayAccess, \JsonSerializ
      * @var string[]
      */
     protected static $openAPITypes = [
+        'token' => 'string',
         'username' => 'string',
         'display_name' => 'string',
-        'invite_token' => 'string'
+        'expires_at' => '\DateTime'
     ];
 
     /**
@@ -70,9 +72,10 @@ class RegisterBeginRequest implements ModelInterface, ArrayAccess, \JsonSerializ
      * @psalm-var array<string, string|null>
      */
     protected static $openAPIFormats = [
+        'token' => null,
         'username' => null,
         'display_name' => null,
-        'invite_token' => null
+        'expires_at' => 'date-time'
     ];
 
     /**
@@ -81,9 +84,10 @@ class RegisterBeginRequest implements ModelInterface, ArrayAccess, \JsonSerializ
      * @var boolean[]
      */
     protected static array $openAPINullables = [
+        'token' => false,
         'username' => false,
         'display_name' => false,
-        'invite_token' => false
+        'expires_at' => false
     ];
 
     /**
@@ -172,9 +176,10 @@ class RegisterBeginRequest implements ModelInterface, ArrayAccess, \JsonSerializ
      * @var string[]
      */
     protected static $attributeMap = [
+        'token' => 'token',
         'username' => 'username',
         'display_name' => 'displayName',
-        'invite_token' => 'inviteToken'
+        'expires_at' => 'expiresAt'
     ];
 
     /**
@@ -183,9 +188,10 @@ class RegisterBeginRequest implements ModelInterface, ArrayAccess, \JsonSerializ
      * @var string[]
      */
     protected static $setters = [
+        'token' => 'setToken',
         'username' => 'setUsername',
         'display_name' => 'setDisplayName',
-        'invite_token' => 'setInviteToken'
+        'expires_at' => 'setExpiresAt'
     ];
 
     /**
@@ -194,9 +200,10 @@ class RegisterBeginRequest implements ModelInterface, ArrayAccess, \JsonSerializ
      * @var string[]
      */
     protected static $getters = [
+        'token' => 'getToken',
         'username' => 'getUsername',
         'display_name' => 'getDisplayName',
-        'invite_token' => 'getInviteToken'
+        'expires_at' => 'getExpiresAt'
     ];
 
     /**
@@ -256,9 +263,10 @@ class RegisterBeginRequest implements ModelInterface, ArrayAccess, \JsonSerializ
      */
     public function __construct(?array $data = null)
     {
+        $this->setIfExists('token', $data ?? [], null);
         $this->setIfExists('username', $data ?? [], null);
         $this->setIfExists('display_name', $data ?? [], null);
-        $this->setIfExists('invite_token', $data ?? [], null);
+        $this->setIfExists('expires_at', $data ?? [], null);
     }
 
     /**
@@ -288,11 +296,17 @@ class RegisterBeginRequest implements ModelInterface, ArrayAccess, \JsonSerializ
     {
         $invalidProperties = [];
 
+        if ($this->container['token'] === null) {
+            $invalidProperties[] = "'token' can't be null";
+        }
         if ($this->container['username'] === null) {
             $invalidProperties[] = "'username' can't be null";
         }
         if ($this->container['display_name'] === null) {
             $invalidProperties[] = "'display_name' can't be null";
+        }
+        if ($this->container['expires_at'] === null) {
+            $invalidProperties[] = "'expires_at' can't be null";
         }
         return $invalidProperties;
     }
@@ -308,6 +322,33 @@ class RegisterBeginRequest implements ModelInterface, ArrayAccess, \JsonSerializ
         return count($this->listInvalidProperties()) === 0;
     }
 
+
+    /**
+     * Gets token
+     *
+     * @return string
+     */
+    public function getToken()
+    {
+        return $this->container['token'];
+    }
+
+    /**
+     * Sets token
+     *
+     * @param string $token token
+     *
+     * @return self
+     */
+    public function setToken($token)
+    {
+        if (is_null($token)) {
+            throw new \InvalidArgumentException('non-nullable token cannot be null');
+        }
+        $this->container['token'] = $token;
+
+        return $this;
+    }
 
     /**
      * Gets username
@@ -349,7 +390,7 @@ class RegisterBeginRequest implements ModelInterface, ArrayAccess, \JsonSerializ
     /**
      * Sets display_name
      *
-     * @param string $display_name Ignored once an invite is required (any account already exists) — the invite's own displayName (set by the admin who issued it) is what's actually used. Only the very first, bootstrap registration on a fresh instance takes this value.
+     * @param string $display_name display_name
      *
      * @return self
      */
@@ -364,28 +405,28 @@ class RegisterBeginRequest implements ModelInterface, ArrayAccess, \JsonSerializ
     }
 
     /**
-     * Gets invite_token
+     * Gets expires_at
      *
-     * @return string|null
+     * @return \DateTime
      */
-    public function getInviteToken()
+    public function getExpiresAt()
     {
-        return $this->container['invite_token'];
+        return $this->container['expires_at'];
     }
 
     /**
-     * Sets invite_token
+     * Sets expires_at
      *
-     * @param string|null $invite_token Required once any account already exists (see GET /api/auth/registration-status) — a single-use token from POST /api/admin/invites, issued for exactly this username. Omitted or ignored for the very first, bootstrap registration.
+     * @param \DateTime $expires_at expires_at
      *
      * @return self
      */
-    public function setInviteToken($invite_token)
+    public function setExpiresAt($expires_at)
     {
-        if (is_null($invite_token)) {
-            throw new \InvalidArgumentException('non-nullable invite_token cannot be null');
+        if (is_null($expires_at)) {
+            throw new \InvalidArgumentException('non-nullable expires_at cannot be null');
         }
-        $this->container['invite_token'] = $invite_token;
+        $this->container['expires_at'] = $expires_at;
 
         return $this;
     }
