@@ -21,6 +21,9 @@ src/HeaderSelector.php
 src/Model/APIToken.php
 src/Model/APITokenCreateRequest.php
 src/Model/APITokenCreateResponse.php
+src/Model/AdminInvite.php
+src/Model/AdminInviteCreateRequest.php
+src/Model/AdminInviteCreateResponse.php
 src/Model/AdminUser.php
 src/Model/BotPrUpdatesResponse.php
 src/Model/CIStatus.php
@@ -44,6 +47,8 @@ src/Model/PullRequestChecksResponse.php
 src/Model/PullRequestDependabotActionRequest.php
 src/Model/RateLimit.php
 src/Model/RegisterBeginRequest.php
+src/Model/RegistrationStatus.php
+src/Model/RepoIgnoreRequest.php
 src/Model/RepoStatus.php
 src/Model/SessionUser.php
 src/Model/SettingsRequest.php

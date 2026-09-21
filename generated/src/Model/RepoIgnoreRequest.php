@@ -1,6 +1,6 @@
 <?php
 /**
- * RepoStatus
+ * RepoIgnoreRequest
  *
  * PHP version 8.1
  *
@@ -32,16 +32,16 @@ use \ArrayAccess;
 use \ForgeDashboard\Generated\ObjectSerializer;
 
 /**
- * RepoStatus Class Doc Comment
+ * RepoIgnoreRequest Class Doc Comment
  *
  * @category Class
- * @description One tracked repository, whether or not it currently has anything open — repoCount alone can&#39;t name it, and it wouldn&#39;t otherwise appear anywhere pullRequests/issues don&#39;t already mention it.
+ * @description Which repo to ignore, and in which scope(s) (#511). At least one of prs/issues must be true — a request with both false is rejected with 400 rather than silently doing nothing; use POST /api/repos/unignore to clear both at once instead.
  * @package  ForgeDashboard\Generated
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
+class RepoIgnoreRequest implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -50,7 +50,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
      *
      * @var string
      */
-    protected static $openAPIModelName = 'RepoStatus';
+    protected static $openAPIModelName = 'RepoIgnoreRequest';
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -60,13 +60,8 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPITypes = [
         'forge' => '\ForgeDashboard\Generated\Model\Forge',
         'full_name' => 'string',
-        'url' => 'string',
-        'ignored' => 'bool',
-        'ignored_prs' => 'bool',
-        'ignored_issues' => 'bool',
-        'has_webhook' => 'bool',
-        'can_manage_webhooks' => 'bool',
-        'auto_update_branch' => 'bool'
+        'prs' => 'bool',
+        'issues' => 'bool'
     ];
 
     /**
@@ -79,13 +74,8 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'forge' => null,
         'full_name' => null,
-        'url' => 'uri',
-        'ignored' => null,
-        'ignored_prs' => null,
-        'ignored_issues' => null,
-        'has_webhook' => null,
-        'can_manage_webhooks' => null,
-        'auto_update_branch' => null
+        'prs' => null,
+        'issues' => null
     ];
 
     /**
@@ -96,13 +86,8 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static array $openAPINullables = [
         'forge' => false,
         'full_name' => false,
-        'url' => false,
-        'ignored' => false,
-        'ignored_prs' => false,
-        'ignored_issues' => false,
-        'has_webhook' => false,
-        'can_manage_webhooks' => false,
-        'auto_update_branch' => false
+        'prs' => false,
+        'issues' => false
     ];
 
     /**
@@ -193,13 +178,8 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $attributeMap = [
         'forge' => 'forge',
         'full_name' => 'fullName',
-        'url' => 'url',
-        'ignored' => 'ignored',
-        'ignored_prs' => 'ignoredPRs',
-        'ignored_issues' => 'ignoredIssues',
-        'has_webhook' => 'hasWebhook',
-        'can_manage_webhooks' => 'canManageWebhooks',
-        'auto_update_branch' => 'autoUpdateBranch'
+        'prs' => 'prs',
+        'issues' => 'issues'
     ];
 
     /**
@@ -210,13 +190,8 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $setters = [
         'forge' => 'setForge',
         'full_name' => 'setFullName',
-        'url' => 'setUrl',
-        'ignored' => 'setIgnored',
-        'ignored_prs' => 'setIgnoredPrs',
-        'ignored_issues' => 'setIgnoredIssues',
-        'has_webhook' => 'setHasWebhook',
-        'can_manage_webhooks' => 'setCanManageWebhooks',
-        'auto_update_branch' => 'setAutoUpdateBranch'
+        'prs' => 'setPrs',
+        'issues' => 'setIssues'
     ];
 
     /**
@@ -227,13 +202,8 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $getters = [
         'forge' => 'getForge',
         'full_name' => 'getFullName',
-        'url' => 'getUrl',
-        'ignored' => 'getIgnored',
-        'ignored_prs' => 'getIgnoredPrs',
-        'ignored_issues' => 'getIgnoredIssues',
-        'has_webhook' => 'getHasWebhook',
-        'can_manage_webhooks' => 'getCanManageWebhooks',
-        'auto_update_branch' => 'getAutoUpdateBranch'
+        'prs' => 'getPrs',
+        'issues' => 'getIssues'
     ];
 
     /**
@@ -295,13 +265,8 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $this->setIfExists('forge', $data ?? [], null);
         $this->setIfExists('full_name', $data ?? [], null);
-        $this->setIfExists('url', $data ?? [], null);
-        $this->setIfExists('ignored', $data ?? [], null);
-        $this->setIfExists('ignored_prs', $data ?? [], null);
-        $this->setIfExists('ignored_issues', $data ?? [], null);
-        $this->setIfExists('has_webhook', $data ?? [], null);
-        $this->setIfExists('can_manage_webhooks', $data ?? [], null);
-        $this->setIfExists('auto_update_branch', $data ?? [], null);
+        $this->setIfExists('prs', $data ?? [], null);
+        $this->setIfExists('issues', $data ?? [], null);
     }
 
     /**
@@ -337,26 +302,11 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['full_name'] === null) {
             $invalidProperties[] = "'full_name' can't be null";
         }
-        if ($this->container['url'] === null) {
-            $invalidProperties[] = "'url' can't be null";
+        if ($this->container['prs'] === null) {
+            $invalidProperties[] = "'prs' can't be null";
         }
-        if ($this->container['ignored'] === null) {
-            $invalidProperties[] = "'ignored' can't be null";
-        }
-        if ($this->container['ignored_prs'] === null) {
-            $invalidProperties[] = "'ignored_prs' can't be null";
-        }
-        if ($this->container['ignored_issues'] === null) {
-            $invalidProperties[] = "'ignored_issues' can't be null";
-        }
-        if ($this->container['has_webhook'] === null) {
-            $invalidProperties[] = "'has_webhook' can't be null";
-        }
-        if ($this->container['can_manage_webhooks'] === null) {
-            $invalidProperties[] = "'can_manage_webhooks' can't be null";
-        }
-        if ($this->container['auto_update_branch'] === null) {
-            $invalidProperties[] = "'auto_update_branch' can't be null";
+        if ($this->container['issues'] === null) {
+            $invalidProperties[] = "'issues' can't be null";
         }
         return $invalidProperties;
     }
@@ -413,7 +363,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets full_name
      *
-     * @param string $full_name full_name
+     * @param string $full_name \"owner/repo\", matching a Repo.fullName from GET /api/dashboard.
      *
      * @return self
      */
@@ -428,190 +378,55 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets url
+     * Gets prs
      *
-     * @return string
+     * @return bool
      */
-    public function getUrl()
+    public function getPrs()
     {
-        return $this->container['url'];
+        return $this->container['prs'];
     }
 
     /**
-     * Sets url
+     * Sets prs
      *
-     * @param string $url The repo's own page on its forge, for linking out.
+     * @param bool $prs Whether to ignore this repo's pull requests.
      *
      * @return self
      */
-    public function setUrl($url)
+    public function setPrs($prs)
     {
-        if (is_null($url)) {
-            throw new \InvalidArgumentException('non-nullable url cannot be null');
+        if (is_null($prs)) {
+            throw new \InvalidArgumentException('non-nullable prs cannot be null');
         }
-        $this->container['url'] = $url;
+        $this->container['prs'] = $prs;
 
         return $this;
     }
 
     /**
-     * Gets ignored
+     * Gets issues
      *
      * @return bool
      */
-    public function getIgnored()
+    public function getIssues()
     {
-        return $this->container['ignored'];
+        return $this->container['issues'];
     }
 
     /**
-     * Sets ignored
+     * Sets issues
      *
-     * @param bool $ignored Whether the signed-in user has ignored this repo in either scope below (#363, #511) — true whenever ignoredPRs or ignoredIssues is true. The repo itself still appears here with accurate hasWebhook/canManageWebhooks regardless.
+     * @param bool $issues Whether to ignore this repo's issues.
      *
      * @return self
      */
-    public function setIgnored($ignored)
+    public function setIssues($issues)
     {
-        if (is_null($ignored)) {
-            throw new \InvalidArgumentException('non-nullable ignored cannot be null');
+        if (is_null($issues)) {
+            throw new \InvalidArgumentException('non-nullable issues cannot be null');
         }
-        $this->container['ignored'] = $ignored;
-
-        return $this;
-    }
-
-    /**
-     * Gets ignored_prs
-     *
-     * @return bool
-     */
-    public function getIgnoredPrs()
-    {
-        return $this->container['ignored_prs'];
-    }
-
-    /**
-     * Sets ignored_prs
-     *
-     * @param bool $ignored_prs Whether the signed-in user has ignored this repo's pull requests specifically (#511) — its pullRequests entries are excluded from this same response and from Insights.
-     *
-     * @return self
-     */
-    public function setIgnoredPrs($ignored_prs)
-    {
-        if (is_null($ignored_prs)) {
-            throw new \InvalidArgumentException('non-nullable ignored_prs cannot be null');
-        }
-        $this->container['ignored_prs'] = $ignored_prs;
-
-        return $this;
-    }
-
-    /**
-     * Gets ignored_issues
-     *
-     * @return bool
-     */
-    public function getIgnoredIssues()
-    {
-        return $this->container['ignored_issues'];
-    }
-
-    /**
-     * Sets ignored_issues
-     *
-     * @param bool $ignored_issues Whether the signed-in user has ignored this repo's issues specifically (#511) — its issues entries are excluded from this same response and from Insights.
-     *
-     * @return self
-     */
-    public function setIgnoredIssues($ignored_issues)
-    {
-        if (is_null($ignored_issues)) {
-            throw new \InvalidArgumentException('non-nullable ignored_issues cannot be null');
-        }
-        $this->container['ignored_issues'] = $ignored_issues;
-
-        return $this;
-    }
-
-    /**
-     * Gets has_webhook
-     *
-     * @return bool
-     */
-    public function getHasWebhook()
-    {
-        return $this->container['has_webhook'];
-    }
-
-    /**
-     * Sets has_webhook
-     *
-     * @param bool $has_webhook Whether this app has ever recorded a signature-verified webhook delivery for this repo. Passive: it reflects a real delivery having arrived, not whether a webhook object exists on the forge — a correctly configured webhook that just hasn't fired yet still reads false here, the same as a misconfigured one would.
-     *
-     * @return self
-     */
-    public function setHasWebhook($has_webhook)
-    {
-        if (is_null($has_webhook)) {
-            throw new \InvalidArgumentException('non-nullable has_webhook cannot be null');
-        }
-        $this->container['has_webhook'] = $has_webhook;
-
-        return $this;
-    }
-
-    /**
-     * Gets can_manage_webhooks
-     *
-     * @return bool
-     */
-    public function getCanManageWebhooks()
-    {
-        return $this->container['can_manage_webhooks'];
-    }
-
-    /**
-     * Sets can_manage_webhooks
-     *
-     * @param bool $can_manage_webhooks Whether the signed-in user's own permission on this repo is enough to list/create its webhooks — GitHub requires admin specifically (write/maintain can push but still 404 on the hooks endpoint, by GitHub's own design); Forgejo's equivalent is its own admin permission flag. Always false for a repo reached through an unauthenticated, username-only listing. A point-in-time snapshot: a permission change since the last refresh can still make a following ensure-webhook call fail despite this having said true.
-     *
-     * @return self
-     */
-    public function setCanManageWebhooks($can_manage_webhooks)
-    {
-        if (is_null($can_manage_webhooks)) {
-            throw new \InvalidArgumentException('non-nullable can_manage_webhooks cannot be null');
-        }
-        $this->container['can_manage_webhooks'] = $can_manage_webhooks;
-
-        return $this;
-    }
-
-    /**
-     * Gets auto_update_branch
-     *
-     * @return bool
-     */
-    public function getAutoUpdateBranch()
-    {
-        return $this->container['auto_update_branch'];
-    }
-
-    /**
-     * Sets auto_update_branch
-     *
-     * @param bool $auto_update_branch Whether the signed-in user has turned on automatic branch updates for this repo (#365) — any of its pull requests the background refresh finds behind its base branch gets updated the same way a manual \"Update branch\" click would, without one. Suppressed for a bot-managed pull request (release-please, Dependabot, Renovate) unless bot-PR updates are separately allowed (POST /api/settings/bot-pr-updates), the same restraint the manual button already applies.
-     *
-     * @return self
-     */
-    public function setAutoUpdateBranch($auto_update_branch)
-    {
-        if (is_null($auto_update_branch)) {
-            throw new \InvalidArgumentException('non-nullable auto_update_branch cannot be null');
-        }
-        $this->container['auto_update_branch'] = $auto_update_branch;
+        $this->container['issues'] = $issues;
 
         return $this;
     }
