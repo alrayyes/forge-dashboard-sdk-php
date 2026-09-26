@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/alrayyes/forge-dashboard-sdk-php/compare/v1.0.1...v1.0.2) (2026-09-26)
+
+
+### Bug Fixes
+
+* **deps:** use bun ecosystem for dependabot, not npm ([#22](https://github.com/alrayyes/forge-dashboard-sdk-php/issues/22)) ([2acff85](https://github.com/alrayyes/forge-dashboard-sdk-php/commit/2acff853f2e8d8c8ed815e4709ddea689998abff)), closes [#18](https://github.com/alrayyes/forge-dashboard-sdk-php/issues/18)
+
 ## [1.0.1](https://github.com/alrayyes/forge-dashboard-sdk-php/compare/v1.0.0...v1.0.1) (2026-09-26)
 
 
