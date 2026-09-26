@@ -63,7 +63,6 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'forgejo_url' => 'string',
         'forgejo_token' => 'string',
         'forgejo_username' => 'string',
-        'allow_bot_pr_updates' => 'bool',
         'renovate_rebase_label' => 'string'
     ];
 
@@ -80,7 +79,6 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'forgejo_url' => null,
         'forgejo_token' => null,
         'forgejo_username' => null,
-        'allow_bot_pr_updates' => null,
         'renovate_rebase_label' => null
     ];
 
@@ -95,7 +93,6 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'forgejo_url' => false,
         'forgejo_token' => false,
         'forgejo_username' => false,
-        'allow_bot_pr_updates' => false,
         'renovate_rebase_label' => false
     ];
 
@@ -190,7 +187,6 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'forgejo_url' => 'forgejoUrl',
         'forgejo_token' => 'forgejoToken',
         'forgejo_username' => 'forgejoUsername',
-        'allow_bot_pr_updates' => 'allowBotPrUpdates',
         'renovate_rebase_label' => 'renovateRebaseLabel'
     ];
 
@@ -205,7 +201,6 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'forgejo_url' => 'setForgejoUrl',
         'forgejo_token' => 'setForgejoToken',
         'forgejo_username' => 'setForgejoUsername',
-        'allow_bot_pr_updates' => 'setAllowBotPrUpdates',
         'renovate_rebase_label' => 'setRenovateRebaseLabel'
     ];
 
@@ -220,7 +215,6 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'forgejo_url' => 'getForgejoUrl',
         'forgejo_token' => 'getForgejoToken',
         'forgejo_username' => 'getForgejoUsername',
-        'allow_bot_pr_updates' => 'getAllowBotPrUpdates',
         'renovate_rebase_label' => 'getRenovateRebaseLabel'
     ];
 
@@ -286,7 +280,6 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('forgejo_url', $data ?? [], null);
         $this->setIfExists('forgejo_token', $data ?? [], null);
         $this->setIfExists('forgejo_username', $data ?? [], null);
-        $this->setIfExists('allow_bot_pr_updates', $data ?? [], null);
         $this->setIfExists('renovate_rebase_label', $data ?? [], null);
     }
 
@@ -463,33 +456,6 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable forgejo_username cannot be null');
         }
         $this->container['forgejo_username'] = $forgejo_username;
-
-        return $this;
-    }
-
-    /**
-     * Gets allow_bot_pr_updates
-     *
-     * @return bool|null
-     */
-    public function getAllowBotPrUpdates()
-    {
-        return $this->container['allow_bot_pr_updates'];
-    }
-
-    /**
-     * Sets allow_bot_pr_updates
-     *
-     * @param bool|null $allow_bot_pr_updates allow_bot_pr_updates
-     *
-     * @return self
-     */
-    public function setAllowBotPrUpdates($allow_bot_pr_updates)
-    {
-        if (is_null($allow_bot_pr_updates)) {
-            throw new \InvalidArgumentException('non-nullable allow_bot_pr_updates cannot be null');
-        }
-        $this->container['allow_bot_pr_updates'] = $allow_bot_pr_updates;
 
         return $this;
     }

@@ -65,7 +65,6 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'forgejo_token_set' => 'bool',
         'webhook_token' => 'string',
         'webhook_secret' => 'string',
-        'allow_bot_pr_updates' => 'bool',
         'renovate_rebase_label' => 'string',
         'theme' => 'string'
     ];
@@ -85,7 +84,6 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'forgejo_token_set' => null,
         'webhook_token' => null,
         'webhook_secret' => null,
-        'allow_bot_pr_updates' => null,
         'renovate_rebase_label' => null,
         'theme' => null
     ];
@@ -103,7 +101,6 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'forgejo_token_set' => false,
         'webhook_token' => false,
         'webhook_secret' => false,
-        'allow_bot_pr_updates' => false,
         'renovate_rebase_label' => false,
         'theme' => false
     ];
@@ -201,7 +198,6 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'forgejo_token_set' => 'forgejoTokenSet',
         'webhook_token' => 'webhookToken',
         'webhook_secret' => 'webhookSecret',
-        'allow_bot_pr_updates' => 'allowBotPrUpdates',
         'renovate_rebase_label' => 'renovateRebaseLabel',
         'theme' => 'theme'
     ];
@@ -219,7 +215,6 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'forgejo_token_set' => 'setForgejoTokenSet',
         'webhook_token' => 'setWebhookToken',
         'webhook_secret' => 'setWebhookSecret',
-        'allow_bot_pr_updates' => 'setAllowBotPrUpdates',
         'renovate_rebase_label' => 'setRenovateRebaseLabel',
         'theme' => 'setTheme'
     ];
@@ -237,7 +232,6 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'forgejo_token_set' => 'getForgejoTokenSet',
         'webhook_token' => 'getWebhookToken',
         'webhook_secret' => 'getWebhookSecret',
-        'allow_bot_pr_updates' => 'getAllowBotPrUpdates',
         'renovate_rebase_label' => 'getRenovateRebaseLabel',
         'theme' => 'getTheme'
     ];
@@ -323,7 +317,6 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('forgejo_token_set', $data ?? [], null);
         $this->setIfExists('webhook_token', $data ?? [], null);
         $this->setIfExists('webhook_secret', $data ?? [], null);
-        $this->setIfExists('allow_bot_pr_updates', $data ?? [], null);
         $this->setIfExists('renovate_rebase_label', $data ?? [], null);
         $this->setIfExists('theme', $data ?? [], null);
     }
@@ -375,9 +368,6 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if ($this->container['webhook_secret'] === null) {
             $invalidProperties[] = "'webhook_secret' can't be null";
-        }
-        if ($this->container['allow_bot_pr_updates'] === null) {
-            $invalidProperties[] = "'allow_bot_pr_updates' can't be null";
         }
         if ($this->container['renovate_rebase_label'] === null) {
             $invalidProperties[] = "'renovate_rebase_label' can't be null";
@@ -594,33 +584,6 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable webhook_secret cannot be null');
         }
         $this->container['webhook_secret'] = $webhook_secret;
-
-        return $this;
-    }
-
-    /**
-     * Gets allow_bot_pr_updates
-     *
-     * @return bool
-     */
-    public function getAllowBotPrUpdates()
-    {
-        return $this->container['allow_bot_pr_updates'];
-    }
-
-    /**
-     * Sets allow_bot_pr_updates
-     *
-     * @param bool $allow_bot_pr_updates Overrides the default restraint the Update branch/Dependabot/ Renovate action buttons apply to a pull request opened by release-please, Dependabot, or Renovate — those tools already keep their own PRs current on their own schedule. False (the default) leaves bot-managed PRs alone; true treats them the same as any other PR.
-     *
-     * @return self
-     */
-    public function setAllowBotPrUpdates($allow_bot_pr_updates)
-    {
-        if (is_null($allow_bot_pr_updates)) {
-            throw new \InvalidArgumentException('non-nullable allow_bot_pr_updates cannot be null');
-        }
-        $this->container['allow_bot_pr_updates'] = $allow_bot_pr_updates;
 
         return $this;
     }

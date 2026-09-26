@@ -83,7 +83,9 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *AdminApi* | [**createInvite**](docs/Api/AdminApi.md#createinvite) | **POST** /api/admin/invites | Generate a new single-use registration invite
 *AdminApi* | [**deleteUser**](docs/Api/AdminApi.md#deleteuser) | **DELETE** /api/admin/users/{username} | Remove a user outright
+*AdminApi* | [**exportRequests**](docs/Api/AdminApi.md#exportrequests) | **GET** /api/admin/requests/export | Export the (filtered) outbound-request log as CSV
 *AdminApi* | [**listInvites**](docs/Api/AdminApi.md#listinvites) | **GET** /api/admin/invites | List outstanding registration invites
+*AdminApi* | [**listRequests**](docs/Api/AdminApi.md#listrequests) | **GET** /api/admin/requests | List every outbound GitHub/Forgejo request this instance has made
 *AdminApi* | [**listUsers**](docs/Api/AdminApi.md#listusers) | **GET** /api/admin/users | List every registered user
 *AdminApi* | [**revokeInvite**](docs/Api/AdminApi.md#revokeinvite) | **POST** /api/admin/invites/{token}/revoke | Revoke an outstanding invite
 *AdminApi* | [**revokeUser**](docs/Api/AdminApi.md#revokeuser) | **POST** /api/admin/users/{username}/revoke | Revoke a user&#39;s passkeys and sessions
@@ -108,12 +110,12 @@ Class | Method | HTTP request | Description
 *HealthApi* | [**getVersion**](docs/Api/HealthApi.md#getversion) | **GET** /api/version | The running server&#39;s own version
 *HealthApi* | [**health**](docs/Api/HealthApi.md#health) | **GET** /healthz | Liveness
 *PullRequestsApi* | [**closePullRequest**](docs/Api/PullRequestsApi.md#closepullrequest) | **POST** /api/pull-requests/close | Close one pull request without merging it, on the signed-in user&#39;s behalf
+*PullRequestsApi* | [**enablePullRequestAutoMerge**](docs/Api/PullRequestsApi.md#enablepullrequestautomerge) | **POST** /api/pull-requests/auto-merge | Arm a pull request&#39;s own native auto-merge, on the signed-in user&#39;s behalf
 *PullRequestsApi* | [**getPullRequestChecks**](docs/Api/PullRequestsApi.md#getpullrequestchecks) | **GET** /api/pull-requests/checks | List every job/check run against a pull request&#39;s head commit, on demand
 *PullRequestsApi* | [**mergePullRequest**](docs/Api/PullRequestsApi.md#mergepullrequest) | **POST** /api/pull-requests/merge | Merge one pull request, on the signed-in user&#39;s behalf
 *PullRequestsApi* | [**postPullRequestDependabotAction**](docs/Api/PullRequestsApi.md#postpullrequestdependabotaction) | **POST** /api/pull-requests/dependabot-action | Post one of Dependabot&#39;s own documented PR-comment commands on a pull request, on the signed-in user&#39;s behalf
 *PullRequestsApi* | [**postPullRequestRenovateRebase**](docs/Api/PullRequestsApi.md#postpullrequestrenovaterebase) | **POST** /api/pull-requests/renovate-rebase | Trigger Renovate&#39;s own rebase/retry on a pull request, on the signed-in user&#39;s behalf
 *PullRequestsApi* | [**updatePullRequestBranch**](docs/Api/PullRequestsApi.md#updatepullrequestbranch) | **POST** /api/pull-requests/update-branch | Bring one pull request&#39;s branch up to date with its base, on the signed-in user&#39;s behalf
-*SettingsApi* | [**getBotPrUpdatesSetting**](docs/Api/SettingsApi.md#getbotprupdatessetting) | **GET** /api/settings/bot-pr-updates | Whether bot-managed pull request branches can be updated
 *SettingsApi* | [**getFilterState**](docs/Api/SettingsApi.md#getfilterstate) | **GET** /api/settings/filter-state | The signed-in user&#39;s own saved dashboard/Insights filter state
 *SettingsApi* | [**getSettings**](docs/Api/SettingsApi.md#getsettings) | **GET** /api/settings | The signed-in user&#39;s own forge configuration
 *SettingsApi* | [**getTheme**](docs/Api/SettingsApi.md#gettheme) | **GET** /api/settings/theme | The signed-in user&#39;s own saved theme preference
@@ -139,7 +141,6 @@ Class | Method | HTTP request | Description
 - [AdminInviteCreateRequest](docs/Model/AdminInviteCreateRequest.md)
 - [AdminInviteCreateResponse](docs/Model/AdminInviteCreateResponse.md)
 - [AdminUser](docs/Model/AdminUser.md)
-- [BotPrUpdatesResponse](docs/Model/BotPrUpdatesResponse.md)
 - [CIStatus](docs/Model/CIStatus.md)
 - [Check](docs/Model/Check.md)
 - [CheckState](docs/Model/CheckState.md)
@@ -163,6 +164,7 @@ Class | Method | HTTP request | Description
 - [RegistrationStatus](docs/Model/RegistrationStatus.md)
 - [RepoIgnoreRequest](docs/Model/RepoIgnoreRequest.md)
 - [RepoStatus](docs/Model/RepoStatus.md)
+- [RequestLogEntry](docs/Model/RequestLogEntry.md)
 - [SessionUser](docs/Model/SessionUser.md)
 - [SettingsRequest](docs/Model/SettingsRequest.md)
 - [SettingsResponse](docs/Model/SettingsResponse.md)
