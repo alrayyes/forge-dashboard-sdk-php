@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.1](https://github.com/alrayyes/forge-dashboard-sdk-php/compare/v1.0.0...v1.0.1) (2026-09-26)
+
+
+### Bug Fixes
+
+* **ci:** run bearer's local hook as root to fix git permission error ([b265997](https://github.com/alrayyes/forge-dashboard-sdk-php/commit/b265997ef9398344bb651789f48d98155767043b))
+* **ci:** run bearer's local hook as root to fix git permission error ([66ca518](https://github.com/alrayyes/forge-dashboard-sdk-php/commit/66ca518eaedf0a3d43d62fb73af4df9a41207fd9)), closes [#19](https://github.com/alrayyes/forge-dashboard-sdk-php/issues/19)
+
 ## [1.0.0](https://github.com/alrayyes/forge-dashboard-sdk-php/compare/v0.1.2...v1.0.0) (2026-09-21)
 
 
