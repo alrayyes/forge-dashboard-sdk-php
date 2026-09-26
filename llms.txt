@@ -1,0 +1,25 @@
+# forge-dashboard-sdk-php
+
+> A PHP client for forge-dashboard's REST API, generated from its OpenAPI
+> spec with openapi-generator's `php` target and a Guzzle HTTP transport. It
+> handles auth, retries and typed error mapping so callers don't hand-roll
+> HTTP requests against the API themselves.
+
+Requires PHP 8.2+ and a running forge-dashboard instance. Every endpoint
+except `health`, `getVersion` and the two webhook receivers needs a personal
+API token, passed to the `Client` constructor or via
+`FORGE_DASHBOARD_API_TOKEN`. This site is the phpDocumentor-generated API
+reference for the hand-written parts of the client; the generated
+API/model classes it wraps come from forge-dashboard's own OpenAPI spec.
+
+## Docs
+
+- [API reference](https://alrayyes.github.io/forge-dashboard-sdk-php/): phpDocumentor-generated reference for the SDK's public surface.
+- [Client](https://alrayyes.github.io/forge-dashboard-sdk-php/classes/ForgeDashboard-Client.html): the main entry point — constructs the SDK and exposes each generated API group (`settings`, `tokens`, `pullRequests`, `admin`, `sharing`, `auth`, `webhooks`, `dashboard`, `health`).
+- [ApiError](https://alrayyes.github.io/forge-dashboard-sdk-php/classes/ForgeDashboard-Exception-ApiError.html): typed error wrapper around the generated client's `ApiException`, carrying the HTTP status and the API's own error message.
+- [RetryMiddleware](https://alrayyes.github.io/forge-dashboard-sdk-php/classes/ForgeDashboard-Retry-RetryMiddleware.html): the Guzzle handler-stack middleware behind the client's retry/backoff behavior for `429`/`5xx` responses.
+
+## Source
+
+- [GitHub repository](https://github.com/alrayyes/forge-dashboard-sdk-php): source, issues, and the pinned OpenAPI spec this client is generated from.
+- [README](https://github.com/alrayyes/forge-dashboard-sdk-php#readme): installation, authentication and usage examples.
