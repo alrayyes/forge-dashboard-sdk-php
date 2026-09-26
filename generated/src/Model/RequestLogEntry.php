@@ -1,6 +1,6 @@
 <?php
 /**
- * RepoStatus
+ * RequestLogEntry
  *
  * PHP version 8.1
  *
@@ -32,16 +32,16 @@ use \ArrayAccess;
 use \ForgeDashboard\Generated\ObjectSerializer;
 
 /**
- * RepoStatus Class Doc Comment
+ * RequestLogEntry Class Doc Comment
  *
  * @category Class
- * @description One tracked repository, whether or not it currently has anything open — repoCount alone can&#39;t name it, and it wouldn&#39;t otherwise appear anywhere pullRequests/issues don&#39;t already mention it.
+ * @description One outbound request &#x60;internal/github&#x60; or &#x60;internal/forgejo&#x60; made, as persisted by the request_log table.
  * @package  ForgeDashboard\Generated
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
+class RequestLogEntry implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -50,7 +50,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
      *
      * @var string
      */
-    protected static $openAPIModelName = 'RepoStatus';
+    protected static $openAPIModelName = 'RequestLogEntry';
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -58,15 +58,14 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $openAPITypes = [
+        'logged_at' => '\DateTime',
         'forge' => '\ForgeDashboard\Generated\Model\Forge',
-        'full_name' => 'string',
-        'url' => 'string',
-        'ignored' => 'bool',
-        'ignored_prs' => 'bool',
-        'ignored_issues' => 'bool',
-        'has_webhook' => 'bool',
-        'can_manage_webhooks' => 'bool',
-        'auto_update_branch' => 'bool'
+        'account' => 'string',
+        'method' => 'string',
+        'endpoint' => 'string',
+        'status_code' => 'int',
+        'outcome' => 'string',
+        'rate_limit' => '\ForgeDashboard\Generated\Model\RateLimit'
     ];
 
     /**
@@ -77,15 +76,14 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
      * @psalm-var array<string, string|null>
      */
     protected static $openAPIFormats = [
+        'logged_at' => 'date-time',
         'forge' => null,
-        'full_name' => null,
-        'url' => 'uri',
-        'ignored' => null,
-        'ignored_prs' => null,
-        'ignored_issues' => null,
-        'has_webhook' => null,
-        'can_manage_webhooks' => null,
-        'auto_update_branch' => null
+        'account' => null,
+        'method' => null,
+        'endpoint' => null,
+        'status_code' => null,
+        'outcome' => null,
+        'rate_limit' => null
     ];
 
     /**
@@ -94,15 +92,14 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var boolean[]
      */
     protected static array $openAPINullables = [
+        'logged_at' => false,
         'forge' => false,
-        'full_name' => false,
-        'url' => false,
-        'ignored' => false,
-        'ignored_prs' => false,
-        'ignored_issues' => false,
-        'has_webhook' => false,
-        'can_manage_webhooks' => false,
-        'auto_update_branch' => false
+        'account' => false,
+        'method' => false,
+        'endpoint' => false,
+        'status_code' => false,
+        'outcome' => false,
+        'rate_limit' => false
     ];
 
     /**
@@ -191,15 +188,14 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
+        'logged_at' => 'loggedAt',
         'forge' => 'forge',
-        'full_name' => 'fullName',
-        'url' => 'url',
-        'ignored' => 'ignored',
-        'ignored_prs' => 'ignoredPRs',
-        'ignored_issues' => 'ignoredIssues',
-        'has_webhook' => 'hasWebhook',
-        'can_manage_webhooks' => 'canManageWebhooks',
-        'auto_update_branch' => 'autoUpdateBranch'
+        'account' => 'account',
+        'method' => 'method',
+        'endpoint' => 'endpoint',
+        'status_code' => 'statusCode',
+        'outcome' => 'outcome',
+        'rate_limit' => 'rateLimit'
     ];
 
     /**
@@ -208,15 +204,14 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
+        'logged_at' => 'setLoggedAt',
         'forge' => 'setForge',
-        'full_name' => 'setFullName',
-        'url' => 'setUrl',
-        'ignored' => 'setIgnored',
-        'ignored_prs' => 'setIgnoredPrs',
-        'ignored_issues' => 'setIgnoredIssues',
-        'has_webhook' => 'setHasWebhook',
-        'can_manage_webhooks' => 'setCanManageWebhooks',
-        'auto_update_branch' => 'setAutoUpdateBranch'
+        'account' => 'setAccount',
+        'method' => 'setMethod',
+        'endpoint' => 'setEndpoint',
+        'status_code' => 'setStatusCode',
+        'outcome' => 'setOutcome',
+        'rate_limit' => 'setRateLimit'
     ];
 
     /**
@@ -225,15 +220,14 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
+        'logged_at' => 'getLoggedAt',
         'forge' => 'getForge',
-        'full_name' => 'getFullName',
-        'url' => 'getUrl',
-        'ignored' => 'getIgnored',
-        'ignored_prs' => 'getIgnoredPrs',
-        'ignored_issues' => 'getIgnoredIssues',
-        'has_webhook' => 'getHasWebhook',
-        'can_manage_webhooks' => 'getCanManageWebhooks',
-        'auto_update_branch' => 'getAutoUpdateBranch'
+        'account' => 'getAccount',
+        'method' => 'getMethod',
+        'endpoint' => 'getEndpoint',
+        'status_code' => 'getStatusCode',
+        'outcome' => 'getOutcome',
+        'rate_limit' => 'getRateLimit'
     ];
 
     /**
@@ -293,15 +287,14 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
+        $this->setIfExists('logged_at', $data ?? [], null);
         $this->setIfExists('forge', $data ?? [], null);
-        $this->setIfExists('full_name', $data ?? [], null);
-        $this->setIfExists('url', $data ?? [], null);
-        $this->setIfExists('ignored', $data ?? [], null);
-        $this->setIfExists('ignored_prs', $data ?? [], null);
-        $this->setIfExists('ignored_issues', $data ?? [], null);
-        $this->setIfExists('has_webhook', $data ?? [], null);
-        $this->setIfExists('can_manage_webhooks', $data ?? [], null);
-        $this->setIfExists('auto_update_branch', $data ?? [], null);
+        $this->setIfExists('account', $data ?? [], null);
+        $this->setIfExists('method', $data ?? [], null);
+        $this->setIfExists('endpoint', $data ?? [], null);
+        $this->setIfExists('status_code', $data ?? [], null);
+        $this->setIfExists('outcome', $data ?? [], null);
+        $this->setIfExists('rate_limit', $data ?? [], null);
     }
 
     /**
@@ -331,32 +324,20 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if ($this->container['logged_at'] === null) {
+            $invalidProperties[] = "'logged_at' can't be null";
+        }
         if ($this->container['forge'] === null) {
             $invalidProperties[] = "'forge' can't be null";
         }
-        if ($this->container['full_name'] === null) {
-            $invalidProperties[] = "'full_name' can't be null";
+        if ($this->container['method'] === null) {
+            $invalidProperties[] = "'method' can't be null";
         }
-        if ($this->container['url'] === null) {
-            $invalidProperties[] = "'url' can't be null";
+        if ($this->container['endpoint'] === null) {
+            $invalidProperties[] = "'endpoint' can't be null";
         }
-        if ($this->container['ignored'] === null) {
-            $invalidProperties[] = "'ignored' can't be null";
-        }
-        if ($this->container['ignored_prs'] === null) {
-            $invalidProperties[] = "'ignored_prs' can't be null";
-        }
-        if ($this->container['ignored_issues'] === null) {
-            $invalidProperties[] = "'ignored_issues' can't be null";
-        }
-        if ($this->container['has_webhook'] === null) {
-            $invalidProperties[] = "'has_webhook' can't be null";
-        }
-        if ($this->container['can_manage_webhooks'] === null) {
-            $invalidProperties[] = "'can_manage_webhooks' can't be null";
-        }
-        if ($this->container['auto_update_branch'] === null) {
-            $invalidProperties[] = "'auto_update_branch' can't be null";
+        if ($this->container['outcome'] === null) {
+            $invalidProperties[] = "'outcome' can't be null";
         }
         return $invalidProperties;
     }
@@ -372,6 +353,33 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         return count($this->listInvalidProperties()) === 0;
     }
 
+
+    /**
+     * Gets logged_at
+     *
+     * @return \DateTime
+     */
+    public function getLoggedAt()
+    {
+        return $this->container['logged_at'];
+    }
+
+    /**
+     * Sets logged_at
+     *
+     * @param \DateTime $logged_at logged_at
+     *
+     * @return self
+     */
+    public function setLoggedAt($logged_at)
+    {
+        if (is_null($logged_at)) {
+            throw new \InvalidArgumentException('non-nullable logged_at cannot be null');
+        }
+        $this->container['logged_at'] = $logged_at;
+
+        return $this;
+    }
 
     /**
      * Gets forge
@@ -401,217 +409,163 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets full_name
+     * Gets account
+     *
+     * @return string|null
+     */
+    public function getAccount()
+    {
+        return $this->container['account'];
+    }
+
+    /**
+     * Sets account
+     *
+     * @param string|null $account The display username of the account whose credential made this request, or omitted when the request was made with no per-account credential, or when that account has since been deleted.
+     *
+     * @return self
+     */
+    public function setAccount($account)
+    {
+        if (is_null($account)) {
+            throw new \InvalidArgumentException('non-nullable account cannot be null');
+        }
+        $this->container['account'] = $account;
+
+        return $this;
+    }
+
+    /**
+     * Gets method
      *
      * @return string
      */
-    public function getFullName()
+    public function getMethod()
     {
-        return $this->container['full_name'];
+        return $this->container['method'];
     }
 
     /**
-     * Sets full_name
+     * Sets method
      *
-     * @param string $full_name full_name
+     * @param string $method method
      *
      * @return self
      */
-    public function setFullName($full_name)
+    public function setMethod($method)
     {
-        if (is_null($full_name)) {
-            throw new \InvalidArgumentException('non-nullable full_name cannot be null');
+        if (is_null($method)) {
+            throw new \InvalidArgumentException('non-nullable method cannot be null');
         }
-        $this->container['full_name'] = $full_name;
+        $this->container['method'] = $method;
 
         return $this;
     }
 
     /**
-     * Gets url
+     * Gets endpoint
      *
      * @return string
      */
-    public function getUrl()
+    public function getEndpoint()
     {
-        return $this->container['url'];
+        return $this->container['endpoint'];
     }
 
     /**
-     * Sets url
+     * Sets endpoint
      *
-     * @param string $url The repo's own page on its forge, for linking out.
+     * @param string $endpoint The request's own path — GraphQL requests all report \"/graphql\".
      *
      * @return self
      */
-    public function setUrl($url)
+    public function setEndpoint($endpoint)
     {
-        if (is_null($url)) {
-            throw new \InvalidArgumentException('non-nullable url cannot be null');
+        if (is_null($endpoint)) {
+            throw new \InvalidArgumentException('non-nullable endpoint cannot be null');
         }
-        $this->container['url'] = $url;
+        $this->container['endpoint'] = $endpoint;
 
         return $this;
     }
 
     /**
-     * Gets ignored
+     * Gets status_code
      *
-     * @return bool
+     * @return int|null
      */
-    public function getIgnored()
+    public function getStatusCode()
     {
-        return $this->container['ignored'];
+        return $this->container['status_code'];
     }
 
     /**
-     * Sets ignored
+     * Sets status_code
      *
-     * @param bool $ignored Whether the signed-in user has ignored this repo in either scope below (#363, #511) — true whenever ignoredPRs or ignoredIssues is true. The repo itself still appears here with accurate hasWebhook/canManageWebhooks regardless.
+     * @param int|null $status_code Omitted when the request never got a response at all.
      *
      * @return self
      */
-    public function setIgnored($ignored)
+    public function setStatusCode($status_code)
     {
-        if (is_null($ignored)) {
-            throw new \InvalidArgumentException('non-nullable ignored cannot be null');
+        if (is_null($status_code)) {
+            throw new \InvalidArgumentException('non-nullable status_code cannot be null');
         }
-        $this->container['ignored'] = $ignored;
+        $this->container['status_code'] = $status_code;
 
         return $this;
     }
 
     /**
-     * Gets ignored_prs
+     * Gets outcome
      *
-     * @return bool
+     * @return string
      */
-    public function getIgnoredPrs()
+    public function getOutcome()
     {
-        return $this->container['ignored_prs'];
+        return $this->container['outcome'];
     }
 
     /**
-     * Sets ignored_prs
+     * Sets outcome
      *
-     * @param bool $ignored_prs Whether the signed-in user has ignored this repo's pull requests specifically (#511) — its pullRequests entries are excluded from this same response and from Insights.
+     * @param string $outcome \"success\", or the `ForgeErrorKind` the failure was classified as.
      *
      * @return self
      */
-    public function setIgnoredPrs($ignored_prs)
+    public function setOutcome($outcome)
     {
-        if (is_null($ignored_prs)) {
-            throw new \InvalidArgumentException('non-nullable ignored_prs cannot be null');
+        if (is_null($outcome)) {
+            throw new \InvalidArgumentException('non-nullable outcome cannot be null');
         }
-        $this->container['ignored_prs'] = $ignored_prs;
+        $this->container['outcome'] = $outcome;
 
         return $this;
     }
 
     /**
-     * Gets ignored_issues
+     * Gets rate_limit
      *
-     * @return bool
+     * @return \ForgeDashboard\Generated\Model\RateLimit|null
      */
-    public function getIgnoredIssues()
+    public function getRateLimit()
     {
-        return $this->container['ignored_issues'];
+        return $this->container['rate_limit'];
     }
 
     /**
-     * Sets ignored_issues
+     * Sets rate_limit
      *
-     * @param bool $ignored_issues Whether the signed-in user has ignored this repo's issues specifically (#511) — its issues entries are excluded from this same response and from Insights.
+     * @param \ForgeDashboard\Generated\Model\RateLimit|null $rate_limit Omitted when the response carried no rate-limit fields.
      *
      * @return self
      */
-    public function setIgnoredIssues($ignored_issues)
+    public function setRateLimit($rate_limit)
     {
-        if (is_null($ignored_issues)) {
-            throw new \InvalidArgumentException('non-nullable ignored_issues cannot be null');
+        if (is_null($rate_limit)) {
+            throw new \InvalidArgumentException('non-nullable rate_limit cannot be null');
         }
-        $this->container['ignored_issues'] = $ignored_issues;
-
-        return $this;
-    }
-
-    /**
-     * Gets has_webhook
-     *
-     * @return bool
-     */
-    public function getHasWebhook()
-    {
-        return $this->container['has_webhook'];
-    }
-
-    /**
-     * Sets has_webhook
-     *
-     * @param bool $has_webhook Whether this app has ever recorded a signature-verified webhook delivery for this repo. Passive: it reflects a real delivery having arrived, not whether a webhook object exists on the forge — a correctly configured webhook that just hasn't fired yet still reads false here, the same as a misconfigured one would.
-     *
-     * @return self
-     */
-    public function setHasWebhook($has_webhook)
-    {
-        if (is_null($has_webhook)) {
-            throw new \InvalidArgumentException('non-nullable has_webhook cannot be null');
-        }
-        $this->container['has_webhook'] = $has_webhook;
-
-        return $this;
-    }
-
-    /**
-     * Gets can_manage_webhooks
-     *
-     * @return bool
-     */
-    public function getCanManageWebhooks()
-    {
-        return $this->container['can_manage_webhooks'];
-    }
-
-    /**
-     * Sets can_manage_webhooks
-     *
-     * @param bool $can_manage_webhooks Whether the signed-in user's own permission on this repo is enough to list/create its webhooks — GitHub requires admin specifically (write/maintain can push but still 404 on the hooks endpoint, by GitHub's own design); Forgejo's equivalent is its own admin permission flag. Always false for a repo reached through an unauthenticated, username-only listing. A point-in-time snapshot: a permission change since the last refresh can still make a following ensure-webhook call fail despite this having said true.
-     *
-     * @return self
-     */
-    public function setCanManageWebhooks($can_manage_webhooks)
-    {
-        if (is_null($can_manage_webhooks)) {
-            throw new \InvalidArgumentException('non-nullable can_manage_webhooks cannot be null');
-        }
-        $this->container['can_manage_webhooks'] = $can_manage_webhooks;
-
-        return $this;
-    }
-
-    /**
-     * Gets auto_update_branch
-     *
-     * @return bool
-     */
-    public function getAutoUpdateBranch()
-    {
-        return $this->container['auto_update_branch'];
-    }
-
-    /**
-     * Sets auto_update_branch
-     *
-     * @param bool $auto_update_branch Whether the signed-in user has turned on automatic branch updates for this repo (#365) — any of its pull requests the background refresh finds behind its base branch gets updated the same way a manual \"Update branch\" click would. A Dependabot pull request gets its own rebase comment instead, and a Renovate one its own rebase label, mirroring their manual action buttons. A release-please pull request is always skipped: it regenerates its own branch and changelog on every push to the base branch, and has no dedicated rebase/label action the way Dependabot and Renovate do.
-     *
-     * @return self
-     */
-    public function setAutoUpdateBranch($auto_update_branch)
-    {
-        if (is_null($auto_update_branch)) {
-            throw new \InvalidArgumentException('non-nullable auto_update_branch cannot be null');
-        }
-        $this->container['auto_update_branch'] = $auto_update_branch;
+        $this->container['rate_limit'] = $rate_limit;
 
         return $this;
     }

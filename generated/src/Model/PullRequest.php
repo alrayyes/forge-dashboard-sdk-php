@@ -70,6 +70,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'ci' => '\ForgeDashboard\Generated\Model\CIStatus',
         'merge_status' => '\ForgeDashboard\Generated\Model\MergeStatus',
         'behind' => 'bool',
+        'empty' => 'bool',
         'auto_merge_enabled' => 'bool'
     ];
 
@@ -94,6 +95,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'ci' => null,
         'merge_status' => null,
         'behind' => null,
+        'empty' => null,
         'auto_merge_enabled' => null
     ];
 
@@ -116,6 +118,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'ci' => false,
         'merge_status' => false,
         'behind' => false,
+        'empty' => false,
         'auto_merge_enabled' => false
     ];
 
@@ -218,6 +221,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'ci' => 'ci',
         'merge_status' => 'mergeStatus',
         'behind' => 'behind',
+        'empty' => 'empty',
         'auto_merge_enabled' => 'autoMergeEnabled'
     ];
 
@@ -240,6 +244,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'ci' => 'setCi',
         'merge_status' => 'setMergeStatus',
         'behind' => 'setBehind',
+        'empty' => 'setEmpty',
         'auto_merge_enabled' => 'setAutoMergeEnabled'
     ];
 
@@ -262,6 +267,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'ci' => 'getCi',
         'merge_status' => 'getMergeStatus',
         'behind' => 'getBehind',
+        'empty' => 'getEmpty',
         'auto_merge_enabled' => 'getAutoMergeEnabled'
     ];
 
@@ -335,6 +341,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('ci', $data ?? [], null);
         $this->setIfExists('merge_status', $data ?? [], null);
         $this->setIfExists('behind', $data ?? [], null);
+        $this->setIfExists('empty', $data ?? [], null);
         $this->setIfExists('auto_merge_enabled', $data ?? [], null);
     }
 
@@ -403,6 +410,9 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if ($this->container['behind'] === null) {
             $invalidProperties[] = "'behind' can't be null";
+        }
+        if ($this->container['empty'] === null) {
+            $invalidProperties[] = "'empty' can't be null";
         }
         return $invalidProperties;
     }
@@ -766,6 +776,33 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable behind cannot be null');
         }
         $this->container['behind'] = $behind;
+
+        return $this;
+    }
+
+    /**
+     * Gets empty
+     *
+     * @return bool
+     */
+    public function getEmpty()
+    {
+        return $this->container['empty'];
+    }
+
+    /**
+     * Sets empty
+     *
+     * @param bool $empty Whether merging this pull request would produce an empty commit — its content already landed on the base branch some other way. False whenever this service can't tell (the unauthenticated GitHub REST fallback, or a Forgejo instance old enough not to report additions/deletions/changed_files on its list endpoint), never a false positive: a pull request this never confirms empty just renders as it always has.
+     *
+     * @return self
+     */
+    public function setEmpty($empty)
+    {
+        if (is_null($empty)) {
+            throw new \InvalidArgumentException('non-nullable empty cannot be null');
+        }
+        $this->container['empty'] = $empty;
 
         return $this;
     }

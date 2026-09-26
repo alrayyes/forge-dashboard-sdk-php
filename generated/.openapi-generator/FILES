@@ -25,7 +25,6 @@ src/Model/AdminInvite.php
 src/Model/AdminInviteCreateRequest.php
 src/Model/AdminInviteCreateResponse.php
 src/Model/AdminUser.php
-src/Model/BotPrUpdatesResponse.php
 src/Model/CIStatus.php
 src/Model/Check.php
 src/Model/CheckState.php
@@ -50,6 +49,7 @@ src/Model/RegisterBeginRequest.php
 src/Model/RegistrationStatus.php
 src/Model/RepoIgnoreRequest.php
 src/Model/RepoStatus.php
+src/Model/RequestLogEntry.php
 src/Model/SessionUser.php
 src/Model/SettingsRequest.php
 src/Model/SettingsResponse.php

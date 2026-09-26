@@ -80,7 +80,13 @@ class AdminApi
         'deleteUser' => [
             'application/json',
         ],
+        'exportRequests' => [
+            'application/json',
+        ],
         'listInvites' => [
+            'application/json',
+        ],
+        'listRequests' => [
             'application/json',
         ],
         'listUsers' => [
@@ -734,6 +740,320 @@ class AdminApi
     }
 
     /**
+     * Operation exportRequests
+     *
+     * Export the (filtered) outbound-request log as CSV
+     *
+     * @param  \ForgeDashboard\Generated\Model\Forge|null $forge Narrow to entries against this forge only. Omitted matches every forge. (optional)
+     * @param  string|null $account Narrow to entries made under this account&#39;s own credential only — the account&#39;s &#x60;username&#x60; (matching RequestLogEntry.account), not its internal id. An unrecognized username matches nothing rather than erroring, the same as any other filter with no matches. Omitted matches every account. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['exportRequests'] to see the possible values for this operation
+     *
+     * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return string|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error
+     */
+    public function exportRequests($forge = null, $account = null, string $contentType = self::contentTypes['exportRequests'][0])
+    {
+        list($response) = $this->exportRequestsWithHttpInfo($forge, $account, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation exportRequestsWithHttpInfo
+     *
+     * Export the (filtered) outbound-request log as CSV
+     *
+     * @param  \ForgeDashboard\Generated\Model\Forge|null $forge Narrow to entries against this forge only. Omitted matches every forge. (optional)
+     * @param  string|null $account Narrow to entries made under this account&#39;s own credential only — the account&#39;s &#x60;username&#x60; (matching RequestLogEntry.account), not its internal id. An unrecognized username matches nothing rather than erroring, the same as any other filter with no matches. Omitted matches every account. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['exportRequests'] to see the possible values for this operation
+     *
+     * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of string|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function exportRequestsWithHttpInfo($forge = null, $account = null, string $contentType = self::contentTypes['exportRequests'][0])
+    {
+        $request = $this->exportRequestsRequest($forge, $account, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        'string',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $request,
+                        $response,
+                    );
+                case 403:
+                    return $this->handleResponseWithDataType(
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                'string',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'string',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation exportRequestsAsync
+     *
+     * Export the (filtered) outbound-request log as CSV
+     *
+     * @param  \ForgeDashboard\Generated\Model\Forge|null $forge Narrow to entries against this forge only. Omitted matches every forge. (optional)
+     * @param  string|null $account Narrow to entries made under this account&#39;s own credential only — the account&#39;s &#x60;username&#x60; (matching RequestLogEntry.account), not its internal id. An unrecognized username matches nothing rather than erroring, the same as any other filter with no matches. Omitted matches every account. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['exportRequests'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function exportRequestsAsync($forge = null, $account = null, string $contentType = self::contentTypes['exportRequests'][0])
+    {
+        return $this->exportRequestsAsyncWithHttpInfo($forge, $account, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation exportRequestsAsyncWithHttpInfo
+     *
+     * Export the (filtered) outbound-request log as CSV
+     *
+     * @param  \ForgeDashboard\Generated\Model\Forge|null $forge Narrow to entries against this forge only. Omitted matches every forge. (optional)
+     * @param  string|null $account Narrow to entries made under this account&#39;s own credential only — the account&#39;s &#x60;username&#x60; (matching RequestLogEntry.account), not its internal id. An unrecognized username matches nothing rather than erroring, the same as any other filter with no matches. Omitted matches every account. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['exportRequests'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function exportRequestsAsyncWithHttpInfo($forge = null, $account = null, string $contentType = self::contentTypes['exportRequests'][0])
+    {
+        $returnType = 'string';
+        $request = $this->exportRequestsRequest($forge, $account, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'exportRequests'
+     *
+     * @param  \ForgeDashboard\Generated\Model\Forge|null $forge Narrow to entries against this forge only. Omitted matches every forge. (optional)
+     * @param  string|null $account Narrow to entries made under this account&#39;s own credential only — the account&#39;s &#x60;username&#x60; (matching RequestLogEntry.account), not its internal id. An unrecognized username matches nothing rather than erroring, the same as any other filter with no matches. Omitted matches every account. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['exportRequests'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function exportRequestsRequest($forge = null, $account = null, string $contentType = self::contentTypes['exportRequests'][0])
+    {
+
+
+
+
+        $resourcePath = '/api/admin/requests/export';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $forge,
+            'forge', // param base name
+            'Forge', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $account,
+            'account', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['text/csv', 'application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                try {
+                    $httpBody = json_encode($formParams, JSON_THROW_ON_ERROR);
+                } catch (\JsonException $e) {
+                    throw new \InvalidArgumentException('json_encode error: ' . $e->getMessage(), 0, $e);
+                }
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation listInvites
      *
      * List outstanding registration invites
@@ -952,6 +1272,320 @@ class AdminApi
         $httpBody = '';
         $multipart = false;
 
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                try {
+                    $httpBody = json_encode($formParams, JSON_THROW_ON_ERROR);
+                } catch (\JsonException $e) {
+                    throw new \InvalidArgumentException('json_encode error: ' . $e->getMessage(), 0, $e);
+                }
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation listRequests
+     *
+     * List every outbound GitHub/Forgejo request this instance has made
+     *
+     * @param  \ForgeDashboard\Generated\Model\Forge|null $forge Narrow to entries against this forge only. Omitted matches every forge. (optional)
+     * @param  string|null $account Narrow to entries made under this account&#39;s own credential only — the account&#39;s &#x60;username&#x60; (matching RequestLogEntry.account), not its internal id. An unrecognized username matches nothing rather than erroring, the same as any other filter with no matches. Omitted matches every account. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listRequests'] to see the possible values for this operation
+     *
+     * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \ForgeDashboard\Generated\Model\RequestLogEntry[]|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error
+     */
+    public function listRequests($forge = null, $account = null, string $contentType = self::contentTypes['listRequests'][0])
+    {
+        list($response) = $this->listRequestsWithHttpInfo($forge, $account, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation listRequestsWithHttpInfo
+     *
+     * List every outbound GitHub/Forgejo request this instance has made
+     *
+     * @param  \ForgeDashboard\Generated\Model\Forge|null $forge Narrow to entries against this forge only. Omitted matches every forge. (optional)
+     * @param  string|null $account Narrow to entries made under this account&#39;s own credential only — the account&#39;s &#x60;username&#x60; (matching RequestLogEntry.account), not its internal id. An unrecognized username matches nothing rather than erroring, the same as any other filter with no matches. Omitted matches every account. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listRequests'] to see the possible values for this operation
+     *
+     * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \ForgeDashboard\Generated\Model\RequestLogEntry[]|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function listRequestsWithHttpInfo($forge = null, $account = null, string $contentType = self::contentTypes['listRequests'][0])
+    {
+        $request = $this->listRequestsRequest($forge, $account, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\ForgeDashboard\Generated\Model\RequestLogEntry[]',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $request,
+                        $response,
+                    );
+                case 403:
+                    return $this->handleResponseWithDataType(
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\ForgeDashboard\Generated\Model\RequestLogEntry[]',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\RequestLogEntry[]',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation listRequestsAsync
+     *
+     * List every outbound GitHub/Forgejo request this instance has made
+     *
+     * @param  \ForgeDashboard\Generated\Model\Forge|null $forge Narrow to entries against this forge only. Omitted matches every forge. (optional)
+     * @param  string|null $account Narrow to entries made under this account&#39;s own credential only — the account&#39;s &#x60;username&#x60; (matching RequestLogEntry.account), not its internal id. An unrecognized username matches nothing rather than erroring, the same as any other filter with no matches. Omitted matches every account. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listRequests'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function listRequestsAsync($forge = null, $account = null, string $contentType = self::contentTypes['listRequests'][0])
+    {
+        return $this->listRequestsAsyncWithHttpInfo($forge, $account, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation listRequestsAsyncWithHttpInfo
+     *
+     * List every outbound GitHub/Forgejo request this instance has made
+     *
+     * @param  \ForgeDashboard\Generated\Model\Forge|null $forge Narrow to entries against this forge only. Omitted matches every forge. (optional)
+     * @param  string|null $account Narrow to entries made under this account&#39;s own credential only — the account&#39;s &#x60;username&#x60; (matching RequestLogEntry.account), not its internal id. An unrecognized username matches nothing rather than erroring, the same as any other filter with no matches. Omitted matches every account. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listRequests'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function listRequestsAsyncWithHttpInfo($forge = null, $account = null, string $contentType = self::contentTypes['listRequests'][0])
+    {
+        $returnType = '\ForgeDashboard\Generated\Model\RequestLogEntry[]';
+        $request = $this->listRequestsRequest($forge, $account, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'listRequests'
+     *
+     * @param  \ForgeDashboard\Generated\Model\Forge|null $forge Narrow to entries against this forge only. Omitted matches every forge. (optional)
+     * @param  string|null $account Narrow to entries made under this account&#39;s own credential only — the account&#39;s &#x60;username&#x60; (matching RequestLogEntry.account), not its internal id. An unrecognized username matches nothing rather than erroring, the same as any other filter with no matches. Omitted matches every account. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listRequests'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function listRequestsRequest($forge = null, $account = null, string $contentType = self::contentTypes['listRequests'][0])
+    {
+
+
+
+
+        $resourcePath = '/api/admin/requests';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $forge,
+            'forge', // param base name
+            'Forge', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $account,
+            'account', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
 
 
 
