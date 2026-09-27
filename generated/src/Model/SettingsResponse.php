@@ -60,6 +60,8 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPITypes = [
         'github_username' => 'string',
         'github_token_set' => 'bool',
+        'github_app_installation_id' => 'int',
+        'github_app_configured' => 'bool',
         'forgejo_url' => 'string',
         'forgejo_username' => 'string',
         'forgejo_token_set' => 'bool',
@@ -79,6 +81,8 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'github_username' => null,
         'github_token_set' => null,
+        'github_app_installation_id' => 'int64',
+        'github_app_configured' => null,
         'forgejo_url' => null,
         'forgejo_username' => null,
         'forgejo_token_set' => null,
@@ -96,6 +100,8 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static array $openAPINullables = [
         'github_username' => false,
         'github_token_set' => false,
+        'github_app_installation_id' => false,
+        'github_app_configured' => false,
         'forgejo_url' => false,
         'forgejo_username' => false,
         'forgejo_token_set' => false,
@@ -193,6 +199,8 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $attributeMap = [
         'github_username' => 'githubUsername',
         'github_token_set' => 'githubTokenSet',
+        'github_app_installation_id' => 'githubAppInstallationId',
+        'github_app_configured' => 'githubAppConfigured',
         'forgejo_url' => 'forgejoUrl',
         'forgejo_username' => 'forgejoUsername',
         'forgejo_token_set' => 'forgejoTokenSet',
@@ -210,6 +218,8 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $setters = [
         'github_username' => 'setGithubUsername',
         'github_token_set' => 'setGithubTokenSet',
+        'github_app_installation_id' => 'setGithubAppInstallationId',
+        'github_app_configured' => 'setGithubAppConfigured',
         'forgejo_url' => 'setForgejoUrl',
         'forgejo_username' => 'setForgejoUsername',
         'forgejo_token_set' => 'setForgejoTokenSet',
@@ -227,6 +237,8 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $getters = [
         'github_username' => 'getGithubUsername',
         'github_token_set' => 'getGithubTokenSet',
+        'github_app_installation_id' => 'getGithubAppInstallationId',
+        'github_app_configured' => 'getGithubAppConfigured',
         'forgejo_url' => 'getForgejoUrl',
         'forgejo_username' => 'getForgejoUsername',
         'forgejo_token_set' => 'getForgejoTokenSet',
@@ -312,6 +324,8 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $this->setIfExists('github_username', $data ?? [], null);
         $this->setIfExists('github_token_set', $data ?? [], null);
+        $this->setIfExists('github_app_installation_id', $data ?? [], null);
+        $this->setIfExists('github_app_configured', $data ?? [], null);
         $this->setIfExists('forgejo_url', $data ?? [], null);
         $this->setIfExists('forgejo_username', $data ?? [], null);
         $this->setIfExists('forgejo_token_set', $data ?? [], null);
@@ -353,6 +367,12 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if ($this->container['github_token_set'] === null) {
             $invalidProperties[] = "'github_token_set' can't be null";
+        }
+        if ($this->container['github_app_installation_id'] === null) {
+            $invalidProperties[] = "'github_app_installation_id' can't be null";
+        }
+        if ($this->container['github_app_configured'] === null) {
+            $invalidProperties[] = "'github_app_configured' can't be null";
         }
         if ($this->container['forgejo_url'] === null) {
             $invalidProperties[] = "'forgejo_url' can't be null";
@@ -449,6 +469,60 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable github_token_set cannot be null');
         }
         $this->container['github_token_set'] = $github_token_set;
+
+        return $this;
+    }
+
+    /**
+     * Gets github_app_installation_id
+     *
+     * @return int
+     */
+    public function getGithubAppInstallationId()
+    {
+        return $this->container['github_app_installation_id'];
+    }
+
+    /**
+     * Sets github_app_installation_id
+     *
+     * @param int $github_app_installation_id The installation ID of the alrayyes-automation GitHub App this user has connected (#620), or 0 if none. Not a secret — it's an opaque integer GitHub already shows the user on its own installation settings page — so, unlike githubTokenSet, this round-trips as a plain value. Takes precedence over a saved githubToken whenever both are set and the server has an App configured (see githubAppConfigured).
+     *
+     * @return self
+     */
+    public function setGithubAppInstallationId($github_app_installation_id)
+    {
+        if (is_null($github_app_installation_id)) {
+            throw new \InvalidArgumentException('non-nullable github_app_installation_id cannot be null');
+        }
+        $this->container['github_app_installation_id'] = $github_app_installation_id;
+
+        return $this;
+    }
+
+    /**
+     * Gets github_app_configured
+     *
+     * @return bool
+     */
+    public function getGithubAppConfigured()
+    {
+        return $this->container['github_app_configured'];
+    }
+
+    /**
+     * Sets github_app_configured
+     *
+     * @param bool $github_app_configured Whether this server has a GitHub App configured at all (server-wide GITHUB_APP_ID/GITHUB_APP_PRIVATE_KEY_BASE64 — not a per-user setting). The Settings page uses this to explain why githubAppInstallationId can't be saved when it's false.
+     *
+     * @return self
+     */
+    public function setGithubAppConfigured($github_app_configured)
+    {
+        if (is_null($github_app_configured)) {
+            throw new \InvalidArgumentException('non-nullable github_app_configured cannot be null');
+        }
+        $this->container['github_app_configured'] = $github_app_configured;
 
         return $this;
     }
