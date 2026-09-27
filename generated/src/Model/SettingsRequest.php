@@ -35,7 +35,7 @@ use \ForgeDashboard\Generated\ObjectSerializer;
  * SettingsRequest Class Doc Comment
  *
  * @category Class
- * @description Replaces the signed-in user&#39;s saved GitHub/Forgejo configuration. A blank &#x60;githubToken&#x60; or &#x60;forgejoToken&#x60; keeps whatever token is already saved for that forge rather than clearing it — this is the only way to update the username fields without having to resubmit a token you don&#39;t want to re-paste. Theme isn&#39;t settable here at all — see PUT /api/settings/theme.
+ * @description Replaces the signed-in user&#39;s saved GitHub/Forgejo configuration. A blank &#x60;githubToken&#x60; or &#x60;forgejoToken&#x60; keeps whatever token is already saved for that forge rather than clearing it — this is the only way to update the username fields without having to resubmit a token you don&#39;t want to re-paste. githubAppInstallationId is different: a plain replace like githubUsername, not coalesced — 0 or omitted really does disconnect the App. Rejected (400) if the server has no GitHub App configured (see SettingsResponse.githubAppConfigured). Theme isn&#39;t settable here at all — see PUT /api/settings/theme.
  * @package  ForgeDashboard\Generated
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -60,6 +60,7 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPITypes = [
         'github_token' => 'string',
         'github_username' => 'string',
+        'github_app_installation_id' => 'int',
         'forgejo_url' => 'string',
         'forgejo_token' => 'string',
         'forgejo_username' => 'string',
@@ -76,6 +77,7 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'github_token' => null,
         'github_username' => null,
+        'github_app_installation_id' => 'int64',
         'forgejo_url' => null,
         'forgejo_token' => null,
         'forgejo_username' => null,
@@ -90,6 +92,7 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static array $openAPINullables = [
         'github_token' => false,
         'github_username' => false,
+        'github_app_installation_id' => false,
         'forgejo_url' => false,
         'forgejo_token' => false,
         'forgejo_username' => false,
@@ -184,6 +187,7 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $attributeMap = [
         'github_token' => 'githubToken',
         'github_username' => 'githubUsername',
+        'github_app_installation_id' => 'githubAppInstallationId',
         'forgejo_url' => 'forgejoUrl',
         'forgejo_token' => 'forgejoToken',
         'forgejo_username' => 'forgejoUsername',
@@ -198,6 +202,7 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $setters = [
         'github_token' => 'setGithubToken',
         'github_username' => 'setGithubUsername',
+        'github_app_installation_id' => 'setGithubAppInstallationId',
         'forgejo_url' => 'setForgejoUrl',
         'forgejo_token' => 'setForgejoToken',
         'forgejo_username' => 'setForgejoUsername',
@@ -212,6 +217,7 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $getters = [
         'github_token' => 'getGithubToken',
         'github_username' => 'getGithubUsername',
+        'github_app_installation_id' => 'getGithubAppInstallationId',
         'forgejo_url' => 'getForgejoUrl',
         'forgejo_token' => 'getForgejoToken',
         'forgejo_username' => 'getForgejoUsername',
@@ -277,6 +283,7 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $this->setIfExists('github_token', $data ?? [], null);
         $this->setIfExists('github_username', $data ?? [], null);
+        $this->setIfExists('github_app_installation_id', $data ?? [], null);
         $this->setIfExists('forgejo_url', $data ?? [], null);
         $this->setIfExists('forgejo_token', $data ?? [], null);
         $this->setIfExists('forgejo_username', $data ?? [], null);
@@ -375,6 +382,33 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable github_username cannot be null');
         }
         $this->container['github_username'] = $github_username;
+
+        return $this;
+    }
+
+    /**
+     * Gets github_app_installation_id
+     *
+     * @return int|null
+     */
+    public function getGithubAppInstallationId()
+    {
+        return $this->container['github_app_installation_id'];
+    }
+
+    /**
+     * Sets github_app_installation_id
+     *
+     * @param int|null $github_app_installation_id github_app_installation_id
+     *
+     * @return self
+     */
+    public function setGithubAppInstallationId($github_app_installation_id)
+    {
+        if (is_null($github_app_installation_id)) {
+            throw new \InvalidArgumentException('non-nullable github_app_installation_id cannot be null');
+        }
+        $this->container['github_app_installation_id'] = $github_app_installation_id;
 
         return $this;
     }
