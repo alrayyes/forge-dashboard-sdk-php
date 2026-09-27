@@ -8,9 +8,19 @@
     <cache>.phpdoc/cache</cache>
   </paths>
   <version number="1.0.0">
+    <!--
+      generated/src is included wholesale, not just src — unlike a
+      hand-wrapped SDK (hush-hush-php), Client here exposes each
+      generated *Api instance directly as a public property
+      (Client::$dashboard, etc.), so the generated Api classes ARE the
+      real public surface a consumer calls into, not internal plumbing
+      to hide. Leaving generated/ out of the scan meant none of those
+      classes — or the Model types they return — had a page at all.
+    -->
     <api>
       <source dsn=".">
         <path>src</path>
+        <path>generated/src</path>
       </source>
     </api>
   </version>
