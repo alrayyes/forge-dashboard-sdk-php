@@ -21,6 +21,7 @@ src/HeaderSelector.php
 src/Model/APIToken.php
 src/Model/APITokenCreateRequest.php
 src/Model/APITokenCreateResponse.php
+src/Model/ActionError.php
 src/Model/AdminInvite.php
 src/Model/AdminInviteCreateRequest.php
 src/Model/AdminInviteCreateResponse.php
