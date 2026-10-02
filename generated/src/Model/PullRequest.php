@@ -72,6 +72,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'behind' => 'bool',
         'empty' => 'bool',
         'auto_merge_enabled' => 'bool',
+        'auto_merge_allowed' => 'bool',
         'review' => '\ForgeDashboard\Generated\Model\ReviewState'
     ];
 
@@ -98,6 +99,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'behind' => null,
         'empty' => null,
         'auto_merge_enabled' => null,
+        'auto_merge_allowed' => null,
         'review' => null
     ];
 
@@ -122,6 +124,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'behind' => false,
         'empty' => false,
         'auto_merge_enabled' => false,
+        'auto_merge_allowed' => false,
         'review' => false
     ];
 
@@ -226,6 +229,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'behind' => 'behind',
         'empty' => 'empty',
         'auto_merge_enabled' => 'autoMergeEnabled',
+        'auto_merge_allowed' => 'autoMergeAllowed',
         'review' => 'review'
     ];
 
@@ -250,6 +254,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'behind' => 'setBehind',
         'empty' => 'setEmpty',
         'auto_merge_enabled' => 'setAutoMergeEnabled',
+        'auto_merge_allowed' => 'setAutoMergeAllowed',
         'review' => 'setReview'
     ];
 
@@ -274,6 +279,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'behind' => 'getBehind',
         'empty' => 'getEmpty',
         'auto_merge_enabled' => 'getAutoMergeEnabled',
+        'auto_merge_allowed' => 'getAutoMergeAllowed',
         'review' => 'getReview'
     ];
 
@@ -349,6 +355,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('behind', $data ?? [], null);
         $this->setIfExists('empty', $data ?? [], null);
         $this->setIfExists('auto_merge_enabled', $data ?? [], null);
+        $this->setIfExists('auto_merge_allowed', $data ?? [], null);
         $this->setIfExists('review', $data ?? [], null);
     }
 
@@ -837,6 +844,33 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable auto_merge_enabled cannot be null');
         }
         $this->container['auto_merge_enabled'] = $auto_merge_enabled;
+
+        return $this;
+    }
+
+    /**
+     * Gets auto_merge_allowed
+     *
+     * @return bool|null
+     */
+    public function getAutoMergeAllowed()
+    {
+        return $this->container['auto_merge_allowed'];
+    }
+
+    /**
+     * Sets auto_merge_allowed
+     *
+     * @param bool|null $auto_merge_allowed Whether GitHub will accept an \"Enable auto-merge\" request for this pull request from the signed-in viewer, read from the GraphQL `PullRequest.viewerCanEnableAutoMerge` field. GitHub decides this per viewer and per pull request: auto-merge needs something on the base branch to wait for (required checks or reviews from a branch protection rule or ruleset), so a stacked pull request on an unprotected base reports false even when the repository allows auto-merge. Omitted when unknown (the unauthenticated REST fallback, and Forgejo), never false in that case, so clients keep today's behaviour.
+     *
+     * @return self
+     */
+    public function setAutoMergeAllowed($auto_merge_allowed)
+    {
+        if (is_null($auto_merge_allowed)) {
+            throw new \InvalidArgumentException('non-nullable auto_merge_allowed cannot be null');
+        }
+        $this->container['auto_merge_allowed'] = $auto_merge_allowed;
 
         return $this;
     }
