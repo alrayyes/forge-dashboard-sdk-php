@@ -71,7 +71,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'merge_status' => '\ForgeDashboard\Generated\Model\MergeStatus',
         'behind' => 'bool',
         'empty' => 'bool',
-        'auto_merge_enabled' => 'bool'
+        'auto_merge_enabled' => 'bool',
+        'review' => '\ForgeDashboard\Generated\Model\ReviewState'
     ];
 
     /**
@@ -96,7 +97,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'merge_status' => null,
         'behind' => null,
         'empty' => null,
-        'auto_merge_enabled' => null
+        'auto_merge_enabled' => null,
+        'review' => null
     ];
 
     /**
@@ -119,7 +121,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'merge_status' => false,
         'behind' => false,
         'empty' => false,
-        'auto_merge_enabled' => false
+        'auto_merge_enabled' => false,
+        'review' => false
     ];
 
     /**
@@ -222,7 +225,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'merge_status' => 'mergeStatus',
         'behind' => 'behind',
         'empty' => 'empty',
-        'auto_merge_enabled' => 'autoMergeEnabled'
+        'auto_merge_enabled' => 'autoMergeEnabled',
+        'review' => 'review'
     ];
 
     /**
@@ -245,7 +249,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'merge_status' => 'setMergeStatus',
         'behind' => 'setBehind',
         'empty' => 'setEmpty',
-        'auto_merge_enabled' => 'setAutoMergeEnabled'
+        'auto_merge_enabled' => 'setAutoMergeEnabled',
+        'review' => 'setReview'
     ];
 
     /**
@@ -268,7 +273,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'merge_status' => 'getMergeStatus',
         'behind' => 'getBehind',
         'empty' => 'getEmpty',
-        'auto_merge_enabled' => 'getAutoMergeEnabled'
+        'auto_merge_enabled' => 'getAutoMergeEnabled',
+        'review' => 'getReview'
     ];
 
     /**
@@ -343,6 +349,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('behind', $data ?? [], null);
         $this->setIfExists('empty', $data ?? [], null);
         $this->setIfExists('auto_merge_enabled', $data ?? [], null);
+        $this->setIfExists('review', $data ?? [], null);
     }
 
     /**
@@ -830,6 +837,33 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable auto_merge_enabled cannot be null');
         }
         $this->container['auto_merge_enabled'] = $auto_merge_enabled;
+
+        return $this;
+    }
+
+    /**
+     * Gets review
+     *
+     * @return \ForgeDashboard\Generated\Model\ReviewState|null
+     */
+    public function getReview()
+    {
+        return $this->container['review'];
+    }
+
+    /**
+     * Sets review
+     *
+     * @param \ForgeDashboard\Generated\Model\ReviewState|null $review review
+     *
+     * @return self
+     */
+    public function setReview($review)
+    {
+        if (is_null($review)) {
+            throw new \InvalidArgumentException('non-nullable review cannot be null');
+        }
+        $this->container['review'] = $review;
 
         return $this;
     }
