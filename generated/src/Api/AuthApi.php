@@ -1264,7 +1264,7 @@ class AuthApi
      *
      * Complete an add-credential ceremony
      *
-     * @param  string $label A name the user recognizes, e.g. \&quot;MacBook\&quot; or \&quot;YubiKey\&quot; (#355) — prompted for at registration time, never derived from the authenticator itself. (required)
+     * @param  string $label A name the user recognizes, e.g. \&quot;MacBook\&quot; or \&quot;YubiKey\&quot;, prompted for at registration time, never derived from the authenticator itself. (required)
      * @param  array<string,mixed> $request_body The raw response from &#x60;navigator.credentials.create()&#x60;, exactly as the browser produced it — forwarded to the server untouched. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['finishAddCredential'] to see the possible values for this operation
      *
@@ -1283,7 +1283,7 @@ class AuthApi
      *
      * Complete an add-credential ceremony
      *
-     * @param  string $label A name the user recognizes, e.g. \&quot;MacBook\&quot; or \&quot;YubiKey\&quot; (#355) — prompted for at registration time, never derived from the authenticator itself. (required)
+     * @param  string $label A name the user recognizes, e.g. \&quot;MacBook\&quot; or \&quot;YubiKey\&quot;, prompted for at registration time, never derived from the authenticator itself. (required)
      * @param  array<string,mixed> $request_body The raw response from &#x60;navigator.credentials.create()&#x60;, exactly as the browser produced it — forwarded to the server untouched. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['finishAddCredential'] to see the possible values for this operation
      *
@@ -1397,7 +1397,7 @@ class AuthApi
      *
      * Complete an add-credential ceremony
      *
-     * @param  string $label A name the user recognizes, e.g. \&quot;MacBook\&quot; or \&quot;YubiKey\&quot; (#355) — prompted for at registration time, never derived from the authenticator itself. (required)
+     * @param  string $label A name the user recognizes, e.g. \&quot;MacBook\&quot; or \&quot;YubiKey\&quot;, prompted for at registration time, never derived from the authenticator itself. (required)
      * @param  array<string,mixed> $request_body The raw response from &#x60;navigator.credentials.create()&#x60;, exactly as the browser produced it — forwarded to the server untouched. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['finishAddCredential'] to see the possible values for this operation
      *
@@ -1419,7 +1419,7 @@ class AuthApi
      *
      * Complete an add-credential ceremony
      *
-     * @param  string $label A name the user recognizes, e.g. \&quot;MacBook\&quot; or \&quot;YubiKey\&quot; (#355) — prompted for at registration time, never derived from the authenticator itself. (required)
+     * @param  string $label A name the user recognizes, e.g. \&quot;MacBook\&quot; or \&quot;YubiKey\&quot;, prompted for at registration time, never derived from the authenticator itself. (required)
      * @param  array<string,mixed> $request_body The raw response from &#x60;navigator.credentials.create()&#x60;, exactly as the browser produced it — forwarded to the server untouched. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['finishAddCredential'] to see the possible values for this operation
      *
@@ -1470,7 +1470,7 @@ class AuthApi
     /**
      * Create request for operation 'finishAddCredential'
      *
-     * @param  string $label A name the user recognizes, e.g. \&quot;MacBook\&quot; or \&quot;YubiKey\&quot; (#355) — prompted for at registration time, never derived from the authenticator itself. (required)
+     * @param  string $label A name the user recognizes, e.g. \&quot;MacBook\&quot; or \&quot;YubiKey\&quot;, prompted for at registration time, never derived from the authenticator itself. (required)
      * @param  array<string,mixed> $request_body The raw response from &#x60;navigator.credentials.create()&#x60;, exactly as the browser produced it — forwarded to the server untouched. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['finishAddCredential'] to see the possible values for this operation
      *

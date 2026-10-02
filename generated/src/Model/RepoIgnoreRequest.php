@@ -35,7 +35,7 @@ use \ForgeDashboard\Generated\ObjectSerializer;
  * RepoIgnoreRequest Class Doc Comment
  *
  * @category Class
- * @description Which repo to ignore, and in which scope(s) (#511). At least one of prs/issues must be true — a request with both false is rejected with 400 rather than silently doing nothing; use POST /api/repos/unignore to clear both at once instead.
+ * @description Which repo to ignore, and in which scope(s). At least one of prs/issues must be true — a request with both false is rejected with 400 rather than silently doing nothing; use POST /api/repos/unignore to clear both at once instead.
  * @package  ForgeDashboard\Generated
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech

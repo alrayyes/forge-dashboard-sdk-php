@@ -424,7 +424,7 @@ class APIToken implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets expires_at
      *
-     * @param \DateTime $expires_at When this token stops authenticating requests (#356) — always set, mandatory at creation, no \"never expires\" option. A token whose expiration has passed is rejected the same way an invalid one is.
+     * @param \DateTime $expires_at When this token stops authenticating requests — always set, mandatory at creation, no \"never expires\" option. A token whose expiration has passed is rejected the same way an invalid one is.
      *
      * @return self
      */

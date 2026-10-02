@@ -434,7 +434,7 @@ class RateLimit implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets cost
      *
-     * @param int|null $cost The point price the most recent call was actually charged (#440) — GraphQL-specific, since a REST request has no separate cost concept beyond the flat one-request-one-point REST's own budget already counts. Omitted for a REST-sourced RateLimit.
+     * @param int|null $cost The point price the most recent call was actually charged — GraphQL-specific, since a REST request has no separate cost concept beyond the flat one-request-one-point REST's own budget already counts. Omitted for a REST-sourced RateLimit.
      *
      * @return self
      */
