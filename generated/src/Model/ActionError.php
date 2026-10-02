@@ -35,7 +35,7 @@ use \ForgeDashboard\Generated\ObjectSerializer;
  * ActionError Class Doc Comment
  *
  * @category Class
- * @description The structured result of a refused pull request action (Merge today; the other actions adopt it next, so it isn&#39;t merge-specific). &#x60;error&#x60; is the same string every Error carries (the forge&#39;s own text, for logs); &#x60;code&#x60; and &#x60;message&#x60; are what a client should act on and show.
+ * @description The structured result of a refused pull request action (Merge, Close, Update branch, Enable auto-merge, Dependabot and Renovate rebase). &#x60;error&#x60; is the same string every Error carries (the forge&#39;s own text, for logs); &#x60;code&#x60; and &#x60;message&#x60; are what a client should act on and show.
  * @package  ForgeDashboard\Generated
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -255,6 +255,9 @@ class ActionError implements ModelInterface, ArrayAccess, \JsonSerializable
     public const CODE_CHECKS_PENDING = 'checks_pending';
     public const CODE_CHECKS_FAILING = 'checks_failing';
     public const CODE_BLOCKED_BY_PROTECTION = 'blocked_by_protection';
+    public const CODE_ALREADY_UP_TO_DATE = 'already_up_to_date';
+    public const CODE_AUTO_MERGE_NOT_ALLOWED = 'auto_merge_not_allowed';
+    public const CODE_READY_TO_MERGE = 'ready_to_merge';
     public const CODE_PERMISSION = 'permission';
     public const CODE_RATE_LIMITED = 'rate_limited';
     public const CODE_UNKNOWN = 'unknown';
@@ -275,6 +278,9 @@ class ActionError implements ModelInterface, ArrayAccess, \JsonSerializable
             self::CODE_CHECKS_PENDING,
             self::CODE_CHECKS_FAILING,
             self::CODE_BLOCKED_BY_PROTECTION,
+            self::CODE_ALREADY_UP_TO_DATE,
+            self::CODE_AUTO_MERGE_NOT_ALLOWED,
+            self::CODE_READY_TO_MERGE,
             self::CODE_PERMISSION,
             self::CODE_RATE_LIMITED,
             self::CODE_UNKNOWN,
@@ -402,7 +408,7 @@ class ActionError implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets code
      *
-     * @param string $code Why the action was refused, from a re-read of the pull request's real state. `already_merged` and `already_closed` mean the dashboard's row was stale: the pull request has nothing left to merge.
+     * @param string $code Why the action was refused, from a re-read of the pull request's real state. `already_merged` and `already_closed` mean the dashboard's row was stale: the pull request has nothing left to merge.  Three codes belong to one action each: `already_up_to_date` (Update branch: nothing to bring in), `auto_merge_not_allowed` (Enable auto-merge: the repo or pull request doesn't allow it) and `ready_to_merge` (Enable auto-merge: already clean, use Merge).
      *
      * @return self
      */
