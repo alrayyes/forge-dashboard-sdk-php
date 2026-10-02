@@ -486,7 +486,7 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets github_app_installation_id
      *
-     * @param int $github_app_installation_id The installation ID of the alrayyes-automation GitHub App this user has connected (#620), or 0 if none. Not a secret — it's an opaque integer GitHub already shows the user on its own installation settings page — so, unlike githubTokenSet, this round-trips as a plain value. Takes precedence over a saved githubToken whenever both are set and the server has an App configured (see githubAppConfigured).
+     * @param int $github_app_installation_id The installation ID of the alrayyes-automation GitHub App this user has connected, or 0 if none. Not a secret — it's an opaque integer GitHub already shows the user on its own installation settings page — so, unlike githubTokenSet, this round-trips as a plain value. Takes precedence over a saved githubToken whenever both are set and the server has an App configured (see githubAppConfigured).
      *
      * @return self
      */
@@ -702,7 +702,7 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets theme
      *
-     * @param string $theme The signed-in user's own theme preference (#352). Empty means \"system\" — follow the browser's prefers-color-scheme rather than a saved choice. Set only from Settings; every other page reads it via the lightweight GET /api/settings/theme instead of this endpoint.
+     * @param string $theme The signed-in user's own theme preference. Empty means \"system\" — follow the browser's prefers-color-scheme rather than a saved choice. Set only from Settings; every other page reads it via the lightweight GET /api/settings/theme instead of this endpoint.
      *
      * @return self
      */

@@ -496,7 +496,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets rate_limit_graph_ql
      *
-     * @param \ForgeDashboard\Generated\Model\RateLimit|null $rate_limit_graph_ql GitHub's GraphQL budget (#361) — a completely separate 5000/hour allowance from rateLimitREST, populated from the rateLimit block GitHub embeds in every GraphQL response. Never set for a forge with no GraphQL API (Forgejo).
+     * @param \ForgeDashboard\Generated\Model\RateLimit|null $rate_limit_graph_ql GitHub's GraphQL budget — a completely separate 5000/hour allowance from rateLimitREST, populated from the rateLimit block GitHub embeds in every GraphQL response. Never set for a forge with no GraphQL API (Forgejo).
      *
      * @return self
      */

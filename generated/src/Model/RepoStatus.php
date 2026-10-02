@@ -467,7 +467,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets ignored
      *
-     * @param bool $ignored Whether the signed-in user has ignored this repo in either scope below (#363, #511) — true whenever ignoredPRs or ignoredIssues is true. The repo itself still appears here with accurate hasWebhook/canManageWebhooks regardless.
+     * @param bool $ignored Whether the signed-in user has ignored this repo in either scope below — true whenever ignoredPRs or ignoredIssues is true. The repo itself still appears here with accurate hasWebhook/canManageWebhooks regardless.
      *
      * @return self
      */
@@ -494,7 +494,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets ignored_prs
      *
-     * @param bool $ignored_prs Whether the signed-in user has ignored this repo's pull requests specifically (#511) — its pullRequests entries are excluded from this same response and from Insights.
+     * @param bool $ignored_prs Whether the signed-in user has ignored this repo's pull requests specifically — its pullRequests entries are excluded from this same response and from Insights.
      *
      * @return self
      */
@@ -521,7 +521,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets ignored_issues
      *
-     * @param bool $ignored_issues Whether the signed-in user has ignored this repo's issues specifically (#511) — its issues entries are excluded from this same response and from Insights.
+     * @param bool $ignored_issues Whether the signed-in user has ignored this repo's issues specifically — its issues entries are excluded from this same response and from Insights.
      *
      * @return self
      */
@@ -602,7 +602,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets auto_update_branch
      *
-     * @param bool $auto_update_branch Whether the signed-in user has turned on automatic branch updates for this repo (#365) — any of its pull requests the background refresh finds behind its base branch gets updated the same way a manual \"Update branch\" click would. A Dependabot pull request gets its own rebase comment instead, and a Renovate one its own rebase label, mirroring their manual action buttons. A release-please pull request is always skipped: it regenerates its own branch and changelog on every push to the base branch, and has no dedicated rebase/label action the way Dependabot and Renovate do.
+     * @param bool $auto_update_branch Whether the signed-in user has turned on automatic branch updates for this repo — any of its pull requests the background refresh finds behind its base branch gets updated the same way a manual \"Update branch\" click would. A Dependabot pull request gets its own rebase comment instead, and a Renovate one its own rebase label, mirroring their manual action buttons. A release-please pull request is always skipped: it regenerates its own branch and changelog on every push to the base branch, and has no dedicated rebase/label action the way Dependabot and Renovate do.
      *
      * @return self
      */
