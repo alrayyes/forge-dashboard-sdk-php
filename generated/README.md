@@ -165,6 +165,7 @@ Class | Method | HTTP request | Description
 - [RepoIgnoreRequest](docs/Model/RepoIgnoreRequest.md)
 - [RepoStatus](docs/Model/RepoStatus.md)
 - [RequestLogEntry](docs/Model/RequestLogEntry.md)
+- [ReviewState](docs/Model/ReviewState.md)
 - [SessionUser](docs/Model/SessionUser.md)
 - [SettingsRequest](docs/Model/SettingsRequest.md)
 - [SettingsResponse](docs/Model/SettingsResponse.md)
