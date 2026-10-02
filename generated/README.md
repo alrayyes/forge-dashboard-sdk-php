@@ -138,6 +138,7 @@ Class | Method | HTTP request | Description
 - [APIToken](docs/Model/APIToken.md)
 - [APITokenCreateRequest](docs/Model/APITokenCreateRequest.md)
 - [APITokenCreateResponse](docs/Model/APITokenCreateResponse.md)
+- [ActionError](docs/Model/ActionError.md)
 - [AdminInvite](docs/Model/AdminInvite.md)
 - [AdminInviteCreateRequest](docs/Model/AdminInviteCreateRequest.md)
 - [AdminInviteCreateResponse](docs/Model/AdminInviteCreateResponse.md)
