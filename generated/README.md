@@ -109,6 +109,7 @@ Class | Method | HTTP request | Description
 *DashboardApi* | [**unignoreRepo**](docs/Api/DashboardApi.md#unignorerepo) | **POST** /api/repos/unignore | Stop ignoring one tracked repo
 *HealthApi* | [**getVersion**](docs/Api/HealthApi.md#getversion) | **GET** /api/version | The running server&#39;s own version
 *HealthApi* | [**health**](docs/Api/HealthApi.md#health) | **GET** /healthz | Liveness
+*HealthApi* | [**ready**](docs/Api/HealthApi.md#ready) | **GET** /readyz | Readiness
 *PullRequestsApi* | [**closePullRequest**](docs/Api/PullRequestsApi.md#closepullrequest) | **POST** /api/pull-requests/close | Close one pull request without merging it, on the signed-in user&#39;s behalf
 *PullRequestsApi* | [**enablePullRequestAutoMerge**](docs/Api/PullRequestsApi.md#enablepullrequestautomerge) | **POST** /api/pull-requests/auto-merge | Arm a pull request&#39;s own native auto-merge, on the signed-in user&#39;s behalf
 *PullRequestsApi* | [**getPullRequestChecks**](docs/Api/PullRequestsApi.md#getpullrequestchecks) | **GET** /api/pull-requests/checks | List every job/check run against a pull request&#39;s head commit, on demand
