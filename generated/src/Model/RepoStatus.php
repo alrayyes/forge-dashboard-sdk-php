@@ -602,7 +602,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets auto_update_branch
      *
-     * @param bool $auto_update_branch Whether the signed-in user has turned on automatic branch updates for this repo — any of its pull requests the background refresh finds behind its base branch gets updated the same way a manual \"Update branch\" click would. A Dependabot pull request gets its own rebase comment instead, and a Renovate one its own rebase label, mirroring their manual action buttons. A release-please pull request is always skipped: it regenerates its own branch and changelog on every push to the base branch, and has no dedicated rebase/label action the way Dependabot and Renovate do.
+     * @param bool $auto_update_branch Whether the signed-in user has turned on automatic branch updates for this repo — any of its pull requests the background refresh finds behind its base branch gets updated the same way a manual \"Update branch\" click would. A Dependabot pull request gets its own rebase comment instead, and a Renovate one its own rebase label, mirroring their manual action buttons. A release-please pull request is always skipped by this background pass, so no unattended write lands on a release branch. The dashboard's manual \"Update branch\" button is still offered on it, since release-please has no rebase action of its own.
      *
      * @return self
      */
