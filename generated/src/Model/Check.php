@@ -60,7 +60,8 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPITypes = [
         'name' => 'string',
         'state' => '\ForgeDashboard\Generated\Model\CheckState',
-        'url' => 'string'
+        'url' => 'string',
+        'required' => 'bool'
     ];
 
     /**
@@ -73,7 +74,8 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'name' => null,
         'state' => null,
-        'url' => null
+        'url' => null,
+        'required' => null
     ];
 
     /**
@@ -84,7 +86,8 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static array $openAPINullables = [
         'name' => false,
         'state' => false,
-        'url' => false
+        'url' => false,
+        'required' => false
     ];
 
     /**
@@ -175,7 +178,8 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $attributeMap = [
         'name' => 'name',
         'state' => 'state',
-        'url' => 'url'
+        'url' => 'url',
+        'required' => 'required'
     ];
 
     /**
@@ -186,7 +190,8 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $setters = [
         'name' => 'setName',
         'state' => 'setState',
-        'url' => 'setUrl'
+        'url' => 'setUrl',
+        'required' => 'setRequired'
     ];
 
     /**
@@ -197,7 +202,8 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $getters = [
         'name' => 'getName',
         'state' => 'getState',
-        'url' => 'getUrl'
+        'url' => 'getUrl',
+        'required' => 'getRequired'
     ];
 
     /**
@@ -260,6 +266,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('name', $data ?? [], null);
         $this->setIfExists('state', $data ?? [], null);
         $this->setIfExists('url', $data ?? [], null);
+        $this->setIfExists('required', $data ?? [], null);
     }
 
     /**
@@ -390,6 +397,33 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable url cannot be null');
         }
         $this->container['url'] = $url;
+
+        return $this;
+    }
+
+    /**
+     * Gets required
+     *
+     * @return bool|null
+     */
+    public function getRequired()
+    {
+        return $this->container['required'];
+    }
+
+    /**
+     * Sets required
+     *
+     * @param bool|null $required Whether the base branch's protection makes this check block the merge (GitHub required status checks and rulesets, Forgejo `status_check_contexts`). Absent when the forge can't tell — a token that can't read protection, or a check that can't be mapped to a protection entry. Absent is not the same as false.
+     *
+     * @return self
+     */
+    public function setRequired($required)
+    {
+        if (is_null($required)) {
+            throw new \InvalidArgumentException('non-nullable required cannot be null');
+        }
+        $this->container['required'] = $required;
 
         return $this;
     }
