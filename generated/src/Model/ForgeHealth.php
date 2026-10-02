@@ -63,7 +63,8 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'error_kind' => '\ForgeDashboard\Generated\Model\ForgeErrorKind',
         'repo_count' => 'int',
         'rate_limit_graph_ql' => '\ForgeDashboard\Generated\Model\RateLimit',
-        'rate_limit_rest' => '\ForgeDashboard\Generated\Model\RateLimit'
+        'rate_limit_rest' => '\ForgeDashboard\Generated\Model\RateLimit',
+        'dependabot_commands_blocked' => 'string'
     ];
 
     /**
@@ -80,7 +81,8 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'error_kind' => null,
         'repo_count' => null,
         'rate_limit_graph_ql' => null,
-        'rate_limit_rest' => null
+        'rate_limit_rest' => null,
+        'dependabot_commands_blocked' => null
     ];
 
     /**
@@ -95,7 +97,8 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'error_kind' => false,
         'repo_count' => false,
         'rate_limit_graph_ql' => false,
-        'rate_limit_rest' => false
+        'rate_limit_rest' => false,
+        'dependabot_commands_blocked' => false
     ];
 
     /**
@@ -190,7 +193,8 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'error_kind' => 'errorKind',
         'repo_count' => 'repoCount',
         'rate_limit_graph_ql' => 'rateLimitGraphQL',
-        'rate_limit_rest' => 'rateLimitREST'
+        'rate_limit_rest' => 'rateLimitREST',
+        'dependabot_commands_blocked' => 'dependabotCommandsBlocked'
     ];
 
     /**
@@ -205,7 +209,8 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'error_kind' => 'setErrorKind',
         'repo_count' => 'setRepoCount',
         'rate_limit_graph_ql' => 'setRateLimitGraphQl',
-        'rate_limit_rest' => 'setRateLimitRest'
+        'rate_limit_rest' => 'setRateLimitRest',
+        'dependabot_commands_blocked' => 'setDependabotCommandsBlocked'
     ];
 
     /**
@@ -220,7 +225,8 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'error_kind' => 'getErrorKind',
         'repo_count' => 'getRepoCount',
         'rate_limit_graph_ql' => 'getRateLimitGraphQl',
-        'rate_limit_rest' => 'getRateLimitRest'
+        'rate_limit_rest' => 'getRateLimitRest',
+        'dependabot_commands_blocked' => 'getDependabotCommandsBlocked'
     ];
 
     /**
@@ -287,6 +293,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('repo_count', $data ?? [], null);
         $this->setIfExists('rate_limit_graph_ql', $data ?? [], null);
         $this->setIfExists('rate_limit_rest', $data ?? [], null);
+        $this->setIfExists('dependabot_commands_blocked', $data ?? [], null);
     }
 
     /**
@@ -533,6 +540,33 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable rate_limit_rest cannot be null');
         }
         $this->container['rate_limit_rest'] = $rate_limit_rest;
+
+        return $this;
+    }
+
+    /**
+     * Gets dependabot_commands_blocked
+     *
+     * @return string|null
+     */
+    public function getDependabotCommandsBlocked()
+    {
+        return $this->container['dependabot_commands_blocked'];
+    }
+
+    /**
+     * Sets dependabot_commands_blocked
+     *
+     * @param string|null $dependabot_commands_blocked Why a \"@dependabot\" comment sent through this forge's credential would be refused. Dependabot only honours commands from a user with push access and ignores GitHub App accounts whatever permissions the App holds. Set only for GitHub when the connected credential is an App with no personal access token saved to send commands as. The Dependabot buttons lock with this text, auto-update-branch skips Dependabot pull requests, and the dependabot-action endpoint answers 409 with it. Omitted when commands work.
+     *
+     * @return self
+     */
+    public function setDependabotCommandsBlocked($dependabot_commands_blocked)
+    {
+        if (is_null($dependabot_commands_blocked)) {
+            throw new \InvalidArgumentException('non-nullable dependabot_commands_blocked cannot be null');
+        }
+        $this->container['dependabot_commands_blocked'] = $dependabot_commands_blocked;
 
         return $this;
     }
