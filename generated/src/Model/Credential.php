@@ -35,7 +35,7 @@ use \ForgeDashboard\Generated\ObjectSerializer;
  * Credential Class Doc Comment
  *
  * @category Class
- * @description A registered passkey&#39;s own metadata (#355) — never the credential itself, which never leaves the authenticator that created it; WebAuthn&#39;s whole design is that the server only ever sees a public key and signed assertions, not a secret to lose.
+ * @description A registered passkey&#39;s own metadata — never the credential itself, which never leaves the authenticator that created it; WebAuthn&#39;s whole design is that the server only ever sees a public key and signed assertions, not a secret to lose.
  * @package  ForgeDashboard\Generated
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
