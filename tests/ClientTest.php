@@ -225,3 +225,19 @@ it('decodes an error response into an api error', function (): void {
     expect($apiError->statusCode)->toBe(401)
         ->and($apiError->getMessage())->toContain('token expired');
 });
+
+it('sends a boolean query parameter as true or false, not 1 or 0', function (): void {
+    $mock = new MockHandler([
+        new Response(200, [], '{}'),
+        new Response(200, [], '{}'),
+    ]);
+    $stack = HandlerStack::create($mock);
+    $client = new Client('https://example.test', 'token', handlerStack: $stack);
+    attachHistory($stack, $history);
+
+    $client->dashboard->getDashboard();
+    $client->dashboard->getDashboard(include_drafts: true);
+
+    expect(requestAt($history, 0)->getUri()->getQuery())->toContain('includeDrafts=false');
+    expect(requestAt($history, 1)->getUri()->getQuery())->toContain('includeDrafts=true');
+});
