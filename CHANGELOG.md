@@ -1,5 +1,15 @@
 # Changelog
 
+## [2.0.11](https://github.com/alrayyes/forge-dashboard-sdk-php/compare/v2.0.10...v2.0.11) (2026-10-03)
+
+
+### Bug Fixes
+
+* bump ergebnis/composer-normalize from 2.53.0 to 2.54.0 ([#50](https://github.com/alrayyes/forge-dashboard-sdk-php/issues/50)) ([811d465](https://github.com/alrayyes/forge-dashboard-sdk-php/commit/811d465ee1a84408990cbb393e6a9700c584d0bd))
+* bump phpstan/phpstan from 2.2.15 to 2.2.16 ([#52](https://github.com/alrayyes/forge-dashboard-sdk-php/issues/52)) ([199437d](https://github.com/alrayyes/forge-dashboard-sdk-php/commit/199437d79e726e5caf5e657dd059661deffd9666))
+* bump phpstan/phpstan-phpunit from 2.0.18 to 2.0.19 ([#51](https://github.com/alrayyes/forge-dashboard-sdk-php/issues/51)) ([8b38705](https://github.com/alrayyes/forge-dashboard-sdk-php/commit/8b3870565a8e351271e0b56f02efe2e21f90b62b))
+* regenerate client from forge-dashboard openapi.yaml ([#53](https://github.com/alrayyes/forge-dashboard-sdk-php/issues/53)) ([caa4028](https://github.com/alrayyes/forge-dashboard-sdk-php/commit/caa4028846c2a512d356efa6b72f5bb1ddafd88e))
+
 ## [2.0.10](https://github.com/alrayyes/forge-dashboard-sdk-php/compare/v2.0.9...v2.0.10) (2026-10-02)
 
 
