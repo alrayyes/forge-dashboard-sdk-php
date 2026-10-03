@@ -209,7 +209,7 @@ class WebhooksApi
                 case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\ForgeDashboard\Generated\Model\Error',
+                        '\ForgeDashboard\Generated\Model\ActionError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -217,7 +217,7 @@ class WebhooksApi
                 case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\ForgeDashboard\Generated\Model\Error',
+                        '\ForgeDashboard\Generated\Model\ActionError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -225,7 +225,7 @@ class WebhooksApi
                 case 429:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\ForgeDashboard\Generated\Model\Error',
+                        '\ForgeDashboard\Generated\Model\ActionError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -233,7 +233,7 @@ class WebhooksApi
                 case 502:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\ForgeDashboard\Generated\Model\Error',
+                        '\ForgeDashboard\Generated\Model\ActionError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
