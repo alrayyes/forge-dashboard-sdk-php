@@ -317,6 +317,10 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if (!is_null($this->container['github_app_installation_id']) && ($this->container['github_app_installation_id'] < 0)) {
+            $invalidProperties[] = "invalid value for 'github_app_installation_id', must be bigger than or equal to 0.";
+        }
+
         return $invalidProperties;
     }
 
@@ -399,7 +403,7 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets github_app_installation_id
      *
-     * @param int|null $github_app_installation_id github_app_installation_id
+     * @param int|null $github_app_installation_id 0 means none. A negative or non-integer value is a 400 naming this field, as is any value on a server with no GitHub App configured.
      *
      * @return self
      */
@@ -408,6 +412,10 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         if (is_null($github_app_installation_id)) {
             throw new \InvalidArgumentException('non-nullable github_app_installation_id cannot be null');
         }
+        if (($github_app_installation_id < 0)) {
+            throw new \InvalidArgumentException('invalid value for $github_app_installation_id when calling SettingsRequest., must be bigger than or equal to 0.');
+        }
+
         $this->container['github_app_installation_id'] = $github_app_installation_id;
 
         return $this;
@@ -426,7 +434,7 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets forgejo_url
      *
-     * @param string|null $forgejo_url forgejo_url
+     * @param string|null $forgejo_url Required, once the save is merged with what is already stored, whenever a Forgejo token or username is set. That depends on stored state, so a schema alone can't express it: a save that breaks it is a 400 naming `forgejoUrl`.
      *
      * @return self
      */
