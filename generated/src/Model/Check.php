@@ -61,7 +61,10 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'name' => 'string',
         'state' => '\ForgeDashboard\Generated\Model\CheckState',
         'url' => 'string',
-        'required' => 'bool'
+        'required' => 'bool',
+        'duration_seconds' => 'int',
+        'failed_step' => 'string',
+        'excerpt' => 'string'
     ];
 
     /**
@@ -75,7 +78,10 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'name' => null,
         'state' => null,
         'url' => null,
-        'required' => null
+        'required' => null,
+        'duration_seconds' => null,
+        'failed_step' => null,
+        'excerpt' => null
     ];
 
     /**
@@ -87,7 +93,10 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'name' => false,
         'state' => false,
         'url' => false,
-        'required' => false
+        'required' => false,
+        'duration_seconds' => false,
+        'failed_step' => false,
+        'excerpt' => false
     ];
 
     /**
@@ -179,7 +188,10 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'name' => 'name',
         'state' => 'state',
         'url' => 'url',
-        'required' => 'required'
+        'required' => 'required',
+        'duration_seconds' => 'durationSeconds',
+        'failed_step' => 'failedStep',
+        'excerpt' => 'excerpt'
     ];
 
     /**
@@ -191,7 +203,10 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'name' => 'setName',
         'state' => 'setState',
         'url' => 'setUrl',
-        'required' => 'setRequired'
+        'required' => 'setRequired',
+        'duration_seconds' => 'setDurationSeconds',
+        'failed_step' => 'setFailedStep',
+        'excerpt' => 'setExcerpt'
     ];
 
     /**
@@ -203,7 +218,10 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'name' => 'getName',
         'state' => 'getState',
         'url' => 'getUrl',
-        'required' => 'getRequired'
+        'required' => 'getRequired',
+        'duration_seconds' => 'getDurationSeconds',
+        'failed_step' => 'getFailedStep',
+        'excerpt' => 'getExcerpt'
     ];
 
     /**
@@ -267,6 +285,9 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('state', $data ?? [], null);
         $this->setIfExists('url', $data ?? [], null);
         $this->setIfExists('required', $data ?? [], null);
+        $this->setIfExists('duration_seconds', $data ?? [], null);
+        $this->setIfExists('failed_step', $data ?? [], null);
+        $this->setIfExists('excerpt', $data ?? [], null);
     }
 
     /**
@@ -305,6 +326,10 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['url'] === null) {
             $invalidProperties[] = "'url' can't be null";
         }
+        if (!is_null($this->container['duration_seconds']) && ($this->container['duration_seconds'] < 0)) {
+            $invalidProperties[] = "invalid value for 'duration_seconds', must be bigger than or equal to 0.";
+        }
+
         return $invalidProperties;
     }
 
@@ -424,6 +449,91 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable required cannot be null');
         }
         $this->container['required'] = $required;
+
+        return $this;
+    }
+
+    /**
+     * Gets duration_seconds
+     *
+     * @return int|null
+     */
+    public function getDurationSeconds()
+    {
+        return $this->container['duration_seconds'];
+    }
+
+    /**
+     * Sets duration_seconds
+     *
+     * @param int|null $duration_seconds How long a completed check ran. Absent while it runs, or when the forge doesn't say. GitHub only: Forgejo's API doesn't give a job's timing.
+     *
+     * @return self
+     */
+    public function setDurationSeconds($duration_seconds)
+    {
+        if (is_null($duration_seconds)) {
+            throw new \InvalidArgumentException('non-nullable duration_seconds cannot be null');
+        }
+        if (($duration_seconds < 0)) {
+            throw new \InvalidArgumentException('invalid value for $duration_seconds when calling Check., must be bigger than or equal to 0.');
+        }
+
+        $this->container['duration_seconds'] = $duration_seconds;
+
+        return $this;
+    }
+
+    /**
+     * Gets failed_step
+     *
+     * @return string|null
+     */
+    public function getFailedStep()
+    {
+        return $this->container['failed_step'];
+    }
+
+    /**
+     * Sets failed_step
+     *
+     * @param string|null $failed_step The name of the step of a failed job that broke. Absent when the check isn't a job the token can read (a third-party check, a forge with no step data, a token without access).
+     *
+     * @return self
+     */
+    public function setFailedStep($failed_step)
+    {
+        if (is_null($failed_step)) {
+            throw new \InvalidArgumentException('non-nullable failed_step cannot be null');
+        }
+        $this->container['failed_step'] = $failed_step;
+
+        return $this;
+    }
+
+    /**
+     * Gets excerpt
+     *
+     * @return string|null
+     */
+    public function getExcerpt()
+    {
+        return $this->container['excerpt'];
+    }
+
+    /**
+     * Sets excerpt
+     *
+     * @param string|null $excerpt The tail of the failed job's log as plain text: the last lines, with per-line timestamps and colour codes removed, at most 2,000 characters. Never markup, and a client must render it as text. Whatever the forge already masks stays masked. Absent when the log can't be read or has expired. GitHub only: Forgejo's API doesn't serve job logs, so there the link to the run is all a failed check offers.
+     *
+     * @return self
+     */
+    public function setExcerpt($excerpt)
+    {
+        if (is_null($excerpt)) {
+            throw new \InvalidArgumentException('non-nullable excerpt cannot be null');
+        }
+        $this->container['excerpt'] = $excerpt;
 
         return $this;
     }
