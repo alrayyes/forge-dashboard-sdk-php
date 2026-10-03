@@ -57,7 +57,8 @@ class Error implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $openAPITypes = [
-        'error' => 'string'
+        'error' => 'string',
+        'field' => 'string'
     ];
 
     /**
@@ -68,7 +69,8 @@ class Error implements ModelInterface, ArrayAccess, \JsonSerializable
      * @psalm-var array<string, string|null>
      */
     protected static $openAPIFormats = [
-        'error' => null
+        'error' => null,
+        'field' => null
     ];
 
     /**
@@ -77,7 +79,8 @@ class Error implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var boolean[]
      */
     protected static array $openAPINullables = [
-        'error' => false
+        'error' => false,
+        'field' => false
     ];
 
     /**
@@ -166,7 +169,8 @@ class Error implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'error' => 'error'
+        'error' => 'error',
+        'field' => 'field'
     ];
 
     /**
@@ -175,7 +179,8 @@ class Error implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'error' => 'setError'
+        'error' => 'setError',
+        'field' => 'setField'
     ];
 
     /**
@@ -184,7 +189,8 @@ class Error implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'error' => 'getError'
+        'error' => 'getError',
+        'field' => 'getField'
     ];
 
     /**
@@ -245,6 +251,7 @@ class Error implements ModelInterface, ArrayAccess, \JsonSerializable
     public function __construct(?array $data = null)
     {
         $this->setIfExists('error', $data ?? [], null);
+        $this->setIfExists('field', $data ?? [], null);
     }
 
     /**
@@ -315,6 +322,33 @@ class Error implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable error cannot be null');
         }
         $this->container['error'] = $error;
+
+        return $this;
+    }
+
+    /**
+     * Gets field
+     *
+     * @return string|null
+     */
+    public function getField()
+    {
+        return $this->container['field'];
+    }
+
+    /**
+     * Sets field
+     *
+     * @param string|null $field Present when the rejection is about one field of the request body (a settings save, for instance), named as it appears there, so a client can mark that input without parsing `error`.
+     *
+     * @return self
+     */
+    public function setField($field)
+    {
+        if (is_null($field)) {
+            throw new \InvalidArgumentException('non-nullable field cannot be null');
+        }
+        $this->container['field'] = $field;
 
         return $this;
     }
