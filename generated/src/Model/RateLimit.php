@@ -61,7 +61,8 @@ class RateLimit implements ModelInterface, ArrayAccess, \JsonSerializable
         'limit' => 'int',
         'remaining' => 'int',
         'resets_at' => '\DateTime',
-        'cost' => 'int'
+        'cost' => 'int',
+        'severity' => 'string'
     ];
 
     /**
@@ -75,7 +76,8 @@ class RateLimit implements ModelInterface, ArrayAccess, \JsonSerializable
         'limit' => null,
         'remaining' => null,
         'resets_at' => 'date-time',
-        'cost' => null
+        'cost' => null,
+        'severity' => null
     ];
 
     /**
@@ -87,7 +89,8 @@ class RateLimit implements ModelInterface, ArrayAccess, \JsonSerializable
         'limit' => false,
         'remaining' => false,
         'resets_at' => false,
-        'cost' => false
+        'cost' => false,
+        'severity' => false
     ];
 
     /**
@@ -179,7 +182,8 @@ class RateLimit implements ModelInterface, ArrayAccess, \JsonSerializable
         'limit' => 'limit',
         'remaining' => 'remaining',
         'resets_at' => 'resetsAt',
-        'cost' => 'cost'
+        'cost' => 'cost',
+        'severity' => 'severity'
     ];
 
     /**
@@ -191,7 +195,8 @@ class RateLimit implements ModelInterface, ArrayAccess, \JsonSerializable
         'limit' => 'setLimit',
         'remaining' => 'setRemaining',
         'resets_at' => 'setResetsAt',
-        'cost' => 'setCost'
+        'cost' => 'setCost',
+        'severity' => 'setSeverity'
     ];
 
     /**
@@ -203,7 +208,8 @@ class RateLimit implements ModelInterface, ArrayAccess, \JsonSerializable
         'limit' => 'getLimit',
         'remaining' => 'getRemaining',
         'resets_at' => 'getResetsAt',
-        'cost' => 'getCost'
+        'cost' => 'getCost',
+        'severity' => 'getSeverity'
     ];
 
     /**
@@ -247,6 +253,23 @@ class RateLimit implements ModelInterface, ArrayAccess, \JsonSerializable
         return self::$openAPIModelName;
     }
 
+    public const SEVERITY_OK = 'ok';
+    public const SEVERITY_LOW = 'low';
+    public const SEVERITY_EXCEEDED = 'exceeded';
+
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getSeverityAllowableValues()
+    {
+        return [
+            self::SEVERITY_OK,
+            self::SEVERITY_LOW,
+            self::SEVERITY_EXCEEDED,
+        ];
+    }
 
     /**
      * Associative array for storing property values
@@ -267,6 +290,7 @@ class RateLimit implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('remaining', $data ?? [], null);
         $this->setIfExists('resets_at', $data ?? [], null);
         $this->setIfExists('cost', $data ?? [], null);
+        $this->setIfExists('severity', $data ?? [], null);
     }
 
     /**
@@ -315,6 +339,18 @@ class RateLimit implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if (!is_null($this->container['cost']) && ($this->container['cost'] < 0)) {
             $invalidProperties[] = "invalid value for 'cost', must be bigger than or equal to 0.";
+        }
+
+        if ($this->container['severity'] === null) {
+            $invalidProperties[] = "'severity' can't be null";
+        }
+        $allowedValues = $this->getSeverityAllowableValues();
+        if (!is_null($this->container['severity']) && !in_array($this->container['severity'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value '%s' for 'severity', must be one of '%s'",
+                $this->container['severity'],
+                implode("', '", $allowedValues)
+            );
         }
 
         return $invalidProperties;
@@ -448,6 +484,43 @@ class RateLimit implements ModelInterface, ArrayAccess, \JsonSerializable
         }
 
         $this->container['cost'] = $cost;
+
+        return $this;
+    }
+
+    /**
+     * Gets severity
+     *
+     * @return string
+     */
+    public function getSeverity()
+    {
+        return $this->container['severity'];
+    }
+
+    /**
+     * Sets severity
+     *
+     * @param string $severity How worried a client should be about this budget, graded by the server as of the response, so no client needs its own threshold or clock check. `exceeded`: nothing left and the reset hasn't been seen to pass. `low`: under 5% left (also a spent budget whose reset time has passed, until the next snapshot says otherwise). `ok`: everything else.
+     *
+     * @return self
+     */
+    public function setSeverity($severity)
+    {
+        if (is_null($severity)) {
+            throw new \InvalidArgumentException('non-nullable severity cannot be null');
+        }
+        $allowedValues = $this->getSeverityAllowableValues();
+        if (!in_array($severity, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value '%s' for 'severity', must be one of '%s'",
+                    $severity,
+                    implode("', '", $allowedValues)
+                )
+            );
+        }
+        $this->container['severity'] = $severity;
 
         return $this;
     }
