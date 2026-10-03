@@ -175,6 +175,8 @@ Class | Method | HTTP request | Description
 - [SettingsResponse](docs/Model/SettingsResponse.md)
 - [SharedUser](docs/Model/SharedUser.md)
 - [SharingResponse](docs/Model/SharingResponse.md)
+- [StackPosition](docs/Model/StackPosition.md)
+- [StackRef](docs/Model/StackRef.md)
 - [ThemeRequest](docs/Model/ThemeRequest.md)
 - [ThemeResponse](docs/Model/ThemeResponse.md)
 - [Version](docs/Model/Version.md)

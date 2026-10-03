@@ -59,6 +59,8 @@ src/Model/SettingsRequest.php
 src/Model/SettingsResponse.php
 src/Model/SharedUser.php
 src/Model/SharingResponse.php
+src/Model/StackPosition.php
+src/Model/StackRef.php
 src/Model/ThemeRequest.php
 src/Model/ThemeResponse.php
 src/Model/Version.php
