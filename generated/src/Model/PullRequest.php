@@ -70,6 +70,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'ci' => '\ForgeDashboard\Generated\Model\CIStatus',
         'merge_status' => '\ForgeDashboard\Generated\Model\MergeStatus',
         'behind' => 'bool',
+        'requested_reviewer_logins' => 'string[]',
+        'review_requested_from_me' => 'bool',
         'empty' => 'bool',
         'auto_merge_enabled' => 'bool',
         'auto_merge_allowed' => 'bool',
@@ -100,6 +102,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'ci' => null,
         'merge_status' => null,
         'behind' => null,
+        'requested_reviewer_logins' => null,
+        'review_requested_from_me' => null,
         'empty' => null,
         'auto_merge_enabled' => null,
         'auto_merge_allowed' => null,
@@ -128,6 +132,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'ci' => false,
         'merge_status' => false,
         'behind' => false,
+        'requested_reviewer_logins' => false,
+        'review_requested_from_me' => false,
         'empty' => false,
         'auto_merge_enabled' => false,
         'auto_merge_allowed' => false,
@@ -236,6 +242,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'ci' => 'ci',
         'merge_status' => 'mergeStatus',
         'behind' => 'behind',
+        'requested_reviewer_logins' => 'requestedReviewerLogins',
+        'review_requested_from_me' => 'reviewRequestedFromMe',
         'empty' => 'empty',
         'auto_merge_enabled' => 'autoMergeEnabled',
         'auto_merge_allowed' => 'autoMergeAllowed',
@@ -264,6 +272,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'ci' => 'setCi',
         'merge_status' => 'setMergeStatus',
         'behind' => 'setBehind',
+        'requested_reviewer_logins' => 'setRequestedReviewerLogins',
+        'review_requested_from_me' => 'setReviewRequestedFromMe',
         'empty' => 'setEmpty',
         'auto_merge_enabled' => 'setAutoMergeEnabled',
         'auto_merge_allowed' => 'setAutoMergeAllowed',
@@ -292,6 +302,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'ci' => 'getCi',
         'merge_status' => 'getMergeStatus',
         'behind' => 'getBehind',
+        'requested_reviewer_logins' => 'getRequestedReviewerLogins',
+        'review_requested_from_me' => 'getReviewRequestedFromMe',
         'empty' => 'getEmpty',
         'auto_merge_enabled' => 'getAutoMergeEnabled',
         'auto_merge_allowed' => 'getAutoMergeAllowed',
@@ -371,6 +383,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('ci', $data ?? [], null);
         $this->setIfExists('merge_status', $data ?? [], null);
         $this->setIfExists('behind', $data ?? [], null);
+        $this->setIfExists('requested_reviewer_logins', $data ?? [], null);
+        $this->setIfExists('review_requested_from_me', $data ?? [], null);
         $this->setIfExists('empty', $data ?? [], null);
         $this->setIfExists('auto_merge_enabled', $data ?? [], null);
         $this->setIfExists('auto_merge_allowed', $data ?? [], null);
@@ -445,6 +459,12 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if ($this->container['behind'] === null) {
             $invalidProperties[] = "'behind' can't be null";
+        }
+        if ($this->container['requested_reviewer_logins'] === null) {
+            $invalidProperties[] = "'requested_reviewer_logins' can't be null";
+        }
+        if ($this->container['review_requested_from_me'] === null) {
+            $invalidProperties[] = "'review_requested_from_me' can't be null";
         }
         if ($this->container['empty'] === null) {
             $invalidProperties[] = "'empty' can't be null";
@@ -820,6 +840,60 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable behind cannot be null');
         }
         $this->container['behind'] = $behind;
+
+        return $this;
+    }
+
+    /**
+     * Gets requested_reviewer_logins
+     *
+     * @return string[]
+     */
+    public function getRequestedReviewerLogins()
+    {
+        return $this->container['requested_reviewer_logins'];
+    }
+
+    /**
+     * Sets requested_reviewer_logins
+     *
+     * @param string[] $requested_reviewer_logins The logins of the users asked to review this pull request, on both forges. A team request has no login and is left out. Always present, and empty when nobody was asked. Costs no extra request: GitHub returns it with the reviewRequests count already queried, Forgejo with the pull request itself.
+     *
+     * @return self
+     */
+    public function setRequestedReviewerLogins($requested_reviewer_logins)
+    {
+        if (is_null($requested_reviewer_logins)) {
+            throw new \InvalidArgumentException('non-nullable requested_reviewer_logins cannot be null');
+        }
+        $this->container['requested_reviewer_logins'] = $requested_reviewer_logins;
+
+        return $this;
+    }
+
+    /**
+     * Gets review_requested_from_me
+     *
+     * @return bool
+     */
+    public function getReviewRequestedFromMe()
+    {
+        return $this->container['review_requested_from_me'];
+    }
+
+    /**
+     * Sets review_requested_from_me
+     *
+     * @param bool $review_requested_from_me True when this open, non-draft pull request asks the signed-in user to review it, matched without regard to case against the username saved in Settings for its forge. False when no username is saved for that forge. Always present.
+     *
+     * @return self
+     */
+    public function setReviewRequestedFromMe($review_requested_from_me)
+    {
+        if (is_null($review_requested_from_me)) {
+            throw new \InvalidArgumentException('non-nullable review_requested_from_me cannot be null');
+        }
+        $this->container['review_requested_from_me'] = $review_requested_from_me;
 
         return $this;
     }
