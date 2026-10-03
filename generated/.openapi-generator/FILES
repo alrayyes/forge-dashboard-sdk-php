@@ -26,6 +26,8 @@ src/Model/AdminInvite.php
 src/Model/AdminInviteCreateRequest.php
 src/Model/AdminInviteCreateResponse.php
 src/Model/AdminUser.php
+src/Model/AllowedAction.php
+src/Model/AllowedActionBlocked.php
 src/Model/CIStatus.php
 src/Model/Check.php
 src/Model/CheckState.php
