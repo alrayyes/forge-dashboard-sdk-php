@@ -70,6 +70,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'ci' => '\ForgeDashboard\Generated\Model\CIStatus',
         'merge_status' => '\ForgeDashboard\Generated\Model\MergeStatus',
         'behind' => 'bool',
+        'head_sha' => 'string',
         'base_branch' => 'string',
         'head_branch' => 'string',
         'cross_repository' => 'bool',
@@ -108,6 +109,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'ci' => null,
         'merge_status' => null,
         'behind' => null,
+        'head_sha' => null,
         'base_branch' => null,
         'head_branch' => null,
         'cross_repository' => null,
@@ -144,6 +146,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'ci' => false,
         'merge_status' => false,
         'behind' => false,
+        'head_sha' => false,
         'base_branch' => false,
         'head_branch' => false,
         'cross_repository' => false,
@@ -260,6 +263,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'ci' => 'ci',
         'merge_status' => 'mergeStatus',
         'behind' => 'behind',
+        'head_sha' => 'headSha',
         'base_branch' => 'baseBranch',
         'head_branch' => 'headBranch',
         'cross_repository' => 'crossRepository',
@@ -296,6 +300,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'ci' => 'setCi',
         'merge_status' => 'setMergeStatus',
         'behind' => 'setBehind',
+        'head_sha' => 'setHeadSha',
         'base_branch' => 'setBaseBranch',
         'head_branch' => 'setHeadBranch',
         'cross_repository' => 'setCrossRepository',
@@ -332,6 +337,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'ci' => 'getCi',
         'merge_status' => 'getMergeStatus',
         'behind' => 'getBehind',
+        'head_sha' => 'getHeadSha',
         'base_branch' => 'getBaseBranch',
         'head_branch' => 'getHeadBranch',
         'cross_repository' => 'getCrossRepository',
@@ -419,6 +425,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('ci', $data ?? [], null);
         $this->setIfExists('merge_status', $data ?? [], null);
         $this->setIfExists('behind', $data ?? [], null);
+        $this->setIfExists('head_sha', $data ?? [], null);
         $this->setIfExists('base_branch', $data ?? [], null);
         $this->setIfExists('head_branch', $data ?? [], null);
         $this->setIfExists('cross_repository', $data ?? [], null);
@@ -501,6 +508,9 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if ($this->container['behind'] === null) {
             $invalidProperties[] = "'behind' can't be null";
+        }
+        if ($this->container['head_sha'] === null) {
+            $invalidProperties[] = "'head_sha' can't be null";
         }
         if ($this->container['base_branch'] === null) {
             $invalidProperties[] = "'base_branch' can't be null";
@@ -900,6 +910,33 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable behind cannot be null');
         }
         $this->container['behind'] = $behind;
+
+        return $this;
+    }
+
+    /**
+     * Gets head_sha
+     *
+     * @return string
+     */
+    public function getHeadSha()
+    {
+        return $this->container['head_sha'];
+    }
+
+    /**
+     * Sets head_sha
+     *
+     * @param string $head_sha The commit the pull request's head branch points at. A bot's rebase moves it, which shows the bot acted even when the pull request is still reported behind, or wasn't behind to begin with. Empty when the forge didn't say. Always present.
+     *
+     * @return self
+     */
+    public function setHeadSha($head_sha)
+    {
+        if (is_null($head_sha)) {
+            throw new \InvalidArgumentException('non-nullable head_sha cannot be null');
+        }
+        $this->container['head_sha'] = $head_sha;
 
         return $this;
     }
