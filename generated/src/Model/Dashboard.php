@@ -58,6 +58,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $openAPITypes = [
         'generated_at' => '\DateTime',
+        'hidden_drafts' => 'int',
         'forges' => '\ForgeDashboard\Generated\Model\ForgeHealth[]',
         'pull_requests' => '\ForgeDashboard\Generated\Model\PullRequest[]',
         'issues' => '\ForgeDashboard\Generated\Model\Issue[]',
@@ -73,6 +74,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $openAPIFormats = [
         'generated_at' => 'date-time',
+        'hidden_drafts' => null,
         'forges' => null,
         'pull_requests' => null,
         'issues' => null,
@@ -86,6 +88,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static array $openAPINullables = [
         'generated_at' => false,
+        'hidden_drafts' => false,
         'forges' => false,
         'pull_requests' => false,
         'issues' => false,
@@ -179,6 +182,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $attributeMap = [
         'generated_at' => 'generatedAt',
+        'hidden_drafts' => 'hiddenDrafts',
         'forges' => 'forges',
         'pull_requests' => 'pullRequests',
         'issues' => 'issues',
@@ -192,6 +196,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $setters = [
         'generated_at' => 'setGeneratedAt',
+        'hidden_drafts' => 'setHiddenDrafts',
         'forges' => 'setForges',
         'pull_requests' => 'setPullRequests',
         'issues' => 'setIssues',
@@ -205,6 +210,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $getters = [
         'generated_at' => 'getGeneratedAt',
+        'hidden_drafts' => 'getHiddenDrafts',
         'forges' => 'getForges',
         'pull_requests' => 'getPullRequests',
         'issues' => 'getIssues',
@@ -269,6 +275,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
     public function __construct(?array $data = null)
     {
         $this->setIfExists('generated_at', $data ?? [], null);
+        $this->setIfExists('hidden_drafts', $data ?? [], null);
         $this->setIfExists('forges', $data ?? [], null);
         $this->setIfExists('pull_requests', $data ?? [], null);
         $this->setIfExists('issues', $data ?? [], null);
@@ -305,6 +312,13 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['generated_at'] === null) {
             $invalidProperties[] = "'generated_at' can't be null";
         }
+        if ($this->container['hidden_drafts'] === null) {
+            $invalidProperties[] = "'hidden_drafts' can't be null";
+        }
+        if (($this->container['hidden_drafts'] < 0)) {
+            $invalidProperties[] = "invalid value for 'hidden_drafts', must be bigger than or equal to 0.";
+        }
+
         if ($this->container['forges'] === null) {
             $invalidProperties[] = "'forges' can't be null";
         }
@@ -355,6 +369,37 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable generated_at cannot be null');
         }
         $this->container['generated_at'] = $generated_at;
+
+        return $this;
+    }
+
+    /**
+     * Gets hidden_drafts
+     *
+     * @return int
+     */
+    public function getHiddenDrafts()
+    {
+        return $this->container['hidden_drafts'];
+    }
+
+    /**
+     * Sets hidden_drafts
+     *
+     * @param int $hidden_drafts How many draft pull requests `pullRequests` leaves out. Always present, and `0` when the request set `includeDrafts=true`, so a client can render \"N hidden\" without a special case. Drafts in a repo the account ignores aren't counted, since none of that repo's pull requests show.
+     *
+     * @return self
+     */
+    public function setHiddenDrafts($hidden_drafts)
+    {
+        if (is_null($hidden_drafts)) {
+            throw new \InvalidArgumentException('non-nullable hidden_drafts cannot be null');
+        }
+        if (($hidden_drafts < 0)) {
+            throw new \InvalidArgumentException('invalid value for $hidden_drafts when calling Dashboard., must be bigger than or equal to 0.');
+        }
+
+        $this->container['hidden_drafts'] = $hidden_drafts;
 
         return $this;
     }

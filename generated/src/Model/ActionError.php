@@ -35,7 +35,7 @@ use \ForgeDashboard\Generated\ObjectSerializer;
  * ActionError Class Doc Comment
  *
  * @category Class
- * @description The structured result of a refused pull request action (Merge, Close, Update branch, Enable auto-merge, Dependabot and Renovate rebase). &#x60;error&#x60; is the same string every Error carries (the forge&#39;s own text, for logs); &#x60;code&#x60; and &#x60;message&#x60; are what a client should act on and show.
+ * @description The structured result of a refused pull request action (Merge, Close, Update branch, Enable auto-merge, Dependabot and Renovate rebase). &#x60;code&#x60; and &#x60;message&#x60; are what a client should act on and show.
  * @package  ForgeDashboard\Generated
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -381,7 +381,7 @@ class ActionError implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets error
      *
-     * @param string $error The underlying error text, unchanged.
+     * @param string $error The same string every Error carries. With `code: unknown` it is the same plain words as `message`, since the raw text (internal prefixes, API paths, URLs) goes to the server log. With any other code it is the forge's own text, for logs.
      *
      * @return self
      */
@@ -445,7 +445,7 @@ class ActionError implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets message
      *
-     * @param string $message A short reason in plain words, safe to show a person.
+     * @param string $message A short reason in plain words, safe to show a person, always. With `code: unknown` it is the forge's own sentence when that reads as one, \"The forge didn't answer. Try again in a moment.\" when the forge was unreachable (including a 502, 503 or 504), and \"The forge refused this action and gave no reason.\" otherwise. It never holds an internal prefix, an API path, a URL or JSON.
      *
      * @return self
      */
