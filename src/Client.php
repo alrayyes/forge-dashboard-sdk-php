@@ -100,6 +100,11 @@ final readonly class Client
 
         $config = new Configuration;
         $config->setHost(rtrim($baseUrl, '/'));
+        // The generator sends a boolean query parameter as 1 or 0 by default;
+        // the API and its mock accept only true or false. Its serializer reads
+        // the process-wide default Configuration, not the instance above, so
+        // that is the one to set. Setting it again on every Client is harmless.
+        Configuration::getDefaultConfiguration()->setBooleanFormatForQueryString(Configuration::BOOLEAN_FORMAT_STRING);
 
         $this->health = new HealthApi($guzzle, $config);
         $this->dashboard = new DashboardApi($guzzle, $config);

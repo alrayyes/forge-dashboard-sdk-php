@@ -1802,6 +1802,11 @@ paths:
         it returns that user's dashboard instead — allowed only when they've
         shared it with the caller (or the caller is viewing their own
         username), and refused with a 403 otherwise.
+
+        Draft pull requests are left out unless `includeDrafts=true`. With
+        `owner`, the same rule applies to that user's dashboard, and
+        `hiddenDrafts` counts only the drafts in repos that user hasn't
+        ignored, the same repos whose other pull requests show.
       tags: [dashboard]
       parameters:
         - name: owner
@@ -1810,6 +1815,7 @@ paths:
           schema:
             type: string
           description: A username that has shared their dashboard with the caller. Defaults to the caller's own.
+        - $ref: "#/components/parameters/QueryIncludeDrafts"
       security: [{ bearerAuth: [] }]
       responses:
         "200":
@@ -1855,7 +1861,13 @@ paths:
         proxy that can't hold an SSE connection open just never
         benefits from this, rather than the dashboard going stale
         silently.
+
+        `includeDrafts` is read once, when the connection opens, and
+        applies to every event on it. A client that changes its mind
+        reconnects with the new value.
       tags: [dashboard]
+      parameters:
+        - $ref: "#/components/parameters/QueryIncludeDrafts"
       security: [{ bearerAuth: [] }]
       responses:
         "200":
@@ -1897,6 +1909,8 @@ paths:
         spend that owner's own forge rate-limit budget on their own
         schedule.
       tags: [dashboard]
+      parameters:
+        - $ref: "#/components/parameters/QueryIncludeDrafts"
       security: [{ bearerAuth: [] }]
       responses:
         "200":
@@ -2114,6 +2128,20 @@ components:
       schema:
         type: string
 
+    QueryIncludeDrafts:
+      name: includeDrafts
+      in: query
+      required: false
+      description: |
+        Whether draft pull requests are in `pullRequests`. Defaults to
+        `false`: nothing can be merged, auto-merged or updated on a draft,
+        so a draft is left out and counted in the response's `hiddenDrafts`
+        instead. The stream and the refresh endpoint take the same
+        parameter, so every snapshot a client receives follows one rule.
+      schema:
+        type: boolean
+        default: false
+
     QueryRequestLogForge:
       name: forge
       in: query
@@ -2168,13 +2196,16 @@ components:
       description: >-
         The structured result of a refused pull request action (Merge,
         Close, Update branch, Enable auto-merge, Dependabot and Renovate
-        rebase). `error` is the same
-        string every Error carries (the forge's own text, for logs);
-        `code` and `message` are what a client should act on and show.
+        rebase). `code` and `message` are what a client should act on
+        and show.
       properties:
         error:
           type: string
-          description: The underlying error text, unchanged.
+          description: |
+            The same string every Error carries. With `code: unknown` it
+            is the same plain words as `message`, since the raw text
+            (internal prefixes, API paths, URLs) goes to the server log.
+            With any other code it is the forge's own text, for logs.
         code:
           type: string
           enum:
@@ -2205,7 +2236,14 @@ components:
             Merge).
         message:
           type: string
-          description: A short reason in plain words, safe to show a person.
+          description: |
+            A short reason in plain words, safe to show a person, always.
+            With `code: unknown` it is the forge's own sentence when that
+            reads as one, "The forge didn't answer. Try again in a moment."
+            when the forge was unreachable (including a 502, 503 or 504),
+            and "The forge refused this action and gave no reason."
+            otherwise. It never holds an internal prefix, an API path, a
+            URL or JSON.
         resetsAt:
           type: string
           format: date-time
@@ -3043,12 +3081,21 @@ components:
 
     Dashboard:
       type: object
-      required: [generatedAt, forges, pullRequests, issues, repos]
+      required: [generatedAt, forges, pullRequests, issues, repos, hiddenDrafts]
       properties:
         generatedAt:
           type: string
           format: date-time
           description: When this snapshot was refreshed, not when it was requested.
+        hiddenDrafts:
+          type: integer
+          minimum: 0
+          description: |
+            How many draft pull requests `pullRequests` leaves out. Always
+            present, and `0` when the request set `includeDrafts=true`, so
+            a client can render "N hidden" without a special case. Drafts
+            in a repo the account ignores aren't counted, since none of
+            that repo's pull requests show.
         forges:
           type: array
           items:
