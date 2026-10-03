@@ -143,6 +143,8 @@ Class | Method | HTTP request | Description
 - [AdminInviteCreateRequest](docs/Model/AdminInviteCreateRequest.md)
 - [AdminInviteCreateResponse](docs/Model/AdminInviteCreateResponse.md)
 - [AdminUser](docs/Model/AdminUser.md)
+- [AllowedAction](docs/Model/AllowedAction.md)
+- [AllowedActionBlocked](docs/Model/AllowedActionBlocked.md)
 - [CIStatus](docs/Model/CIStatus.md)
 - [Check](docs/Model/Check.md)
 - [CheckState](docs/Model/CheckState.md)

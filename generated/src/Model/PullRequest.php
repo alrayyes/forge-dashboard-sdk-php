@@ -73,7 +73,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'empty' => 'bool',
         'auto_merge_enabled' => 'bool',
         'auto_merge_allowed' => 'bool',
-        'review' => '\ForgeDashboard\Generated\Model\ReviewState'
+        'review' => '\ForgeDashboard\Generated\Model\ReviewState',
+        'allowed_actions' => '\ForgeDashboard\Generated\Model\AllowedAction[]'
     ];
 
     /**
@@ -100,7 +101,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'empty' => null,
         'auto_merge_enabled' => null,
         'auto_merge_allowed' => null,
-        'review' => null
+        'review' => null,
+        'allowed_actions' => null
     ];
 
     /**
@@ -125,7 +127,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'empty' => false,
         'auto_merge_enabled' => false,
         'auto_merge_allowed' => false,
-        'review' => false
+        'review' => false,
+        'allowed_actions' => false
     ];
 
     /**
@@ -230,7 +233,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'empty' => 'empty',
         'auto_merge_enabled' => 'autoMergeEnabled',
         'auto_merge_allowed' => 'autoMergeAllowed',
-        'review' => 'review'
+        'review' => 'review',
+        'allowed_actions' => 'allowedActions'
     ];
 
     /**
@@ -255,7 +259,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'empty' => 'setEmpty',
         'auto_merge_enabled' => 'setAutoMergeEnabled',
         'auto_merge_allowed' => 'setAutoMergeAllowed',
-        'review' => 'setReview'
+        'review' => 'setReview',
+        'allowed_actions' => 'setAllowedActions'
     ];
 
     /**
@@ -280,7 +285,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'empty' => 'getEmpty',
         'auto_merge_enabled' => 'getAutoMergeEnabled',
         'auto_merge_allowed' => 'getAutoMergeAllowed',
-        'review' => 'getReview'
+        'review' => 'getReview',
+        'allowed_actions' => 'getAllowedActions'
     ];
 
     /**
@@ -357,6 +363,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('auto_merge_enabled', $data ?? [], null);
         $this->setIfExists('auto_merge_allowed', $data ?? [], null);
         $this->setIfExists('review', $data ?? [], null);
+        $this->setIfExists('allowed_actions', $data ?? [], null);
     }
 
     /**
@@ -427,6 +434,9 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if ($this->container['empty'] === null) {
             $invalidProperties[] = "'empty' can't be null";
+        }
+        if ($this->container['allowed_actions'] === null) {
+            $invalidProperties[] = "'allowed_actions' can't be null";
         }
         return $invalidProperties;
     }
@@ -898,6 +908,33 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable review cannot be null');
         }
         $this->container['review'] = $review;
+
+        return $this;
+    }
+
+    /**
+     * Gets allowed_actions
+     *
+     * @return \ForgeDashboard\Generated\Model\AllowedAction[]
+     */
+    public function getAllowedActions()
+    {
+        return $this->container['allowed_actions'];
+    }
+
+    /**
+     * Sets allowed_actions
+     *
+     * @param \ForgeDashboard\Generated\Model\AllowedAction[] $allowed_actions The actions this pull request offers, worked out on the server from its own fields, so a client needs no copy of the rules. An action that doesn't apply (Update branch on a pull request that isn't behind, a Dependabot command on a Renovate pull request) is absent, not listed as blocked. Always present; `close` is always in it. Live state is the client's: a rate-limited or unreachable forge, a missing token and an action already in flight can still stop an offered action.
+     *
+     * @return self
+     */
+    public function setAllowedActions($allowed_actions)
+    {
+        if (is_null($allowed_actions)) {
+            throw new \InvalidArgumentException('non-nullable allowed_actions cannot be null');
+        }
+        $this->container['allowed_actions'] = $allowed_actions;
 
         return $this;
     }
