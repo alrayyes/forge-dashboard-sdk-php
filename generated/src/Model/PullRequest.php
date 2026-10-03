@@ -74,7 +74,9 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'auto_merge_enabled' => 'bool',
         'auto_merge_allowed' => 'bool',
         'review' => '\ForgeDashboard\Generated\Model\ReviewState',
-        'allowed_actions' => '\ForgeDashboard\Generated\Model\AllowedAction[]'
+        'allowed_actions' => '\ForgeDashboard\Generated\Model\AllowedAction[]',
+        'ready_to_merge' => 'bool',
+        'needs_review' => 'bool'
     ];
 
     /**
@@ -102,7 +104,9 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'auto_merge_enabled' => null,
         'auto_merge_allowed' => null,
         'review' => null,
-        'allowed_actions' => null
+        'allowed_actions' => null,
+        'ready_to_merge' => null,
+        'needs_review' => null
     ];
 
     /**
@@ -128,7 +132,9 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'auto_merge_enabled' => false,
         'auto_merge_allowed' => false,
         'review' => false,
-        'allowed_actions' => false
+        'allowed_actions' => false,
+        'ready_to_merge' => false,
+        'needs_review' => false
     ];
 
     /**
@@ -234,7 +240,9 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'auto_merge_enabled' => 'autoMergeEnabled',
         'auto_merge_allowed' => 'autoMergeAllowed',
         'review' => 'review',
-        'allowed_actions' => 'allowedActions'
+        'allowed_actions' => 'allowedActions',
+        'ready_to_merge' => 'readyToMerge',
+        'needs_review' => 'needsReview'
     ];
 
     /**
@@ -260,7 +268,9 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'auto_merge_enabled' => 'setAutoMergeEnabled',
         'auto_merge_allowed' => 'setAutoMergeAllowed',
         'review' => 'setReview',
-        'allowed_actions' => 'setAllowedActions'
+        'allowed_actions' => 'setAllowedActions',
+        'ready_to_merge' => 'setReadyToMerge',
+        'needs_review' => 'setNeedsReview'
     ];
 
     /**
@@ -286,7 +296,9 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'auto_merge_enabled' => 'getAutoMergeEnabled',
         'auto_merge_allowed' => 'getAutoMergeAllowed',
         'review' => 'getReview',
-        'allowed_actions' => 'getAllowedActions'
+        'allowed_actions' => 'getAllowedActions',
+        'ready_to_merge' => 'getReadyToMerge',
+        'needs_review' => 'getNeedsReview'
     ];
 
     /**
@@ -364,6 +376,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('auto_merge_allowed', $data ?? [], null);
         $this->setIfExists('review', $data ?? [], null);
         $this->setIfExists('allowed_actions', $data ?? [], null);
+        $this->setIfExists('ready_to_merge', $data ?? [], null);
+        $this->setIfExists('needs_review', $data ?? [], null);
     }
 
     /**
@@ -437,6 +451,12 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if ($this->container['allowed_actions'] === null) {
             $invalidProperties[] = "'allowed_actions' can't be null";
+        }
+        if ($this->container['ready_to_merge'] === null) {
+            $invalidProperties[] = "'ready_to_merge' can't be null";
+        }
+        if ($this->container['needs_review'] === null) {
+            $invalidProperties[] = "'needs_review' can't be null";
         }
         return $invalidProperties;
     }
@@ -935,6 +955,60 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable allowed_actions cannot be null');
         }
         $this->container['allowed_actions'] = $allowed_actions;
+
+        return $this;
+    }
+
+    /**
+     * Gets ready_to_merge
+     *
+     * @return bool
+     */
+    public function getReadyToMerge()
+    {
+        return $this->container['ready_to_merge'];
+    }
+
+    /**
+     * Sets ready_to_merge
+     *
+     * @param bool $ready_to_merge True when the pull request is mergeable, its CI is green and it isn't a draft: what the Ready quick filter lists. Always present. A pull request with no checks isn't ready.
+     *
+     * @return self
+     */
+    public function setReadyToMerge($ready_to_merge)
+    {
+        if (is_null($ready_to_merge)) {
+            throw new \InvalidArgumentException('non-nullable ready_to_merge cannot be null');
+        }
+        $this->container['ready_to_merge'] = $ready_to_merge;
+
+        return $this;
+    }
+
+    /**
+     * Gets needs_review
+     *
+     * @return bool
+     */
+    public function getNeedsReview()
+    {
+        return $this->container['needs_review'];
+    }
+
+    /**
+     * Sets needs_review
+     *
+     * @param bool $needs_review True when a review is outstanding: the forge requires one, or a reviewer was asked and hasn't answered, and the pull request isn't a draft. Unreviewed with nobody asked, approved, changes requested and an unknown review state are all false. Always present.
+     *
+     * @return self
+     */
+    public function setNeedsReview($needs_review)
+    {
+        if (is_null($needs_review)) {
+            throw new \InvalidArgumentException('non-nullable needs_review cannot be null');
+        }
+        $this->container['needs_review'] = $needs_review;
 
         return $this;
     }
