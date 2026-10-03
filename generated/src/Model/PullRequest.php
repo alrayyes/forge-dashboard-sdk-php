@@ -70,6 +70,12 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'ci' => '\ForgeDashboard\Generated\Model\CIStatus',
         'merge_status' => '\ForgeDashboard\Generated\Model\MergeStatus',
         'behind' => 'bool',
+        'base_branch' => 'string',
+        'head_branch' => 'string',
+        'cross_repository' => 'bool',
+        'stack' => '\ForgeDashboard\Generated\Model\StackPosition',
+        'stacked_on' => '\ForgeDashboard\Generated\Model\StackRef',
+        'stack_children' => 'int[]',
         'requested_reviewer_logins' => 'string[]',
         'review_requested_from_me' => 'bool',
         'empty' => 'bool',
@@ -102,6 +108,12 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'ci' => null,
         'merge_status' => null,
         'behind' => null,
+        'base_branch' => null,
+        'head_branch' => null,
+        'cross_repository' => null,
+        'stack' => null,
+        'stacked_on' => null,
+        'stack_children' => null,
         'requested_reviewer_logins' => null,
         'review_requested_from_me' => null,
         'empty' => null,
@@ -132,6 +144,12 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'ci' => false,
         'merge_status' => false,
         'behind' => false,
+        'base_branch' => false,
+        'head_branch' => false,
+        'cross_repository' => false,
+        'stack' => true,
+        'stacked_on' => true,
+        'stack_children' => false,
         'requested_reviewer_logins' => false,
         'review_requested_from_me' => false,
         'empty' => false,
@@ -242,6 +260,12 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'ci' => 'ci',
         'merge_status' => 'mergeStatus',
         'behind' => 'behind',
+        'base_branch' => 'baseBranch',
+        'head_branch' => 'headBranch',
+        'cross_repository' => 'crossRepository',
+        'stack' => 'stack',
+        'stacked_on' => 'stackedOn',
+        'stack_children' => 'stackChildren',
         'requested_reviewer_logins' => 'requestedReviewerLogins',
         'review_requested_from_me' => 'reviewRequestedFromMe',
         'empty' => 'empty',
@@ -272,6 +296,12 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'ci' => 'setCi',
         'merge_status' => 'setMergeStatus',
         'behind' => 'setBehind',
+        'base_branch' => 'setBaseBranch',
+        'head_branch' => 'setHeadBranch',
+        'cross_repository' => 'setCrossRepository',
+        'stack' => 'setStack',
+        'stacked_on' => 'setStackedOn',
+        'stack_children' => 'setStackChildren',
         'requested_reviewer_logins' => 'setRequestedReviewerLogins',
         'review_requested_from_me' => 'setReviewRequestedFromMe',
         'empty' => 'setEmpty',
@@ -302,6 +332,12 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'ci' => 'getCi',
         'merge_status' => 'getMergeStatus',
         'behind' => 'getBehind',
+        'base_branch' => 'getBaseBranch',
+        'head_branch' => 'getHeadBranch',
+        'cross_repository' => 'getCrossRepository',
+        'stack' => 'getStack',
+        'stacked_on' => 'getStackedOn',
+        'stack_children' => 'getStackChildren',
         'requested_reviewer_logins' => 'getRequestedReviewerLogins',
         'review_requested_from_me' => 'getReviewRequestedFromMe',
         'empty' => 'getEmpty',
@@ -383,6 +419,12 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('ci', $data ?? [], null);
         $this->setIfExists('merge_status', $data ?? [], null);
         $this->setIfExists('behind', $data ?? [], null);
+        $this->setIfExists('base_branch', $data ?? [], null);
+        $this->setIfExists('head_branch', $data ?? [], null);
+        $this->setIfExists('cross_repository', $data ?? [], null);
+        $this->setIfExists('stack', $data ?? [], null);
+        $this->setIfExists('stacked_on', $data ?? [], null);
+        $this->setIfExists('stack_children', $data ?? [], null);
         $this->setIfExists('requested_reviewer_logins', $data ?? [], null);
         $this->setIfExists('review_requested_from_me', $data ?? [], null);
         $this->setIfExists('empty', $data ?? [], null);
@@ -459,6 +501,24 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if ($this->container['behind'] === null) {
             $invalidProperties[] = "'behind' can't be null";
+        }
+        if ($this->container['base_branch'] === null) {
+            $invalidProperties[] = "'base_branch' can't be null";
+        }
+        if ($this->container['head_branch'] === null) {
+            $invalidProperties[] = "'head_branch' can't be null";
+        }
+        if ($this->container['cross_repository'] === null) {
+            $invalidProperties[] = "'cross_repository' can't be null";
+        }
+        if ($this->container['stack'] === null && !$this->isNullableSetToNull('stack')) {
+            $invalidProperties[] = "'stack' is required";
+        }
+        if ($this->container['stacked_on'] === null && !$this->isNullableSetToNull('stacked_on')) {
+            $invalidProperties[] = "'stacked_on' is required";
+        }
+        if ($this->container['stack_children'] === null) {
+            $invalidProperties[] = "'stack_children' can't be null";
         }
         if ($this->container['requested_reviewer_logins'] === null) {
             $invalidProperties[] = "'requested_reviewer_logins' can't be null";
@@ -840,6 +900,182 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable behind cannot be null');
         }
         $this->container['behind'] = $behind;
+
+        return $this;
+    }
+
+    /**
+     * Gets base_branch
+     *
+     * @return string
+     */
+    public function getBaseBranch()
+    {
+        return $this->container['base_branch'];
+    }
+
+    /**
+     * Sets base_branch
+     *
+     * @param string $base_branch The branch the pull request targets. Empty when the forge didn't say.
+     *
+     * @return self
+     */
+    public function setBaseBranch($base_branch)
+    {
+        if (is_null($base_branch)) {
+            throw new \InvalidArgumentException('non-nullable base_branch cannot be null');
+        }
+        $this->container['base_branch'] = $base_branch;
+
+        return $this;
+    }
+
+    /**
+     * Gets head_branch
+     *
+     * @return string
+     */
+    public function getHeadBranch()
+    {
+        return $this->container['head_branch'];
+    }
+
+    /**
+     * Sets head_branch
+     *
+     * @param string $head_branch The branch the pull request comes from. Empty when the forge didn't say.
+     *
+     * @return self
+     */
+    public function setHeadBranch($head_branch)
+    {
+        if (is_null($head_branch)) {
+            throw new \InvalidArgumentException('non-nullable head_branch cannot be null');
+        }
+        $this->container['head_branch'] = $head_branch;
+
+        return $this;
+    }
+
+    /**
+     * Gets cross_repository
+     *
+     * @return bool
+     */
+    public function getCrossRepository()
+    {
+        return $this->container['cross_repository'];
+    }
+
+    /**
+     * Sets cross_repository
+     *
+     * @param bool $cross_repository True when the head branch lives in another repository (a fork). A fork pull request is never part of a stack.
+     *
+     * @return self
+     */
+    public function setCrossRepository($cross_repository)
+    {
+        if (is_null($cross_repository)) {
+            throw new \InvalidArgumentException('non-nullable cross_repository cannot be null');
+        }
+        $this->container['cross_repository'] = $cross_repository;
+
+        return $this;
+    }
+
+    /**
+     * Gets stack
+     *
+     * @return \ForgeDashboard\Generated\Model\StackPosition|null
+     */
+    public function getStack()
+    {
+        return $this->container['stack'];
+    }
+
+    /**
+     * Sets stack
+     *
+     * @param \ForgeDashboard\Generated\Model\StackPosition|null $stack Where this pull request sits in a stack of pull requests, or null when it is in none. A stack is worked out on the server: pull request B is stacked on A when B's base branch is A's head branch, in the same repository on the same forge, and neither is a fork. A branch with several open pull requests takes the one with the lowest number as parent, and a loop of branches is treated as no stack. The snapshot holds open pull requests only, so a base branch that no open pull request owns (a parent that already merged and was not retargeted) is not flagged.
+     *
+     * @return self
+     */
+    public function setStack($stack)
+    {
+        if (is_null($stack)) {
+            array_push($this->openAPINullablesSetToNull, 'stack');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('stack', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['stack'] = $stack;
+
+        return $this;
+    }
+
+    /**
+     * Gets stacked_on
+     *
+     * @return \ForgeDashboard\Generated\Model\StackRef|null
+     */
+    public function getStackedOn()
+    {
+        return $this->container['stacked_on'];
+    }
+
+    /**
+     * Sets stacked_on
+     *
+     * @param \ForgeDashboard\Generated\Model\StackRef|null $stacked_on The open pull request this one is stacked on, or null when its base is not another open pull request's head.
+     *
+     * @return self
+     */
+    public function setStackedOn($stacked_on)
+    {
+        if (is_null($stacked_on)) {
+            array_push($this->openAPINullablesSetToNull, 'stacked_on');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('stacked_on', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['stacked_on'] = $stacked_on;
+
+        return $this;
+    }
+
+    /**
+     * Gets stack_children
+     *
+     * @return int[]
+     */
+    public function getStackChildren()
+    {
+        return $this->container['stack_children'];
+    }
+
+    /**
+     * Sets stack_children
+     *
+     * @param int[] $stack_children The numbers of the open pull requests stacked directly on this one. Always a list, empty when none.
+     *
+     * @return self
+     */
+    public function setStackChildren($stack_children)
+    {
+        if (is_null($stack_children)) {
+            throw new \InvalidArgumentException('non-nullable stack_children cannot be null');
+        }
+        $this->container['stack_children'] = $stack_children;
 
         return $this;
     }

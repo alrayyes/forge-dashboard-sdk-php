@@ -1,6 +1,6 @@
 <?php
 /**
- * AllowedActionBlocked
+ * StackRef
  *
  * PHP version 8.1
  *
@@ -32,16 +32,15 @@ use \ArrayAccess;
 use \ForgeDashboard\Generated\ObjectSerializer;
 
 /**
- * AllowedActionBlocked Class Doc Comment
+ * StackRef Class Doc Comment
  *
  * @category Class
- * @description Present when the action is offered but can&#39;t be taken yet. Merge is never hidden for an open pull request, only blocked.
  * @package  ForgeDashboard\Generated
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class AllowedActionBlocked implements ModelInterface, ArrayAccess, \JsonSerializable
+class StackRef implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -50,7 +49,7 @@ class AllowedActionBlocked implements ModelInterface, ArrayAccess, \JsonSerializ
      *
      * @var string
      */
-    protected static $openAPIModelName = 'AllowedAction_blocked';
+    protected static $openAPIModelName = 'StackRef';
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -58,9 +57,8 @@ class AllowedActionBlocked implements ModelInterface, ArrayAccess, \JsonSerializ
      * @var string[]
      */
     protected static $openAPITypes = [
-        'code' => 'string',
-        'message' => 'string',
-        'next' => 'string'
+        'number' => 'int',
+        'url' => 'string'
     ];
 
     /**
@@ -71,9 +69,8 @@ class AllowedActionBlocked implements ModelInterface, ArrayAccess, \JsonSerializ
      * @psalm-var array<string, string|null>
      */
     protected static $openAPIFormats = [
-        'code' => null,
-        'message' => null,
-        'next' => null
+        'number' => null,
+        'url' => 'uri'
     ];
 
     /**
@@ -82,9 +79,8 @@ class AllowedActionBlocked implements ModelInterface, ArrayAccess, \JsonSerializ
      * @var boolean[]
      */
     protected static array $openAPINullables = [
-        'code' => false,
-        'message' => false,
-        'next' => false
+        'number' => false,
+        'url' => false
     ];
 
     /**
@@ -173,9 +169,8 @@ class AllowedActionBlocked implements ModelInterface, ArrayAccess, \JsonSerializ
      * @var string[]
      */
     protected static $attributeMap = [
-        'code' => 'code',
-        'message' => 'message',
-        'next' => 'next'
+        'number' => 'number',
+        'url' => 'url'
     ];
 
     /**
@@ -184,9 +179,8 @@ class AllowedActionBlocked implements ModelInterface, ArrayAccess, \JsonSerializ
      * @var string[]
      */
     protected static $setters = [
-        'code' => 'setCode',
-        'message' => 'setMessage',
-        'next' => 'setNext'
+        'number' => 'setNumber',
+        'url' => 'setUrl'
     ];
 
     /**
@@ -195,9 +189,8 @@ class AllowedActionBlocked implements ModelInterface, ArrayAccess, \JsonSerializ
      * @var string[]
      */
     protected static $getters = [
-        'code' => 'getCode',
-        'message' => 'getMessage',
-        'next' => 'getNext'
+        'number' => 'getNumber',
+        'url' => 'getUrl'
     ];
 
     /**
@@ -241,33 +234,6 @@ class AllowedActionBlocked implements ModelInterface, ArrayAccess, \JsonSerializ
         return self::$openAPIModelName;
     }
 
-    public const CODE_ALREADY_UP_TO_DATE = 'already_up_to_date';
-    public const CODE_CONFLICT = 'conflict';
-    public const CODE_NOT_MERGEABLE = 'not_mergeable';
-    public const CODE_CHECKS_PENDING = 'checks_pending';
-    public const CODE_CHECKS_FAILING = 'checks_failing';
-    public const CODE_BEHIND = 'behind';
-    public const CODE_BLOCKED_BY_PROTECTION = 'blocked_by_protection';
-    public const CODE_STACKED = 'stacked';
-
-    /**
-     * Gets allowable values of the enum
-     *
-     * @return string[]
-     */
-    public function getCodeAllowableValues()
-    {
-        return [
-            self::CODE_ALREADY_UP_TO_DATE,
-            self::CODE_CONFLICT,
-            self::CODE_NOT_MERGEABLE,
-            self::CODE_CHECKS_PENDING,
-            self::CODE_CHECKS_FAILING,
-            self::CODE_BEHIND,
-            self::CODE_BLOCKED_BY_PROTECTION,
-            self::CODE_STACKED,
-        ];
-    }
 
     /**
      * Associative array for storing property values
@@ -284,9 +250,8 @@ class AllowedActionBlocked implements ModelInterface, ArrayAccess, \JsonSerializ
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('code', $data ?? [], null);
-        $this->setIfExists('message', $data ?? [], null);
-        $this->setIfExists('next', $data ?? [], null);
+        $this->setIfExists('number', $data ?? [], null);
+        $this->setIfExists('url', $data ?? [], null);
     }
 
     /**
@@ -316,20 +281,11 @@ class AllowedActionBlocked implements ModelInterface, ArrayAccess, \JsonSerializ
     {
         $invalidProperties = [];
 
-        if ($this->container['code'] === null) {
-            $invalidProperties[] = "'code' can't be null";
+        if ($this->container['number'] === null) {
+            $invalidProperties[] = "'number' can't be null";
         }
-        $allowedValues = $this->getCodeAllowableValues();
-        if (!is_null($this->container['code']) && !in_array($this->container['code'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'code', must be one of '%s'",
-                $this->container['code'],
-                implode("', '", $allowedValues)
-            );
-        }
-
-        if ($this->container['message'] === null) {
-            $invalidProperties[] = "'message' can't be null";
+        if ($this->container['url'] === null) {
+            $invalidProperties[] = "'url' can't be null";
         }
         return $invalidProperties;
     }
@@ -347,92 +303,55 @@ class AllowedActionBlocked implements ModelInterface, ArrayAccess, \JsonSerializ
 
 
     /**
-     * Gets code
+     * Gets number
      *
-     * @return string
+     * @return int
      */
-    public function getCode()
+    public function getNumber()
     {
-        return $this->container['code'];
+        return $this->container['number'];
     }
 
     /**
-     * Sets code
+     * Sets number
      *
-     * @param string $code The same codes as `ActionError.code`.
+     * @param int $number number
      *
      * @return self
      */
-    public function setCode($code)
+    public function setNumber($number)
     {
-        if (is_null($code)) {
-            throw new \InvalidArgumentException('non-nullable code cannot be null');
+        if (is_null($number)) {
+            throw new \InvalidArgumentException('non-nullable number cannot be null');
         }
-        $allowedValues = $this->getCodeAllowableValues();
-        if (!in_array($code, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'code', must be one of '%s'",
-                    $code,
-                    implode("', '", $allowedValues)
-                )
-            );
-        }
-        $this->container['code'] = $code;
+        $this->container['number'] = $number;
 
         return $this;
     }
 
     /**
-     * Gets message
+     * Gets url
      *
      * @return string
      */
-    public function getMessage()
+    public function getUrl()
     {
-        return $this->container['message'];
+        return $this->container['url'];
     }
 
     /**
-     * Sets message
+     * Sets url
      *
-     * @param string $message Plain words, safe to show a person.
+     * @param string $url url
      *
      * @return self
      */
-    public function setMessage($message)
+    public function setUrl($url)
     {
-        if (is_null($message)) {
-            throw new \InvalidArgumentException('non-nullable message cannot be null');
+        if (is_null($url)) {
+            throw new \InvalidArgumentException('non-nullable url cannot be null');
         }
-        $this->container['message'] = $message;
-
-        return $this;
-    }
-
-    /**
-     * Gets next
-     *
-     * @return string|null
-     */
-    public function getNext()
-    {
-        return $this->container['next'];
-    }
-
-    /**
-     * Sets next
-     *
-     * @param string|null $next What unlocks it, when something does.
-     *
-     * @return self
-     */
-    public function setNext($next)
-    {
-        if (is_null($next)) {
-            throw new \InvalidArgumentException('non-nullable next cannot be null');
-        }
-        $this->container['next'] = $next;
+        $this->container['url'] = $url;
 
         return $this;
     }
