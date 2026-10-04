@@ -145,6 +145,7 @@ Class | Method | HTTP request | Description
 - [AdminUser](docs/Model/AdminUser.md)
 - [AllowedAction](docs/Model/AllowedAction.md)
 - [AllowedActionBlocked](docs/Model/AllowedActionBlocked.md)
+- [BotRequest](docs/Model/BotRequest.md)
 - [CIStatus](docs/Model/CIStatus.md)
 - [Check](docs/Model/Check.md)
 - [CheckState](docs/Model/CheckState.md)

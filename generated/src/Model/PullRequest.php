@@ -77,6 +77,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'stack' => '\ForgeDashboard\Generated\Model\StackPosition',
         'stacked_on' => '\ForgeDashboard\Generated\Model\StackRef',
         'stack_children' => 'int[]',
+        'bot_request' => '\ForgeDashboard\Generated\Model\BotRequest',
         'requested_reviewer_logins' => 'string[]',
         'review_requested_from_me' => 'bool',
         'empty' => 'bool',
@@ -116,6 +117,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'stack' => null,
         'stacked_on' => null,
         'stack_children' => null,
+        'bot_request' => null,
         'requested_reviewer_logins' => null,
         'review_requested_from_me' => null,
         'empty' => null,
@@ -153,6 +155,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'stack' => true,
         'stacked_on' => true,
         'stack_children' => false,
+        'bot_request' => true,
         'requested_reviewer_logins' => false,
         'review_requested_from_me' => false,
         'empty' => false,
@@ -270,6 +273,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'stack' => 'stack',
         'stacked_on' => 'stackedOn',
         'stack_children' => 'stackChildren',
+        'bot_request' => 'botRequest',
         'requested_reviewer_logins' => 'requestedReviewerLogins',
         'review_requested_from_me' => 'reviewRequestedFromMe',
         'empty' => 'empty',
@@ -307,6 +311,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'stack' => 'setStack',
         'stacked_on' => 'setStackedOn',
         'stack_children' => 'setStackChildren',
+        'bot_request' => 'setBotRequest',
         'requested_reviewer_logins' => 'setRequestedReviewerLogins',
         'review_requested_from_me' => 'setReviewRequestedFromMe',
         'empty' => 'setEmpty',
@@ -344,6 +349,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'stack' => 'getStack',
         'stacked_on' => 'getStackedOn',
         'stack_children' => 'getStackChildren',
+        'bot_request' => 'getBotRequest',
         'requested_reviewer_logins' => 'getRequestedReviewerLogins',
         'review_requested_from_me' => 'getReviewRequestedFromMe',
         'empty' => 'getEmpty',
@@ -432,6 +438,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('stack', $data ?? [], null);
         $this->setIfExists('stacked_on', $data ?? [], null);
         $this->setIfExists('stack_children', $data ?? [], null);
+        $this->setIfExists('bot_request', $data ?? [], null);
         $this->setIfExists('requested_reviewer_logins', $data ?? [], null);
         $this->setIfExists('review_requested_from_me', $data ?? [], null);
         $this->setIfExists('empty', $data ?? [], null);
@@ -1113,6 +1120,40 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable stack_children cannot be null');
         }
         $this->container['stack_children'] = $stack_children;
+
+        return $this;
+    }
+
+    /**
+     * Gets bot_request
+     *
+     * @return \ForgeDashboard\Generated\Model\BotRequest|null
+     */
+    public function getBotRequest()
+    {
+        return $this->container['bot_request'];
+    }
+
+    /**
+     * Sets bot_request
+     *
+     * @param \ForgeDashboard\Generated\Model\BotRequest|null $bot_request A Dependabot or Renovate rebase asked for through this app and not settled yet, or null. The server keeps it, so a reload during the wait still shows it, and moves it along on every snapshot that came from a fetch started after the request. Held in memory per account: a server restart forgets it.
+     *
+     * @return self
+     */
+    public function setBotRequest($bot_request)
+    {
+        if (is_null($bot_request)) {
+            array_push($this->openAPINullablesSetToNull, 'bot_request');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('bot_request', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['bot_request'] = $bot_request;
 
         return $this;
     }
