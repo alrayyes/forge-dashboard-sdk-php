@@ -241,6 +241,7 @@ class AllowedAction implements ModelInterface, ArrayAccess, \JsonSerializable
     public const ACTION_DEPENDABOT_REBASE = 'dependabot_rebase';
     public const ACTION_DEPENDABOT_RECREATE = 'dependabot_recreate';
     public const ACTION_RENOVATE_REBASE = 'renovate_rebase';
+    public const ACTION_RERUN_CHECKS = 'rerun_checks';
 
     /**
      * Gets allowable values of the enum
@@ -257,6 +258,7 @@ class AllowedAction implements ModelInterface, ArrayAccess, \JsonSerializable
             self::ACTION_DEPENDABOT_REBASE,
             self::ACTION_DEPENDABOT_RECREATE,
             self::ACTION_RENOVATE_REBASE,
+            self::ACTION_RERUN_CHECKS,
         ];
     }
 
