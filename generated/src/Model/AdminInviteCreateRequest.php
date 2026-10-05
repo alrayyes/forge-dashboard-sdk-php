@@ -284,6 +284,10 @@ class AdminInviteCreateRequest implements ModelInterface, ArrayAccess, \JsonSeri
         if ($this->container['username'] === null) {
             $invalidProperties[] = "'username' can't be null";
         }
+        if (!preg_match("/\\S/", $this->container['username'])) {
+            $invalidProperties[] = "invalid value for 'username', must be conform to the pattern /\\S/.";
+        }
+
         if ($this->container['display_name'] === null) {
             $invalidProperties[] = "'display_name' can't be null";
         }
@@ -315,7 +319,7 @@ class AdminInviteCreateRequest implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Sets username
      *
-     * @param string $username username
+     * @param string $username Surrounding whitespace is trimmed by the server, and what is left must not be empty. Clients may check the same pattern for quick feedback; the server decides.
      *
      * @return self
      */
@@ -324,6 +328,11 @@ class AdminInviteCreateRequest implements ModelInterface, ArrayAccess, \JsonSeri
         if (is_null($username)) {
             throw new \InvalidArgumentException('non-nullable username cannot be null');
         }
+
+        if ((!preg_match("/\\S/", ObjectSerializer::toString($username)))) {
+            throw new \InvalidArgumentException("invalid value for \$username when calling AdminInviteCreateRequest., must conform to the pattern /\\S/.");
+        }
+
         $this->container['username'] = $username;
 
         return $this;

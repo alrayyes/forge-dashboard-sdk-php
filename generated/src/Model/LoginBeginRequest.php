@@ -277,6 +277,10 @@ class LoginBeginRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
         if ($this->container['username'] === null) {
             $invalidProperties[] = "'username' can't be null";
         }
+        if (!preg_match("/\\S/", $this->container['username'])) {
+            $invalidProperties[] = "invalid value for 'username', must be conform to the pattern /\\S/.";
+        }
+
         return $invalidProperties;
     }
 
@@ -305,7 +309,7 @@ class LoginBeginRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets username
      *
-     * @param string $username username
+     * @param string $username Surrounding whitespace is trimmed by the server, and what is left must not be empty. Clients may check the same pattern for quick feedback; the server decides.
      *
      * @return self
      */
@@ -314,6 +318,11 @@ class LoginBeginRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
         if (is_null($username)) {
             throw new \InvalidArgumentException('non-nullable username cannot be null');
         }
+
+        if ((!preg_match("/\\S/", ObjectSerializer::toString($username)))) {
+            throw new \InvalidArgumentException("invalid value for \$username when calling LoginBeginRequest., must conform to the pattern /\\S/.");
+        }
+
         $this->container['username'] = $username;
 
         return $this;
