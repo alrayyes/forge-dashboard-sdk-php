@@ -64,6 +64,8 @@ src/Model/StackPosition.php
 src/Model/StackRef.php
 src/Model/ThemeRequest.php
 src/Model/ThemeResponse.php
+src/Model/TimezoneRequest.php
+src/Model/TimezoneResponse.php
 src/Model/UpdateRequest.php
 src/Model/Version.php
 src/Model/WebhookEnsureRequest.php
