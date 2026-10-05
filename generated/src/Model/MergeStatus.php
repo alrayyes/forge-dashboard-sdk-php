@@ -33,7 +33,7 @@ use \ForgeDashboard\Generated\ObjectSerializer;
  * MergeStatus Class Doc Comment
  *
  * @category Class
- * @description A pull request&#39;s mergeable/blocked state, as coarse as every forge this service talks to can agree on. \&quot;blocked\&quot; covers anything stopping a merge that isn&#39;t confirmed to be a real conflict — including Forgejo&#39;s own mergeable flag reporting false, since its server computes that asynchronously and can report it stale. \&quot;unknown\&quot; covers both a forge that hasn&#39;t determined this yet and this service being unable to determine it.
+ * @description A pull request&#39;s mergeable/blocked state, as coarse as every forge this service talks to can agree on. \&quot;blocked\&quot; covers anything stopping a merge that isn&#39;t confirmed to be a real conflict — including Forgejo&#39;s own mergeable flag reporting false, since its server computes that asynchronously and can report it stale. \&quot;unstable\&quot; is GitHub&#39;s UNSTABLE: the pull request can be merged, but a check that branch protection doesn&#39;t require is failing or still running. Merge stays available. \&quot;unknown\&quot; covers both a forge that hasn&#39;t determined this yet and this service being unable to determine it.
  * @package  ForgeDashboard\Generated
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -49,6 +49,8 @@ class MergeStatus
 
     public const BLOCKED = 'blocked';
 
+    public const UNSTABLE = 'unstable';
+
     public const UNKNOWN = 'unknown';
 
     /**
@@ -61,6 +63,7 @@ class MergeStatus
             self::MERGEABLE,
             self::CONFLICTING,
             self::BLOCKED,
+            self::UNSTABLE,
             self::UNKNOWN
         ];
     }
