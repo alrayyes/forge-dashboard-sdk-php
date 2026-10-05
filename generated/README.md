@@ -191,6 +191,13 @@ Authentication schemes defined for the API:
 
 - **Type**: Bearer authentication
 
+### cookieAuth
+
+- **Type**: API key
+- **API key parameter name**: forge_dashboard_session
+- **Location**: 
+
+
 ## Tests
 
 To run the tests, use:

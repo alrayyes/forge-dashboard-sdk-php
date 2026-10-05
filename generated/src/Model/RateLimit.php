@@ -254,6 +254,7 @@ class RateLimit implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     public const SEVERITY_OK = 'ok';
+    public const SEVERITY_WARNING = 'warning';
     public const SEVERITY_LOW = 'low';
     public const SEVERITY_EXCEEDED = 'exceeded';
 
@@ -266,6 +267,7 @@ class RateLimit implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         return [
             self::SEVERITY_OK,
+            self::SEVERITY_WARNING,
             self::SEVERITY_LOW,
             self::SEVERITY_EXCEEDED,
         ];
@@ -501,7 +503,7 @@ class RateLimit implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets severity
      *
-     * @param string $severity How worried a client should be about this budget, graded by the server as of the response, so no client needs its own threshold or clock check. `exceeded`: nothing left and the reset hasn't been seen to pass. `low`: under 5% left (also a spent budget whose reset time has passed, until the next snapshot says otherwise). `ok`: everything else.
+     * @param string $severity How worried a client should be about this budget, graded by the server as of the response, so no client needs its own threshold or clock check. `exceeded`: nothing left and the reset hasn't been seen to pass. `low`: under 5% left (also a spent budget whose reset time has passed, until the next snapshot says otherwise). `warning`: under 20% left but not yet low, for a gauge's amber stage; a banner or a lock has no reason to act on it. `ok`: everything else.
      *
      * @return self
      */

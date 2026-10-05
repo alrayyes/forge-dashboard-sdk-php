@@ -149,7 +149,7 @@ class SettingsApi
      *
      * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array<string,mixed>|\ForgeDashboard\Generated\Model\Error
+     * @return array<string,mixed>|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error
      */
     public function getFilterState(string $contentType = self::contentTypes['getFilterState'][0])
     {
@@ -166,7 +166,7 @@ class SettingsApi
      *
      * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of array<string,mixed>|\ForgeDashboard\Generated\Model\Error, HTTP status code, HTTP response headers (array of strings)
+     * @return array of array<string,mixed>|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error, HTTP status code, HTTP response headers (array of strings)
      */
     public function getFilterStateWithHttpInfo(string $contentType = self::contentTypes['getFilterState'][0])
     {
@@ -199,6 +199,12 @@ class SettingsApi
                 case 200:
                     return $this->handleResponseWithDataType(
                         'array<string,mixed>',
+                        $request,
+                        $response,
+                    );
+                case 403:
+                    return $this->handleResponseWithDataType(
+                        '\ForgeDashboard\Generated\Model\Error',
                         $request,
                         $response,
                     );
@@ -236,6 +242,14 @@ class SettingsApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'array<string,mixed>',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\Error',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -384,10 +398,6 @@ class SettingsApi
             }
         }
 
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
 
         $defaultHeaders = [];
         if ($this->config->getUserAgent()) {
@@ -1324,6 +1334,14 @@ class SettingsApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
                 case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
@@ -1476,10 +1494,6 @@ class SettingsApi
             }
         }
 
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
 
         $defaultHeaders = [];
         if ($this->config->getUserAgent()) {
