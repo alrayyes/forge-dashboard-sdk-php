@@ -6,6 +6,11 @@ CI status), open issues, and per-forge reachability. The backend holds
 both forges' credentials; the frontend only ever calls the endpoints
 below.
 
+A request body is capped at 1 MiB, except the forges' own webhook
+deliveries (5 MiB). A body whose declared length is over the cap is
+answered `413` with an `Error` before it is read; one with no declared
+length is cut off at the cap and answered as an invalid body.
+
 
 For more information, please visit [https://github.com/alrayyes/forge-dashboard](https://github.com/alrayyes/forge-dashboard).
 
