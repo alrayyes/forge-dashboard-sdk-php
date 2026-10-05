@@ -78,6 +78,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'stacked_on' => '\ForgeDashboard\Generated\Model\StackRef',
         'stack_children' => 'int[]',
         'bot_request' => '\ForgeDashboard\Generated\Model\BotRequest',
+        'update_request' => '\ForgeDashboard\Generated\Model\UpdateRequest',
         'requested_reviewer_logins' => 'string[]',
         'review_requested_from_me' => 'bool',
         'empty' => 'bool',
@@ -118,6 +119,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'stacked_on' => null,
         'stack_children' => null,
         'bot_request' => null,
+        'update_request' => null,
         'requested_reviewer_logins' => null,
         'review_requested_from_me' => null,
         'empty' => null,
@@ -156,6 +158,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'stacked_on' => true,
         'stack_children' => false,
         'bot_request' => true,
+        'update_request' => true,
         'requested_reviewer_logins' => false,
         'review_requested_from_me' => false,
         'empty' => false,
@@ -274,6 +277,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'stacked_on' => 'stackedOn',
         'stack_children' => 'stackChildren',
         'bot_request' => 'botRequest',
+        'update_request' => 'updateRequest',
         'requested_reviewer_logins' => 'requestedReviewerLogins',
         'review_requested_from_me' => 'reviewRequestedFromMe',
         'empty' => 'empty',
@@ -312,6 +316,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'stacked_on' => 'setStackedOn',
         'stack_children' => 'setStackChildren',
         'bot_request' => 'setBotRequest',
+        'update_request' => 'setUpdateRequest',
         'requested_reviewer_logins' => 'setRequestedReviewerLogins',
         'review_requested_from_me' => 'setReviewRequestedFromMe',
         'empty' => 'setEmpty',
@@ -350,6 +355,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'stacked_on' => 'getStackedOn',
         'stack_children' => 'getStackChildren',
         'bot_request' => 'getBotRequest',
+        'update_request' => 'getUpdateRequest',
         'requested_reviewer_logins' => 'getRequestedReviewerLogins',
         'review_requested_from_me' => 'getReviewRequestedFromMe',
         'empty' => 'getEmpty',
@@ -439,6 +445,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('stacked_on', $data ?? [], null);
         $this->setIfExists('stack_children', $data ?? [], null);
         $this->setIfExists('bot_request', $data ?? [], null);
+        $this->setIfExists('update_request', $data ?? [], null);
         $this->setIfExists('requested_reviewer_logins', $data ?? [], null);
         $this->setIfExists('review_requested_from_me', $data ?? [], null);
         $this->setIfExists('empty', $data ?? [], null);
@@ -1154,6 +1161,40 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
             }
         }
         $this->container['bot_request'] = $bot_request;
+
+        return $this;
+    }
+
+    /**
+     * Gets update_request
+     *
+     * @return \ForgeDashboard\Generated\Model\UpdateRequest|null
+     */
+    public function getUpdateRequest()
+    {
+        return $this->container['update_request'];
+    }
+
+    /**
+     * Sets update_request
+     *
+     * @param \ForgeDashboard\Generated\Model\UpdateRequest|null $update_request An Update branch the forge accepted and that no snapshot has shown landing yet, or null. The server keeps it, so a reload during the wait still shows it. It is dropped once a snapshot from a fetch started after the request shows the pull request no longer behind, or when the pull request is gone. Held in memory per account: a server restart forgets it.
+     *
+     * @return self
+     */
+    public function setUpdateRequest($update_request)
+    {
+        if (is_null($update_request)) {
+            array_push($this->openAPINullablesSetToNull, 'update_request');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('update_request', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['update_request'] = $update_request;
 
         return $this;
     }

@@ -57,6 +57,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $openAPITypes = [
+        'open_issue_count' => 'int',
         'generated_at' => '\DateTime',
         'hidden_drafts' => 'int',
         'forges' => '\ForgeDashboard\Generated\Model\ForgeHealth[]',
@@ -73,6 +74,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
      * @psalm-var array<string, string|null>
      */
     protected static $openAPIFormats = [
+        'open_issue_count' => null,
         'generated_at' => 'date-time',
         'hidden_drafts' => null,
         'forges' => null,
@@ -87,6 +89,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var boolean[]
      */
     protected static array $openAPINullables = [
+        'open_issue_count' => false,
         'generated_at' => false,
         'hidden_drafts' => false,
         'forges' => false,
@@ -181,6 +184,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
+        'open_issue_count' => 'openIssueCount',
         'generated_at' => 'generatedAt',
         'hidden_drafts' => 'hiddenDrafts',
         'forges' => 'forges',
@@ -195,6 +199,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
+        'open_issue_count' => 'setOpenIssueCount',
         'generated_at' => 'setGeneratedAt',
         'hidden_drafts' => 'setHiddenDrafts',
         'forges' => 'setForges',
@@ -209,6 +214,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
+        'open_issue_count' => 'getOpenIssueCount',
         'generated_at' => 'getGeneratedAt',
         'hidden_drafts' => 'getHiddenDrafts',
         'forges' => 'getForges',
@@ -274,6 +280,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
+        $this->setIfExists('open_issue_count', $data ?? [], null);
         $this->setIfExists('generated_at', $data ?? [], null);
         $this->setIfExists('hidden_drafts', $data ?? [], null);
         $this->setIfExists('forges', $data ?? [], null);
@@ -309,6 +316,9 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if ($this->container['open_issue_count'] === null) {
+            $invalidProperties[] = "'open_issue_count' can't be null";
+        }
         if ($this->container['generated_at'] === null) {
             $invalidProperties[] = "'generated_at' can't be null";
         }
@@ -345,6 +355,33 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         return count($this->listInvalidProperties()) === 0;
     }
 
+
+    /**
+     * Gets open_issue_count
+     *
+     * @return int
+     */
+    public function getOpenIssueCount()
+    {
+        return $this->container['open_issue_count'];
+    }
+
+    /**
+     * Sets open_issue_count
+     *
+     * @param int $open_issue_count How many of `issues` are real work: all of them except the `housekeeping` ones. What the Issues badge shows.
+     *
+     * @return self
+     */
+    public function setOpenIssueCount($open_issue_count)
+    {
+        if (is_null($open_issue_count)) {
+            throw new \InvalidArgumentException('non-nullable open_issue_count cannot be null');
+        }
+        $this->container['open_issue_count'] = $open_issue_count;
+
+        return $this;
+    }
 
     /**
      * Gets generated_at

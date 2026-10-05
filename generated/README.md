@@ -180,6 +180,7 @@ Class | Method | HTTP request | Description
 - [StackRef](docs/Model/StackRef.md)
 - [ThemeRequest](docs/Model/ThemeRequest.md)
 - [ThemeResponse](docs/Model/ThemeResponse.md)
+- [UpdateRequest](docs/Model/UpdateRequest.md)
 - [Version](docs/Model/Version.md)
 - [WebhookEnsureRequest](docs/Model/WebhookEnsureRequest.md)
 
