@@ -531,7 +531,7 @@ class Configuration
         return [
             [
                 "url" => "{scheme}://{host}",
-                "description" => "No canonical host — this runs on a homelab reachable only over Tailscale, so the variables below are the shape of the answer rather than the answer.",
+                "description" => "No canonical host. The production instance runs on a homelab reachable only over Tailscale, so the variables below are the shape of the answer rather than the answer.",
                 "variables" => [
                     "scheme" => [
                         "description" => "No description provided",
