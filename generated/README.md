@@ -120,9 +120,11 @@ Class | Method | HTTP request | Description
 *SettingsApi* | [**getFilterState**](docs/Api/SettingsApi.md#getfilterstate) | **GET** /api/settings/filter-state | The signed-in user&#39;s own saved dashboard/Insights filter state
 *SettingsApi* | [**getSettings**](docs/Api/SettingsApi.md#getsettings) | **GET** /api/settings | The signed-in user&#39;s own forge configuration
 *SettingsApi* | [**getTheme**](docs/Api/SettingsApi.md#gettheme) | **GET** /api/settings/theme | The signed-in user&#39;s own saved theme preference
+*SettingsApi* | [**getTimezone**](docs/Api/SettingsApi.md#gettimezone) | **GET** /api/settings/timezone | The signed-in user&#39;s own saved time zone
 *SettingsApi* | [**putSettings**](docs/Api/SettingsApi.md#putsettings) | **PUT** /api/settings | Save the signed-in user&#39;s forge configuration
 *SettingsApi* | [**setFilterState**](docs/Api/SettingsApi.md#setfilterstate) | **PUT** /api/settings/filter-state | Save the signed-in user&#39;s own dashboard/Insights filter state
 *SettingsApi* | [**setTheme**](docs/Api/SettingsApi.md#settheme) | **PUT** /api/settings/theme | Save the signed-in user&#39;s own theme preference
+*SettingsApi* | [**setTimezone**](docs/Api/SettingsApi.md#settimezone) | **PUT** /api/settings/timezone | Save the signed-in user&#39;s own time zone
 *SharingApi* | [**getSharing**](docs/Api/SharingApi.md#getsharing) | **GET** /api/sharing | The signed-in user&#39;s sharing relationships
 *SharingApi* | [**shareWith**](docs/Api/SharingApi.md#sharewith) | **PUT** /api/sharing/{username} | Share the signed-in user&#39;s dashboard with username
 *SharingApi* | [**unshareWith**](docs/Api/SharingApi.md#unsharewith) | **DELETE** /api/sharing/{username} | Stop sharing the signed-in user&#39;s dashboard with username
@@ -180,6 +182,8 @@ Class | Method | HTTP request | Description
 - [StackRef](docs/Model/StackRef.md)
 - [ThemeRequest](docs/Model/ThemeRequest.md)
 - [ThemeResponse](docs/Model/ThemeResponse.md)
+- [TimezoneRequest](docs/Model/TimezoneRequest.md)
+- [TimezoneResponse](docs/Model/TimezoneResponse.md)
 - [UpdateRequest](docs/Model/UpdateRequest.md)
 - [Version](docs/Model/Version.md)
 - [WebhookEnsureRequest](docs/Model/WebhookEnsureRequest.md)

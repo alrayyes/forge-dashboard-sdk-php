@@ -68,7 +68,8 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'webhook_token' => 'string',
         'webhook_secret' => 'string',
         'renovate_rebase_label' => 'string',
-        'theme' => 'string'
+        'theme' => 'string',
+        'timezone' => 'string'
     ];
 
     /**
@@ -89,7 +90,8 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'webhook_token' => null,
         'webhook_secret' => null,
         'renovate_rebase_label' => null,
-        'theme' => null
+        'theme' => null,
+        'timezone' => null
     ];
 
     /**
@@ -108,7 +110,8 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'webhook_token' => false,
         'webhook_secret' => false,
         'renovate_rebase_label' => false,
-        'theme' => false
+        'theme' => false,
+        'timezone' => false
     ];
 
     /**
@@ -207,7 +210,8 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'webhook_token' => 'webhookToken',
         'webhook_secret' => 'webhookSecret',
         'renovate_rebase_label' => 'renovateRebaseLabel',
-        'theme' => 'theme'
+        'theme' => 'theme',
+        'timezone' => 'timezone'
     ];
 
     /**
@@ -226,7 +230,8 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'webhook_token' => 'setWebhookToken',
         'webhook_secret' => 'setWebhookSecret',
         'renovate_rebase_label' => 'setRenovateRebaseLabel',
-        'theme' => 'setTheme'
+        'theme' => 'setTheme',
+        'timezone' => 'setTimezone'
     ];
 
     /**
@@ -245,7 +250,8 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'webhook_token' => 'getWebhookToken',
         'webhook_secret' => 'getWebhookSecret',
         'renovate_rebase_label' => 'getRenovateRebaseLabel',
-        'theme' => 'getTheme'
+        'theme' => 'getTheme',
+        'timezone' => 'getTimezone'
     ];
 
     /**
@@ -333,6 +339,7 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('webhook_secret', $data ?? [], null);
         $this->setIfExists('renovate_rebase_label', $data ?? [], null);
         $this->setIfExists('theme', $data ?? [], null);
+        $this->setIfExists('timezone', $data ?? [], null);
     }
 
     /**
@@ -722,6 +729,33 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
             );
         }
         $this->container['theme'] = $theme;
+
+        return $this;
+    }
+
+    /**
+     * Gets timezone
+     *
+     * @return string|null
+     */
+    public function getTimezone()
+    {
+        return $this->container['timezone'];
+    }
+
+    /**
+     * Sets timezone
+     *
+     * @param string|null $timezone The signed-in user's own time zone as an IANA name such as `Europe/Amsterdam`. Empty means the browser's own zone. Set only from Settings (PUT /api/settings/timezone); every other page reads it via GET /api/settings/timezone.
+     *
+     * @return self
+     */
+    public function setTimezone($timezone)
+    {
+        if (is_null($timezone)) {
+            throw new \InvalidArgumentException('non-nullable timezone cannot be null');
+        }
+        $this->container['timezone'] = $timezone;
 
         return $this;
     }
