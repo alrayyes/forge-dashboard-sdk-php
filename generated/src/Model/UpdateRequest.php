@@ -1,6 +1,6 @@
 <?php
 /**
- * Issue
+ * UpdateRequest
  *
  * PHP version 8.1
  *
@@ -32,7 +32,7 @@ use \ArrayAccess;
 use \ForgeDashboard\Generated\ObjectSerializer;
 
 /**
- * Issue Class Doc Comment
+ * UpdateRequest Class Doc Comment
  *
  * @category Class
  * @package  ForgeDashboard\Generated
@@ -40,7 +40,7 @@ use \ForgeDashboard\Generated\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
+class UpdateRequest implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -49,7 +49,7 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
      *
      * @var string
      */
-    protected static $openAPIModelName = 'Issue';
+    protected static $openAPIModelName = 'UpdateRequest';
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -57,16 +57,9 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $openAPITypes = [
-        'forge' => '\ForgeDashboard\Generated\Model\Forge',
-        'repo' => 'string',
-        'number' => 'int',
-        'title' => 'string',
-        'url' => 'string',
-        'housekeeping' => 'bool',
-        'author' => 'string',
-        'labels' => '\ForgeDashboard\Generated\Model\Label[]',
-        'created_at' => '\DateTime',
-        'updated_at' => '\DateTime'
+        'phase' => 'string',
+        'requested_at' => '\DateTime',
+        'expires_at' => '\DateTime'
     ];
 
     /**
@@ -77,16 +70,9 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
      * @psalm-var array<string, string|null>
      */
     protected static $openAPIFormats = [
-        'forge' => null,
-        'repo' => null,
-        'number' => null,
-        'title' => null,
-        'url' => 'uri',
-        'housekeeping' => null,
-        'author' => null,
-        'labels' => null,
-        'created_at' => 'date-time',
-        'updated_at' => 'date-time'
+        'phase' => null,
+        'requested_at' => 'date-time',
+        'expires_at' => 'date-time'
     ];
 
     /**
@@ -95,16 +81,9 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var boolean[]
      */
     protected static array $openAPINullables = [
-        'forge' => false,
-        'repo' => false,
-        'number' => false,
-        'title' => false,
-        'url' => false,
-        'housekeeping' => false,
-        'author' => false,
-        'labels' => false,
-        'created_at' => false,
-        'updated_at' => false
+        'phase' => false,
+        'requested_at' => false,
+        'expires_at' => false
     ];
 
     /**
@@ -193,16 +172,9 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'forge' => 'forge',
-        'repo' => 'repo',
-        'number' => 'number',
-        'title' => 'title',
-        'url' => 'url',
-        'housekeeping' => 'housekeeping',
-        'author' => 'author',
-        'labels' => 'labels',
-        'created_at' => 'createdAt',
-        'updated_at' => 'updatedAt'
+        'phase' => 'phase',
+        'requested_at' => 'requestedAt',
+        'expires_at' => 'expiresAt'
     ];
 
     /**
@@ -211,16 +183,9 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'forge' => 'setForge',
-        'repo' => 'setRepo',
-        'number' => 'setNumber',
-        'title' => 'setTitle',
-        'url' => 'setUrl',
-        'housekeeping' => 'setHousekeeping',
-        'author' => 'setAuthor',
-        'labels' => 'setLabels',
-        'created_at' => 'setCreatedAt',
-        'updated_at' => 'setUpdatedAt'
+        'phase' => 'setPhase',
+        'requested_at' => 'setRequestedAt',
+        'expires_at' => 'setExpiresAt'
     ];
 
     /**
@@ -229,16 +194,9 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'forge' => 'getForge',
-        'repo' => 'getRepo',
-        'number' => 'getNumber',
-        'title' => 'getTitle',
-        'url' => 'getUrl',
-        'housekeeping' => 'getHousekeeping',
-        'author' => 'getAuthor',
-        'labels' => 'getLabels',
-        'created_at' => 'getCreatedAt',
-        'updated_at' => 'getUpdatedAt'
+        'phase' => 'getPhase',
+        'requested_at' => 'getRequestedAt',
+        'expires_at' => 'getExpiresAt'
     ];
 
     /**
@@ -282,6 +240,21 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
         return self::$openAPIModelName;
     }
 
+    public const PHASE_QUEUED = 'queued';
+    public const PHASE_EXPIRED = 'expired';
+
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getPhaseAllowableValues()
+    {
+        return [
+            self::PHASE_QUEUED,
+            self::PHASE_EXPIRED,
+        ];
+    }
 
     /**
      * Associative array for storing property values
@@ -298,16 +271,9 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('forge', $data ?? [], null);
-        $this->setIfExists('repo', $data ?? [], null);
-        $this->setIfExists('number', $data ?? [], null);
-        $this->setIfExists('title', $data ?? [], null);
-        $this->setIfExists('url', $data ?? [], null);
-        $this->setIfExists('housekeeping', $data ?? [], null);
-        $this->setIfExists('author', $data ?? [], null);
-        $this->setIfExists('labels', $data ?? [], null);
-        $this->setIfExists('created_at', $data ?? [], null);
-        $this->setIfExists('updated_at', $data ?? [], null);
+        $this->setIfExists('phase', $data ?? [], null);
+        $this->setIfExists('requested_at', $data ?? [], null);
+        $this->setIfExists('expires_at', $data ?? [], null);
     }
 
     /**
@@ -337,35 +303,23 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if ($this->container['forge'] === null) {
-            $invalidProperties[] = "'forge' can't be null";
+        if ($this->container['phase'] === null) {
+            $invalidProperties[] = "'phase' can't be null";
         }
-        if ($this->container['repo'] === null) {
-            $invalidProperties[] = "'repo' can't be null";
+        $allowedValues = $this->getPhaseAllowableValues();
+        if (!is_null($this->container['phase']) && !in_array($this->container['phase'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value '%s' for 'phase', must be one of '%s'",
+                $this->container['phase'],
+                implode("', '", $allowedValues)
+            );
         }
-        if ($this->container['number'] === null) {
-            $invalidProperties[] = "'number' can't be null";
+
+        if ($this->container['requested_at'] === null) {
+            $invalidProperties[] = "'requested_at' can't be null";
         }
-        if ($this->container['title'] === null) {
-            $invalidProperties[] = "'title' can't be null";
-        }
-        if ($this->container['url'] === null) {
-            $invalidProperties[] = "'url' can't be null";
-        }
-        if ($this->container['housekeeping'] === null) {
-            $invalidProperties[] = "'housekeeping' can't be null";
-        }
-        if ($this->container['author'] === null) {
-            $invalidProperties[] = "'author' can't be null";
-        }
-        if ($this->container['labels'] === null) {
-            $invalidProperties[] = "'labels' can't be null";
-        }
-        if ($this->container['created_at'] === null) {
-            $invalidProperties[] = "'created_at' can't be null";
-        }
-        if ($this->container['updated_at'] === null) {
-            $invalidProperties[] = "'updated_at' can't be null";
+        if ($this->container['expires_at'] === null) {
+            $invalidProperties[] = "'expires_at' can't be null";
         }
         return $invalidProperties;
     }
@@ -383,271 +337,92 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets forge
-     *
-     * @return \ForgeDashboard\Generated\Model\Forge
-     */
-    public function getForge()
-    {
-        return $this->container['forge'];
-    }
-
-    /**
-     * Sets forge
-     *
-     * @param \ForgeDashboard\Generated\Model\Forge $forge forge
-     *
-     * @return self
-     */
-    public function setForge($forge)
-    {
-        if (is_null($forge)) {
-            throw new \InvalidArgumentException('non-nullable forge cannot be null');
-        }
-        $this->container['forge'] = $forge;
-
-        return $this;
-    }
-
-    /**
-     * Gets repo
+     * Gets phase
      *
      * @return string
      */
-    public function getRepo()
+    public function getPhase()
     {
-        return $this->container['repo'];
+        return $this->container['phase'];
     }
 
     /**
-     * Sets repo
+     * Sets phase
      *
-     * @param string $repo repo
+     * @param string $phase `queued`: accepted, and the pull request is still behind. `expired`: still behind after 5 minutes. An expired request stays until the pull request is gone, a new request replaces it, or an hour passes.
      *
      * @return self
      */
-    public function setRepo($repo)
+    public function setPhase($phase)
     {
-        if (is_null($repo)) {
-            throw new \InvalidArgumentException('non-nullable repo cannot be null');
+        if (is_null($phase)) {
+            throw new \InvalidArgumentException('non-nullable phase cannot be null');
         }
-        $this->container['repo'] = $repo;
+        $allowedValues = $this->getPhaseAllowableValues();
+        if (!in_array($phase, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value '%s' for 'phase', must be one of '%s'",
+                    $phase,
+                    implode("', '", $allowedValues)
+                )
+            );
+        }
+        $this->container['phase'] = $phase;
 
         return $this;
     }
 
     /**
-     * Gets number
-     *
-     * @return int
-     */
-    public function getNumber()
-    {
-        return $this->container['number'];
-    }
-
-    /**
-     * Sets number
-     *
-     * @param int $number number
-     *
-     * @return self
-     */
-    public function setNumber($number)
-    {
-        if (is_null($number)) {
-            throw new \InvalidArgumentException('non-nullable number cannot be null');
-        }
-        $this->container['number'] = $number;
-
-        return $this;
-    }
-
-    /**
-     * Gets title
-     *
-     * @return string
-     */
-    public function getTitle()
-    {
-        return $this->container['title'];
-    }
-
-    /**
-     * Sets title
-     *
-     * @param string $title title
-     *
-     * @return self
-     */
-    public function setTitle($title)
-    {
-        if (is_null($title)) {
-            throw new \InvalidArgumentException('non-nullable title cannot be null');
-        }
-        $this->container['title'] = $title;
-
-        return $this;
-    }
-
-    /**
-     * Gets url
-     *
-     * @return string
-     */
-    public function getUrl()
-    {
-        return $this->container['url'];
-    }
-
-    /**
-     * Sets url
-     *
-     * @param string $url The real issue URL on its own forge.
-     *
-     * @return self
-     */
-    public function setUrl($url)
-    {
-        if (is_null($url)) {
-            throw new \InvalidArgumentException('non-nullable url cannot be null');
-        }
-        $this->container['url'] = $url;
-
-        return $this;
-    }
-
-    /**
-     * Gets housekeeping
-     *
-     * @return bool
-     */
-    public function getHousekeeping()
-    {
-        return $this->container['housekeeping'];
-    }
-
-    /**
-     * Sets housekeeping
-     *
-     * @param bool $housekeeping True for an issue a bot keeps open and rewrites, Renovate's \"Dependency Dashboard\", which is not work for a person. The server decides, so every client lists and counts the same issues. It stays in `issues`; `openIssueCount` leaves it out.
-     *
-     * @return self
-     */
-    public function setHousekeeping($housekeeping)
-    {
-        if (is_null($housekeeping)) {
-            throw new \InvalidArgumentException('non-nullable housekeeping cannot be null');
-        }
-        $this->container['housekeeping'] = $housekeeping;
-
-        return $this;
-    }
-
-    /**
-     * Gets author
-     *
-     * @return string
-     */
-    public function getAuthor()
-    {
-        return $this->container['author'];
-    }
-
-    /**
-     * Sets author
-     *
-     * @param string $author author
-     *
-     * @return self
-     */
-    public function setAuthor($author)
-    {
-        if (is_null($author)) {
-            throw new \InvalidArgumentException('non-nullable author cannot be null');
-        }
-        $this->container['author'] = $author;
-
-        return $this;
-    }
-
-    /**
-     * Gets labels
-     *
-     * @return \ForgeDashboard\Generated\Model\Label[]
-     */
-    public function getLabels()
-    {
-        return $this->container['labels'];
-    }
-
-    /**
-     * Sets labels
-     *
-     * @param \ForgeDashboard\Generated\Model\Label[] $labels labels
-     *
-     * @return self
-     */
-    public function setLabels($labels)
-    {
-        if (is_null($labels)) {
-            throw new \InvalidArgumentException('non-nullable labels cannot be null');
-        }
-        $this->container['labels'] = $labels;
-
-        return $this;
-    }
-
-    /**
-     * Gets created_at
+     * Gets requested_at
      *
      * @return \DateTime
      */
-    public function getCreatedAt()
+    public function getRequestedAt()
     {
-        return $this->container['created_at'];
+        return $this->container['requested_at'];
     }
 
     /**
-     * Sets created_at
+     * Sets requested_at
      *
-     * @param \DateTime $created_at created_at
+     * @param \DateTime $requested_at requested_at
      *
      * @return self
      */
-    public function setCreatedAt($created_at)
+    public function setRequestedAt($requested_at)
     {
-        if (is_null($created_at)) {
-            throw new \InvalidArgumentException('non-nullable created_at cannot be null');
+        if (is_null($requested_at)) {
+            throw new \InvalidArgumentException('non-nullable requested_at cannot be null');
         }
-        $this->container['created_at'] = $created_at;
+        $this->container['requested_at'] = $requested_at;
 
         return $this;
     }
 
     /**
-     * Gets updated_at
+     * Gets expires_at
      *
      * @return \DateTime
      */
-    public function getUpdatedAt()
+    public function getExpiresAt()
     {
-        return $this->container['updated_at'];
+        return $this->container['expires_at'];
     }
 
     /**
-     * Sets updated_at
+     * Sets expires_at
      *
-     * @param \DateTime $updated_at updated_at
+     * @param \DateTime $expires_at When the server stops waiting in the current phase: 5 minutes after the request while `queued`.
      *
      * @return self
      */
-    public function setUpdatedAt($updated_at)
+    public function setExpiresAt($expires_at)
     {
-        if (is_null($updated_at)) {
-            throw new \InvalidArgumentException('non-nullable updated_at cannot be null');
+        if (is_null($expires_at)) {
+            throw new \InvalidArgumentException('non-nullable expires_at cannot be null');
         }
-        $this->container['updated_at'] = $updated_at;
+        $this->container['expires_at'] = $expires_at;
 
         return $this;
     }
