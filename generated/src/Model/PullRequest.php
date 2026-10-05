@@ -71,6 +71,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'merge_status' => '\ForgeDashboard\Generated\Model\MergeStatus',
         'behind' => 'bool',
         'head_sha' => 'string',
+        'kind' => 'string',
         'base_branch' => 'string',
         'head_branch' => 'string',
         'cross_repository' => 'bool',
@@ -112,6 +113,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'merge_status' => null,
         'behind' => null,
         'head_sha' => null,
+        'kind' => null,
         'base_branch' => null,
         'head_branch' => null,
         'cross_repository' => null,
@@ -151,6 +153,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'merge_status' => false,
         'behind' => false,
         'head_sha' => false,
+        'kind' => false,
         'base_branch' => false,
         'head_branch' => false,
         'cross_repository' => false,
@@ -270,6 +273,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'merge_status' => 'mergeStatus',
         'behind' => 'behind',
         'head_sha' => 'headSha',
+        'kind' => 'kind',
         'base_branch' => 'baseBranch',
         'head_branch' => 'headBranch',
         'cross_repository' => 'crossRepository',
@@ -309,6 +313,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'merge_status' => 'setMergeStatus',
         'behind' => 'setBehind',
         'head_sha' => 'setHeadSha',
+        'kind' => 'setKind',
         'base_branch' => 'setBaseBranch',
         'head_branch' => 'setHeadBranch',
         'cross_repository' => 'setCrossRepository',
@@ -348,6 +353,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'merge_status' => 'getMergeStatus',
         'behind' => 'getBehind',
         'head_sha' => 'getHeadSha',
+        'kind' => 'getKind',
         'base_branch' => 'getBaseBranch',
         'head_branch' => 'getHeadBranch',
         'cross_repository' => 'getCrossRepository',
@@ -408,6 +414,23 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         return self::$openAPIModelName;
     }
 
+    public const KIND_RELEASE = 'release';
+    public const KIND_DEPENDENCY = 'dependency';
+    public const KIND_REGULAR = 'regular';
+
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getKindAllowableValues()
+    {
+        return [
+            self::KIND_RELEASE,
+            self::KIND_DEPENDENCY,
+            self::KIND_REGULAR,
+        ];
+    }
 
     /**
      * Associative array for storing property values
@@ -438,6 +461,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('merge_status', $data ?? [], null);
         $this->setIfExists('behind', $data ?? [], null);
         $this->setIfExists('head_sha', $data ?? [], null);
+        $this->setIfExists('kind', $data ?? [], null);
         $this->setIfExists('base_branch', $data ?? [], null);
         $this->setIfExists('head_branch', $data ?? [], null);
         $this->setIfExists('cross_repository', $data ?? [], null);
@@ -526,6 +550,18 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['head_sha'] === null) {
             $invalidProperties[] = "'head_sha' can't be null";
         }
+        if ($this->container['kind'] === null) {
+            $invalidProperties[] = "'kind' can't be null";
+        }
+        $allowedValues = $this->getKindAllowableValues();
+        if (!is_null($this->container['kind']) && !in_array($this->container['kind'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value '%s' for 'kind', must be one of '%s'",
+                $this->container['kind'],
+                implode("', '", $allowedValues)
+            );
+        }
+
         if ($this->container['base_branch'] === null) {
             $invalidProperties[] = "'base_branch' can't be null";
         }
@@ -951,6 +987,43 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable head_sha cannot be null');
         }
         $this->container['head_sha'] = $head_sha;
+
+        return $this;
+    }
+
+    /**
+     * Gets kind
+     *
+     * @return string
+     */
+    public function getKind()
+    {
+        return $this->container['kind'];
+    }
+
+    /**
+     * Sets kind
+     *
+     * @param string $kind What sort of pull request this is, decided by the server so no client keeps its own copy of the rule. `release`: release-please's, by its `autorelease:` label (a person opens these, so the label is the only signal, and it wins over any bot author). `dependency`: opened by Dependabot or Renovate, in either spelling of the login (the bare slug GraphQL gives, or REST's `[bot]` form), on either forge. `regular`: everything else. Always present.
+     *
+     * @return self
+     */
+    public function setKind($kind)
+    {
+        if (is_null($kind)) {
+            throw new \InvalidArgumentException('non-nullable kind cannot be null');
+        }
+        $allowedValues = $this->getKindAllowableValues();
+        if (!in_array($kind, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value '%s' for 'kind', must be one of '%s'",
+                    $kind,
+                    implode("', '", $allowedValues)
+                )
+            );
+        }
+        $this->container['kind'] = $kind;
 
         return $this;
     }
