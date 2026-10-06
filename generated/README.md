@@ -154,6 +154,8 @@ Class | Method | HTTP request | Description
 - [AdminUser](docs/Model/AdminUser.md)
 - [AllowedAction](docs/Model/AllowedAction.md)
 - [AllowedActionBlocked](docs/Model/AllowedActionBlocked.md)
+- [AutoMergeStatus](docs/Model/AutoMergeStatus.md)
+- [AutoMergedPullRequest](docs/Model/AutoMergedPullRequest.md)
 - [BotRequest](docs/Model/BotRequest.md)
 - [CIStatus](docs/Model/CIStatus.md)
 - [Check](docs/Model/Check.md)

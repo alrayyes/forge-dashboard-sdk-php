@@ -28,6 +28,8 @@ src/Model/AdminInviteCreateResponse.php
 src/Model/AdminUser.php
 src/Model/AllowedAction.php
 src/Model/AllowedActionBlocked.php
+src/Model/AutoMergeStatus.php
+src/Model/AutoMergedPullRequest.php
 src/Model/BotRequest.php
 src/Model/CIStatus.php
 src/Model/Check.php
