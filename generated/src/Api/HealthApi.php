@@ -644,7 +644,7 @@ class HealthApi
      *
      * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \ForgeDashboard\Generated\Model\Health|\ForgeDashboard\Generated\Model\Error
+     * @return \ForgeDashboard\Generated\Model\Ready|\ForgeDashboard\Generated\Model\Error
      */
     public function ready(string $contentType = self::contentTypes['ready'][0])
     {
@@ -661,7 +661,7 @@ class HealthApi
      *
      * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \ForgeDashboard\Generated\Model\Health|\ForgeDashboard\Generated\Model\Error, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \ForgeDashboard\Generated\Model\Ready|\ForgeDashboard\Generated\Model\Error, HTTP status code, HTTP response headers (array of strings)
      */
     public function readyWithHttpInfo(string $contentType = self::contentTypes['ready'][0])
     {
@@ -693,7 +693,7 @@ class HealthApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\ForgeDashboard\Generated\Model\Health',
+                        '\ForgeDashboard\Generated\Model\Ready',
                         $request,
                         $response,
                     );
@@ -721,7 +721,7 @@ class HealthApi
             }
 
             return $this->handleResponseWithDataType(
-                '\ForgeDashboard\Generated\Model\Health',
+                '\ForgeDashboard\Generated\Model\Ready',
                 $request,
                 $response,
             );
@@ -730,7 +730,7 @@ class HealthApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\ForgeDashboard\Generated\Model\Health',
+                        '\ForgeDashboard\Generated\Model\Ready',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -782,7 +782,7 @@ class HealthApi
      */
     public function readyAsyncWithHttpInfo(string $contentType = self::contentTypes['ready'][0])
     {
-        $returnType = '\ForgeDashboard\Generated\Model\Health';
+        $returnType = '\ForgeDashboard\Generated\Model\Ready';
         $request = $this->readyRequest($contentType);
 
         return $this->client

@@ -49,6 +49,7 @@ src/Model/PullRequestActionRequest.php
 src/Model/PullRequestChecksResponse.php
 src/Model/PullRequestDependabotActionRequest.php
 src/Model/RateLimit.php
+src/Model/Ready.php
 src/Model/RegisterBeginRequest.php
 src/Model/RegistrationStatus.php
 src/Model/RepoIgnoreRequest.php
