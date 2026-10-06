@@ -7,3 +7,5 @@
 /.php-cs-fixer.cache
 /site/
 /.phpdoc/
+/cobertura.xml
+/coverage-html/

@@ -38,6 +38,17 @@ jobs:
           php-version: "8.3"
           tools: composer:2.9.5
           extensions: iconv
+          coverage: pcov
+      # The reports ship from this job, not ci.yml's: a repo has one Pages
+      # deployment, so one job has to assemble the whole site. A red test
+      # run fails the job here, so nothing is deployed.
+      - run: composer install --no-interaction --prefer-dist
+      - name: Pest
+        run: >-
+          vendor/bin/pest --log-junit junit.xml
+          --coverage-clover coverage.xml
+          --coverage-cobertura cobertura.xml
+          --coverage-html coverage-html
       - run: bash scripts/phpdoc.sh
       # phpDocumentor 3's config format (configVersion="3") has no
       # documented way to copy an arbitrary project file into the built
@@ -48,6 +59,7 @@ jobs:
       # anything from the repo root. A plain copy step is the reliable
       # option.
       - run: cp llms.txt site/llms.txt
+      - run: bash scripts/assemble-reports.sh
       - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
           path: site
