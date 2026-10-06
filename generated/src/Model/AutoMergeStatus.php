@@ -1,6 +1,6 @@
 <?php
 /**
- * Dashboard
+ * AutoMergeStatus
  *
  * PHP version 8.1
  *
@@ -32,15 +32,16 @@ use \ArrayAccess;
 use \ForgeDashboard\Generated\ObjectSerializer;
 
 /**
- * Dashboard Class Doc Comment
+ * AutoMergeStatus Class Doc Comment
  *
  * @category Class
+ * @description Where an armed Forgejo pull request stands, so the row can say why auto-merge is waiting or stopped in words and not by colour. Present only while the signed-in user has auto-merge armed on it. This app holds that intent itself, so GitHub&#39;s own auto-merge never has it.
  * @package  ForgeDashboard\Generated
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
+class AutoMergeStatus implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -49,7 +50,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
      *
      * @var string
      */
-    protected static $openAPIModelName = 'Dashboard';
+    protected static $openAPIModelName = 'AutoMergeStatus';
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -57,14 +58,9 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $openAPITypes = [
-        'auto_merged' => '\ForgeDashboard\Generated\Model\AutoMergedPullRequest[]',
-        'open_issue_count' => 'int',
-        'generated_at' => '\DateTime',
-        'hidden_drafts' => 'int',
-        'forges' => '\ForgeDashboard\Generated\Model\ForgeHealth[]',
-        'pull_requests' => '\ForgeDashboard\Generated\Model\PullRequest[]',
-        'issues' => '\ForgeDashboard\Generated\Model\Issue[]',
-        'repos' => '\ForgeDashboard\Generated\Model\RepoStatus[]'
+        'state' => 'string',
+        'code' => 'string',
+        'message' => 'string'
     ];
 
     /**
@@ -75,14 +71,9 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
      * @psalm-var array<string, string|null>
      */
     protected static $openAPIFormats = [
-        'auto_merged' => null,
-        'open_issue_count' => null,
-        'generated_at' => 'date-time',
-        'hidden_drafts' => null,
-        'forges' => null,
-        'pull_requests' => null,
-        'issues' => null,
-        'repos' => null
+        'state' => null,
+        'code' => null,
+        'message' => null
     ];
 
     /**
@@ -91,14 +82,9 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var boolean[]
      */
     protected static array $openAPINullables = [
-        'auto_merged' => false,
-        'open_issue_count' => false,
-        'generated_at' => false,
-        'hidden_drafts' => false,
-        'forges' => false,
-        'pull_requests' => false,
-        'issues' => false,
-        'repos' => false
+        'state' => false,
+        'code' => false,
+        'message' => false
     ];
 
     /**
@@ -187,14 +173,9 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'auto_merged' => 'autoMerged',
-        'open_issue_count' => 'openIssueCount',
-        'generated_at' => 'generatedAt',
-        'hidden_drafts' => 'hiddenDrafts',
-        'forges' => 'forges',
-        'pull_requests' => 'pullRequests',
-        'issues' => 'issues',
-        'repos' => 'repos'
+        'state' => 'state',
+        'code' => 'code',
+        'message' => 'message'
     ];
 
     /**
@@ -203,14 +184,9 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'auto_merged' => 'setAutoMerged',
-        'open_issue_count' => 'setOpenIssueCount',
-        'generated_at' => 'setGeneratedAt',
-        'hidden_drafts' => 'setHiddenDrafts',
-        'forges' => 'setForges',
-        'pull_requests' => 'setPullRequests',
-        'issues' => 'setIssues',
-        'repos' => 'setRepos'
+        'state' => 'setState',
+        'code' => 'setCode',
+        'message' => 'setMessage'
     ];
 
     /**
@@ -219,14 +195,9 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'auto_merged' => 'getAutoMerged',
-        'open_issue_count' => 'getOpenIssueCount',
-        'generated_at' => 'getGeneratedAt',
-        'hidden_drafts' => 'getHiddenDrafts',
-        'forges' => 'getForges',
-        'pull_requests' => 'getPullRequests',
-        'issues' => 'getIssues',
-        'repos' => 'getRepos'
+        'state' => 'getState',
+        'code' => 'getCode',
+        'message' => 'getMessage'
     ];
 
     /**
@@ -270,6 +241,21 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         return self::$openAPIModelName;
     }
 
+    public const STATE_WAITING = 'waiting';
+    public const STATE_STOPPED = 'stopped';
+
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getStateAllowableValues()
+    {
+        return [
+            self::STATE_WAITING,
+            self::STATE_STOPPED,
+        ];
+    }
 
     /**
      * Associative array for storing property values
@@ -286,14 +272,9 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('auto_merged', $data ?? [], null);
-        $this->setIfExists('open_issue_count', $data ?? [], null);
-        $this->setIfExists('generated_at', $data ?? [], null);
-        $this->setIfExists('hidden_drafts', $data ?? [], null);
-        $this->setIfExists('forges', $data ?? [], null);
-        $this->setIfExists('pull_requests', $data ?? [], null);
-        $this->setIfExists('issues', $data ?? [], null);
-        $this->setIfExists('repos', $data ?? [], null);
+        $this->setIfExists('state', $data ?? [], null);
+        $this->setIfExists('code', $data ?? [], null);
+        $this->setIfExists('message', $data ?? [], null);
     }
 
     /**
@@ -323,33 +304,20 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if ($this->container['auto_merged'] === null) {
-            $invalidProperties[] = "'auto_merged' can't be null";
+        if ($this->container['state'] === null) {
+            $invalidProperties[] = "'state' can't be null";
         }
-        if ($this->container['open_issue_count'] === null) {
-            $invalidProperties[] = "'open_issue_count' can't be null";
-        }
-        if ($this->container['generated_at'] === null) {
-            $invalidProperties[] = "'generated_at' can't be null";
-        }
-        if ($this->container['hidden_drafts'] === null) {
-            $invalidProperties[] = "'hidden_drafts' can't be null";
-        }
-        if (($this->container['hidden_drafts'] < 0)) {
-            $invalidProperties[] = "invalid value for 'hidden_drafts', must be bigger than or equal to 0.";
+        $allowedValues = $this->getStateAllowableValues();
+        if (!is_null($this->container['state']) && !in_array($this->container['state'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value '%s' for 'state', must be one of '%s'",
+                $this->container['state'],
+                implode("', '", $allowedValues)
+            );
         }
 
-        if ($this->container['forges'] === null) {
-            $invalidProperties[] = "'forges' can't be null";
-        }
-        if ($this->container['pull_requests'] === null) {
-            $invalidProperties[] = "'pull_requests' can't be null";
-        }
-        if ($this->container['issues'] === null) {
-            $invalidProperties[] = "'issues' can't be null";
-        }
-        if ($this->container['repos'] === null) {
-            $invalidProperties[] = "'repos' can't be null";
+        if ($this->container['message'] === null) {
+            $invalidProperties[] = "'message' can't be null";
         }
         return $invalidProperties;
     }
@@ -367,221 +335,92 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets auto_merged
+     * Gets state
      *
-     * @return \ForgeDashboard\Generated\Model\AutoMergedPullRequest[]
+     * @return string
      */
-    public function getAutoMerged()
+    public function getState()
     {
-        return $this->container['auto_merged'];
+        return $this->container['state'];
     }
 
     /**
-     * Sets auto_merged
+     * Sets state
      *
-     * @param \ForgeDashboard\Generated\Model\AutoMergedPullRequest[] $auto_merged Pull requests this app auto-merged in the last ten minutes, newest first. They have already left `pullRequests`, so this is how a client shows \"Auto-merged owner/repo#N after checks passed\". Always present, empty when there are none. A client shows each one once, matched on `forge`, `fullName`, `number` and `mergedAt`.
+     * @param string $state `waiting` clears by itself: checks still running, a draft, a stack parent that hasn't merged, a rate limit. `stopped` needs the person: a failing check, a conflict, or a merge Forgejo refused (including a token without merge permission). A stopped pull request stays armed and merges once the cause is gone, or the person cancels.
      *
      * @return self
      */
-    public function setAutoMerged($auto_merged)
+    public function setState($state)
     {
-        if (is_null($auto_merged)) {
-            throw new \InvalidArgumentException('non-nullable auto_merged cannot be null');
+        if (is_null($state)) {
+            throw new \InvalidArgumentException('non-nullable state cannot be null');
         }
-        $this->container['auto_merged'] = $auto_merged;
+        $allowedValues = $this->getStateAllowableValues();
+        if (!in_array($state, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value '%s' for 'state', must be one of '%s'",
+                    $state,
+                    implode("', '", $allowedValues)
+                )
+            );
+        }
+        $this->container['state'] = $state;
 
         return $this;
     }
 
     /**
-     * Gets open_issue_count
+     * Gets code
      *
-     * @return int
+     * @return string|null
      */
-    public function getOpenIssueCount()
+    public function getCode()
     {
-        return $this->container['open_issue_count'];
+        return $this->container['code'];
     }
 
     /**
-     * Sets open_issue_count
+     * Sets code
      *
-     * @param int $open_issue_count How many of `issues` are real work: all of them except the `housekeeping` ones. What the Issues badge shows.
+     * @param string|null $code The same codes as `ActionError.code` (`checks_pending`, `checks_failing`, `conflict`, `stacked`, `permission`, `rate_limited`, `not_mergeable`). Omitted when the pull request is simply waiting for the next refresh to merge it.
      *
      * @return self
      */
-    public function setOpenIssueCount($open_issue_count)
+    public function setCode($code)
     {
-        if (is_null($open_issue_count)) {
-            throw new \InvalidArgumentException('non-nullable open_issue_count cannot be null');
+        if (is_null($code)) {
+            throw new \InvalidArgumentException('non-nullable code cannot be null');
         }
-        $this->container['open_issue_count'] = $open_issue_count;
+        $this->container['code'] = $code;
 
         return $this;
     }
 
     /**
-     * Gets generated_at
+     * Gets message
      *
-     * @return \DateTime
+     * @return string
      */
-    public function getGeneratedAt()
+    public function getMessage()
     {
-        return $this->container['generated_at'];
+        return $this->container['message'];
     }
 
     /**
-     * Sets generated_at
+     * Sets message
      *
-     * @param \DateTime $generated_at When this snapshot was refreshed, not when it was requested.
+     * @param string $message Plain words, safe to show a person.
      *
      * @return self
      */
-    public function setGeneratedAt($generated_at)
+    public function setMessage($message)
     {
-        if (is_null($generated_at)) {
-            throw new \InvalidArgumentException('non-nullable generated_at cannot be null');
+        if (is_null($message)) {
+            throw new \InvalidArgumentException('non-nullable message cannot be null');
         }
-        $this->container['generated_at'] = $generated_at;
-
-        return $this;
-    }
-
-    /**
-     * Gets hidden_drafts
-     *
-     * @return int
-     */
-    public function getHiddenDrafts()
-    {
-        return $this->container['hidden_drafts'];
-    }
-
-    /**
-     * Sets hidden_drafts
-     *
-     * @param int $hidden_drafts How many draft pull requests `pullRequests` leaves out. Always present, and `0` when the request set `includeDrafts=true`, so a client can render \"N hidden\" without a special case. Drafts in a repo the account ignores aren't counted, since none of that repo's pull requests show.
-     *
-     * @return self
-     */
-    public function setHiddenDrafts($hidden_drafts)
-    {
-        if (is_null($hidden_drafts)) {
-            throw new \InvalidArgumentException('non-nullable hidden_drafts cannot be null');
-        }
-        if (($hidden_drafts < 0)) {
-            throw new \InvalidArgumentException('invalid value for $hidden_drafts when calling Dashboard., must be bigger than or equal to 0.');
-        }
-
-        $this->container['hidden_drafts'] = $hidden_drafts;
-
-        return $this;
-    }
-
-    /**
-     * Gets forges
-     *
-     * @return \ForgeDashboard\Generated\Model\ForgeHealth[]
-     */
-    public function getForges()
-    {
-        return $this->container['forges'];
-    }
-
-    /**
-     * Sets forges
-     *
-     * @param \ForgeDashboard\Generated\Model\ForgeHealth[] $forges forges
-     *
-     * @return self
-     */
-    public function setForges($forges)
-    {
-        if (is_null($forges)) {
-            throw new \InvalidArgumentException('non-nullable forges cannot be null');
-        }
-        $this->container['forges'] = $forges;
-
-        return $this;
-    }
-
-    /**
-     * Gets pull_requests
-     *
-     * @return \ForgeDashboard\Generated\Model\PullRequest[]
-     */
-    public function getPullRequests()
-    {
-        return $this->container['pull_requests'];
-    }
-
-    /**
-     * Sets pull_requests
-     *
-     * @param \ForgeDashboard\Generated\Model\PullRequest[] $pull_requests pull_requests
-     *
-     * @return self
-     */
-    public function setPullRequests($pull_requests)
-    {
-        if (is_null($pull_requests)) {
-            throw new \InvalidArgumentException('non-nullable pull_requests cannot be null');
-        }
-        $this->container['pull_requests'] = $pull_requests;
-
-        return $this;
-    }
-
-    /**
-     * Gets issues
-     *
-     * @return \ForgeDashboard\Generated\Model\Issue[]
-     */
-    public function getIssues()
-    {
-        return $this->container['issues'];
-    }
-
-    /**
-     * Sets issues
-     *
-     * @param \ForgeDashboard\Generated\Model\Issue[] $issues issues
-     *
-     * @return self
-     */
-    public function setIssues($issues)
-    {
-        if (is_null($issues)) {
-            throw new \InvalidArgumentException('non-nullable issues cannot be null');
-        }
-        $this->container['issues'] = $issues;
-
-        return $this;
-    }
-
-    /**
-     * Gets repos
-     *
-     * @return \ForgeDashboard\Generated\Model\RepoStatus[]
-     */
-    public function getRepos()
-    {
-        return $this->container['repos'];
-    }
-
-    /**
-     * Sets repos
-     *
-     * @param \ForgeDashboard\Generated\Model\RepoStatus[] $repos repos
-     *
-     * @return self
-     */
-    public function setRepos($repos)
-    {
-        if (is_null($repos)) {
-            throw new \InvalidArgumentException('non-nullable repos cannot be null');
-        }
-        $this->container['repos'] = $repos;
+        $this->container['message'] = $message;
 
         return $this;
     }
