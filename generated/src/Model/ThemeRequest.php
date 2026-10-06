@@ -304,6 +304,10 @@ class ThemeRequest implements ModelInterface, ArrayAccess, \JsonSerializable
             );
         }
 
+        if ((mb_strlen($this->container['theme']) > 5)) {
+            $invalidProperties[] = "invalid value for 'theme', the character length must be smaller than or equal to 5.";
+        }
+
         return $invalidProperties;
     }
 
@@ -351,6 +355,10 @@ class ThemeRequest implements ModelInterface, ArrayAccess, \JsonSerializable
                 )
             );
         }
+        if ((mb_strlen($theme) > 5)) {
+            throw new \InvalidArgumentException('invalid length for $theme when calling ThemeRequest., must be smaller than or equal to 5.');
+        }
+
         $this->container['theme'] = $theme;
 
         return $this;

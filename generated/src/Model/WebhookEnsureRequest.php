@@ -288,6 +288,10 @@ class WebhookEnsureRequest implements ModelInterface, ArrayAccess, \JsonSerializ
         if ($this->container['full_name'] === null) {
             $invalidProperties[] = "'full_name' can't be null";
         }
+        if ((mb_strlen($this->container['full_name']) > 255)) {
+            $invalidProperties[] = "invalid value for 'full_name', the character length must be smaller than or equal to 255.";
+        }
+
         return $invalidProperties;
     }
 
@@ -352,6 +356,10 @@ class WebhookEnsureRequest implements ModelInterface, ArrayAccess, \JsonSerializ
         if (is_null($full_name)) {
             throw new \InvalidArgumentException('non-nullable full_name cannot be null');
         }
+        if ((mb_strlen($full_name) > 255)) {
+            throw new \InvalidArgumentException('invalid length for $full_name when calling WebhookEnsureRequest., must be smaller than or equal to 255.');
+        }
+
         $this->container['full_name'] = $full_name;
 
         return $this;
