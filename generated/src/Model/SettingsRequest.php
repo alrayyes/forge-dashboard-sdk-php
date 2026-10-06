@@ -317,8 +317,36 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if (!is_null($this->container['github_token']) && (mb_strlen($this->container['github_token']) > 512)) {
+            $invalidProperties[] = "invalid value for 'github_token', the character length must be smaller than or equal to 512.";
+        }
+
+        if (!is_null($this->container['github_username']) && (mb_strlen($this->container['github_username']) > 64)) {
+            $invalidProperties[] = "invalid value for 'github_username', the character length must be smaller than or equal to 64.";
+        }
+
+        if (!is_null($this->container['github_app_installation_id']) && ($this->container['github_app_installation_id'] > 9007199254740991)) {
+            $invalidProperties[] = "invalid value for 'github_app_installation_id', must be smaller than or equal to 9007199254740991.";
+        }
+
         if (!is_null($this->container['github_app_installation_id']) && ($this->container['github_app_installation_id'] < 0)) {
             $invalidProperties[] = "invalid value for 'github_app_installation_id', must be bigger than or equal to 0.";
+        }
+
+        if (!is_null($this->container['forgejo_url']) && (mb_strlen($this->container['forgejo_url']) > 2048)) {
+            $invalidProperties[] = "invalid value for 'forgejo_url', the character length must be smaller than or equal to 2048.";
+        }
+
+        if (!is_null($this->container['forgejo_token']) && (mb_strlen($this->container['forgejo_token']) > 512)) {
+            $invalidProperties[] = "invalid value for 'forgejo_token', the character length must be smaller than or equal to 512.";
+        }
+
+        if (!is_null($this->container['forgejo_username']) && (mb_strlen($this->container['forgejo_username']) > 64)) {
+            $invalidProperties[] = "invalid value for 'forgejo_username', the character length must be smaller than or equal to 64.";
+        }
+
+        if (!is_null($this->container['renovate_rebase_label']) && (mb_strlen($this->container['renovate_rebase_label']) > 100)) {
+            $invalidProperties[] = "invalid value for 'renovate_rebase_label', the character length must be smaller than or equal to 100.";
         }
 
         return $invalidProperties;
@@ -358,6 +386,10 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         if (is_null($github_token)) {
             throw new \InvalidArgumentException('non-nullable github_token cannot be null');
         }
+        if ((mb_strlen($github_token) > 512)) {
+            throw new \InvalidArgumentException('invalid length for $github_token when calling SettingsRequest., must be smaller than or equal to 512.');
+        }
+
         $this->container['github_token'] = $github_token;
 
         return $this;
@@ -385,6 +417,10 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         if (is_null($github_username)) {
             throw new \InvalidArgumentException('non-nullable github_username cannot be null');
         }
+        if ((mb_strlen($github_username) > 64)) {
+            throw new \InvalidArgumentException('invalid length for $github_username when calling SettingsRequest., must be smaller than or equal to 64.');
+        }
+
         $this->container['github_username'] = $github_username;
 
         return $this;
@@ -411,6 +447,9 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         if (is_null($github_app_installation_id)) {
             throw new \InvalidArgumentException('non-nullable github_app_installation_id cannot be null');
+        }
+        if (($github_app_installation_id > 9007199254740991)) {
+            throw new \InvalidArgumentException('invalid value for $github_app_installation_id when calling SettingsRequest., must be smaller than or equal to 9007199254740991.');
         }
         if (($github_app_installation_id < 0)) {
             throw new \InvalidArgumentException('invalid value for $github_app_installation_id when calling SettingsRequest., must be bigger than or equal to 0.');
@@ -443,6 +482,10 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         if (is_null($forgejo_url)) {
             throw new \InvalidArgumentException('non-nullable forgejo_url cannot be null');
         }
+        if ((mb_strlen($forgejo_url) > 2048)) {
+            throw new \InvalidArgumentException('invalid length for $forgejo_url when calling SettingsRequest., must be smaller than or equal to 2048.');
+        }
+
         $this->container['forgejo_url'] = $forgejo_url;
 
         return $this;
@@ -470,6 +513,10 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         if (is_null($forgejo_token)) {
             throw new \InvalidArgumentException('non-nullable forgejo_token cannot be null');
         }
+        if ((mb_strlen($forgejo_token) > 512)) {
+            throw new \InvalidArgumentException('invalid length for $forgejo_token when calling SettingsRequest., must be smaller than or equal to 512.');
+        }
+
         $this->container['forgejo_token'] = $forgejo_token;
 
         return $this;
@@ -497,6 +544,10 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         if (is_null($forgejo_username)) {
             throw new \InvalidArgumentException('non-nullable forgejo_username cannot be null');
         }
+        if ((mb_strlen($forgejo_username) > 64)) {
+            throw new \InvalidArgumentException('invalid length for $forgejo_username when calling SettingsRequest., must be smaller than or equal to 64.');
+        }
+
         $this->container['forgejo_username'] = $forgejo_username;
 
         return $this;
@@ -524,6 +575,10 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         if (is_null($renovate_rebase_label)) {
             throw new \InvalidArgumentException('non-nullable renovate_rebase_label cannot be null');
         }
+        if ((mb_strlen($renovate_rebase_label) > 100)) {
+            throw new \InvalidArgumentException('invalid length for $renovate_rebase_label when calling SettingsRequest., must be smaller than or equal to 100.');
+        }
+
         $this->container['renovate_rebase_label'] = $renovate_rebase_label;
 
         return $this;

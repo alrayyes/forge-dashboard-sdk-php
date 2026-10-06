@@ -278,6 +278,10 @@ class TimezoneRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['timezone'] === null) {
             $invalidProperties[] = "'timezone' can't be null";
         }
+        if ((mb_strlen($this->container['timezone']) > 64)) {
+            $invalidProperties[] = "invalid value for 'timezone', the character length must be smaller than or equal to 64.";
+        }
+
         return $invalidProperties;
     }
 
@@ -315,6 +319,10 @@ class TimezoneRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         if (is_null($timezone)) {
             throw new \InvalidArgumentException('non-nullable timezone cannot be null');
         }
+        if ((mb_strlen($timezone) > 64)) {
+            throw new \InvalidArgumentException('invalid length for $timezone when calling TimezoneRequest., must be smaller than or equal to 64.');
+        }
+
         $this->container['timezone'] = $timezone;
 
         return $this;

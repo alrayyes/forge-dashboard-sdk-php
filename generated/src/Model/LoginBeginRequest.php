@@ -277,6 +277,10 @@ class LoginBeginRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
         if ($this->container['username'] === null) {
             $invalidProperties[] = "'username' can't be null";
         }
+        if ((mb_strlen($this->container['username']) > 64)) {
+            $invalidProperties[] = "invalid value for 'username', the character length must be smaller than or equal to 64.";
+        }
+
         if (!preg_match("/\\S/", $this->container['username'])) {
             $invalidProperties[] = "invalid value for 'username', must be conform to the pattern /\\S/.";
         }
@@ -318,7 +322,9 @@ class LoginBeginRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
         if (is_null($username)) {
             throw new \InvalidArgumentException('non-nullable username cannot be null');
         }
-
+        if ((mb_strlen($username) > 64)) {
+            throw new \InvalidArgumentException('invalid length for $username when calling LoginBeginRequest., must be smaller than or equal to 64.');
+        }
         if ((!preg_match("/\\S/", ObjectSerializer::toString($username)))) {
             throw new \InvalidArgumentException("invalid value for \$username when calling LoginBeginRequest., must conform to the pattern /\\S/.");
         }

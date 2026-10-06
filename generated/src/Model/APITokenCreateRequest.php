@@ -284,6 +284,10 @@ class APITokenCreateRequest implements ModelInterface, ArrayAccess, \JsonSeriali
         if ($this->container['label'] === null) {
             $invalidProperties[] = "'label' can't be null";
         }
+        if ((mb_strlen($this->container['label']) > 100)) {
+            $invalidProperties[] = "invalid value for 'label', the character length must be smaller than or equal to 100.";
+        }
+
         if ($this->container['expires_at'] === null) {
             $invalidProperties[] = "'expires_at' can't be null";
         }
@@ -324,6 +328,10 @@ class APITokenCreateRequest implements ModelInterface, ArrayAccess, \JsonSeriali
         if (is_null($label)) {
             throw new \InvalidArgumentException('non-nullable label cannot be null');
         }
+        if ((mb_strlen($label) > 100)) {
+            throw new \InvalidArgumentException('invalid length for $label when calling APITokenCreateRequest., must be smaller than or equal to 100.');
+        }
+
         $this->container['label'] = $label;
 
         return $this;
