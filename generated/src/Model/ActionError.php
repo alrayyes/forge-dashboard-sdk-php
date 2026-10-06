@@ -472,7 +472,7 @@ class ActionError implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets resets_at
      *
-     * @param \DateTime|null $resets_at Only with `rate_limited`, when the forge said so. When the budget comes back.
+     * @param \DateTime|null $resets_at Only with `rate_limited`, when the forge said so. When the budget comes back. On Forgejo it comes from the `Retry-After` header, in seconds or as a date.
      *
      * @return self
      */
