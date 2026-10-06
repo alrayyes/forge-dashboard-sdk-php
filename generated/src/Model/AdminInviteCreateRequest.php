@@ -284,6 +284,10 @@ class AdminInviteCreateRequest implements ModelInterface, ArrayAccess, \JsonSeri
         if ($this->container['username'] === null) {
             $invalidProperties[] = "'username' can't be null";
         }
+        if ((mb_strlen($this->container['username']) > 64)) {
+            $invalidProperties[] = "invalid value for 'username', the character length must be smaller than or equal to 64.";
+        }
+
         if (!preg_match("/\\S/", $this->container['username'])) {
             $invalidProperties[] = "invalid value for 'username', must be conform to the pattern /\\S/.";
         }
@@ -291,6 +295,10 @@ class AdminInviteCreateRequest implements ModelInterface, ArrayAccess, \JsonSeri
         if ($this->container['display_name'] === null) {
             $invalidProperties[] = "'display_name' can't be null";
         }
+        if ((mb_strlen($this->container['display_name']) > 100)) {
+            $invalidProperties[] = "invalid value for 'display_name', the character length must be smaller than or equal to 100.";
+        }
+
         return $invalidProperties;
     }
 
@@ -328,7 +336,9 @@ class AdminInviteCreateRequest implements ModelInterface, ArrayAccess, \JsonSeri
         if (is_null($username)) {
             throw new \InvalidArgumentException('non-nullable username cannot be null');
         }
-
+        if ((mb_strlen($username) > 64)) {
+            throw new \InvalidArgumentException('invalid length for $username when calling AdminInviteCreateRequest., must be smaller than or equal to 64.');
+        }
         if ((!preg_match("/\\S/", ObjectSerializer::toString($username)))) {
             throw new \InvalidArgumentException("invalid value for \$username when calling AdminInviteCreateRequest., must conform to the pattern /\\S/.");
         }
@@ -360,6 +370,10 @@ class AdminInviteCreateRequest implements ModelInterface, ArrayAccess, \JsonSeri
         if (is_null($display_name)) {
             throw new \InvalidArgumentException('non-nullable display_name cannot be null');
         }
+        if ((mb_strlen($display_name) > 100)) {
+            throw new \InvalidArgumentException('invalid length for $display_name when calling AdminInviteCreateRequest., must be smaller than or equal to 100.');
+        }
+
         $this->container['display_name'] = $display_name;
 
         return $this;

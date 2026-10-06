@@ -317,9 +317,17 @@ class PullRequestDependabotActionRequest implements ModelInterface, ArrayAccess,
         if ($this->container['full_name'] === null) {
             $invalidProperties[] = "'full_name' can't be null";
         }
+        if ((mb_strlen($this->container['full_name']) > 255)) {
+            $invalidProperties[] = "invalid value for 'full_name', the character length must be smaller than or equal to 255.";
+        }
+
         if ($this->container['number'] === null) {
             $invalidProperties[] = "'number' can't be null";
         }
+        if (($this->container['number'] > 2147483647)) {
+            $invalidProperties[] = "invalid value for 'number', must be smaller than or equal to 2147483647.";
+        }
+
         if ($this->container['action'] === null) {
             $invalidProperties[] = "'action' can't be null";
         }
@@ -330,6 +338,10 @@ class PullRequestDependabotActionRequest implements ModelInterface, ArrayAccess,
                 $this->container['action'],
                 implode("', '", $allowedValues)
             );
+        }
+
+        if ((mb_strlen($this->container['action']) > 8)) {
+            $invalidProperties[] = "invalid value for 'action', the character length must be smaller than or equal to 8.";
         }
 
         return $invalidProperties;
@@ -396,6 +408,10 @@ class PullRequestDependabotActionRequest implements ModelInterface, ArrayAccess,
         if (is_null($full_name)) {
             throw new \InvalidArgumentException('non-nullable full_name cannot be null');
         }
+        if ((mb_strlen($full_name) > 255)) {
+            throw new \InvalidArgumentException('invalid length for $full_name when calling PullRequestDependabotActionRequest., must be smaller than or equal to 255.');
+        }
+
         $this->container['full_name'] = $full_name;
 
         return $this;
@@ -423,6 +439,10 @@ class PullRequestDependabotActionRequest implements ModelInterface, ArrayAccess,
         if (is_null($number)) {
             throw new \InvalidArgumentException('non-nullable number cannot be null');
         }
+        if (($number > 2147483647)) {
+            throw new \InvalidArgumentException('invalid value for $number when calling PullRequestDependabotActionRequest., must be smaller than or equal to 2147483647.');
+        }
+
         $this->container['number'] = $number;
 
         return $this;
@@ -460,6 +480,10 @@ class PullRequestDependabotActionRequest implements ModelInterface, ArrayAccess,
                 )
             );
         }
+        if ((mb_strlen($action) > 8)) {
+            throw new \InvalidArgumentException('invalid length for $action when calling PullRequestDependabotActionRequest., must be smaller than or equal to 8.');
+        }
+
         $this->container['action'] = $action;
 
         return $this;
