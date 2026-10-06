@@ -238,6 +238,7 @@ class AllowedAction implements ModelInterface, ArrayAccess, \JsonSerializable
     public const ACTION_CLOSE = 'close';
     public const ACTION_UPDATE_BRANCH = 'update_branch';
     public const ACTION_AUTO_MERGE = 'auto_merge';
+    public const ACTION_CANCEL_AUTO_MERGE = 'cancel_auto_merge';
     public const ACTION_DEPENDABOT_REBASE = 'dependabot_rebase';
     public const ACTION_DEPENDABOT_RECREATE = 'dependabot_recreate';
     public const ACTION_RENOVATE_REBASE = 'renovate_rebase';
@@ -255,6 +256,7 @@ class AllowedAction implements ModelInterface, ArrayAccess, \JsonSerializable
             self::ACTION_CLOSE,
             self::ACTION_UPDATE_BRANCH,
             self::ACTION_AUTO_MERGE,
+            self::ACTION_CANCEL_AUTO_MERGE,
             self::ACTION_DEPENDABOT_REBASE,
             self::ACTION_DEPENDABOT_RECREATE,
             self::ACTION_RENOVATE_REBASE,
