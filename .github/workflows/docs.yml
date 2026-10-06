@@ -24,8 +24,11 @@ permissions:
   pages: write
   id-token: write
 
+# Per ref, not one shared group: a single `pages` group let a queued PR run
+# displace main's deploy run (the pending slot holds one run, and the
+# newest wins), so main pushes were being cancelled instead of deployed.
 concurrency:
-  group: pages
+  group: pages-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
