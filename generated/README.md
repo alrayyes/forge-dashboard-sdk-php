@@ -173,6 +173,7 @@ Class | Method | HTTP request | Description
 - [PullRequestChecksResponse](docs/Model/PullRequestChecksResponse.md)
 - [PullRequestDependabotActionRequest](docs/Model/PullRequestDependabotActionRequest.md)
 - [RateLimit](docs/Model/RateLimit.md)
+- [Ready](docs/Model/Ready.md)
 - [RegisterBeginRequest](docs/Model/RegisterBeginRequest.md)
 - [RegistrationStatus](docs/Model/RegistrationStatus.md)
 - [RepoIgnoreRequest](docs/Model/RepoIgnoreRequest.md)
