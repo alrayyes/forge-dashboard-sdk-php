@@ -64,7 +64,8 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'forgejo_url' => 'string',
         'forgejo_token' => 'string',
         'forgejo_username' => 'string',
-        'renovate_rebase_label' => 'string'
+        'renovate_rebase_label' => 'string',
+        'renovate_authors' => 'string[]'
     ];
 
     /**
@@ -81,7 +82,8 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'forgejo_url' => null,
         'forgejo_token' => null,
         'forgejo_username' => null,
-        'renovate_rebase_label' => null
+        'renovate_rebase_label' => null,
+        'renovate_authors' => null
     ];
 
     /**
@@ -96,7 +98,8 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'forgejo_url' => false,
         'forgejo_token' => false,
         'forgejo_username' => false,
-        'renovate_rebase_label' => false
+        'renovate_rebase_label' => false,
+        'renovate_authors' => false
     ];
 
     /**
@@ -191,7 +194,8 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'forgejo_url' => 'forgejoUrl',
         'forgejo_token' => 'forgejoToken',
         'forgejo_username' => 'forgejoUsername',
-        'renovate_rebase_label' => 'renovateRebaseLabel'
+        'renovate_rebase_label' => 'renovateRebaseLabel',
+        'renovate_authors' => 'renovateAuthors'
     ];
 
     /**
@@ -206,7 +210,8 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'forgejo_url' => 'setForgejoUrl',
         'forgejo_token' => 'setForgejoToken',
         'forgejo_username' => 'setForgejoUsername',
-        'renovate_rebase_label' => 'setRenovateRebaseLabel'
+        'renovate_rebase_label' => 'setRenovateRebaseLabel',
+        'renovate_authors' => 'setRenovateAuthors'
     ];
 
     /**
@@ -221,7 +226,8 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'forgejo_url' => 'getForgejoUrl',
         'forgejo_token' => 'getForgejoToken',
         'forgejo_username' => 'getForgejoUsername',
-        'renovate_rebase_label' => 'getRenovateRebaseLabel'
+        'renovate_rebase_label' => 'getRenovateRebaseLabel',
+        'renovate_authors' => 'getRenovateAuthors'
     ];
 
     /**
@@ -288,6 +294,7 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('forgejo_token', $data ?? [], null);
         $this->setIfExists('forgejo_username', $data ?? [], null);
         $this->setIfExists('renovate_rebase_label', $data ?? [], null);
+        $this->setIfExists('renovate_authors', $data ?? [], null);
     }
 
     /**
@@ -347,6 +354,10 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
 
         if (!is_null($this->container['renovate_rebase_label']) && (mb_strlen($this->container['renovate_rebase_label']) > 100)) {
             $invalidProperties[] = "invalid value for 'renovate_rebase_label', the character length must be smaller than or equal to 100.";
+        }
+
+        if (!is_null($this->container['renovate_authors']) && (count($this->container['renovate_authors']) > 20)) {
+            $invalidProperties[] = "invalid value for 'renovate_authors', number of items must be less than or equal to 20.";
         }
 
         return $invalidProperties;
@@ -580,6 +591,36 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         }
 
         $this->container['renovate_rebase_label'] = $renovate_rebase_label;
+
+        return $this;
+    }
+
+    /**
+     * Gets renovate_authors
+     *
+     * @return string[]|null
+     */
+    public function getRenovateAuthors()
+    {
+        return $this->container['renovate_authors'];
+    }
+
+    /**
+     * Sets renovate_authors
+     *
+     * @param string[]|null $renovate_authors Replaces the saved list. Entries are trimmed; blanks and repeats (ignoring case) are dropped. Omitted or empty clears it.
+     *
+     * @return self
+     */
+    public function setRenovateAuthors($renovate_authors)
+    {
+        if (is_null($renovate_authors)) {
+            throw new \InvalidArgumentException('non-nullable renovate_authors cannot be null');
+        }
+        if ((count($renovate_authors) > 20)) {
+            throw new \InvalidArgumentException('invalid value for $renovate_authors when calling SettingsRequest., number of items must be less than or equal to 20.');
+        }
+        $this->container['renovate_authors'] = $renovate_authors;
 
         return $this;
     }
