@@ -68,6 +68,7 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'webhook_token' => 'string',
         'webhook_secret' => 'string',
         'renovate_rebase_label' => 'string',
+        'renovate_authors' => 'string[]',
         'theme' => 'string',
         'timezone' => 'string'
     ];
@@ -90,6 +91,7 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'webhook_token' => null,
         'webhook_secret' => null,
         'renovate_rebase_label' => null,
+        'renovate_authors' => null,
         'theme' => null,
         'timezone' => null
     ];
@@ -110,6 +112,7 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'webhook_token' => false,
         'webhook_secret' => false,
         'renovate_rebase_label' => false,
+        'renovate_authors' => false,
         'theme' => false,
         'timezone' => false
     ];
@@ -210,6 +213,7 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'webhook_token' => 'webhookToken',
         'webhook_secret' => 'webhookSecret',
         'renovate_rebase_label' => 'renovateRebaseLabel',
+        'renovate_authors' => 'renovateAuthors',
         'theme' => 'theme',
         'timezone' => 'timezone'
     ];
@@ -230,6 +234,7 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'webhook_token' => 'setWebhookToken',
         'webhook_secret' => 'setWebhookSecret',
         'renovate_rebase_label' => 'setRenovateRebaseLabel',
+        'renovate_authors' => 'setRenovateAuthors',
         'theme' => 'setTheme',
         'timezone' => 'setTimezone'
     ];
@@ -250,6 +255,7 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'webhook_token' => 'getWebhookToken',
         'webhook_secret' => 'getWebhookSecret',
         'renovate_rebase_label' => 'getRenovateRebaseLabel',
+        'renovate_authors' => 'getRenovateAuthors',
         'theme' => 'getTheme',
         'timezone' => 'getTimezone'
     ];
@@ -338,6 +344,7 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('webhook_token', $data ?? [], null);
         $this->setIfExists('webhook_secret', $data ?? [], null);
         $this->setIfExists('renovate_rebase_label', $data ?? [], null);
+        $this->setIfExists('renovate_authors', $data ?? [], null);
         $this->setIfExists('theme', $data ?? [], null);
         $this->setIfExists('timezone', $data ?? [], null);
     }
@@ -398,6 +405,9 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if ($this->container['renovate_rebase_label'] === null) {
             $invalidProperties[] = "'renovate_rebase_label' can't be null";
+        }
+        if ($this->container['renovate_authors'] === null) {
+            $invalidProperties[] = "'renovate_authors' can't be null";
         }
         if ($this->container['theme'] === null) {
             $invalidProperties[] = "'theme' can't be null";
@@ -692,6 +702,33 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable renovate_rebase_label cannot be null');
         }
         $this->container['renovate_rebase_label'] = $renovate_rebase_label;
+
+        return $this;
+    }
+
+    /**
+     * Gets renovate_authors
+     *
+     * @return string[]
+     */
+    public function getRenovateAuthors()
+    {
+        return $this->container['renovate_authors'];
+    }
+
+    /**
+     * Sets renovate_authors
+     *
+     * @param string[] $renovate_authors The logins that are Renovate on the user's forges. On GitHub the App's own `renovate` and `renovate[bot]` are always recognised. A Forgejo or GitLab instance has no App: Renovate runs there as an ordinary account with whatever name the instance gave it, so the user lists it here. A pull request by one of these gets Renovate's own rebase, not Update branch, and is a `dependency`. Matched case-insensitively. Empty means only the GitHub slugs.
+     *
+     * @return self
+     */
+    public function setRenovateAuthors($renovate_authors)
+    {
+        if (is_null($renovate_authors)) {
+            throw new \InvalidArgumentException('non-nullable renovate_authors cannot be null');
+        }
+        $this->container['renovate_authors'] = $renovate_authors;
 
         return $this;
     }
