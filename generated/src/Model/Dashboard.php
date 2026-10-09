@@ -60,6 +60,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'auto_merged' => '\ForgeDashboard\Generated\Model\AutoMergedPullRequest[]',
         'open_issue_count' => 'int',
         'generated_at' => '\DateTime',
+        'read_interval_seconds' => 'int',
         'hidden_drafts' => 'int',
         'forges' => '\ForgeDashboard\Generated\Model\ForgeHealth[]',
         'pull_requests' => '\ForgeDashboard\Generated\Model\PullRequest[]',
@@ -78,6 +79,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'auto_merged' => null,
         'open_issue_count' => null,
         'generated_at' => 'date-time',
+        'read_interval_seconds' => null,
         'hidden_drafts' => null,
         'forges' => null,
         'pull_requests' => null,
@@ -94,6 +96,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'auto_merged' => false,
         'open_issue_count' => false,
         'generated_at' => false,
+        'read_interval_seconds' => false,
         'hidden_drafts' => false,
         'forges' => false,
         'pull_requests' => false,
@@ -190,6 +193,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'auto_merged' => 'autoMerged',
         'open_issue_count' => 'openIssueCount',
         'generated_at' => 'generatedAt',
+        'read_interval_seconds' => 'readIntervalSeconds',
         'hidden_drafts' => 'hiddenDrafts',
         'forges' => 'forges',
         'pull_requests' => 'pullRequests',
@@ -206,6 +210,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'auto_merged' => 'setAutoMerged',
         'open_issue_count' => 'setOpenIssueCount',
         'generated_at' => 'setGeneratedAt',
+        'read_interval_seconds' => 'setReadIntervalSeconds',
         'hidden_drafts' => 'setHiddenDrafts',
         'forges' => 'setForges',
         'pull_requests' => 'setPullRequests',
@@ -222,6 +227,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'auto_merged' => 'getAutoMerged',
         'open_issue_count' => 'getOpenIssueCount',
         'generated_at' => 'getGeneratedAt',
+        'read_interval_seconds' => 'getReadIntervalSeconds',
         'hidden_drafts' => 'getHiddenDrafts',
         'forges' => 'getForges',
         'pull_requests' => 'getPullRequests',
@@ -289,6 +295,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('auto_merged', $data ?? [], null);
         $this->setIfExists('open_issue_count', $data ?? [], null);
         $this->setIfExists('generated_at', $data ?? [], null);
+        $this->setIfExists('read_interval_seconds', $data ?? [], null);
         $this->setIfExists('hidden_drafts', $data ?? [], null);
         $this->setIfExists('forges', $data ?? [], null);
         $this->setIfExists('pull_requests', $data ?? [], null);
@@ -332,6 +339,13 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['generated_at'] === null) {
             $invalidProperties[] = "'generated_at' can't be null";
         }
+        if ($this->container['read_interval_seconds'] === null) {
+            $invalidProperties[] = "'read_interval_seconds' can't be null";
+        }
+        if (($this->container['read_interval_seconds'] < 1)) {
+            $invalidProperties[] = "invalid value for 'read_interval_seconds', must be bigger than or equal to 1.";
+        }
+
         if ($this->container['hidden_drafts'] === null) {
             $invalidProperties[] = "'hidden_drafts' can't be null";
         }
@@ -443,6 +457,37 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable generated_at cannot be null');
         }
         $this->container['generated_at'] = $generated_at;
+
+        return $this;
+    }
+
+    /**
+     * Gets read_interval_seconds
+     *
+     * @return int
+     */
+    public function getReadIntervalSeconds()
+    {
+        return $this->container['read_interval_seconds'];
+    }
+
+    /**
+     * Sets read_interval_seconds
+     *
+     * @param int $read_interval_seconds How often, in seconds, a client should re-read GET /api/dashboard. The server's advice, so a client needs no interval of its own. The read is cheap and never calls a forge; this is not the backend's refresh schedule.
+     *
+     * @return self
+     */
+    public function setReadIntervalSeconds($read_interval_seconds)
+    {
+        if (is_null($read_interval_seconds)) {
+            throw new \InvalidArgumentException('non-nullable read_interval_seconds cannot be null');
+        }
+        if (($read_interval_seconds < 1)) {
+            throw new \InvalidArgumentException('invalid value for $read_interval_seconds when calling Dashboard., must be bigger than or equal to 1.');
+        }
+
+        $this->container['read_interval_seconds'] = $read_interval_seconds;
 
         return $this;
     }
