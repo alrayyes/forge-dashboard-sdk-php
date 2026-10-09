@@ -241,33 +241,6 @@ class AllowedActionBlocked implements ModelInterface, ArrayAccess, \JsonSerializ
         return self::$openAPIModelName;
     }
 
-    public const CODE_ALREADY_UP_TO_DATE = 'already_up_to_date';
-    public const CODE_CONFLICT = 'conflict';
-    public const CODE_NOT_MERGEABLE = 'not_mergeable';
-    public const CODE_CHECKS_PENDING = 'checks_pending';
-    public const CODE_CHECKS_FAILING = 'checks_failing';
-    public const CODE_BEHIND = 'behind';
-    public const CODE_BLOCKED_BY_PROTECTION = 'blocked_by_protection';
-    public const CODE_STACKED = 'stacked';
-
-    /**
-     * Gets allowable values of the enum
-     *
-     * @return string[]
-     */
-    public function getCodeAllowableValues()
-    {
-        return [
-            self::CODE_ALREADY_UP_TO_DATE,
-            self::CODE_CONFLICT,
-            self::CODE_NOT_MERGEABLE,
-            self::CODE_CHECKS_PENDING,
-            self::CODE_CHECKS_FAILING,
-            self::CODE_BEHIND,
-            self::CODE_BLOCKED_BY_PROTECTION,
-            self::CODE_STACKED,
-        ];
-    }
 
     /**
      * Associative array for storing property values
@@ -319,15 +292,6 @@ class AllowedActionBlocked implements ModelInterface, ArrayAccess, \JsonSerializ
         if ($this->container['code'] === null) {
             $invalidProperties[] = "'code' can't be null";
         }
-        $allowedValues = $this->getCodeAllowableValues();
-        if (!is_null($this->container['code']) && !in_array($this->container['code'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'code', must be one of '%s'",
-                $this->container['code'],
-                implode("', '", $allowedValues)
-            );
-        }
-
         if ($this->container['message'] === null) {
             $invalidProperties[] = "'message' can't be null";
         }
@@ -359,7 +323,7 @@ class AllowedActionBlocked implements ModelInterface, ArrayAccess, \JsonSerializ
     /**
      * Sets code
      *
-     * @param string $code The same codes as `ActionError.code`.
+     * @param string $code The same codes as `ActionError.code`. The server may learn more, so a client should show `message` for a code it doesn't know. Declared with `x-extensible-enum`.
      *
      * @return self
      */
@@ -367,16 +331,6 @@ class AllowedActionBlocked implements ModelInterface, ArrayAccess, \JsonSerializ
     {
         if (is_null($code)) {
             throw new \InvalidArgumentException('non-nullable code cannot be null');
-        }
-        $allowedValues = $this->getCodeAllowableValues();
-        if (!in_array($code, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'code', must be one of '%s'",
-                    $code,
-                    implode("', '", $allowedValues)
-                )
-            );
         }
         $this->container['code'] = $code;
 
