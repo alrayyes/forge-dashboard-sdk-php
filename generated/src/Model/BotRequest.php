@@ -61,7 +61,9 @@ class BotRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'action' => 'string',
         'phase' => 'string',
         'requested_at' => '\DateTime',
-        'expires_at' => '\DateTime'
+        'expires_at' => '\DateTime',
+        'acknowledged_at' => '\DateTime',
+        'comment_url' => 'string'
     ];
 
     /**
@@ -76,7 +78,9 @@ class BotRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'action' => null,
         'phase' => null,
         'requested_at' => 'date-time',
-        'expires_at' => 'date-time'
+        'expires_at' => 'date-time',
+        'acknowledged_at' => 'date-time',
+        'comment_url' => 'uri'
     ];
 
     /**
@@ -89,7 +93,9 @@ class BotRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'action' => false,
         'phase' => false,
         'requested_at' => false,
-        'expires_at' => false
+        'expires_at' => false,
+        'acknowledged_at' => false,
+        'comment_url' => false
     ];
 
     /**
@@ -182,7 +188,9 @@ class BotRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'action' => 'action',
         'phase' => 'phase',
         'requested_at' => 'requestedAt',
-        'expires_at' => 'expiresAt'
+        'expires_at' => 'expiresAt',
+        'acknowledged_at' => 'acknowledgedAt',
+        'comment_url' => 'commentUrl'
     ];
 
     /**
@@ -195,7 +203,9 @@ class BotRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'action' => 'setAction',
         'phase' => 'setPhase',
         'requested_at' => 'setRequestedAt',
-        'expires_at' => 'setExpiresAt'
+        'expires_at' => 'setExpiresAt',
+        'acknowledged_at' => 'setAcknowledgedAt',
+        'comment_url' => 'setCommentUrl'
     ];
 
     /**
@@ -208,7 +218,9 @@ class BotRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'action' => 'getAction',
         'phase' => 'getPhase',
         'requested_at' => 'getRequestedAt',
-        'expires_at' => 'getExpiresAt'
+        'expires_at' => 'getExpiresAt',
+        'acknowledged_at' => 'getAcknowledgedAt',
+        'comment_url' => 'getCommentUrl'
     ];
 
     /**
@@ -320,6 +332,8 @@ class BotRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('phase', $data ?? [], null);
         $this->setIfExists('requested_at', $data ?? [], null);
         $this->setIfExists('expires_at', $data ?? [], null);
+        $this->setIfExists('acknowledged_at', $data ?? [], null);
+        $this->setIfExists('comment_url', $data ?? [], null);
     }
 
     /**
@@ -493,7 +507,7 @@ class BotRequest implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets phase
      *
-     * @param string $phase `queued`: asked, and nothing seen yet. `rebasing`: the bot pushed (the head changed, or the pull request was behind and isn't), and CI hasn't restarted yet. `expired`: the bot didn't act within 5 minutes. An expired request stays until the pull request is gone, a new request replaces it, or an hour passes. A request is dropped once CI shows pending after the push, 2 minutes into `rebasing`, or when the pull request is gone.
+     * @param string $phase `queued`: asked, and nothing seen yet. `rebasing`: the bot pushed (the head changed, or the pull request was behind and isn't), and CI hasn't restarted yet. `expired`: the bot didn't act within 10 minutes. An expired request stays until the pull request is gone, a new request replaces it, or an hour passes. A request is dropped once CI shows pending after the push, 2 minutes into `rebasing`, or when the pull request is gone.
      *
      * @return self
      */
@@ -557,7 +571,7 @@ class BotRequest implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets expires_at
      *
-     * @param \DateTime $expires_at When the server stops waiting in the current phase: 5 minutes after the request while `queued`, 2 minutes after the pickup while `rebasing`.
+     * @param \DateTime $expires_at When the server stops waiting in the current phase: 10 minutes after the request while `queued` (10 minutes after `acknowledgedAt` once Dependabot has acknowledged), 2 minutes after the pickup while `rebasing`.
      *
      * @return self
      */
@@ -567,6 +581,60 @@ class BotRequest implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable expires_at cannot be null');
         }
         $this->container['expires_at'] = $expires_at;
+
+        return $this;
+    }
+
+    /**
+     * Gets acknowledged_at
+     *
+     * @return \DateTime|null
+     */
+    public function getAcknowledgedAt()
+    {
+        return $this->container['acknowledged_at'];
+    }
+
+    /**
+     * Sets acknowledged_at
+     *
+     * @param \DateTime|null $acknowledged_at When the server first saw Dependabot's thumbs-up on the `@dependabot rebase` comment, which is how Dependabot says it received the command. Absent until then, and always absent for Renovate and for `recreate`. A thumbs-up that arrives after the request expired moves it back to `queued`.
+     *
+     * @return self
+     */
+    public function setAcknowledgedAt($acknowledged_at)
+    {
+        if (is_null($acknowledged_at)) {
+            throw new \InvalidArgumentException('non-nullable acknowledged_at cannot be null');
+        }
+        $this->container['acknowledged_at'] = $acknowledged_at;
+
+        return $this;
+    }
+
+    /**
+     * Gets comment_url
+     *
+     * @return string|null
+     */
+    public function getCommentUrl()
+    {
+        return $this->container['comment_url'];
+    }
+
+    /**
+     * Sets comment_url
+     *
+     * @param string|null $comment_url The command comment on GitHub, once the server has found it. Absent before that, and for Renovate.
+     *
+     * @return self
+     */
+    public function setCommentUrl($comment_url)
+    {
+        if (is_null($comment_url)) {
+            throw new \InvalidArgumentException('non-nullable comment_url cannot be null');
+        }
+        $this->container['comment_url'] = $comment_url;
 
         return $this;
     }
