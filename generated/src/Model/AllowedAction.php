@@ -234,35 +234,6 @@ class AllowedAction implements ModelInterface, ArrayAccess, \JsonSerializable
         return self::$openAPIModelName;
     }
 
-    public const ACTION_MERGE = 'merge';
-    public const ACTION_CLOSE = 'close';
-    public const ACTION_UPDATE_BRANCH = 'update_branch';
-    public const ACTION_AUTO_MERGE = 'auto_merge';
-    public const ACTION_CANCEL_AUTO_MERGE = 'cancel_auto_merge';
-    public const ACTION_DEPENDABOT_REBASE = 'dependabot_rebase';
-    public const ACTION_DEPENDABOT_RECREATE = 'dependabot_recreate';
-    public const ACTION_RENOVATE_REBASE = 'renovate_rebase';
-    public const ACTION_RERUN_CHECKS = 'rerun_checks';
-
-    /**
-     * Gets allowable values of the enum
-     *
-     * @return string[]
-     */
-    public function getActionAllowableValues()
-    {
-        return [
-            self::ACTION_MERGE,
-            self::ACTION_CLOSE,
-            self::ACTION_UPDATE_BRANCH,
-            self::ACTION_AUTO_MERGE,
-            self::ACTION_CANCEL_AUTO_MERGE,
-            self::ACTION_DEPENDABOT_REBASE,
-            self::ACTION_DEPENDABOT_RECREATE,
-            self::ACTION_RENOVATE_REBASE,
-            self::ACTION_RERUN_CHECKS,
-        ];
-    }
 
     /**
      * Associative array for storing property values
@@ -313,15 +284,6 @@ class AllowedAction implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['action'] === null) {
             $invalidProperties[] = "'action' can't be null";
         }
-        $allowedValues = $this->getActionAllowableValues();
-        if (!is_null($this->container['action']) && !in_array($this->container['action'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'action', must be one of '%s'",
-                $this->container['action'],
-                implode("', '", $allowedValues)
-            );
-        }
-
         return $invalidProperties;
     }
 
@@ -350,7 +312,7 @@ class AllowedAction implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets action
      *
-     * @param string $action action
+     * @param string $action One of the values below today, and the server may learn more. A client should treat a value it doesn't know as an action it can't offer, not as an error. Declared with `x-extensible-enum` so adding a value is a minor SDK release.
      *
      * @return self
      */
@@ -358,16 +320,6 @@ class AllowedAction implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         if (is_null($action)) {
             throw new \InvalidArgumentException('non-nullable action cannot be null');
-        }
-        $allowedValues = $this->getActionAllowableValues();
-        if (!in_array($action, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'action', must be one of '%s'",
-                    $action,
-                    implode("', '", $allowedValues)
-                )
-            );
         }
         $this->container['action'] = $action;
 
