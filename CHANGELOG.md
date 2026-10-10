@@ -1,5 +1,20 @@
 # Changelog
 
+## [3.0.21](https://github.com/alrayyes/forge-dashboard-sdk-php/compare/v3.0.20...v3.0.21) (2026-10-10)
+
+
+### Bug Fixes
+
+* bump phpmd/phpmd from 2.15.0 to 3.0.0 ([a343840](https://github.com/alrayyes/forge-dashboard-sdk-php/commit/a343840d6b18e4a7ddf4c2feef1bed8bc1112b96))
+* bump phpmd/phpmd from 2.15.0 to 3.0.0 ([3e815e3](https://github.com/alrayyes/forge-dashboard-sdk-php/commit/3e815e38af42486f0e2bf5d1eb3e52652fdf6546))
+* bump phpstan/phpstan from 2.2.16 to 2.3.0 ([#134](https://github.com/alrayyes/forge-dashboard-sdk-php/issues/134)) ([745d88f](https://github.com/alrayyes/forge-dashboard-sdk-php/commit/745d88f5feb92ce58e9e18d72d777feee5290abe))
+
+
+### Miscellaneous Chores
+
+* bump @commitlint/cli from 21.2.2 to 21.2.3 ([#137](https://github.com/alrayyes/forge-dashboard-sdk-php/issues/137)) ([01f58a5](https://github.com/alrayyes/forge-dashboard-sdk-php/commit/01f58a50059c50c6bcb55cb73f8449f1a551c6f2))
+* bump @commitlint/config-conventional from 21.2.2 to 21.2.3 ([#138](https://github.com/alrayyes/forge-dashboard-sdk-php/issues/138)) ([f749c44](https://github.com/alrayyes/forge-dashboard-sdk-php/commit/f749c4442471ca9f4c5c7715016d4ecddcdf616a))
+
 ## [3.0.20](https://github.com/alrayyes/forge-dashboard-sdk-php/compare/v3.0.19...v3.0.20) (2026-10-09)
 
 
