@@ -80,6 +80,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'stack_children' => 'int[]',
         'bot_request' => '\ForgeDashboard\Generated\Model\BotRequest',
         'update_request' => '\ForgeDashboard\Generated\Model\UpdateRequest',
+        'queued' => '\ForgeDashboard\Generated\Model\QueuedAction',
         'requested_reviewer_logins' => 'string[]',
         'review_requested_from_me' => 'bool',
         'empty' => 'bool',
@@ -123,6 +124,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'stack_children' => null,
         'bot_request' => null,
         'update_request' => null,
+        'queued' => null,
         'requested_reviewer_logins' => null,
         'review_requested_from_me' => null,
         'empty' => null,
@@ -164,6 +166,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'stack_children' => false,
         'bot_request' => true,
         'update_request' => true,
+        'queued' => true,
         'requested_reviewer_logins' => false,
         'review_requested_from_me' => false,
         'empty' => false,
@@ -285,6 +288,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'stack_children' => 'stackChildren',
         'bot_request' => 'botRequest',
         'update_request' => 'updateRequest',
+        'queued' => 'queued',
         'requested_reviewer_logins' => 'requestedReviewerLogins',
         'review_requested_from_me' => 'reviewRequestedFromMe',
         'empty' => 'empty',
@@ -326,6 +330,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'stack_children' => 'setStackChildren',
         'bot_request' => 'setBotRequest',
         'update_request' => 'setUpdateRequest',
+        'queued' => 'setQueued',
         'requested_reviewer_logins' => 'setRequestedReviewerLogins',
         'review_requested_from_me' => 'setReviewRequestedFromMe',
         'empty' => 'setEmpty',
@@ -367,6 +372,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'stack_children' => 'getStackChildren',
         'bot_request' => 'getBotRequest',
         'update_request' => 'getUpdateRequest',
+        'queued' => 'getQueued',
         'requested_reviewer_logins' => 'getRequestedReviewerLogins',
         'review_requested_from_me' => 'getReviewRequestedFromMe',
         'empty' => 'getEmpty',
@@ -476,6 +482,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('stack_children', $data ?? [], null);
         $this->setIfExists('bot_request', $data ?? [], null);
         $this->setIfExists('update_request', $data ?? [], null);
+        $this->setIfExists('queued', $data ?? [], null);
         $this->setIfExists('requested_reviewer_logins', $data ?? [], null);
         $this->setIfExists('review_requested_from_me', $data ?? [], null);
         $this->setIfExists('empty', $data ?? [], null);
@@ -1275,6 +1282,40 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
             }
         }
         $this->container['update_request'] = $update_request;
+
+        return $this;
+    }
+
+    /**
+     * Gets queued
+     *
+     * @return \ForgeDashboard\Generated\Model\QueuedAction|null
+     */
+    public function getQueued()
+    {
+        return $this->container['queued'];
+    }
+
+    /**
+     * Sets queued
+     *
+     * @param \ForgeDashboard\Generated\Model\QueuedAction|null $queued A safe action this user queued on this pull request that is still waiting for its forge's rate limit to reset, or null. The row can say \"Update branch queued for 14:32\" from `runAt` and offer Cancel with `id`. A final outcome is not here: it is in the dashboard's `queuedActions`.
+     *
+     * @return self
+     */
+    public function setQueued($queued)
+    {
+        if (is_null($queued)) {
+            array_push($this->openAPINullablesSetToNull, 'queued');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('queued', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['queued'] = $queued;
 
         return $this;
     }
