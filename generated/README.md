@@ -108,6 +108,7 @@ Class | Method | HTTP request | Description
 *DashboardApi* | [**disableAutoUpdateBranch**](docs/Api/DashboardApi.md#disableautoupdatebranch) | **POST** /api/repos/auto-update-branch/disable | Turn off automatic branch updates for one tracked repo
 *DashboardApi* | [**enableAutoUpdateBranch**](docs/Api/DashboardApi.md#enableautoupdatebranch) | **POST** /api/repos/auto-update-branch/enable | Turn on automatic branch updates for one tracked repo
 *DashboardApi* | [**getDashboard**](docs/Api/DashboardApi.md#getdashboard) | **GET** /api/dashboard | The aggregated view
+*DashboardApi* | [**getMainBranches**](docs/Api/DashboardApi.md#getmainbranches) | **GET** /api/main-branches | The CI status of every tracked repository&#39;s default branch
 *DashboardApi* | [**ignoreRepo**](docs/Api/DashboardApi.md#ignorerepo) | **POST** /api/repos/ignore | Hide one tracked repo&#39;s pull requests, issues, or both from the dashboard and Insights
 *DashboardApi* | [**refreshDashboard**](docs/Api/DashboardApi.md#refreshdashboard) | **POST** /api/dashboard/refresh | Trigger an immediate refresh of the signed-in user&#39;s own dashboard
 *DashboardApi* | [**streamDashboard**](docs/Api/DashboardApi.md#streamdashboard) | **GET** /api/dashboard/stream | Server-Sent Events stream of the signed-in user&#39;s own dashboard
@@ -173,6 +174,11 @@ Class | Method | HTTP request | Description
 - [Issue](docs/Model/Issue.md)
 - [Label](docs/Model/Label.md)
 - [LoginBeginRequest](docs/Model/LoginBeginRequest.md)
+- [MainBranch](docs/Model/MainBranch.md)
+- [MainBranchCommit](docs/Model/MainBranchCommit.md)
+- [MainBranchCounts](docs/Model/MainBranchCounts.md)
+- [MainBranchStatus](docs/Model/MainBranchStatus.md)
+- [MainBranches](docs/Model/MainBranches.md)
 - [MergeStatus](docs/Model/MergeStatus.md)
 - [PullRequest](docs/Model/PullRequest.md)
 - [PullRequestActionRequest](docs/Model/PullRequestActionRequest.md)
