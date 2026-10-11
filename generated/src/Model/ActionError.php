@@ -260,6 +260,8 @@ class ActionError implements ModelInterface, ArrayAccess, \JsonSerializable
     public const CODE_READY_TO_MERGE = 'ready_to_merge';
     public const CODE_PERMISSION = 'permission';
     public const CODE_RATE_LIMITED = 'rate_limited';
+    public const CODE_NOT_RATE_LIMITED = 'not_rate_limited';
+    public const CODE_NOT_OPEN = 'not_open';
     public const CODE_UNKNOWN = 'unknown';
 
     /**
@@ -283,6 +285,8 @@ class ActionError implements ModelInterface, ArrayAccess, \JsonSerializable
             self::CODE_READY_TO_MERGE,
             self::CODE_PERMISSION,
             self::CODE_RATE_LIMITED,
+            self::CODE_NOT_RATE_LIMITED,
+            self::CODE_NOT_OPEN,
             self::CODE_UNKNOWN,
         ];
     }
@@ -408,7 +412,7 @@ class ActionError implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets code
      *
-     * @param string $code Why the action was refused, from a re-read of the pull request's real state. `already_merged` and `already_closed` mean the dashboard's row was stale: the pull request has nothing left to merge.  Three codes belong to one action each: `already_up_to_date` (Update branch: nothing to bring in), `auto_merge_not_allowed` (Enable auto-merge: the repo or pull request doesn't allow it) and `ready_to_merge` (Enable auto-merge: already clean, use Merge).
+     * @param string $code Why the action was refused, from a re-read of the pull request's real state. `already_merged` and `already_closed` mean the dashboard's row was stale: the pull request has nothing left to merge.  `not_rate_limited` belongs to queueing an action: the forge isn't rate limited, so act directly. `not_open` is only an outcome of a queued action: the pull request was gone from the board when the reset came, merged or closed.  Three codes belong to one action each: `already_up_to_date` (Update branch: nothing to bring in), `auto_merge_not_allowed` (Enable auto-merge: the repo or pull request doesn't allow it) and `ready_to_merge` (Enable auto-merge: already clean, use Merge).
      *
      * @return self
      */

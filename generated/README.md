@@ -124,6 +124,9 @@ Class | Method | HTTP request | Description
 *PullRequestsApi* | [**postPullRequestRenovateRebase**](docs/Api/PullRequestsApi.md#postpullrequestrenovaterebase) | **POST** /api/pull-requests/renovate-rebase | Trigger Renovate&#39;s own rebase/retry on a pull request, on the signed-in user&#39;s behalf
 *PullRequestsApi* | [**rerunPullRequestChecks**](docs/Api/PullRequestsApi.md#rerunpullrequestchecks) | **POST** /api/pull-requests/rerun-checks | Rerun only the failed jobs of one pull request&#39;s checks, on the signed-in user&#39;s behalf
 *PullRequestsApi* | [**updatePullRequestBranch**](docs/Api/PullRequestsApi.md#updatepullrequestbranch) | **POST** /api/pull-requests/update-branch | Bring one pull request&#39;s branch up to date with its base, on the signed-in user&#39;s behalf
+*QueuedActionsApi* | [**cancelQueuedAction**](docs/Api/QueuedActionsApi.md#cancelqueuedaction) | **DELETE** /api/queued-actions/{id} | Cancel a queued action, or clear a finished one from the list
+*QueuedActionsApi* | [**listQueuedActions**](docs/Api/QueuedActionsApi.md#listqueuedactions) | **GET** /api/queued-actions | List the signed-in user&#39;s queued actions, waiting and recently finished
+*QueuedActionsApi* | [**queueAction**](docs/Api/QueuedActionsApi.md#queueaction) | **POST** /api/queued-actions | Queue a safe action to run when a rate-limited forge resets
 *SettingsApi* | [**getFilterState**](docs/Api/SettingsApi.md#getfilterstate) | **GET** /api/settings/filter-state | The signed-in user&#39;s own saved dashboard/Insights filter state
 *SettingsApi* | [**getSettings**](docs/Api/SettingsApi.md#getsettings) | **GET** /api/settings | The signed-in user&#39;s own forge configuration
 *SettingsApi* | [**getTheme**](docs/Api/SettingsApi.md#gettheme) | **GET** /api/settings/theme | The signed-in user&#39;s own saved theme preference
@@ -175,6 +178,8 @@ Class | Method | HTTP request | Description
 - [PullRequestActionRequest](docs/Model/PullRequestActionRequest.md)
 - [PullRequestChecksResponse](docs/Model/PullRequestChecksResponse.md)
 - [PullRequestDependabotActionRequest](docs/Model/PullRequestDependabotActionRequest.md)
+- [QueuedAction](docs/Model/QueuedAction.md)
+- [QueuedActionRequest](docs/Model/QueuedActionRequest.md)
 - [RateLimit](docs/Model/RateLimit.md)
 - [Ready](docs/Model/Ready.md)
 - [RegisterBeginRequest](docs/Model/RegisterBeginRequest.md)

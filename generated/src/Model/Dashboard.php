@@ -57,6 +57,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $openAPITypes = [
+        'queued_actions' => '\ForgeDashboard\Generated\Model\QueuedAction[]',
         'auto_merged' => '\ForgeDashboard\Generated\Model\AutoMergedPullRequest[]',
         'open_issue_count' => 'int',
         'generated_at' => '\DateTime',
@@ -76,6 +77,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
      * @psalm-var array<string, string|null>
      */
     protected static $openAPIFormats = [
+        'queued_actions' => null,
         'auto_merged' => null,
         'open_issue_count' => null,
         'generated_at' => 'date-time',
@@ -93,6 +95,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var boolean[]
      */
     protected static array $openAPINullables = [
+        'queued_actions' => false,
         'auto_merged' => false,
         'open_issue_count' => false,
         'generated_at' => false,
@@ -190,6 +193,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
+        'queued_actions' => 'queuedActions',
         'auto_merged' => 'autoMerged',
         'open_issue_count' => 'openIssueCount',
         'generated_at' => 'generatedAt',
@@ -207,6 +211,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
+        'queued_actions' => 'setQueuedActions',
         'auto_merged' => 'setAutoMerged',
         'open_issue_count' => 'setOpenIssueCount',
         'generated_at' => 'setGeneratedAt',
@@ -224,6 +229,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
+        'queued_actions' => 'getQueuedActions',
         'auto_merged' => 'getAutoMerged',
         'open_issue_count' => 'getOpenIssueCount',
         'generated_at' => 'getGeneratedAt',
@@ -292,6 +298,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
+        $this->setIfExists('queued_actions', $data ?? [], null);
         $this->setIfExists('auto_merged', $data ?? [], null);
         $this->setIfExists('open_issue_count', $data ?? [], null);
         $this->setIfExists('generated_at', $data ?? [], null);
@@ -379,6 +386,33 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         return count($this->listInvalidProperties()) === 0;
     }
 
+
+    /**
+     * Gets queued_actions
+     *
+     * @return \ForgeDashboard\Generated\Model\QueuedAction[]|null
+     */
+    public function getQueuedActions()
+    {
+        return $this->container['queued_actions'];
+    }
+
+    /**
+     * Sets queued_actions
+     *
+     * @param \ForgeDashboard\Generated\Model\QueuedAction[]|null $queued_actions The signed-in user's queued actions, waiting and finished in the last 24 hours (GET /api/queued-actions), so a client lists them in its Activity panel and learns an outcome from the stream it already reads. Empty when there are none, and always empty on another user's shared dashboard. Not yet in `required`: the handler that fills it ships in the next pull request of the stack, which makes it required.
+     *
+     * @return self
+     */
+    public function setQueuedActions($queued_actions)
+    {
+        if (is_null($queued_actions)) {
+            throw new \InvalidArgumentException('non-nullable queued_actions cannot be null');
+        }
+        $this->container['queued_actions'] = $queued_actions;
+
+        return $this;
+    }
 
     /**
      * Gets auto_merged

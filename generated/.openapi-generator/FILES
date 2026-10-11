@@ -10,6 +10,7 @@ src/Api/AuthApi.php
 src/Api/DashboardApi.php
 src/Api/HealthApi.php
 src/Api/PullRequestsApi.php
+src/Api/QueuedActionsApi.php
 src/Api/SettingsApi.php
 src/Api/SharingApi.php
 src/Api/TokensApi.php
@@ -50,6 +51,8 @@ src/Model/PullRequest.php
 src/Model/PullRequestActionRequest.php
 src/Model/PullRequestChecksResponse.php
 src/Model/PullRequestDependabotActionRequest.php
+src/Model/QueuedAction.php
+src/Model/QueuedActionRequest.php
 src/Model/RateLimit.php
 src/Model/Ready.php
 src/Model/RegisterBeginRequest.php
