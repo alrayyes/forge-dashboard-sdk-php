@@ -45,6 +45,11 @@ src/Model/Health.php
 src/Model/Issue.php
 src/Model/Label.php
 src/Model/LoginBeginRequest.php
+src/Model/MainBranch.php
+src/Model/MainBranchCommit.php
+src/Model/MainBranchCounts.php
+src/Model/MainBranchStatus.php
+src/Model/MainBranches.php
 src/Model/MergeStatus.php
 src/Model/ModelInterface.php
 src/Model/PullRequest.php
