@@ -337,6 +337,9 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if ($this->container['queued_actions'] === null) {
+            $invalidProperties[] = "'queued_actions' can't be null";
+        }
         if ($this->container['auto_merged'] === null) {
             $invalidProperties[] = "'auto_merged' can't be null";
         }
@@ -390,7 +393,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets queued_actions
      *
-     * @return \ForgeDashboard\Generated\Model\QueuedAction[]|null
+     * @return \ForgeDashboard\Generated\Model\QueuedAction[]
      */
     public function getQueuedActions()
     {
@@ -400,7 +403,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets queued_actions
      *
-     * @param \ForgeDashboard\Generated\Model\QueuedAction[]|null $queued_actions The signed-in user's queued actions, waiting and finished in the last 24 hours (GET /api/queued-actions), so a client lists them in its Activity panel and learns an outcome from the stream it already reads. Empty when there are none, and always empty on another user's shared dashboard. Not yet in `required`: the handler that fills it ships in the next pull request of the stack, which makes it required.
+     * @param \ForgeDashboard\Generated\Model\QueuedAction[] $queued_actions The signed-in user's queued actions, waiting and finished in the last 24 hours (GET /api/queued-actions), so a client lists them in its Activity panel and learns an outcome from the stream it already reads. Always present, empty when there are none, and always empty on another user's shared dashboard.
      *
      * @return self
      */
