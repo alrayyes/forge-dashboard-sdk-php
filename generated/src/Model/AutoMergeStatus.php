@@ -35,7 +35,7 @@ use \ForgeDashboard\Generated\ObjectSerializer;
  * AutoMergeStatus Class Doc Comment
  *
  * @category Class
- * @description Where an armed Forgejo pull request stands, so the row can say why auto-merge is waiting or stopped in words and not by colour. Present only while the signed-in user has auto-merge armed on it. This app holds that intent itself, so GitHub&#39;s own auto-merge never has it.
+ * @description Where an armed pull request stands, so the row can say why auto-merge is waiting or stopped in words and not by colour. Present while auto-merge is armed on it: on Forgejo the signed-in user&#39;s intent held by this app, on GitHub the forge&#39;s own auto-merge (#1293).
  * @package  ForgeDashboard\Generated
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
