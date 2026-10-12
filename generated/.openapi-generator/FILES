@@ -56,6 +56,7 @@ src/Model/PullRequest.php
 src/Model/PullRequestActionRequest.php
 src/Model/PullRequestChecksResponse.php
 src/Model/PullRequestDependabotActionRequest.php
+src/Model/PullRequestHideRequest.php
 src/Model/QueuedAction.php
 src/Model/QueuedActionRequest.php
 src/Model/RateLimit.php
