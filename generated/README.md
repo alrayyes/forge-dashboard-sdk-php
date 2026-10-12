@@ -116,7 +116,7 @@ Class | Method | HTTP request | Description
 *HealthApi* | [**getVersion**](docs/Api/HealthApi.md#getversion) | **GET** /api/version | The running server&#39;s own version
 *HealthApi* | [**health**](docs/Api/HealthApi.md#health) | **GET** /healthz | Liveness
 *HealthApi* | [**ready**](docs/Api/HealthApi.md#ready) | **GET** /readyz | Readiness
-*PullRequestsApi* | [**cancelPullRequestAutoMerge**](docs/Api/PullRequestsApi.md#cancelpullrequestautomerge) | **POST** /api/pull-requests/auto-merge/cancel | Cancel the auto-merge this app holds for a pull request
+*PullRequestsApi* | [**cancelPullRequestAutoMerge**](docs/Api/PullRequestsApi.md#cancelpullrequestautomerge) | **POST** /api/pull-requests/auto-merge/cancel | Cancel auto-merge on a pull request, on the signed-in user&#39;s behalf
 *PullRequestsApi* | [**closePullRequest**](docs/Api/PullRequestsApi.md#closepullrequest) | **POST** /api/pull-requests/close | Close one pull request without merging it, on the signed-in user&#39;s behalf
 *PullRequestsApi* | [**enablePullRequestAutoMerge**](docs/Api/PullRequestsApi.md#enablepullrequestautomerge) | **POST** /api/pull-requests/auto-merge | Arm auto-merge on a pull request, on the signed-in user&#39;s behalf
 *PullRequestsApi* | [**getPullRequestChecks**](docs/Api/PullRequestsApi.md#getpullrequestchecks) | **GET** /api/pull-requests/checks | List every job/check run against a pull request&#39;s head commit, on demand

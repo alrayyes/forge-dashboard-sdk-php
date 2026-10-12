@@ -152,7 +152,7 @@ class PullRequestsApi
     /**
      * Operation cancelPullRequestAutoMerge
      *
-     * Cancel the auto-merge this app holds for a pull request
+     * Cancel auto-merge on a pull request, on the signed-in user&#39;s behalf
      *
      * @param  \ForgeDashboard\Generated\Model\PullRequestActionRequest $pull_request_action_request pull_request_action_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['cancelPullRequestAutoMerge'] to see the possible values for this operation
@@ -169,7 +169,7 @@ class PullRequestsApi
     /**
      * Operation cancelPullRequestAutoMergeWithHttpInfo
      *
-     * Cancel the auto-merge this app holds for a pull request
+     * Cancel auto-merge on a pull request, on the signed-in user&#39;s behalf
      *
      * @param  \ForgeDashboard\Generated\Model\PullRequestActionRequest $pull_request_action_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['cancelPullRequestAutoMerge'] to see the possible values for this operation
@@ -224,6 +224,22 @@ class PullRequestsApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                case 409:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\ActionError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 502:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\ActionError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -234,7 +250,7 @@ class PullRequestsApi
     /**
      * Operation cancelPullRequestAutoMergeAsync
      *
-     * Cancel the auto-merge this app holds for a pull request
+     * Cancel auto-merge on a pull request, on the signed-in user&#39;s behalf
      *
      * @param  \ForgeDashboard\Generated\Model\PullRequestActionRequest $pull_request_action_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['cancelPullRequestAutoMerge'] to see the possible values for this operation
@@ -255,7 +271,7 @@ class PullRequestsApi
     /**
      * Operation cancelPullRequestAutoMergeAsyncWithHttpInfo
      *
-     * Cancel the auto-merge this app holds for a pull request
+     * Cancel auto-merge on a pull request, on the signed-in user&#39;s behalf
      *
      * @param  \ForgeDashboard\Generated\Model\PullRequestActionRequest $pull_request_action_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['cancelPullRequestAutoMerge'] to see the possible values for this operation
