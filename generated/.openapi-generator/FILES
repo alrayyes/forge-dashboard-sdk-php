@@ -52,6 +52,9 @@ src/Model/MainBranchStatus.php
 src/Model/MainBranches.php
 src/Model/MergeStatus.php
 src/Model/ModelInterface.php
+src/Model/NavCount.php
+src/Model/NavCounts.php
+src/Model/NavIssueCount.php
 src/Model/PullRequest.php
 src/Model/PullRequestActionRequest.php
 src/Model/PullRequestChecksResponse.php
