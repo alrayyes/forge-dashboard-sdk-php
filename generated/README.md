@@ -120,10 +120,12 @@ Class | Method | HTTP request | Description
 *PullRequestsApi* | [**closePullRequest**](docs/Api/PullRequestsApi.md#closepullrequest) | **POST** /api/pull-requests/close | Close one pull request without merging it, on the signed-in user&#39;s behalf
 *PullRequestsApi* | [**enablePullRequestAutoMerge**](docs/Api/PullRequestsApi.md#enablepullrequestautomerge) | **POST** /api/pull-requests/auto-merge | Arm auto-merge on a pull request, on the signed-in user&#39;s behalf
 *PullRequestsApi* | [**getPullRequestChecks**](docs/Api/PullRequestsApi.md#getpullrequestchecks) | **GET** /api/pull-requests/checks | List every job/check run against a pull request&#39;s head commit, on demand
+*PullRequestsApi* | [**hidePullRequest**](docs/Api/PullRequestsApi.md#hidepullrequest) | **POST** /api/pull-requests/hide | Hide one pull request from the signed-in user&#39;s dashboard
 *PullRequestsApi* | [**mergePullRequest**](docs/Api/PullRequestsApi.md#mergepullrequest) | **POST** /api/pull-requests/merge | Merge one pull request, on the signed-in user&#39;s behalf
 *PullRequestsApi* | [**postPullRequestDependabotAction**](docs/Api/PullRequestsApi.md#postpullrequestdependabotaction) | **POST** /api/pull-requests/dependabot-action | Post one of Dependabot&#39;s own documented PR-comment commands on a pull request, on the signed-in user&#39;s behalf
 *PullRequestsApi* | [**postPullRequestRenovateRebase**](docs/Api/PullRequestsApi.md#postpullrequestrenovaterebase) | **POST** /api/pull-requests/renovate-rebase | Trigger Renovate&#39;s own rebase/retry on a pull request, on the signed-in user&#39;s behalf
 *PullRequestsApi* | [**rerunPullRequestChecks**](docs/Api/PullRequestsApi.md#rerunpullrequestchecks) | **POST** /api/pull-requests/rerun-checks | Rerun only the failed jobs of one pull request&#39;s checks, on the signed-in user&#39;s behalf
+*PullRequestsApi* | [**unhidePullRequest**](docs/Api/PullRequestsApi.md#unhidepullrequest) | **POST** /api/pull-requests/unhide | Bring a hidden pull request back onto the signed-in user&#39;s dashboard
 *PullRequestsApi* | [**updatePullRequestBranch**](docs/Api/PullRequestsApi.md#updatepullrequestbranch) | **POST** /api/pull-requests/update-branch | Bring one pull request&#39;s branch up to date with its base, on the signed-in user&#39;s behalf
 *QueuedActionsApi* | [**cancelQueuedAction**](docs/Api/QueuedActionsApi.md#cancelqueuedaction) | **DELETE** /api/queued-actions/{id} | Cancel a queued action, or clear a finished one from the list
 *QueuedActionsApi* | [**listQueuedActions**](docs/Api/QueuedActionsApi.md#listqueuedactions) | **GET** /api/queued-actions | List the signed-in user&#39;s queued actions, waiting and recently finished
@@ -184,6 +186,7 @@ Class | Method | HTTP request | Description
 - [PullRequestActionRequest](docs/Model/PullRequestActionRequest.md)
 - [PullRequestChecksResponse](docs/Model/PullRequestChecksResponse.md)
 - [PullRequestDependabotActionRequest](docs/Model/PullRequestDependabotActionRequest.md)
+- [PullRequestHideRequest](docs/Model/PullRequestHideRequest.md)
 - [QueuedAction](docs/Model/QueuedAction.md)
 - [QueuedActionRequest](docs/Model/QueuedActionRequest.md)
 - [RateLimit](docs/Model/RateLimit.md)

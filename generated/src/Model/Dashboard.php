@@ -63,6 +63,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'generated_at' => '\DateTime',
         'read_interval_seconds' => 'int',
         'hidden_drafts' => 'int',
+        'hidden_pull_requests' => 'int',
         'forges' => '\ForgeDashboard\Generated\Model\ForgeHealth[]',
         'pull_requests' => '\ForgeDashboard\Generated\Model\PullRequest[]',
         'issues' => '\ForgeDashboard\Generated\Model\Issue[]',
@@ -83,6 +84,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'generated_at' => 'date-time',
         'read_interval_seconds' => null,
         'hidden_drafts' => null,
+        'hidden_pull_requests' => null,
         'forges' => null,
         'pull_requests' => null,
         'issues' => null,
@@ -101,6 +103,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'generated_at' => false,
         'read_interval_seconds' => false,
         'hidden_drafts' => false,
+        'hidden_pull_requests' => false,
         'forges' => false,
         'pull_requests' => false,
         'issues' => false,
@@ -199,6 +202,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'generated_at' => 'generatedAt',
         'read_interval_seconds' => 'readIntervalSeconds',
         'hidden_drafts' => 'hiddenDrafts',
+        'hidden_pull_requests' => 'hiddenPullRequests',
         'forges' => 'forges',
         'pull_requests' => 'pullRequests',
         'issues' => 'issues',
@@ -217,6 +221,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'generated_at' => 'setGeneratedAt',
         'read_interval_seconds' => 'setReadIntervalSeconds',
         'hidden_drafts' => 'setHiddenDrafts',
+        'hidden_pull_requests' => 'setHiddenPullRequests',
         'forges' => 'setForges',
         'pull_requests' => 'setPullRequests',
         'issues' => 'setIssues',
@@ -235,6 +240,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'generated_at' => 'getGeneratedAt',
         'read_interval_seconds' => 'getReadIntervalSeconds',
         'hidden_drafts' => 'getHiddenDrafts',
+        'hidden_pull_requests' => 'getHiddenPullRequests',
         'forges' => 'getForges',
         'pull_requests' => 'getPullRequests',
         'issues' => 'getIssues',
@@ -304,6 +310,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('generated_at', $data ?? [], null);
         $this->setIfExists('read_interval_seconds', $data ?? [], null);
         $this->setIfExists('hidden_drafts', $data ?? [], null);
+        $this->setIfExists('hidden_pull_requests', $data ?? [], null);
         $this->setIfExists('forges', $data ?? [], null);
         $this->setIfExists('pull_requests', $data ?? [], null);
         $this->setIfExists('issues', $data ?? [], null);
@@ -361,6 +368,10 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if (($this->container['hidden_drafts'] < 0)) {
             $invalidProperties[] = "invalid value for 'hidden_drafts', must be bigger than or equal to 0.";
+        }
+
+        if (!is_null($this->container['hidden_pull_requests']) && ($this->container['hidden_pull_requests'] < 0)) {
+            $invalidProperties[] = "invalid value for 'hidden_pull_requests', must be bigger than or equal to 0.";
         }
 
         if ($this->container['forges'] === null) {
@@ -556,6 +567,37 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         }
 
         $this->container['hidden_drafts'] = $hidden_drafts;
+
+        return $this;
+    }
+
+    /**
+     * Gets hidden_pull_requests
+     *
+     * @return int|null
+     */
+    public function getHiddenPullRequests()
+    {
+        return $this->container['hidden_pull_requests'];
+    }
+
+    /**
+     * Sets hidden_pull_requests
+     *
+     * @param int|null $hidden_pull_requests How many pull requests the user hid that are still open and not expired. Always present, so a client can render \"Hidden (N)\" without a special case. With `includeHidden=true` they are in `pullRequests`, marked `hidden`, and this still counts them.
+     *
+     * @return self
+     */
+    public function setHiddenPullRequests($hidden_pull_requests)
+    {
+        if (is_null($hidden_pull_requests)) {
+            throw new \InvalidArgumentException('non-nullable hidden_pull_requests cannot be null');
+        }
+        if (($hidden_pull_requests < 0)) {
+            throw new \InvalidArgumentException('invalid value for $hidden_pull_requests when calling Dashboard., must be bigger than or equal to 0.');
+        }
+
+        $this->container['hidden_pull_requests'] = $hidden_pull_requests;
 
         return $this;
     }

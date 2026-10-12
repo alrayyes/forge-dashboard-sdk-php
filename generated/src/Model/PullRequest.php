@@ -89,6 +89,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'review' => '\ForgeDashboard\Generated\Model\ReviewState',
         'allowed_actions' => '\ForgeDashboard\Generated\Model\AllowedAction[]',
         'auto_merge' => '\ForgeDashboard\Generated\Model\AutoMergeStatus',
+        'hidden' => 'bool',
+        'hidden_until' => '\DateTime',
         'ready_to_merge' => 'bool',
         'needs_review' => 'bool'
     ];
@@ -133,6 +135,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'review' => null,
         'allowed_actions' => null,
         'auto_merge' => null,
+        'hidden' => null,
+        'hidden_until' => 'date-time',
         'ready_to_merge' => null,
         'needs_review' => null
     ];
@@ -175,6 +179,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'review' => false,
         'allowed_actions' => false,
         'auto_merge' => false,
+        'hidden' => false,
+        'hidden_until' => false,
         'ready_to_merge' => false,
         'needs_review' => false
     ];
@@ -297,6 +303,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'review' => 'review',
         'allowed_actions' => 'allowedActions',
         'auto_merge' => 'autoMerge',
+        'hidden' => 'hidden',
+        'hidden_until' => 'hiddenUntil',
         'ready_to_merge' => 'readyToMerge',
         'needs_review' => 'needsReview'
     ];
@@ -339,6 +347,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'review' => 'setReview',
         'allowed_actions' => 'setAllowedActions',
         'auto_merge' => 'setAutoMerge',
+        'hidden' => 'setHidden',
+        'hidden_until' => 'setHiddenUntil',
         'ready_to_merge' => 'setReadyToMerge',
         'needs_review' => 'setNeedsReview'
     ];
@@ -381,6 +391,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'review' => 'getReview',
         'allowed_actions' => 'getAllowedActions',
         'auto_merge' => 'getAutoMerge',
+        'hidden' => 'getHidden',
+        'hidden_until' => 'getHiddenUntil',
         'ready_to_merge' => 'getReadyToMerge',
         'needs_review' => 'getNeedsReview'
     ];
@@ -491,6 +503,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('review', $data ?? [], null);
         $this->setIfExists('allowed_actions', $data ?? [], null);
         $this->setIfExists('auto_merge', $data ?? [], null);
+        $this->setIfExists('hidden', $data ?? [], null);
+        $this->setIfExists('hidden_until', $data ?? [], null);
         $this->setIfExists('ready_to_merge', $data ?? [], null);
         $this->setIfExists('needs_review', $data ?? [], null);
     }
@@ -1532,6 +1546,60 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable auto_merge cannot be null');
         }
         $this->container['auto_merge'] = $auto_merge;
+
+        return $this;
+    }
+
+    /**
+     * Gets hidden
+     *
+     * @return bool|null
+     */
+    public function getHidden()
+    {
+        return $this->container['hidden'];
+    }
+
+    /**
+     * Sets hidden
+     *
+     * @param bool|null $hidden True on a pull request the user hid. Only present when the request set `includeHidden=true`: without it a hidden pull request isn't in the list at all.
+     *
+     * @return self
+     */
+    public function setHidden($hidden)
+    {
+        if (is_null($hidden)) {
+            throw new \InvalidArgumentException('non-nullable hidden cannot be null');
+        }
+        $this->container['hidden'] = $hidden;
+
+        return $this;
+    }
+
+    /**
+     * Gets hidden_until
+     *
+     * @return \DateTime|null
+     */
+    public function getHiddenUntil()
+    {
+        return $this->container['hidden_until'];
+    }
+
+    /**
+     * Sets hidden_until
+     *
+     * @param \DateTime|null $hidden_until When a hide for a number of days ends. Absent for a pull request hidden until it is restored, and for one that isn't hidden.
+     *
+     * @return self
+     */
+    public function setHiddenUntil($hidden_until)
+    {
+        if (is_null($hidden_until)) {
+            throw new \InvalidArgumentException('non-nullable hidden_until cannot be null');
+        }
+        $this->container['hidden_until'] = $hidden_until;
 
         return $this;
     }
