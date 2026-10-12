@@ -60,6 +60,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'queued_actions' => '\ForgeDashboard\Generated\Model\QueuedAction[]',
         'auto_merged' => '\ForgeDashboard\Generated\Model\AutoMergedPullRequest[]',
         'open_issue_count' => 'int',
+        'nav_counts' => '\ForgeDashboard\Generated\Model\NavCounts',
         'generated_at' => '\DateTime',
         'read_interval_seconds' => 'int',
         'hidden_drafts' => 'int',
@@ -81,6 +82,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'queued_actions' => null,
         'auto_merged' => null,
         'open_issue_count' => null,
+        'nav_counts' => null,
         'generated_at' => 'date-time',
         'read_interval_seconds' => null,
         'hidden_drafts' => null,
@@ -100,6 +102,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'queued_actions' => false,
         'auto_merged' => false,
         'open_issue_count' => false,
+        'nav_counts' => false,
         'generated_at' => false,
         'read_interval_seconds' => false,
         'hidden_drafts' => false,
@@ -199,6 +202,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'queued_actions' => 'queuedActions',
         'auto_merged' => 'autoMerged',
         'open_issue_count' => 'openIssueCount',
+        'nav_counts' => 'navCounts',
         'generated_at' => 'generatedAt',
         'read_interval_seconds' => 'readIntervalSeconds',
         'hidden_drafts' => 'hiddenDrafts',
@@ -218,6 +222,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'queued_actions' => 'setQueuedActions',
         'auto_merged' => 'setAutoMerged',
         'open_issue_count' => 'setOpenIssueCount',
+        'nav_counts' => 'setNavCounts',
         'generated_at' => 'setGeneratedAt',
         'read_interval_seconds' => 'setReadIntervalSeconds',
         'hidden_drafts' => 'setHiddenDrafts',
@@ -237,6 +242,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'queued_actions' => 'getQueuedActions',
         'auto_merged' => 'getAutoMerged',
         'open_issue_count' => 'getOpenIssueCount',
+        'nav_counts' => 'getNavCounts',
         'generated_at' => 'getGeneratedAt',
         'read_interval_seconds' => 'getReadIntervalSeconds',
         'hidden_drafts' => 'getHiddenDrafts',
@@ -307,6 +313,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('queued_actions', $data ?? [], null);
         $this->setIfExists('auto_merged', $data ?? [], null);
         $this->setIfExists('open_issue_count', $data ?? [], null);
+        $this->setIfExists('nav_counts', $data ?? [], null);
         $this->setIfExists('generated_at', $data ?? [], null);
         $this->setIfExists('read_interval_seconds', $data ?? [], null);
         $this->setIfExists('hidden_drafts', $data ?? [], null);
@@ -352,6 +359,9 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if ($this->container['open_issue_count'] === null) {
             $invalidProperties[] = "'open_issue_count' can't be null";
+        }
+        if ($this->container['nav_counts'] === null) {
+            $invalidProperties[] = "'nav_counts' can't be null";
         }
         if ($this->container['generated_at'] === null) {
             $invalidProperties[] = "'generated_at' can't be null";
@@ -478,6 +488,33 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable open_issue_count cannot be null');
         }
         $this->container['open_issue_count'] = $open_issue_count;
+
+        return $this;
+    }
+
+    /**
+     * Gets nav_counts
+     *
+     * @return \ForgeDashboard\Generated\Model\NavCounts
+     */
+    public function getNavCounts()
+    {
+        return $this->container['nav_counts'];
+    }
+
+    /**
+     * Sets nav_counts
+     *
+     * @param \ForgeDashboard\Generated\Model\NavCounts $nav_counts nav_counts
+     *
+     * @return self
+     */
+    public function setNavCounts($nav_counts)
+    {
+        if (is_null($nav_counts)) {
+            throw new \InvalidArgumentException('non-nullable nav_counts cannot be null');
+        }
+        $this->container['nav_counts'] = $nav_counts;
 
         return $this;
     }
