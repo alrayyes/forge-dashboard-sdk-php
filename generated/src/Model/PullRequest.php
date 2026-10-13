@@ -82,6 +82,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'update_request' => '\ForgeDashboard\Generated\Model\UpdateRequest',
         'queued' => '\ForgeDashboard\Generated\Model\QueuedAction',
         'requested_reviewer_logins' => 'string[]',
+        'review_comments' => 'int',
+        'unresolved_threads' => 'int',
         'review_requested_from_me' => 'bool',
         'empty' => 'bool',
         'auto_merge_enabled' => 'bool',
@@ -128,6 +130,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'update_request' => null,
         'queued' => null,
         'requested_reviewer_logins' => null,
+        'review_comments' => null,
+        'unresolved_threads' => null,
         'review_requested_from_me' => null,
         'empty' => null,
         'auto_merge_enabled' => null,
@@ -172,6 +176,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'update_request' => true,
         'queued' => true,
         'requested_reviewer_logins' => false,
+        'review_comments' => false,
+        'unresolved_threads' => true,
         'review_requested_from_me' => false,
         'empty' => false,
         'auto_merge_enabled' => false,
@@ -296,6 +302,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'update_request' => 'updateRequest',
         'queued' => 'queued',
         'requested_reviewer_logins' => 'requestedReviewerLogins',
+        'review_comments' => 'reviewComments',
+        'unresolved_threads' => 'unresolvedThreads',
         'review_requested_from_me' => 'reviewRequestedFromMe',
         'empty' => 'empty',
         'auto_merge_enabled' => 'autoMergeEnabled',
@@ -340,6 +348,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'update_request' => 'setUpdateRequest',
         'queued' => 'setQueued',
         'requested_reviewer_logins' => 'setRequestedReviewerLogins',
+        'review_comments' => 'setReviewComments',
+        'unresolved_threads' => 'setUnresolvedThreads',
         'review_requested_from_me' => 'setReviewRequestedFromMe',
         'empty' => 'setEmpty',
         'auto_merge_enabled' => 'setAutoMergeEnabled',
@@ -384,6 +394,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'update_request' => 'getUpdateRequest',
         'queued' => 'getQueued',
         'requested_reviewer_logins' => 'getRequestedReviewerLogins',
+        'review_comments' => 'getReviewComments',
+        'unresolved_threads' => 'getUnresolvedThreads',
         'review_requested_from_me' => 'getReviewRequestedFromMe',
         'empty' => 'getEmpty',
         'auto_merge_enabled' => 'getAutoMergeEnabled',
@@ -496,6 +508,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('update_request', $data ?? [], null);
         $this->setIfExists('queued', $data ?? [], null);
         $this->setIfExists('requested_reviewer_logins', $data ?? [], null);
+        $this->setIfExists('review_comments', $data ?? [], null);
+        $this->setIfExists('unresolved_threads', $data ?? [], null);
         $this->setIfExists('review_requested_from_me', $data ?? [], null);
         $this->setIfExists('empty', $data ?? [], null);
         $this->setIfExists('auto_merge_enabled', $data ?? [], null);
@@ -611,6 +625,20 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['requested_reviewer_logins'] === null) {
             $invalidProperties[] = "'requested_reviewer_logins' can't be null";
         }
+        if ($this->container['review_comments'] === null) {
+            $invalidProperties[] = "'review_comments' can't be null";
+        }
+        if (($this->container['review_comments'] < 0)) {
+            $invalidProperties[] = "invalid value for 'review_comments', must be bigger than or equal to 0.";
+        }
+
+        if ($this->container['unresolved_threads'] === null && !$this->isNullableSetToNull('unresolved_threads')) {
+            $invalidProperties[] = "'unresolved_threads' is required";
+        }
+        if (!is_null($this->container['unresolved_threads']) && ($this->container['unresolved_threads'] < 0)) {
+            $invalidProperties[] = "invalid value for 'unresolved_threads', must be bigger than or equal to 0.";
+        }
+
         if ($this->container['review_requested_from_me'] === null) {
             $invalidProperties[] = "'review_requested_from_me' can't be null";
         }
@@ -1357,6 +1385,75 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable requested_reviewer_logins cannot be null');
         }
         $this->container['requested_reviewer_logins'] = $requested_reviewer_logins;
+
+        return $this;
+    }
+
+    /**
+     * Gets review_comments
+     *
+     * @return int
+     */
+    public function getReviewComments()
+    {
+        return $this->container['review_comments'];
+    }
+
+    /**
+     * Sets review_comments
+     *
+     * @param int $review_comments How many review comments the pull request has (#1335). Ordinary conversation comments are not counted. Always present, and 0 when there are none or the forge can't say (a Forgejo draft or failed reviews call, GitHub's unauthenticated fallback). On GitHub it is read from the review threads in the pull request query, first 30 threads; on Forgejo it is the sum of each review's comment count, from the reviews call that already feeds `review`, so a draft (which makes no such call) reports 0.
+     *
+     * @return self
+     */
+    public function setReviewComments($review_comments)
+    {
+        if (is_null($review_comments)) {
+            throw new \InvalidArgumentException('non-nullable review_comments cannot be null');
+        }
+        if (($review_comments < 0)) {
+            throw new \InvalidArgumentException('invalid value for $review_comments when calling PullRequest., must be bigger than or equal to 0.');
+        }
+
+        $this->container['review_comments'] = $review_comments;
+
+        return $this;
+    }
+
+    /**
+     * Gets unresolved_threads
+     *
+     * @return int|null
+     */
+    public function getUnresolvedThreads()
+    {
+        return $this->container['unresolved_threads'];
+    }
+
+    /**
+     * Sets unresolved_threads
+     *
+     * @param int|null $unresolved_threads How many review threads are still open, or null when the forge can't say. GitHub reports it from its review threads, except in the unauthenticated fallback, which has none. Forgejo reports no resolved state on a review without a call per review, so it is null there and a client shows the comment count without an open state.
+     *
+     * @return self
+     */
+    public function setUnresolvedThreads($unresolved_threads)
+    {
+        if (is_null($unresolved_threads)) {
+            array_push($this->openAPINullablesSetToNull, 'unresolved_threads');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('unresolved_threads', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        if (!is_null($unresolved_threads) && ($unresolved_threads < 0)) {
+            throw new \InvalidArgumentException('invalid value for $unresolved_threads when calling PullRequest., must be bigger than or equal to 0.');
+        }
+
+        $this->container['unresolved_threads'] = $unresolved_threads;
 
         return $this;
     }
