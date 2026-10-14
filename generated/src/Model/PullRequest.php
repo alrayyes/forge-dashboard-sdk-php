@@ -91,6 +91,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'auto_merge_allowed' => 'bool',
         'review' => '\ForgeDashboard\Generated\Model\ReviewState',
         'allowed_actions' => '\ForgeDashboard\Generated\Model\AllowedAction[]',
+        'status' => '\ForgeDashboard\Generated\Model\PullRequestStatus',
         'auto_merge' => '\ForgeDashboard\Generated\Model\AutoMergeStatus',
         'hidden' => 'bool',
         'hidden_until' => '\DateTime',
@@ -140,6 +141,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'auto_merge_allowed' => null,
         'review' => null,
         'allowed_actions' => null,
+        'status' => null,
         'auto_merge' => null,
         'hidden' => null,
         'hidden_until' => 'date-time',
@@ -187,6 +189,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'auto_merge_allowed' => false,
         'review' => false,
         'allowed_actions' => false,
+        'status' => true,
         'auto_merge' => false,
         'hidden' => false,
         'hidden_until' => false,
@@ -314,6 +317,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'auto_merge_allowed' => 'autoMergeAllowed',
         'review' => 'review',
         'allowed_actions' => 'allowedActions',
+        'status' => 'status',
         'auto_merge' => 'autoMerge',
         'hidden' => 'hidden',
         'hidden_until' => 'hiddenUntil',
@@ -361,6 +365,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'auto_merge_allowed' => 'setAutoMergeAllowed',
         'review' => 'setReview',
         'allowed_actions' => 'setAllowedActions',
+        'status' => 'setStatus',
         'auto_merge' => 'setAutoMerge',
         'hidden' => 'setHidden',
         'hidden_until' => 'setHiddenUntil',
@@ -408,6 +413,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'auto_merge_allowed' => 'getAutoMergeAllowed',
         'review' => 'getReview',
         'allowed_actions' => 'getAllowedActions',
+        'status' => 'getStatus',
         'auto_merge' => 'getAutoMerge',
         'hidden' => 'getHidden',
         'hidden_until' => 'getHiddenUntil',
@@ -523,6 +529,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('auto_merge_allowed', $data ?? [], null);
         $this->setIfExists('review', $data ?? [], null);
         $this->setIfExists('allowed_actions', $data ?? [], null);
+        $this->setIfExists('status', $data ?? [], null);
         $this->setIfExists('auto_merge', $data ?? [], null);
         $this->setIfExists('hidden', $data ?? [], null);
         $this->setIfExists('hidden_until', $data ?? [], null);
@@ -657,6 +664,9 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if ($this->container['allowed_actions'] === null) {
             $invalidProperties[] = "'allowed_actions' can't be null";
+        }
+        if ($this->container['status'] === null && !$this->isNullableSetToNull('status')) {
+            $invalidProperties[] = "'status' is required";
         }
         if ($this->container['ready_to_merge'] === null) {
             $invalidProperties[] = "'ready_to_merge' can't be null";
@@ -1653,6 +1663,40 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable allowed_actions cannot be null');
         }
         $this->container['allowed_actions'] = $allowed_actions;
+
+        return $this;
+    }
+
+    /**
+     * Gets status
+     *
+     * @return \ForgeDashboard\Generated\Model\PullRequestStatus|null
+     */
+    public function getStatus()
+    {
+        return $this->container['status'];
+    }
+
+    /**
+     * Sets status
+     *
+     * @param \ForgeDashboard\Generated\Model\PullRequestStatus|null $status The one reason this pull request is waiting on something or can't be merged, for a fixed place on its row (#1375): a check still running, a conflict, a draft, a parent it is stacked on, or, for an empty pull request, that there is nothing to merge. `code`, `message` and `next` are the same as on `allowedActions[].blocked`, and for a pull request that waiting or fixing can unlock they repeat Merge's blocked reason. An empty pull request offers no `merge` (only `close`), so this is where its reason lives. Null when nothing holds the pull request back. Always present.
+     *
+     * @return self
+     */
+    public function setStatus($status)
+    {
+        if (is_null($status)) {
+            array_push($this->openAPINullablesSetToNull, 'status');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('status', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['status'] = $status;
 
         return $this;
     }

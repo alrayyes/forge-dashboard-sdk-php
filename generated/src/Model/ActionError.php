@@ -412,7 +412,7 @@ class ActionError implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets code
      *
-     * @param string $code Why the action was refused, from a re-read of the pull request's real state. `already_merged` and `already_closed` mean the dashboard's row was stale: the pull request has nothing left to merge.  `not_rate_limited` belongs to queueing an action: the forge isn't rate limited, so act directly. `not_open` is only an outcome of a queued action: the pull request was gone from the board when the reset came, merged or closed.  Three codes belong to one action each: `already_up_to_date` (Update branch: nothing to bring in), `auto_merge_not_allowed` (Enable auto-merge: the repo or pull request doesn't allow it) and `ready_to_merge` (Enable auto-merge: already clean, use Merge).
+     * @param string $code Why the action was refused, from a re-read of the pull request's real state. `already_merged` and `already_closed` mean the dashboard's row was stale: the pull request has nothing left to merge.  `not_rate_limited` belongs to queueing an action: the forge isn't rate limited, so act directly. `not_open` is only an outcome of a queued action: the pull request was gone from the board when the reset came, merged or closed.  Three codes belong to a few actions each: `already_up_to_date` (Update branch: nothing to bring in; Merge or Enable auto-merge on an empty pull request: nothing to merge), `auto_merge_not_allowed` (Enable auto-merge: the repo or pull request doesn't allow it) and `ready_to_merge` (Enable auto-merge: already clean, use Merge).
      *
      * @return self
      */
