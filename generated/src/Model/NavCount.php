@@ -35,6 +35,7 @@ use \ForgeDashboard\Generated\ObjectSerializer;
  * NavCount Class Doc Comment
  *
  * @category Class
+ * @description The Branches page&#39;s numbers (#1458): how many default branches it lists and how many of those have a pipeline running, failed and passed, the same four as &#x60;NavPullRequestCount&#x60;. A branch with no pipeline counts in &#x60;total&#x60; only, so the four numbers need not add up. All four are always present.
  * @package  ForgeDashboard\Generated
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -58,7 +59,9 @@ class NavCount implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $openAPITypes = [
         'total' => 'int',
-        'failed' => 'int'
+        'running' => 'int',
+        'failed' => 'int',
+        'passed' => 'int'
     ];
 
     /**
@@ -70,7 +73,9 @@ class NavCount implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $openAPIFormats = [
         'total' => null,
-        'failed' => null
+        'running' => null,
+        'failed' => null,
+        'passed' => null
     ];
 
     /**
@@ -80,7 +85,9 @@ class NavCount implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static array $openAPINullables = [
         'total' => false,
-        'failed' => false
+        'running' => false,
+        'failed' => false,
+        'passed' => false
     ];
 
     /**
@@ -170,7 +177,9 @@ class NavCount implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $attributeMap = [
         'total' => 'total',
-        'failed' => 'failed'
+        'running' => 'running',
+        'failed' => 'failed',
+        'passed' => 'passed'
     ];
 
     /**
@@ -180,7 +189,9 @@ class NavCount implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $setters = [
         'total' => 'setTotal',
-        'failed' => 'setFailed'
+        'running' => 'setRunning',
+        'failed' => 'setFailed',
+        'passed' => 'setPassed'
     ];
 
     /**
@@ -190,7 +201,9 @@ class NavCount implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $getters = [
         'total' => 'getTotal',
-        'failed' => 'getFailed'
+        'running' => 'getRunning',
+        'failed' => 'getFailed',
+        'passed' => 'getPassed'
     ];
 
     /**
@@ -251,7 +264,9 @@ class NavCount implements ModelInterface, ArrayAccess, \JsonSerializable
     public function __construct(?array $data = null)
     {
         $this->setIfExists('total', $data ?? [], null);
+        $this->setIfExists('running', $data ?? [], null);
         $this->setIfExists('failed', $data ?? [], null);
+        $this->setIfExists('passed', $data ?? [], null);
     }
 
     /**
@@ -288,11 +303,25 @@ class NavCount implements ModelInterface, ArrayAccess, \JsonSerializable
             $invalidProperties[] = "invalid value for 'total', must be bigger than or equal to 0.";
         }
 
+        if ($this->container['running'] === null) {
+            $invalidProperties[] = "'running' can't be null";
+        }
+        if (($this->container['running'] < 0)) {
+            $invalidProperties[] = "invalid value for 'running', must be bigger than or equal to 0.";
+        }
+
         if ($this->container['failed'] === null) {
             $invalidProperties[] = "'failed' can't be null";
         }
         if (($this->container['failed'] < 0)) {
             $invalidProperties[] = "invalid value for 'failed', must be bigger than or equal to 0.";
+        }
+
+        if ($this->container['passed'] === null) {
+            $invalidProperties[] = "'passed' can't be null";
+        }
+        if (($this->container['passed'] < 0)) {
+            $invalidProperties[] = "invalid value for 'passed', must be bigger than or equal to 0.";
         }
 
         return $invalidProperties;
@@ -323,7 +352,7 @@ class NavCount implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets total
      *
-     * @param int $total How many items the page lists.
+     * @param int $total How many default branches the page lists.
      *
      * @return self
      */
@@ -342,6 +371,37 @@ class NavCount implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
+     * Gets running
+     *
+     * @return int
+     */
+    public function getRunning()
+    {
+        return $this->container['running'];
+    }
+
+    /**
+     * Sets running
+     *
+     * @param int $running How many of them have a pipeline that is still running.
+     *
+     * @return self
+     */
+    public function setRunning($running)
+    {
+        if (is_null($running)) {
+            throw new \InvalidArgumentException('non-nullable running cannot be null');
+        }
+        if (($running < 0)) {
+            throw new \InvalidArgumentException('invalid value for $running when calling NavCount., must be bigger than or equal to 0.');
+        }
+
+        $this->container['running'] = $running;
+
+        return $this;
+    }
+
+    /**
      * Gets failed
      *
      * @return int
@@ -354,7 +414,7 @@ class NavCount implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets failed
      *
-     * @param int $failed How many of them fail: a pull request whose CI is failing, or a default branch whose pipeline is. An item with no pipeline counts in `total` only.
+     * @param int $failed How many of them have a failing pipeline.
      *
      * @return self
      */
@@ -368,6 +428,37 @@ class NavCount implements ModelInterface, ArrayAccess, \JsonSerializable
         }
 
         $this->container['failed'] = $failed;
+
+        return $this;
+    }
+
+    /**
+     * Gets passed
+     *
+     * @return int
+     */
+    public function getPassed()
+    {
+        return $this->container['passed'];
+    }
+
+    /**
+     * Sets passed
+     *
+     * @param int $passed How many of them have a pipeline that passed.
+     *
+     * @return self
+     */
+    public function setPassed($passed)
+    {
+        if (is_null($passed)) {
+            throw new \InvalidArgumentException('non-nullable passed cannot be null');
+        }
+        if (($passed < 0)) {
+            throw new \InvalidArgumentException('invalid value for $passed when calling NavCount., must be bigger than or equal to 0.');
+        }
+
+        $this->container['passed'] = $passed;
 
         return $this;
     }
