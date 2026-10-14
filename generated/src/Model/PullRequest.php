@@ -82,6 +82,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'update_request' => '\ForgeDashboard\Generated\Model\UpdateRequest',
         'queued' => '\ForgeDashboard\Generated\Model\QueuedAction',
         'requested_reviewer_logins' => 'string[]',
+        'awaiting_workflow_approval' => 'bool',
         'review_comments' => 'int',
         'unresolved_threads' => 'int',
         'review_requested_from_me' => 'bool',
@@ -130,6 +131,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'update_request' => null,
         'queued' => null,
         'requested_reviewer_logins' => null,
+        'awaiting_workflow_approval' => null,
         'review_comments' => null,
         'unresolved_threads' => null,
         'review_requested_from_me' => null,
@@ -176,6 +178,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'update_request' => true,
         'queued' => true,
         'requested_reviewer_logins' => false,
+        'awaiting_workflow_approval' => false,
         'review_comments' => false,
         'unresolved_threads' => true,
         'review_requested_from_me' => false,
@@ -302,6 +305,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'update_request' => 'updateRequest',
         'queued' => 'queued',
         'requested_reviewer_logins' => 'requestedReviewerLogins',
+        'awaiting_workflow_approval' => 'awaitingWorkflowApproval',
         'review_comments' => 'reviewComments',
         'unresolved_threads' => 'unresolvedThreads',
         'review_requested_from_me' => 'reviewRequestedFromMe',
@@ -348,6 +352,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'update_request' => 'setUpdateRequest',
         'queued' => 'setQueued',
         'requested_reviewer_logins' => 'setRequestedReviewerLogins',
+        'awaiting_workflow_approval' => 'setAwaitingWorkflowApproval',
         'review_comments' => 'setReviewComments',
         'unresolved_threads' => 'setUnresolvedThreads',
         'review_requested_from_me' => 'setReviewRequestedFromMe',
@@ -394,6 +399,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'update_request' => 'getUpdateRequest',
         'queued' => 'getQueued',
         'requested_reviewer_logins' => 'getRequestedReviewerLogins',
+        'awaiting_workflow_approval' => 'getAwaitingWorkflowApproval',
         'review_comments' => 'getReviewComments',
         'unresolved_threads' => 'getUnresolvedThreads',
         'review_requested_from_me' => 'getReviewRequestedFromMe',
@@ -508,6 +514,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('update_request', $data ?? [], null);
         $this->setIfExists('queued', $data ?? [], null);
         $this->setIfExists('requested_reviewer_logins', $data ?? [], null);
+        $this->setIfExists('awaiting_workflow_approval', $data ?? [], null);
         $this->setIfExists('review_comments', $data ?? [], null);
         $this->setIfExists('unresolved_threads', $data ?? [], null);
         $this->setIfExists('review_requested_from_me', $data ?? [], null);
@@ -624,6 +631,9 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if ($this->container['requested_reviewer_logins'] === null) {
             $invalidProperties[] = "'requested_reviewer_logins' can't be null";
+        }
+        if ($this->container['awaiting_workflow_approval'] === null) {
+            $invalidProperties[] = "'awaiting_workflow_approval' can't be null";
         }
         if ($this->container['review_comments'] === null) {
             $invalidProperties[] = "'review_comments' can't be null";
@@ -1385,6 +1395,33 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable requested_reviewer_logins cannot be null');
         }
         $this->container['requested_reviewer_logins'] = $requested_reviewer_logins;
+
+        return $this;
+    }
+
+    /**
+     * Gets awaiting_workflow_approval
+     *
+     * @return bool
+     */
+    public function getAwaitingWorkflowApproval()
+    {
+        return $this->container['awaiting_workflow_approval'];
+    }
+
+    /**
+     * Sets awaiting_workflow_approval
+     *
+     * @param bool $awaiting_workflow_approval True when GitHub is holding a workflow run on the head commit until someone approves it (#1280): its rollup counts a check run as ACTION_REQUIRED. Those runs also keep `ci` at failure when nothing else is running, so a client reads this to say \"waiting for approval\" rather than \"check failed\". It can be true while `ci` is pending (other runs are going) or failing for another reason too. Always present; false on Forgejo, which has no such state.
+     *
+     * @return self
+     */
+    public function setAwaitingWorkflowApproval($awaiting_workflow_approval)
+    {
+        if (is_null($awaiting_workflow_approval)) {
+            throw new \InvalidArgumentException('non-nullable awaiting_workflow_approval cannot be null');
+        }
+        $this->container['awaiting_workflow_approval'] = $awaiting_workflow_approval;
 
         return $this;
     }
