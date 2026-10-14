@@ -190,6 +190,7 @@ Class | Method | HTTP request | Description
 - [PullRequestChecksResponse](docs/Model/PullRequestChecksResponse.md)
 - [PullRequestDependabotActionRequest](docs/Model/PullRequestDependabotActionRequest.md)
 - [PullRequestHideRequest](docs/Model/PullRequestHideRequest.md)
+- [PullRequestStatus](docs/Model/PullRequestStatus.md)
 - [QueuedAction](docs/Model/QueuedAction.md)
 - [QueuedActionRequest](docs/Model/QueuedActionRequest.md)
 - [RateLimit](docs/Model/RateLimit.md)
