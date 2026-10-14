@@ -35,7 +35,7 @@ use \ForgeDashboard\Generated\ObjectSerializer;
  * NavCounts Class Doc Comment
  *
  * @category Class
- * @description The numbers behind the navigation badges (#1315), counted from what the board shows by default, so they match each page when it opens. Pull requests leave out ignored repos, draft pull requests and hidden pull requests whatever &#x60;includeDrafts&#x60; and &#x60;includeHidden&#x60; ask for, so the badge doesn&#39;t jump when a toggle flips; branches counts the default branches GET /api/main-branches lists, which also leave out ignored repos. Pull requests are split by &#x60;kind&#x60; (release pull requests under &#x60;releases&#x60;, Dependabot and Renovate under &#x60;bots&#x60;, the rest under &#x60;pullRequests&#x60;). Always present, with zeros when there is nothing. A client hides a page&#39;s whole nav item at zero total, and its red failed number at zero failed.
+ * @description The numbers behind the navigation badges (#1315), counted from what the board shows by default, so they match each page when it opens. Pull requests leave out ignored repos, draft pull requests and hidden pull requests whatever &#x60;includeDrafts&#x60; and &#x60;includeHidden&#x60; ask for, so the badge doesn&#39;t jump when a toggle flips; branches counts the default branches GET /api/main-branches lists, which also leave out ignored repos. Pull requests are split by &#x60;kind&#x60; (release pull requests under &#x60;releases&#x60;, Dependabot and Renovate under &#x60;bots&#x60;, the rest under &#x60;pullRequests&#x60;). Always present, with zeros when there is nothing. A client hides a page&#39;s whole nav item at zero total, and a state&#39;s number at zero. Pull request pages also carry &#x60;running&#x60; and &#x60;passed&#x60; (#1439).
  * @package  ForgeDashboard\Generated
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -59,10 +59,10 @@ class NavCounts implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $openAPITypes = [
         'branches' => '\ForgeDashboard\Generated\Model\NavCount',
-        'pull_requests' => '\ForgeDashboard\Generated\Model\NavCount',
+        'pull_requests' => '\ForgeDashboard\Generated\Model\NavPullRequestCount',
         'issues' => '\ForgeDashboard\Generated\Model\NavIssueCount',
-        'releases' => '\ForgeDashboard\Generated\Model\NavCount',
-        'bots' => '\ForgeDashboard\Generated\Model\NavCount'
+        'releases' => '\ForgeDashboard\Generated\Model\NavPullRequestCount',
+        'bots' => '\ForgeDashboard\Generated\Model\NavPullRequestCount'
     ];
 
     /**
@@ -363,7 +363,7 @@ class NavCounts implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets pull_requests
      *
-     * @return \ForgeDashboard\Generated\Model\NavCount
+     * @return \ForgeDashboard\Generated\Model\NavPullRequestCount
      */
     public function getPullRequests()
     {
@@ -373,7 +373,7 @@ class NavCounts implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets pull_requests
      *
-     * @param \ForgeDashboard\Generated\Model\NavCount $pull_requests pull_requests
+     * @param \ForgeDashboard\Generated\Model\NavPullRequestCount $pull_requests pull_requests
      *
      * @return self
      */
@@ -417,7 +417,7 @@ class NavCounts implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets releases
      *
-     * @return \ForgeDashboard\Generated\Model\NavCount
+     * @return \ForgeDashboard\Generated\Model\NavPullRequestCount
      */
     public function getReleases()
     {
@@ -427,7 +427,7 @@ class NavCounts implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets releases
      *
-     * @param \ForgeDashboard\Generated\Model\NavCount $releases releases
+     * @param \ForgeDashboard\Generated\Model\NavPullRequestCount $releases releases
      *
      * @return self
      */
@@ -444,7 +444,7 @@ class NavCounts implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets bots
      *
-     * @return \ForgeDashboard\Generated\Model\NavCount
+     * @return \ForgeDashboard\Generated\Model\NavPullRequestCount
      */
     public function getBots()
     {
@@ -454,7 +454,7 @@ class NavCounts implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets bots
      *
-     * @param \ForgeDashboard\Generated\Model\NavCount $bots bots
+     * @param \ForgeDashboard\Generated\Model\NavPullRequestCount $bots bots
      *
      * @return self
      */

@@ -185,6 +185,7 @@ Class | Method | HTTP request | Description
 - [NavCount](docs/Model/NavCount.md)
 - [NavCounts](docs/Model/NavCounts.md)
 - [NavIssueCount](docs/Model/NavIssueCount.md)
+- [NavPullRequestCount](docs/Model/NavPullRequestCount.md)
 - [PullRequest](docs/Model/PullRequest.md)
 - [PullRequestActionRequest](docs/Model/PullRequestActionRequest.md)
 - [PullRequestChecksResponse](docs/Model/PullRequestChecksResponse.md)

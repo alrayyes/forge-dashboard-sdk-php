@@ -55,6 +55,7 @@ src/Model/ModelInterface.php
 src/Model/NavCount.php
 src/Model/NavCounts.php
 src/Model/NavIssueCount.php
+src/Model/NavPullRequestCount.php
 src/Model/PullRequest.php
 src/Model/PullRequestActionRequest.php
 src/Model/PullRequestChecksResponse.php
