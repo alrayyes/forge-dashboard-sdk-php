@@ -120,6 +120,7 @@ Class | Method | HTTP request | Description
 *PullRequestsApi* | [**closePullRequest**](docs/Api/PullRequestsApi.md#closepullrequest) | **POST** /api/pull-requests/close | Close one pull request without merging it, on the signed-in user&#39;s behalf
 *PullRequestsApi* | [**enablePullRequestAutoMerge**](docs/Api/PullRequestsApi.md#enablepullrequestautomerge) | **POST** /api/pull-requests/auto-merge | Arm auto-merge on a pull request, on the signed-in user&#39;s behalf
 *PullRequestsApi* | [**getPullRequestChecks**](docs/Api/PullRequestsApi.md#getpullrequestchecks) | **GET** /api/pull-requests/checks | List every job/check run against a pull request&#39;s head commit, on demand
+*PullRequestsApi* | [**getPullRequestDetails**](docs/Api/PullRequestsApi.md#getpullrequestdetails) | **GET** /api/pull-requests/details | Read a pull request&#39;s description, comments and reactions, on demand
 *PullRequestsApi* | [**hidePullRequest**](docs/Api/PullRequestsApi.md#hidepullrequest) | **POST** /api/pull-requests/hide | Hide one pull request from the signed-in user&#39;s dashboard
 *PullRequestsApi* | [**mergePullRequest**](docs/Api/PullRequestsApi.md#mergepullrequest) | **POST** /api/pull-requests/merge | Merge one pull request, on the signed-in user&#39;s behalf
 *PullRequestsApi* | [**postPullRequestDependabotAction**](docs/Api/PullRequestsApi.md#postpullrequestdependabotaction) | **POST** /api/pull-requests/dependabot-action | Post one of Dependabot&#39;s own documented PR-comment commands on a pull request, on the signed-in user&#39;s behalf
@@ -168,6 +169,8 @@ Class | Method | HTTP request | Description
 - [CheckState](docs/Model/CheckState.md)
 - [Credential](docs/Model/Credential.md)
 - [Dashboard](docs/Model/Dashboard.md)
+- [DetailsBody](docs/Model/DetailsBody.md)
+- [DetailsComment](docs/Model/DetailsComment.md)
 - [Error](docs/Model/Error.md)
 - [Forge](docs/Model/Forge.md)
 - [ForgeErrorKind](docs/Model/ForgeErrorKind.md)
@@ -186,15 +189,19 @@ Class | Method | HTTP request | Description
 - [NavCounts](docs/Model/NavCounts.md)
 - [NavIssueCount](docs/Model/NavIssueCount.md)
 - [NavPullRequestCount](docs/Model/NavPullRequestCount.md)
+- [Person](docs/Model/Person.md)
 - [PullRequest](docs/Model/PullRequest.md)
 - [PullRequestActionRequest](docs/Model/PullRequestActionRequest.md)
 - [PullRequestChecksResponse](docs/Model/PullRequestChecksResponse.md)
 - [PullRequestDependabotActionRequest](docs/Model/PullRequestDependabotActionRequest.md)
+- [PullRequestDetails](docs/Model/PullRequestDetails.md)
 - [PullRequestHideRequest](docs/Model/PullRequestHideRequest.md)
 - [PullRequestStatus](docs/Model/PullRequestStatus.md)
 - [QueuedAction](docs/Model/QueuedAction.md)
 - [QueuedActionRequest](docs/Model/QueuedActionRequest.md)
 - [RateLimit](docs/Model/RateLimit.md)
+- [Reaction](docs/Model/Reaction.md)
+- [Reactions](docs/Model/Reactions.md)
 - [Ready](docs/Model/Ready.md)
 - [RegisterBeginRequest](docs/Model/RegisterBeginRequest.md)
 - [RegistrationStatus](docs/Model/RegistrationStatus.md)
