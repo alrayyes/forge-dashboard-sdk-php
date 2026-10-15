@@ -35,7 +35,7 @@ use \ForgeDashboard\Generated\ObjectSerializer;
  * NavCount Class Doc Comment
  *
  * @category Class
- * @description The Branches page&#39;s numbers (#1458): how many default branches it lists and how many of those have a pipeline running, failed and passed, the same four as &#x60;NavPullRequestCount&#x60;. A branch with no pipeline counts in &#x60;total&#x60; only, so the four numbers need not add up. All four are always present.
+ * @description The Branches page&#39;s numbers (#1458, #1531): how many default branches it lists and how many of those have a pipeline running, failed and passed, the same four as &#x60;NavPullRequestCount&#x60;, plus &#x60;none&#x60;, the ones with no pipeline. Every branch is in exactly one of the four states, so &#x60;running&#x60;, &#x60;failed&#x60;, &#x60;passed&#x60; and &#x60;none&#x60; add up to &#x60;total&#x60;. All five are always present.
  * @package  ForgeDashboard\Generated
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -61,7 +61,8 @@ class NavCount implements ModelInterface, ArrayAccess, \JsonSerializable
         'total' => 'int',
         'running' => 'int',
         'failed' => 'int',
-        'passed' => 'int'
+        'passed' => 'int',
+        'none' => 'int'
     ];
 
     /**
@@ -75,7 +76,8 @@ class NavCount implements ModelInterface, ArrayAccess, \JsonSerializable
         'total' => null,
         'running' => null,
         'failed' => null,
-        'passed' => null
+        'passed' => null,
+        'none' => null
     ];
 
     /**
@@ -87,7 +89,8 @@ class NavCount implements ModelInterface, ArrayAccess, \JsonSerializable
         'total' => false,
         'running' => false,
         'failed' => false,
-        'passed' => false
+        'passed' => false,
+        'none' => false
     ];
 
     /**
@@ -179,7 +182,8 @@ class NavCount implements ModelInterface, ArrayAccess, \JsonSerializable
         'total' => 'total',
         'running' => 'running',
         'failed' => 'failed',
-        'passed' => 'passed'
+        'passed' => 'passed',
+        'none' => 'none'
     ];
 
     /**
@@ -191,7 +195,8 @@ class NavCount implements ModelInterface, ArrayAccess, \JsonSerializable
         'total' => 'setTotal',
         'running' => 'setRunning',
         'failed' => 'setFailed',
-        'passed' => 'setPassed'
+        'passed' => 'setPassed',
+        'none' => 'setNone'
     ];
 
     /**
@@ -203,7 +208,8 @@ class NavCount implements ModelInterface, ArrayAccess, \JsonSerializable
         'total' => 'getTotal',
         'running' => 'getRunning',
         'failed' => 'getFailed',
-        'passed' => 'getPassed'
+        'passed' => 'getPassed',
+        'none' => 'getNone'
     ];
 
     /**
@@ -267,6 +273,7 @@ class NavCount implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('running', $data ?? [], null);
         $this->setIfExists('failed', $data ?? [], null);
         $this->setIfExists('passed', $data ?? [], null);
+        $this->setIfExists('none', $data ?? [], null);
     }
 
     /**
@@ -322,6 +329,13 @@ class NavCount implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if (($this->container['passed'] < 0)) {
             $invalidProperties[] = "invalid value for 'passed', must be bigger than or equal to 0.";
+        }
+
+        if ($this->container['none'] === null) {
+            $invalidProperties[] = "'none' can't be null";
+        }
+        if (($this->container['none'] < 0)) {
+            $invalidProperties[] = "invalid value for 'none', must be bigger than or equal to 0.";
         }
 
         return $invalidProperties;
@@ -459,6 +473,37 @@ class NavCount implements ModelInterface, ArrayAccess, \JsonSerializable
         }
 
         $this->container['passed'] = $passed;
+
+        return $this;
+    }
+
+    /**
+     * Gets none
+     *
+     * @return int
+     */
+    public function getNone()
+    {
+        return $this->container['none'];
+    }
+
+    /**
+     * Sets none
+     *
+     * @param int $none How many of them have no pipeline.
+     *
+     * @return self
+     */
+    public function setNone($none)
+    {
+        if (is_null($none)) {
+            throw new \InvalidArgumentException('non-nullable none cannot be null');
+        }
+        if (($none < 0)) {
+            throw new \InvalidArgumentException('invalid value for $none when calling NavCount., must be bigger than or equal to 0.');
+        }
+
+        $this->container['none'] = $none;
 
         return $this;
     }
