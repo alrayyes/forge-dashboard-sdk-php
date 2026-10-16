@@ -60,6 +60,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'queued_actions' => '\ForgeDashboard\Generated\Model\QueuedAction[]',
         'auto_merged' => '\ForgeDashboard\Generated\Model\AutoMergedPullRequest[]',
         'open_issue_count' => 'int',
+        'settings_hidden_issue_count' => 'int',
         'nav_counts' => '\ForgeDashboard\Generated\Model\NavCounts',
         'generated_at' => '\DateTime',
         'read_interval_seconds' => 'int',
@@ -82,6 +83,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'queued_actions' => null,
         'auto_merged' => null,
         'open_issue_count' => null,
+        'settings_hidden_issue_count' => null,
         'nav_counts' => null,
         'generated_at' => 'date-time',
         'read_interval_seconds' => null,
@@ -102,6 +104,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'queued_actions' => false,
         'auto_merged' => false,
         'open_issue_count' => false,
+        'settings_hidden_issue_count' => false,
         'nav_counts' => false,
         'generated_at' => false,
         'read_interval_seconds' => false,
@@ -202,6 +205,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'queued_actions' => 'queuedActions',
         'auto_merged' => 'autoMerged',
         'open_issue_count' => 'openIssueCount',
+        'settings_hidden_issue_count' => 'settingsHiddenIssueCount',
         'nav_counts' => 'navCounts',
         'generated_at' => 'generatedAt',
         'read_interval_seconds' => 'readIntervalSeconds',
@@ -222,6 +226,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'queued_actions' => 'setQueuedActions',
         'auto_merged' => 'setAutoMerged',
         'open_issue_count' => 'setOpenIssueCount',
+        'settings_hidden_issue_count' => 'setSettingsHiddenIssueCount',
         'nav_counts' => 'setNavCounts',
         'generated_at' => 'setGeneratedAt',
         'read_interval_seconds' => 'setReadIntervalSeconds',
@@ -242,6 +247,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'queued_actions' => 'getQueuedActions',
         'auto_merged' => 'getAutoMerged',
         'open_issue_count' => 'getOpenIssueCount',
+        'settings_hidden_issue_count' => 'getSettingsHiddenIssueCount',
         'nav_counts' => 'getNavCounts',
         'generated_at' => 'getGeneratedAt',
         'read_interval_seconds' => 'getReadIntervalSeconds',
@@ -313,6 +319,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('queued_actions', $data ?? [], null);
         $this->setIfExists('auto_merged', $data ?? [], null);
         $this->setIfExists('open_issue_count', $data ?? [], null);
+        $this->setIfExists('settings_hidden_issue_count', $data ?? [], null);
         $this->setIfExists('nav_counts', $data ?? [], null);
         $this->setIfExists('generated_at', $data ?? [], null);
         $this->setIfExists('read_interval_seconds', $data ?? [], null);
@@ -360,6 +367,10 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['open_issue_count'] === null) {
             $invalidProperties[] = "'open_issue_count' can't be null";
         }
+        if (!is_null($this->container['settings_hidden_issue_count']) && ($this->container['settings_hidden_issue_count'] < 0)) {
+            $invalidProperties[] = "invalid value for 'settings_hidden_issue_count', must be bigger than or equal to 0.";
+        }
+
         if ($this->container['nav_counts'] === null) {
             $invalidProperties[] = "'nav_counts' can't be null";
         }
@@ -488,6 +499,37 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable open_issue_count cannot be null');
         }
         $this->container['open_issue_count'] = $open_issue_count;
+
+        return $this;
+    }
+
+    /**
+     * Gets settings_hidden_issue_count
+     *
+     * @return int|null
+     */
+    public function getSettingsHiddenIssueCount()
+    {
+        return $this->container['settings_hidden_issue_count'];
+    }
+
+    /**
+     * Sets settings_hidden_issue_count
+     *
+     * @param int|null $settings_hidden_issue_count How many open issues the user's own settings (`hideDependencyDashboard` and `ignoredTitles`) left out of `issues`, so a client can say \"N hidden by your settings\" and link to Settings; it cannot work that out, the issues are not sent. Always present once the server applies the settings (#1630); 0 when none are hidden.
+     *
+     * @return self
+     */
+    public function setSettingsHiddenIssueCount($settings_hidden_issue_count)
+    {
+        if (is_null($settings_hidden_issue_count)) {
+            throw new \InvalidArgumentException('non-nullable settings_hidden_issue_count cannot be null');
+        }
+        if (($settings_hidden_issue_count < 0)) {
+            throw new \InvalidArgumentException('invalid value for $settings_hidden_issue_count when calling Dashboard., must be bigger than or equal to 0.');
+        }
+
+        $this->container['settings_hidden_issue_count'] = $settings_hidden_issue_count;
 
         return $this;
     }
