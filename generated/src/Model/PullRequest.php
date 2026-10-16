@@ -88,6 +88,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'review_requested_from_me' => 'bool',
         'empty' => 'bool',
         'auto_merge_enabled' => 'bool',
+        'auto_merge_held_by' => 'string',
         'auto_merge_allowed' => 'bool',
         'review' => '\ForgeDashboard\Generated\Model\ReviewState',
         'allowed_actions' => '\ForgeDashboard\Generated\Model\AllowedAction[]',
@@ -138,6 +139,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'review_requested_from_me' => null,
         'empty' => null,
         'auto_merge_enabled' => null,
+        'auto_merge_held_by' => null,
         'auto_merge_allowed' => null,
         'review' => null,
         'allowed_actions' => null,
@@ -186,6 +188,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'review_requested_from_me' => false,
         'empty' => false,
         'auto_merge_enabled' => false,
+        'auto_merge_held_by' => false,
         'auto_merge_allowed' => false,
         'review' => false,
         'allowed_actions' => false,
@@ -314,6 +317,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'review_requested_from_me' => 'reviewRequestedFromMe',
         'empty' => 'empty',
         'auto_merge_enabled' => 'autoMergeEnabled',
+        'auto_merge_held_by' => 'autoMergeHeldBy',
         'auto_merge_allowed' => 'autoMergeAllowed',
         'review' => 'review',
         'allowed_actions' => 'allowedActions',
@@ -362,6 +366,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'review_requested_from_me' => 'setReviewRequestedFromMe',
         'empty' => 'setEmpty',
         'auto_merge_enabled' => 'setAutoMergeEnabled',
+        'auto_merge_held_by' => 'setAutoMergeHeldBy',
         'auto_merge_allowed' => 'setAutoMergeAllowed',
         'review' => 'setReview',
         'allowed_actions' => 'setAllowedActions',
@@ -410,6 +415,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'review_requested_from_me' => 'getReviewRequestedFromMe',
         'empty' => 'getEmpty',
         'auto_merge_enabled' => 'getAutoMergeEnabled',
+        'auto_merge_held_by' => 'getAutoMergeHeldBy',
         'auto_merge_allowed' => 'getAutoMergeAllowed',
         'review' => 'getReview',
         'allowed_actions' => 'getAllowedActions',
@@ -526,6 +532,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('review_requested_from_me', $data ?? [], null);
         $this->setIfExists('empty', $data ?? [], null);
         $this->setIfExists('auto_merge_enabled', $data ?? [], null);
+        $this->setIfExists('auto_merge_held_by', $data ?? [], null);
         $this->setIfExists('auto_merge_allowed', $data ?? [], null);
         $this->setIfExists('review', $data ?? [], null);
         $this->setIfExists('allowed_actions', $data ?? [], null);
@@ -1582,6 +1589,33 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable auto_merge_enabled cannot be null');
         }
         $this->container['auto_merge_enabled'] = $auto_merge_enabled;
+
+        return $this;
+    }
+
+    /**
+     * Gets auto_merge_held_by
+     *
+     * @return string|null
+     */
+    public function getAutoMergeHeldBy()
+    {
+        return $this->container['auto_merge_held_by'];
+    }
+
+    /**
+     * Sets auto_merge_held_by
+     *
+     * @param string|null $auto_merge_held_by Who holds the auto-merge, so a client can word it right. Present only when `autoMergeEnabled` is true. `dashboard` means this app holds a stored intent and performs the merge itself (Forgejo). `forge` means the merge is scheduled on the forge: Forgejo's own scheduled merge, or GitHub's auto-merge. When both exist on Forgejo it is `dashboard`, since this app's loop merges and Cancel clears both. Omitted means unknown: a client must not guess it from other fields, and should treat a value it doesn't know like an omitted one.
+     *
+     * @return self
+     */
+    public function setAutoMergeHeldBy($auto_merge_held_by)
+    {
+        if (is_null($auto_merge_held_by)) {
+            throw new \InvalidArgumentException('non-nullable auto_merge_held_by cannot be null');
+        }
+        $this->container['auto_merge_held_by'] = $auto_merge_held_by;
 
         return $this;
     }
