@@ -1572,7 +1572,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets auto_merge_enabled
      *
-     * @param bool|null $auto_merge_enabled Whether auto-merge is currently scheduled on this pull request. On Forgejo it is true when the signed-in user armed it in this app, which holds the intent itself. Otherwise omitted when the owning forge has no way to report this — never false in that case, since this service genuinely doesn't know.
+     * @param bool|null $auto_merge_enabled Whether auto-merge is currently scheduled on this pull request. On Forgejo it is true when the signed-in user armed it in this app, which holds the intent itself, or when a merge is scheduled on Forgejo (read from the issue timeline's `pull_scheduled_merge` and `pull_cancel_scheduled_merge` events, for open non-draft pull requests, a bounded number per refresh). It is false once the timeline shows no schedule. Omitted when it hasn't been read yet or the read failed, since this service then doesn't know.
      *
      * @return self
      */
