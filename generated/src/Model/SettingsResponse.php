@@ -70,7 +70,9 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'renovate_rebase_label' => 'string',
         'renovate_authors' => 'string[]',
         'theme' => 'string',
-        'timezone' => 'string'
+        'timezone' => 'string',
+        'hide_dependency_dashboard' => 'bool',
+        'ignored_titles' => 'string[]'
     ];
 
     /**
@@ -93,7 +95,9 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'renovate_rebase_label' => null,
         'renovate_authors' => null,
         'theme' => null,
-        'timezone' => null
+        'timezone' => null,
+        'hide_dependency_dashboard' => null,
+        'ignored_titles' => null
     ];
 
     /**
@@ -114,7 +118,9 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'renovate_rebase_label' => false,
         'renovate_authors' => false,
         'theme' => false,
-        'timezone' => false
+        'timezone' => false,
+        'hide_dependency_dashboard' => false,
+        'ignored_titles' => false
     ];
 
     /**
@@ -215,7 +221,9 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'renovate_rebase_label' => 'renovateRebaseLabel',
         'renovate_authors' => 'renovateAuthors',
         'theme' => 'theme',
-        'timezone' => 'timezone'
+        'timezone' => 'timezone',
+        'hide_dependency_dashboard' => 'hideDependencyDashboard',
+        'ignored_titles' => 'ignoredTitles'
     ];
 
     /**
@@ -236,7 +244,9 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'renovate_rebase_label' => 'setRenovateRebaseLabel',
         'renovate_authors' => 'setRenovateAuthors',
         'theme' => 'setTheme',
-        'timezone' => 'setTimezone'
+        'timezone' => 'setTimezone',
+        'hide_dependency_dashboard' => 'setHideDependencyDashboard',
+        'ignored_titles' => 'setIgnoredTitles'
     ];
 
     /**
@@ -257,7 +267,9 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'renovate_rebase_label' => 'getRenovateRebaseLabel',
         'renovate_authors' => 'getRenovateAuthors',
         'theme' => 'getTheme',
-        'timezone' => 'getTimezone'
+        'timezone' => 'getTimezone',
+        'hide_dependency_dashboard' => 'getHideDependencyDashboard',
+        'ignored_titles' => 'getIgnoredTitles'
     ];
 
     /**
@@ -347,6 +359,8 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('renovate_authors', $data ?? [], null);
         $this->setIfExists('theme', $data ?? [], null);
         $this->setIfExists('timezone', $data ?? [], null);
+        $this->setIfExists('hide_dependency_dashboard', $data ?? [], null);
+        $this->setIfExists('ignored_titles', $data ?? [], null);
     }
 
     /**
@@ -419,6 +433,10 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
                 $this->container['theme'],
                 implode("', '", $allowedValues)
             );
+        }
+
+        if (!is_null($this->container['ignored_titles']) && (count($this->container['ignored_titles']) > 20)) {
+            $invalidProperties[] = "invalid value for 'ignored_titles', number of items must be less than or equal to 20.";
         }
 
         return $invalidProperties;
@@ -793,6 +811,63 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable timezone cannot be null');
         }
         $this->container['timezone'] = $timezone;
+
+        return $this;
+    }
+
+    /**
+     * Gets hide_dependency_dashboard
+     *
+     * @return bool|null
+     */
+    public function getHideDependencyDashboard()
+    {
+        return $this->container['hide_dependency_dashboard'];
+    }
+
+    /**
+     * Sets hide_dependency_dashboard
+     *
+     * @param bool|null $hide_dependency_dashboard Whether the user hides the bot-kept \"Dependency Dashboard\" issue everywhere: the server leaves a `housekeeping` issue out of the `issues` of GET /api/dashboard and its stream, and out of every count and total built from them (`navCounts`, Insights). Always present once the server applies it (#1630).
+     *
+     * @return self
+     */
+    public function setHideDependencyDashboard($hide_dependency_dashboard)
+    {
+        if (is_null($hide_dependency_dashboard)) {
+            throw new \InvalidArgumentException('non-nullable hide_dependency_dashboard cannot be null');
+        }
+        $this->container['hide_dependency_dashboard'] = $hide_dependency_dashboard;
+
+        return $this;
+    }
+
+    /**
+     * Gets ignored_titles
+     *
+     * @return string[]|null
+     */
+    public function getIgnoredTitles()
+    {
+        return $this->container['ignored_titles'];
+    }
+
+    /**
+     * Sets ignored_titles
+     *
+     * @param string[]|null $ignored_titles Patterns for issue titles to leave out, in the server's own regular expression syntax (Go RE2: no lookahead and no backreferences). A pattern matches anywhere in the title and ignores case; an issue matching any one is left out of `issues` and of every count and total built from them, the same as `hideDependencyDashboard`. Always present once the server applies it (#1630). Empty means none.
+     *
+     * @return self
+     */
+    public function setIgnoredTitles($ignored_titles)
+    {
+        if (is_null($ignored_titles)) {
+            throw new \InvalidArgumentException('non-nullable ignored_titles cannot be null');
+        }
+        if ((count($ignored_titles) > 20)) {
+            throw new \InvalidArgumentException('invalid value for $ignored_titles when calling SettingsResponse., number of items must be less than or equal to 20.');
+        }
+        $this->container['ignored_titles'] = $ignored_titles;
 
         return $this;
     }

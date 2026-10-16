@@ -530,7 +530,7 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets housekeeping
      *
-     * @param bool $housekeeping True for an issue a bot keeps open and rewrites, Renovate's \"Dependency Dashboard\", which is not work for a person. The server decides, so every client lists and counts the same issues. It stays in `issues`; `openIssueCount` leaves it out.
+     * @param bool $housekeeping True for an issue a bot keeps open and rewrites, Renovate's \"Dependency Dashboard\", which is not work for a person. The server decides, so every client lists and counts the same issues. It stays in `issues`, and `openIssueCount` leaves it out, unless the user's `hideDependencyDashboard` setting is on: then the server leaves it out of `issues` as well.
      *
      * @return self
      */

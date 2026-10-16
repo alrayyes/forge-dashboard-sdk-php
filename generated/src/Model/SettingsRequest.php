@@ -65,7 +65,9 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'forgejo_token' => 'string',
         'forgejo_username' => 'string',
         'renovate_rebase_label' => 'string',
-        'renovate_authors' => 'string[]'
+        'renovate_authors' => 'string[]',
+        'hide_dependency_dashboard' => 'bool',
+        'ignored_titles' => 'string[]'
     ];
 
     /**
@@ -83,7 +85,9 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'forgejo_token' => null,
         'forgejo_username' => null,
         'renovate_rebase_label' => null,
-        'renovate_authors' => null
+        'renovate_authors' => null,
+        'hide_dependency_dashboard' => null,
+        'ignored_titles' => null
     ];
 
     /**
@@ -99,7 +103,9 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'forgejo_token' => false,
         'forgejo_username' => false,
         'renovate_rebase_label' => false,
-        'renovate_authors' => false
+        'renovate_authors' => false,
+        'hide_dependency_dashboard' => false,
+        'ignored_titles' => false
     ];
 
     /**
@@ -195,7 +201,9 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'forgejo_token' => 'forgejoToken',
         'forgejo_username' => 'forgejoUsername',
         'renovate_rebase_label' => 'renovateRebaseLabel',
-        'renovate_authors' => 'renovateAuthors'
+        'renovate_authors' => 'renovateAuthors',
+        'hide_dependency_dashboard' => 'hideDependencyDashboard',
+        'ignored_titles' => 'ignoredTitles'
     ];
 
     /**
@@ -211,7 +219,9 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'forgejo_token' => 'setForgejoToken',
         'forgejo_username' => 'setForgejoUsername',
         'renovate_rebase_label' => 'setRenovateRebaseLabel',
-        'renovate_authors' => 'setRenovateAuthors'
+        'renovate_authors' => 'setRenovateAuthors',
+        'hide_dependency_dashboard' => 'setHideDependencyDashboard',
+        'ignored_titles' => 'setIgnoredTitles'
     ];
 
     /**
@@ -227,7 +237,9 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'forgejo_token' => 'getForgejoToken',
         'forgejo_username' => 'getForgejoUsername',
         'renovate_rebase_label' => 'getRenovateRebaseLabel',
-        'renovate_authors' => 'getRenovateAuthors'
+        'renovate_authors' => 'getRenovateAuthors',
+        'hide_dependency_dashboard' => 'getHideDependencyDashboard',
+        'ignored_titles' => 'getIgnoredTitles'
     ];
 
     /**
@@ -295,6 +307,8 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('forgejo_username', $data ?? [], null);
         $this->setIfExists('renovate_rebase_label', $data ?? [], null);
         $this->setIfExists('renovate_authors', $data ?? [], null);
+        $this->setIfExists('hide_dependency_dashboard', $data ?? [], null);
+        $this->setIfExists('ignored_titles', $data ?? [], null);
     }
 
     /**
@@ -358,6 +372,10 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
 
         if (!is_null($this->container['renovate_authors']) && (count($this->container['renovate_authors']) > 20)) {
             $invalidProperties[] = "invalid value for 'renovate_authors', number of items must be less than or equal to 20.";
+        }
+
+        if (!is_null($this->container['ignored_titles']) && (count($this->container['ignored_titles']) > 20)) {
+            $invalidProperties[] = "invalid value for 'ignored_titles', number of items must be less than or equal to 20.";
         }
 
         return $invalidProperties;
@@ -621,6 +639,63 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('invalid value for $renovate_authors when calling SettingsRequest., number of items must be less than or equal to 20.');
         }
         $this->container['renovate_authors'] = $renovate_authors;
+
+        return $this;
+    }
+
+    /**
+     * Gets hide_dependency_dashboard
+     *
+     * @return bool|null
+     */
+    public function getHideDependencyDashboard()
+    {
+        return $this->container['hide_dependency_dashboard'];
+    }
+
+    /**
+     * Sets hide_dependency_dashboard
+     *
+     * @param bool|null $hide_dependency_dashboard Replaces the saved choice; omitted means false, like `renovateAuthors`, so a form sends it on every save. See SettingsResponse.hideDependencyDashboard.
+     *
+     * @return self
+     */
+    public function setHideDependencyDashboard($hide_dependency_dashboard)
+    {
+        if (is_null($hide_dependency_dashboard)) {
+            throw new \InvalidArgumentException('non-nullable hide_dependency_dashboard cannot be null');
+        }
+        $this->container['hide_dependency_dashboard'] = $hide_dependency_dashboard;
+
+        return $this;
+    }
+
+    /**
+     * Gets ignored_titles
+     *
+     * @return string[]|null
+     */
+    public function getIgnoredTitles()
+    {
+        return $this->container['ignored_titles'];
+    }
+
+    /**
+     * Sets ignored_titles
+     *
+     * @param string[]|null $ignored_titles Replaces the saved list; omitted or empty clears it. Entries are trimmed; blanks and repeats (ignoring case) are dropped. Each must compile as a Go RE2 regular expression: one that does not is a 400 naming `ignoredTitles` and the entry, with the reason in plain words (\"ignoredTitles entry 2, \"(\": missing closing )\"), and nothing is saved. More than 20 entries, or an entry over 200 characters, is a 400 too. See SettingsResponse.ignoredTitles.
+     *
+     * @return self
+     */
+    public function setIgnoredTitles($ignored_titles)
+    {
+        if (is_null($ignored_titles)) {
+            throw new \InvalidArgumentException('non-nullable ignored_titles cannot be null');
+        }
+        if ((count($ignored_titles) > 20)) {
+            throw new \InvalidArgumentException('invalid value for $ignored_titles when calling SettingsRequest., number of items must be less than or equal to 20.');
+        }
+        $this->container['ignored_titles'] = $ignored_titles;
 
         return $this;
     }
