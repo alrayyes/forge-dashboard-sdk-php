@@ -61,6 +61,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'auto_merged' => '\ForgeDashboard\Generated\Model\AutoMergedPullRequest[]',
         'open_issue_count' => 'int',
         'settings_hidden_issue_count' => 'int',
+        'first_refresh_done' => 'bool',
         'nav_counts' => '\ForgeDashboard\Generated\Model\NavCounts',
         'generated_at' => '\DateTime',
         'read_interval_seconds' => 'int',
@@ -84,6 +85,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'auto_merged' => null,
         'open_issue_count' => null,
         'settings_hidden_issue_count' => null,
+        'first_refresh_done' => null,
         'nav_counts' => null,
         'generated_at' => 'date-time',
         'read_interval_seconds' => null,
@@ -105,6 +107,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'auto_merged' => false,
         'open_issue_count' => false,
         'settings_hidden_issue_count' => false,
+        'first_refresh_done' => false,
         'nav_counts' => false,
         'generated_at' => false,
         'read_interval_seconds' => false,
@@ -206,6 +209,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'auto_merged' => 'autoMerged',
         'open_issue_count' => 'openIssueCount',
         'settings_hidden_issue_count' => 'settingsHiddenIssueCount',
+        'first_refresh_done' => 'firstRefreshDone',
         'nav_counts' => 'navCounts',
         'generated_at' => 'generatedAt',
         'read_interval_seconds' => 'readIntervalSeconds',
@@ -227,6 +231,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'auto_merged' => 'setAutoMerged',
         'open_issue_count' => 'setOpenIssueCount',
         'settings_hidden_issue_count' => 'setSettingsHiddenIssueCount',
+        'first_refresh_done' => 'setFirstRefreshDone',
         'nav_counts' => 'setNavCounts',
         'generated_at' => 'setGeneratedAt',
         'read_interval_seconds' => 'setReadIntervalSeconds',
@@ -248,6 +253,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'auto_merged' => 'getAutoMerged',
         'open_issue_count' => 'getOpenIssueCount',
         'settings_hidden_issue_count' => 'getSettingsHiddenIssueCount',
+        'first_refresh_done' => 'getFirstRefreshDone',
         'nav_counts' => 'getNavCounts',
         'generated_at' => 'getGeneratedAt',
         'read_interval_seconds' => 'getReadIntervalSeconds',
@@ -320,6 +326,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('auto_merged', $data ?? [], null);
         $this->setIfExists('open_issue_count', $data ?? [], null);
         $this->setIfExists('settings_hidden_issue_count', $data ?? [], null);
+        $this->setIfExists('first_refresh_done', $data ?? [], null);
         $this->setIfExists('nav_counts', $data ?? [], null);
         $this->setIfExists('generated_at', $data ?? [], null);
         $this->setIfExists('read_interval_seconds', $data ?? [], null);
@@ -530,6 +537,33 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         }
 
         $this->container['settings_hidden_issue_count'] = $settings_hidden_issue_count;
+
+        return $this;
+    }
+
+    /**
+     * Gets first_refresh_done
+     *
+     * @return bool|null
+     */
+    public function getFirstRefreshDone()
+    {
+        return $this->container['first_refresh_done'];
+    }
+
+    /**
+     * Sets first_refresh_done
+     *
+     * @param bool|null $first_refresh_done False from process start until this viewer's first refresh has finished, whether it succeeded or failed; true from then on, including after later refreshes. Per viewer: another user's refresh does not flip it. A client shows a loading state instead of empty lists while it is false; a failed first refresh is reported through forge health, not by keeping this false. The same on `GET /api/dashboard`, the stream and the MCP `get_dashboard` output. Optional until the server emits it (#1673); the server change makes it required, and a client treats a missing flag as true (loaded).
+     *
+     * @return self
+     */
+    public function setFirstRefreshDone($first_refresh_done)
+    {
+        if (is_null($first_refresh_done)) {
+            throw new \InvalidArgumentException('non-nullable first_refresh_done cannot be null');
+        }
+        $this->container['first_refresh_done'] = $first_refresh_done;
 
         return $this;
     }
