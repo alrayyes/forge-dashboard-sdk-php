@@ -58,6 +58,7 @@ class AllowedAction implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $openAPITypes = [
         'action' => 'string',
+        'primary' => 'bool',
         'blocked' => '\ForgeDashboard\Generated\Model\AllowedActionBlocked'
     ];
 
@@ -70,6 +71,7 @@ class AllowedAction implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $openAPIFormats = [
         'action' => null,
+        'primary' => null,
         'blocked' => null
     ];
 
@@ -80,6 +82,7 @@ class AllowedAction implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static array $openAPINullables = [
         'action' => false,
+        'primary' => false,
         'blocked' => false
     ];
 
@@ -170,6 +173,7 @@ class AllowedAction implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $attributeMap = [
         'action' => 'action',
+        'primary' => 'primary',
         'blocked' => 'blocked'
     ];
 
@@ -180,6 +184,7 @@ class AllowedAction implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $setters = [
         'action' => 'setAction',
+        'primary' => 'setPrimary',
         'blocked' => 'setBlocked'
     ];
 
@@ -190,6 +195,7 @@ class AllowedAction implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $getters = [
         'action' => 'getAction',
+        'primary' => 'getPrimary',
         'blocked' => 'getBlocked'
     ];
 
@@ -251,6 +257,7 @@ class AllowedAction implements ModelInterface, ArrayAccess, \JsonSerializable
     public function __construct(?array $data = null)
     {
         $this->setIfExists('action', $data ?? [], null);
+        $this->setIfExists('primary', $data ?? [], null);
         $this->setIfExists('blocked', $data ?? [], null);
     }
 
@@ -322,6 +329,33 @@ class AllowedAction implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable action cannot be null');
         }
         $this->container['action'] = $action;
+
+        return $this;
+    }
+
+    /**
+     * Gets primary
+     *
+     * @return bool|null
+     */
+    public function getPrimary()
+    {
+        return $this->container['primary'];
+    }
+
+    /**
+     * Sets primary
+     *
+     * @param bool|null $primary True on the one action a client draws as the pull request's main button, and absent on every other entry. At most one entry in the list has it, never a blocked one, and a pull request can have none. The server decides it, so a client renders it and holds no rule of its own; a client that doesn't know the field still gets the whole list. Which action it is: `close` for an empty pull request; `merge` when Merge is offered and not blocked, unless the CI is failing (Merge is then only open because the failing checks aren't required, and `status` explains it); `update_branch`, or `renovate_rebase` or `dependabot_rebase` for a bot pull request, when being behind the base branch is what holds Merge back. Every other state has none: checks running or failing, a conflict, a draft, a stack parent, or the forge's own block. `status` gives the reason there.
+     *
+     * @return self
+     */
+    public function setPrimary($primary)
+    {
+        if (is_null($primary)) {
+            throw new \InvalidArgumentException('non-nullable primary cannot be null');
+        }
+        $this->container['primary'] = $primary;
 
         return $this;
     }
