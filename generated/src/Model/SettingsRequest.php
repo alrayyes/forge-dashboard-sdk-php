@@ -502,7 +502,7 @@ class SettingsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets forgejo_url
      *
-     * @param string|null $forgejo_url Required, once the save is merged with what is already stored, whenever a Forgejo token or username is set. That depends on stored state, so a schema alone can't express it: a save that breaks it is a 400 naming `forgejoUrl`.
+     * @param string|null $forgejo_url Required, once the save is merged with what is already stored, whenever a Forgejo token or username is set. That depends on stored state, so a schema alone can't express it: a save that breaks it is a 400 naming `forgejoUrl`.  Must be a plain `http://` or `https://` base URL with a host, optionally with a path prefix. One that carries a username, password, query string or fragment, or has another scheme, is a 400 naming `forgejoUrl`, and nothing is saved. The error never repeats the URL.
      *
      * @return self
      */
