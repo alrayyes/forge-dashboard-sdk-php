@@ -1,5 +1,15 @@
 # Changelog
 
+## [3.0.44](https://github.com/alrayyes/forge-dashboard-sdk-php/compare/v3.0.43...v3.0.44) (2026-10-17)
+
+
+### Bug Fixes
+
+* bump phpstan/phpstan from 2.3.0 to 2.3.1 ([#197](https://github.com/alrayyes/forge-dashboard-sdk-php/issues/197)) ([853d67d](https://github.com/alrayyes/forge-dashboard-sdk-php/commit/853d67d5a7ce4af0d9c2b6a5e07317304ecb19d2))
+* bump phpstan/phpstan-phpunit from 2.0.19 to 2.1.1 ([#194](https://github.com/alrayyes/forge-dashboard-sdk-php/issues/194)) ([a1c5d50](https://github.com/alrayyes/forge-dashboard-sdk-php/commit/a1c5d505034dea20bd9dfcd3cc65fa80a9a40c12))
+* bump rector/rector from 2.6.7 to 2.7.0 ([#196](https://github.com/alrayyes/forge-dashboard-sdk-php/issues/196)) ([3592a7a](https://github.com/alrayyes/forge-dashboard-sdk-php/commit/3592a7a3a1c58392e5809db8384558f55b4dd220))
+* regenerate client from forge-dashboard openapi.yaml ([#198](https://github.com/alrayyes/forge-dashboard-sdk-php/issues/198)) ([3f78f3e](https://github.com/alrayyes/forge-dashboard-sdk-php/commit/3f78f3eca14ab34f2789441a4529e9727d360ff3))
+
 ## [3.0.43](https://github.com/alrayyes/forge-dashboard-sdk-php/compare/v3.0.42...v3.0.43) (2026-10-16)
 
 
