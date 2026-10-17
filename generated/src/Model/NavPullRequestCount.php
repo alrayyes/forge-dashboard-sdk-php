@@ -35,7 +35,7 @@ use \ForgeDashboard\Generated\ObjectSerializer;
  * NavPullRequestCount Class Doc Comment
  *
  * @category Class
- * @description A pull request page&#39;s numbers (#1439). &#x60;running&#x60;, &#x60;failed&#x60; and &#x60;passed&#x60; count the pull requests whose CI is pending, failing and succeeded. A pull request with no checks counts in &#x60;total&#x60; only, so the four numbers need not add up. All four are always present.
+ * @description A pull request page&#39;s numbers. &#x60;running&#x60;, &#x60;failed&#x60; and &#x60;passed&#x60; count the pull requests whose CI is pending, failing and succeeded. A pull request with no checks counts in &#x60;total&#x60; only, so the four numbers need not add up. All four are always present.
  * @package  ForgeDashboard\Generated
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech

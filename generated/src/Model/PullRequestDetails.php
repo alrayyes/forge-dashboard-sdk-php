@@ -35,7 +35,7 @@ use \ForgeDashboard\Generated\ObjectSerializer;
  * PullRequestDetails Class Doc Comment
  *
  * @category Class
- * @description What the pull request dialog shows (#1506).
+ * @description What the pull request dialog shows.
  * @package  ForgeDashboard\Generated
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech

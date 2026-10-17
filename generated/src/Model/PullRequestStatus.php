@@ -35,7 +35,7 @@ use \ForgeDashboard\Generated\ObjectSerializer;
  * PullRequestStatus Class Doc Comment
  *
  * @category Class
- * @description Why a pull request is waiting on something or can&#39;t be merged, in one place for a client to show (#1375). Same shape as &#x60;AllowedAction.blocked&#x60;.
+ * @description Why a pull request is waiting on something or can&#39;t be merged, in one place for a client to show. Same shape as &#x60;AllowedAction.blocked&#x60;.
  * @package  ForgeDashboard\Generated
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech

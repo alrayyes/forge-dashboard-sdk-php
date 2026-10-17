@@ -35,7 +35,7 @@ use \ForgeDashboard\Generated\ObjectSerializer;
  * AutoMergeStatus Class Doc Comment
  *
  * @category Class
- * @description Where an armed pull request stands, so the row can say why auto-merge is waiting or stopped in words and not by colour. Present while auto-merge is armed on it: on Forgejo the signed-in user&#39;s intent held by this app, on GitHub the forge&#39;s own auto-merge (#1293). Also present for ten minutes after this app cancelled an armed auto-merge because the pull request went empty (its branch landed on the base some other way): &#x60;stopped&#x60;, code &#x60;already_up_to_date&#x60; and the message \&quot;Auto-merge was cancelled: there is nothing left to merge.\&quot; Auto-merge is off by then, so this is the only place the reason lives (#1375).
+ * @description Where an armed pull request stands, so the row can say why auto-merge is waiting or stopped in words and not by colour. Present while auto-merge is armed on it: on Forgejo the signed-in user&#39;s intent held by this app, on GitHub the forge&#39;s own auto-merge. Also present for ten minutes after this app cancelled an armed auto-merge because the pull request went empty (its branch landed on the base some other way): &#x60;stopped&#x60;, code &#x60;already_up_to_date&#x60; and the message \&quot;Auto-merge was cancelled: there is nothing left to merge.\&quot; Auto-merge is off by then, so this is the only place the reason lives.
  * @package  ForgeDashboard\Generated
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech

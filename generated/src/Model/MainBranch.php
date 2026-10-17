@@ -715,7 +715,7 @@ class MainBranch implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets stale
      *
-     * @param bool $stale True when this row is the last known one because its forge couldn't be read or its rate limit is spent. A client offers no write on a stale row (#1199).
+     * @param bool $stale True when this row is the last known one because its forge couldn't be read or its rate limit is spent. A client offers no write on a stale row.
      *
      * @return self
      */
