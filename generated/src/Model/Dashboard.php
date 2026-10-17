@@ -378,6 +378,9 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
             $invalidProperties[] = "invalid value for 'settings_hidden_issue_count', must be bigger than or equal to 0.";
         }
 
+        if ($this->container['first_refresh_done'] === null) {
+            $invalidProperties[] = "'first_refresh_done' can't be null";
+        }
         if ($this->container['nav_counts'] === null) {
             $invalidProperties[] = "'nav_counts' can't be null";
         }
@@ -544,7 +547,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets first_refresh_done
      *
-     * @return bool|null
+     * @return bool
      */
     public function getFirstRefreshDone()
     {
@@ -554,7 +557,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets first_refresh_done
      *
-     * @param bool|null $first_refresh_done False from process start until this viewer's first refresh has finished, whether it succeeded or failed; true from then on, including after later refreshes. Per viewer: another user's refresh does not flip it. A client shows a loading state instead of empty lists while it is false; a failed first refresh is reported through forge health, not by keeping this false. The same on `GET /api/dashboard`, the stream and the MCP `get_dashboard` output. Optional until the server emits it; the server change makes it required, and a client treats a missing flag as true (loaded).
+     * @param bool $first_refresh_done False from process start until this viewer's first refresh has finished, whether it succeeded or failed; true from then on, including after later refreshes. Per viewer: another user's refresh does not flip it. A client shows a loading state instead of empty lists while it is false; a failed first refresh is reported through forge health, not by keeping this false. The same on `GET /api/dashboard`, the stream and the MCP `get_dashboard` output. Always present. A client of an older server that lacks it should treat a missing flag as true (loaded).
      *
      * @return self
      */
