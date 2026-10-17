@@ -1429,7 +1429,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets awaiting_workflow_approval
      *
-     * @param bool $awaiting_workflow_approval True when GitHub is holding a workflow run on the head commit until someone approves it (#1280): its rollup counts a check run as ACTION_REQUIRED. Those runs also keep `ci` at failure when nothing else is running, so a client reads this to say \"waiting for approval\" rather than \"check failed\". It can be true while `ci` is pending (other runs are going) or failing for another reason too. Always present; false on Forgejo, which has no such state.
+     * @param bool $awaiting_workflow_approval True when GitHub is holding a workflow run on the head commit until someone approves it: its rollup counts a check run as ACTION_REQUIRED. Those runs also keep `ci` at failure when nothing else is running, so a client reads this to say \"waiting for approval\" rather than \"check failed\". It can be true while `ci` is pending (other runs are going) or failing for another reason too. Always present; false on Forgejo, which has no such state.
      *
      * @return self
      */
@@ -1456,7 +1456,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets review_comments
      *
-     * @param int $review_comments How many review comments the pull request has (#1335). Ordinary conversation comments are not counted. Always present, and 0 when there are none or the forge can't say (a Forgejo draft or failed reviews call, GitHub's unauthenticated fallback). On GitHub it is read from the review threads in the pull request query, first 30 threads; on Forgejo it is the sum of each review's comment count, from the reviews call that already feeds `review`, so a draft (which makes no such call) reports 0.
+     * @param int $review_comments How many review comments the pull request has. Ordinary conversation comments are not counted. Always present, and 0 when there are none or the forge can't say (a Forgejo draft or failed reviews call, GitHub's unauthenticated fallback). On GitHub it is read from the review threads in the pull request query, first 30 threads; on Forgejo it is the sum of each review's comment count, from the reviews call that already feeds `review`, so a draft (which makes no such call) reports 0.
      *
      * @return self
      */
@@ -1714,7 +1714,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets status
      *
-     * @param \ForgeDashboard\Generated\Model\PullRequestStatus|null $status The one reason this pull request is waiting on something or can't be merged, for a fixed place on its row (#1375): a check still running, a conflict, a draft, a parent it is stacked on, or, for an empty pull request, that there is nothing to merge. `code`, `message` and `next` are the same as on `allowedActions[].blocked`, and for a pull request that waiting or fixing can unlock they repeat Merge's blocked reason. An empty pull request offers no `merge` (only `close`), so this is where its reason lives. Null when nothing holds the pull request back. Always present.
+     * @param \ForgeDashboard\Generated\Model\PullRequestStatus|null $status The one reason this pull request is waiting on something or can't be merged, for a fixed place on its row: a check still running, a conflict, a draft, a parent it is stacked on, or, for an empty pull request, that there is nothing to merge. `code`, `message` and `next` are the same as on `allowedActions[].blocked`, and for a pull request that waiting or fixing can unlock they repeat Merge's blocked reason. An empty pull request offers no `merge` (only `close`), so this is where its reason lives. Null when nothing holds the pull request back. Always present.
      *
      * @return self
      */

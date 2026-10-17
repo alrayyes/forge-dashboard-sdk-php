@@ -35,7 +35,7 @@ use \ForgeDashboard\Generated\ObjectSerializer;
  * NavCount Class Doc Comment
  *
  * @category Class
- * @description The Branches page&#39;s numbers (#1458, #1531): how many default branches it lists and how many of those have a pipeline running, failed and passed, the same four as &#x60;NavPullRequestCount&#x60;, plus &#x60;none&#x60;, the ones with no pipeline. Every branch is in exactly one of the four states, so &#x60;running&#x60;, &#x60;failed&#x60;, &#x60;passed&#x60; and &#x60;none&#x60; add up to &#x60;total&#x60;. All five are always present.
+ * @description The Branches page&#39;s numbers: how many default branches it lists and how many of those have a pipeline running, failed and passed, the same four as &#x60;NavPullRequestCount&#x60;, plus &#x60;none&#x60;, the ones with no pipeline. Every branch is in exactly one of the four states, so &#x60;running&#x60;, &#x60;failed&#x60;, &#x60;passed&#x60; and &#x60;none&#x60; add up to &#x60;total&#x60;. All five are always present.
  * @package  ForgeDashboard\Generated
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech

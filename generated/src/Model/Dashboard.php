@@ -523,7 +523,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets settings_hidden_issue_count
      *
-     * @param int|null $settings_hidden_issue_count How many open issues the user's own settings (`hideDependencyDashboard` and `ignoredTitles`) left out of `issues`, so a client can say \"N hidden by your settings\" and link to Settings; it cannot work that out, the issues are not sent. Always present once the server applies the settings (#1630); 0 when none are hidden.
+     * @param int|null $settings_hidden_issue_count How many open issues the user's own settings (`hideDependencyDashboard` and `ignoredTitles`) left out of `issues`, so a client can say \"N hidden by your settings\" and link to Settings; it cannot work that out, the issues are not sent. Always present once the server applies the settings; 0 when none are hidden.
      *
      * @return self
      */
@@ -554,7 +554,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets first_refresh_done
      *
-     * @param bool|null $first_refresh_done False from process start until this viewer's first refresh has finished, whether it succeeded or failed; true from then on, including after later refreshes. Per viewer: another user's refresh does not flip it. A client shows a loading state instead of empty lists while it is false; a failed first refresh is reported through forge health, not by keeping this false. The same on `GET /api/dashboard`, the stream and the MCP `get_dashboard` output. Optional until the server emits it (#1673); the server change makes it required, and a client treats a missing flag as true (loaded).
+     * @param bool|null $first_refresh_done False from process start until this viewer's first refresh has finished, whether it succeeded or failed; true from then on, including after later refreshes. Per viewer: another user's refresh does not flip it. A client shows a loading state instead of empty lists while it is false; a failed first refresh is reported through forge health, not by keeping this false. The same on `GET /api/dashboard`, the stream and the MCP `get_dashboard` output. Optional until the server emits it; the server change makes it required, and a client treats a missing flag as true (loaded).
      *
      * @return self
      */
