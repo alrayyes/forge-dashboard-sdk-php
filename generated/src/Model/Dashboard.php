@@ -638,7 +638,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets read_interval_seconds
      *
-     * @param int $read_interval_seconds How often, in seconds, a client should re-read GET /api/dashboard. The server's advice, so a client needs no interval of its own. The read is cheap and never calls a forge; this is not the backend's refresh schedule.
+     * @param int $read_interval_seconds How often, in seconds, a client should re-read GET /api/dashboard. The server's advice, so a client needs no interval of its own. The read is cheap and never calls a forge; this is not the backend's refresh schedule. It is shorter (2) until the viewer's first refresh has finished, so a page that is still loading picks the data up soon after it is ready, and the normal 30 from then on.
      *
      * @return self
      */
