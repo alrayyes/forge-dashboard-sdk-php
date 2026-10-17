@@ -81,6 +81,7 @@ src/Model/ReviewState.php
 src/Model/SessionUser.php
 src/Model/SettingsRequest.php
 src/Model/SettingsResponse.php
+src/Model/SettingsSummary.php
 src/Model/SharedUser.php
 src/Model/SharingResponse.php
 src/Model/StackPosition.php

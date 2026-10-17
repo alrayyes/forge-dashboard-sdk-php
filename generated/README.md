@@ -133,6 +133,7 @@ Class | Method | HTTP request | Description
 *QueuedActionsApi* | [**queueAction**](docs/Api/QueuedActionsApi.md#queueaction) | **POST** /api/queued-actions | Queue a safe action to run when a rate-limited forge resets
 *SettingsApi* | [**getFilterState**](docs/Api/SettingsApi.md#getfilterstate) | **GET** /api/settings/filter-state | The signed-in user&#39;s own saved dashboard/Insights filter state
 *SettingsApi* | [**getSettings**](docs/Api/SettingsApi.md#getsettings) | **GET** /api/settings | The signed-in user&#39;s own forge configuration
+*SettingsApi* | [**getSettingsSummary**](docs/Api/SettingsApi.md#getsettingssummary) | **GET** /api/settings/summary | The signed-in user&#39;s settings, read without side effects
 *SettingsApi* | [**getTheme**](docs/Api/SettingsApi.md#gettheme) | **GET** /api/settings/theme | The signed-in user&#39;s own saved theme preference
 *SettingsApi* | [**getTimezone**](docs/Api/SettingsApi.md#gettimezone) | **GET** /api/settings/timezone | The signed-in user&#39;s own saved time zone
 *SettingsApi* | [**putSettings**](docs/Api/SettingsApi.md#putsettings) | **PUT** /api/settings | Save the signed-in user&#39;s forge configuration
@@ -212,6 +213,7 @@ Class | Method | HTTP request | Description
 - [SessionUser](docs/Model/SessionUser.md)
 - [SettingsRequest](docs/Model/SettingsRequest.md)
 - [SettingsResponse](docs/Model/SettingsResponse.md)
+- [SettingsSummary](docs/Model/SettingsSummary.md)
 - [SharedUser](docs/Model/SharedUser.md)
 - [SharingResponse](docs/Model/SharingResponse.md)
 - [StackPosition](docs/Model/StackPosition.md)

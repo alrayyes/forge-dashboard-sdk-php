@@ -585,7 +585,7 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets forgejo_url
      *
-     * @param string $forgejo_url forgejo_url
+     * @param string $forgejo_url Always without a username, password, query string or fragment, even if the stored value predates those being refused.
      *
      * @return self
      */
