@@ -72,7 +72,8 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'theme' => 'string',
         'timezone' => 'string',
         'hide_dependency_dashboard' => 'bool',
-        'ignored_titles' => 'string[]'
+        'ignored_titles' => 'string[]',
+        'ignored_title_counts' => 'int[]'
     ];
 
     /**
@@ -97,7 +98,8 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'theme' => null,
         'timezone' => null,
         'hide_dependency_dashboard' => null,
-        'ignored_titles' => null
+        'ignored_titles' => null,
+        'ignored_title_counts' => null
     ];
 
     /**
@@ -120,7 +122,8 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'theme' => false,
         'timezone' => false,
         'hide_dependency_dashboard' => false,
-        'ignored_titles' => false
+        'ignored_titles' => false,
+        'ignored_title_counts' => false
     ];
 
     /**
@@ -223,7 +226,8 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'theme' => 'theme',
         'timezone' => 'timezone',
         'hide_dependency_dashboard' => 'hideDependencyDashboard',
-        'ignored_titles' => 'ignoredTitles'
+        'ignored_titles' => 'ignoredTitles',
+        'ignored_title_counts' => 'ignoredTitleCounts'
     ];
 
     /**
@@ -246,7 +250,8 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'theme' => 'setTheme',
         'timezone' => 'setTimezone',
         'hide_dependency_dashboard' => 'setHideDependencyDashboard',
-        'ignored_titles' => 'setIgnoredTitles'
+        'ignored_titles' => 'setIgnoredTitles',
+        'ignored_title_counts' => 'setIgnoredTitleCounts'
     ];
 
     /**
@@ -269,7 +274,8 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'theme' => 'getTheme',
         'timezone' => 'getTimezone',
         'hide_dependency_dashboard' => 'getHideDependencyDashboard',
-        'ignored_titles' => 'getIgnoredTitles'
+        'ignored_titles' => 'getIgnoredTitles',
+        'ignored_title_counts' => 'getIgnoredTitleCounts'
     ];
 
     /**
@@ -361,6 +367,7 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('timezone', $data ?? [], null);
         $this->setIfExists('hide_dependency_dashboard', $data ?? [], null);
         $this->setIfExists('ignored_titles', $data ?? [], null);
+        $this->setIfExists('ignored_title_counts', $data ?? [], null);
     }
 
     /**
@@ -868,6 +875,33 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('invalid value for $ignored_titles when calling SettingsResponse., number of items must be less than or equal to 20.');
         }
         $this->container['ignored_titles'] = $ignored_titles;
+
+        return $this;
+    }
+
+    /**
+     * Gets ignored_title_counts
+     *
+     * @return int[]|null
+     */
+    public function getIgnoredTitleCounts()
+    {
+        return $this->container['ignored_title_counts'];
+    }
+
+    /**
+     * Sets ignored_title_counts
+     *
+     * @param int[]|null $ignored_title_counts Per pattern in `ignoredTitles`, same order and same length: how many of the viewer's currently open issues that pattern matches on its own. An issue two patterns match counts for both, so the entries can sum to more than `settingsHiddenIssueCount`. Every entry is null while the count is unknown (the viewer's first refresh has not finished, see `firstRefreshDone` on the dashboard snapshot, or there is no snapshot), never a made-up 0. Only this viewer's issues are counted. On GET and on the PUT response alike: a PUT returns the counts for the list it just saved. Optional until the server emits it; the server change makes it required.
+     *
+     * @return self
+     */
+    public function setIgnoredTitleCounts($ignored_title_counts)
+    {
+        if (is_null($ignored_title_counts)) {
+            throw new \InvalidArgumentException('non-nullable ignored_title_counts cannot be null');
+        }
+        $this->container['ignored_title_counts'] = $ignored_title_counts;
 
         return $this;
     }
