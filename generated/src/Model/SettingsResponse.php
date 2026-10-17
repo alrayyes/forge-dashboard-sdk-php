@@ -446,6 +446,9 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
             $invalidProperties[] = "invalid value for 'ignored_titles', number of items must be less than or equal to 20.";
         }
 
+        if ($this->container['ignored_title_counts'] === null) {
+            $invalidProperties[] = "'ignored_title_counts' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -882,7 +885,7 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets ignored_title_counts
      *
-     * @return int[]|null
+     * @return int[]
      */
     public function getIgnoredTitleCounts()
     {
@@ -892,7 +895,7 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets ignored_title_counts
      *
-     * @param int[]|null $ignored_title_counts Per pattern in `ignoredTitles`, same order and same length: how many of the viewer's currently open issues that pattern matches on its own. An issue two patterns match counts for both, so the entries can sum to more than `settingsHiddenIssueCount`. Every entry is null while the count is unknown (the viewer's first refresh has not finished, see `firstRefreshDone` on the dashboard snapshot, or there is no snapshot), never a made-up 0. Only this viewer's issues are counted. On GET and on the PUT response alike: a PUT returns the counts for the list it just saved. Optional until the server emits it; the server change makes it required.
+     * @param int[] $ignored_title_counts Per pattern in `ignoredTitles`, same order and same length: how many of the viewer's currently open issues that pattern matches on its own. An issue two patterns match counts for both, so the entries can sum to more than `settingsHiddenIssueCount`. Every entry is null while the count is unknown (the viewer's first refresh has not finished, see `firstRefreshDone` on the dashboard snapshot, or there is no snapshot), never a made-up 0. Only this viewer's issues are counted. On GET and on the PUT response alike: a PUT returns the counts for the list it just saved, worked out from the issues the viewer had before the save.
      *
      * @return self
      */
