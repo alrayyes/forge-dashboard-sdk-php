@@ -67,6 +67,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         'has_webhook' => 'bool',
         'can_manage_webhooks' => 'bool',
         'webhook_locked_by_connection' => 'bool',
+        'webhook_needs_token' => 'bool',
         'auto_update_branch' => 'bool'
     ];
 
@@ -87,6 +88,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         'has_webhook' => null,
         'can_manage_webhooks' => null,
         'webhook_locked_by_connection' => null,
+        'webhook_needs_token' => null,
         'auto_update_branch' => null
     ];
 
@@ -105,6 +107,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         'has_webhook' => false,
         'can_manage_webhooks' => false,
         'webhook_locked_by_connection' => false,
+        'webhook_needs_token' => false,
         'auto_update_branch' => false
     ];
 
@@ -203,6 +206,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         'has_webhook' => 'hasWebhook',
         'can_manage_webhooks' => 'canManageWebhooks',
         'webhook_locked_by_connection' => 'webhookLockedByConnection',
+        'webhook_needs_token' => 'webhookNeedsToken',
         'auto_update_branch' => 'autoUpdateBranch'
     ];
 
@@ -221,6 +225,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         'has_webhook' => 'setHasWebhook',
         'can_manage_webhooks' => 'setCanManageWebhooks',
         'webhook_locked_by_connection' => 'setWebhookLockedByConnection',
+        'webhook_needs_token' => 'setWebhookNeedsToken',
         'auto_update_branch' => 'setAutoUpdateBranch'
     ];
 
@@ -239,6 +244,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         'has_webhook' => 'getHasWebhook',
         'can_manage_webhooks' => 'getCanManageWebhooks',
         'webhook_locked_by_connection' => 'getWebhookLockedByConnection',
+        'webhook_needs_token' => 'getWebhookNeedsToken',
         'auto_update_branch' => 'getAutoUpdateBranch'
     ];
 
@@ -308,6 +314,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('has_webhook', $data ?? [], null);
         $this->setIfExists('can_manage_webhooks', $data ?? [], null);
         $this->setIfExists('webhook_locked_by_connection', $data ?? [], null);
+        $this->setIfExists('webhook_needs_token', $data ?? [], null);
         $this->setIfExists('auto_update_branch', $data ?? [], null);
     }
 
@@ -619,6 +626,33 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable webhook_locked_by_connection cannot be null');
         }
         $this->container['webhook_locked_by_connection'] = $webhook_locked_by_connection;
+
+        return $this;
+    }
+
+    /**
+     * Gets webhook_needs_token
+     *
+     * @return bool|null
+     */
+    public function getWebhookNeedsToken()
+    {
+        return $this->container['webhook_needs_token'];
+    }
+
+    /**
+     * Sets webhook_needs_token
+     *
+     * @param bool|null $webhook_needs_token Present and true when canManageWebhooks is false because no token is saved for the forge. The repos then came from a username-only listing, which the forge answers as an anonymous caller, so the permissions it reports say nothing about the signed-in user's role. Saving a token with the webhook scope in Settings is the fix. Absent when a token is saved, whatever role it holds. Set today for Forgejo only.
+     *
+     * @return self
+     */
+    public function setWebhookNeedsToken($webhook_needs_token)
+    {
+        if (is_null($webhook_needs_token)) {
+            throw new \InvalidArgumentException('non-nullable webhook_needs_token cannot be null');
+        }
+        $this->container['webhook_needs_token'] = $webhook_needs_token;
 
         return $this;
     }
