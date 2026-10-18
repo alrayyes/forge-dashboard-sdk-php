@@ -66,6 +66,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         'ignored_issues' => 'bool',
         'has_webhook' => 'bool',
         'can_manage_webhooks' => 'bool',
+        'webhook_locked_by_connection' => 'bool',
         'auto_update_branch' => 'bool'
     ];
 
@@ -85,6 +86,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         'ignored_issues' => null,
         'has_webhook' => null,
         'can_manage_webhooks' => null,
+        'webhook_locked_by_connection' => null,
         'auto_update_branch' => null
     ];
 
@@ -102,6 +104,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         'ignored_issues' => false,
         'has_webhook' => false,
         'can_manage_webhooks' => false,
+        'webhook_locked_by_connection' => false,
         'auto_update_branch' => false
     ];
 
@@ -199,6 +202,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         'ignored_issues' => 'ignoredIssues',
         'has_webhook' => 'hasWebhook',
         'can_manage_webhooks' => 'canManageWebhooks',
+        'webhook_locked_by_connection' => 'webhookLockedByConnection',
         'auto_update_branch' => 'autoUpdateBranch'
     ];
 
@@ -216,6 +220,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         'ignored_issues' => 'setIgnoredIssues',
         'has_webhook' => 'setHasWebhook',
         'can_manage_webhooks' => 'setCanManageWebhooks',
+        'webhook_locked_by_connection' => 'setWebhookLockedByConnection',
         'auto_update_branch' => 'setAutoUpdateBranch'
     ];
 
@@ -233,6 +238,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         'ignored_issues' => 'getIgnoredIssues',
         'has_webhook' => 'getHasWebhook',
         'can_manage_webhooks' => 'getCanManageWebhooks',
+        'webhook_locked_by_connection' => 'getWebhookLockedByConnection',
         'auto_update_branch' => 'getAutoUpdateBranch'
     ];
 
@@ -301,6 +307,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('ignored_issues', $data ?? [], null);
         $this->setIfExists('has_webhook', $data ?? [], null);
         $this->setIfExists('can_manage_webhooks', $data ?? [], null);
+        $this->setIfExists('webhook_locked_by_connection', $data ?? [], null);
         $this->setIfExists('auto_update_branch', $data ?? [], null);
     }
 
@@ -575,7 +582,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets can_manage_webhooks
      *
-     * @param bool $can_manage_webhooks Whether the signed-in user's own permission on this repo is enough to list/create its webhooks — GitHub requires admin specifically (write/maintain can push but still 404 on the hooks endpoint, by GitHub's own design); Forgejo's equivalent is its own admin permission flag. Always false for a repo reached through an unauthenticated, username-only listing. A point-in-time snapshot: a permission change since the last refresh can still make a following ensure-webhook call fail despite this having said true.
+     * @param bool $can_manage_webhooks Whether the signed-in user's own permission on this repo is enough to list/create its webhooks — GitHub requires admin specifically (write/maintain can push but still 404 on the hooks endpoint, by GitHub's own design); Forgejo's equivalent is its own admin permission flag. Always false for a repo reached through an unauthenticated, username-only listing. A point-in-time snapshot: a permission change since the last refresh can still make a following ensure-webhook call fail despite this having said true. For a GitHub App connection there is no user role to read, so this is true when listing the repo's webhooks worked on the last refresh.
      *
      * @return self
      */
@@ -585,6 +592,33 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable can_manage_webhooks cannot be null');
         }
         $this->container['can_manage_webhooks'] = $can_manage_webhooks;
+
+        return $this;
+    }
+
+    /**
+     * Gets webhook_locked_by_connection
+     *
+     * @return bool|null
+     */
+    public function getWebhookLockedByConnection()
+    {
+        return $this->container['webhook_locked_by_connection'];
+    }
+
+    /**
+     * Sets webhook_locked_by_connection
+     *
+     * @param bool|null $webhook_locked_by_connection Present and true when canManageWebhooks is false because the connection itself can't manage webhooks on this repo (GitHub refused the hooks listing: a GitHub App without the Webhooks permission, or a repo outside its installation), rather than the signed-in user's role. A failed or rate-limited listing doesn't set it. Absent otherwise.
+     *
+     * @return self
+     */
+    public function setWebhookLockedByConnection($webhook_locked_by_connection)
+    {
+        if (is_null($webhook_locked_by_connection)) {
+            throw new \InvalidArgumentException('non-nullable webhook_locked_by_connection cannot be null');
+        }
+        $this->container['webhook_locked_by_connection'] = $webhook_locked_by_connection;
 
         return $this;
     }
