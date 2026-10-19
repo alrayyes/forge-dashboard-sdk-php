@@ -3740,11 +3740,25 @@ components:
 
     CheckState:
       type: string
-      enum: [queued, running, success, failure, cancelled, skipped, timed_out]
+      enum:
+        [
+          queued,
+          running,
+          success,
+          failure,
+          cancelled,
+          skipped,
+          timed_out,
+          awaiting_approval,
+        ]
       description: |
         One job/check's own status — the per-job detail CIStatus
         deliberately doesn't carry, since CIStatus is the combined result
         across every one of them.
+
+        "awaiting_approval" is a GitHub workflow run held until a
+        maintainer approves it. It has no jobs yet, so it is not queued and
+        not failed; its `url` is the run's page, where the approve button is.
 
     Check:
       type: object
@@ -4119,6 +4133,7 @@ components:
           allowedActions,
           status,
           readyToMerge,
+          failingCi,
           needsReview,
         ]
       properties:
@@ -4413,6 +4428,13 @@ components:
             True when the pull request is mergeable, its CI is green and it
             isn't a draft: what the Ready quick filter lists. Always
             present. A pull request with no checks isn't ready.
+        failingCi:
+          type: boolean
+          description: |
+            True when CI is failing and not only because a workflow run is
+            held for approval: what the Failing CI quick filter and the status
+            filter's Failing choice list, and what the menu pill's Failed
+            number counts. Always present.
         needsReview:
           type: boolean
           description: |
@@ -4802,9 +4824,9 @@ components:
         The Branches page's numbers: how many default branches
         it lists and how many of those have a pipeline running, failed and
         passed, the same four as `NavPullRequestCount`, plus `none`, the ones
-        with no pipeline. Every branch is in exactly one of the four states,
-        so `running`, `failed`, `passed` and `none` add up to `total`. All
-        five are always present.
+        with no pipeline. A branch whose only trouble is a cancelled run
+        counts in `total` only, as a pull request with no checks does, so the
+        parts need not add up. All five are always present.
       properties:
         total:
           type: integer
@@ -4847,7 +4869,12 @@ components:
         failed:
           type: integer
           minimum: 0
-          description: How many of them have failing CI.
+          description: |
+            How many of them have failing CI. A pull request whose only
+            failure is workflow runs held until someone approves them
+            (`awaitingWorkflowApproval`) is counted in `total` and not here,
+            as nothing failed; one with a job that really failed beside a
+            held run still counts.
         passed:
           type: integer
           minimum: 0
@@ -5011,11 +5038,13 @@ components:
 
     MainBranchStatus:
       type: string
-      enum: [failed, passed, running, none]
+      enum: [failed, passed, running, cancelled, none]
       description: |
         The result of the latest pipeline on a default branch's newest
         commit, across all its workflows. "failed" when any job failed,
         "running" when none failed and some are still queued or running,
+        "cancelled" when nothing failed and nothing is running but some run
+        was cancelled (a newer push or a person stopped it, so nothing broke),
         "passed" when all finished green, "none" when the commit has no
         pipeline at all (or the repository has no commit yet).
 
@@ -5114,10 +5143,10 @@ components:
 
     MainBranchCounts:
       type: object
-      required: [failed, passed, running, none, total]
+      required: [failed, passed, running, cancelled, none, total]
       description: |
         How many rows are in each status, the numbers on the filter pills.
-        `total` is every row, so it equals the sum of the other four.
+        `total` is every row, so it equals the sum of the other five.
       properties:
         failed:
           type: integer
@@ -5126,6 +5155,9 @@ components:
           type: integer
           minimum: 0
         running:
+          type: integer
+          minimum: 0
+        cancelled:
           type: integer
           minimum: 0
         none:

@@ -35,7 +35,7 @@ use \ForgeDashboard\Generated\ObjectSerializer;
  * MainBranchCounts Class Doc Comment
  *
  * @category Class
- * @description How many rows are in each status, the numbers on the filter pills. &#x60;total&#x60; is every row, so it equals the sum of the other four.
+ * @description How many rows are in each status, the numbers on the filter pills. &#x60;total&#x60; is every row, so it equals the sum of the other five.
  * @package  ForgeDashboard\Generated
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -61,6 +61,7 @@ class MainBranchCounts implements ModelInterface, ArrayAccess, \JsonSerializable
         'failed' => 'int',
         'passed' => 'int',
         'running' => 'int',
+        'cancelled' => 'int',
         'none' => 'int',
         'total' => 'int'
     ];
@@ -76,6 +77,7 @@ class MainBranchCounts implements ModelInterface, ArrayAccess, \JsonSerializable
         'failed' => null,
         'passed' => null,
         'running' => null,
+        'cancelled' => null,
         'none' => null,
         'total' => null
     ];
@@ -89,6 +91,7 @@ class MainBranchCounts implements ModelInterface, ArrayAccess, \JsonSerializable
         'failed' => false,
         'passed' => false,
         'running' => false,
+        'cancelled' => false,
         'none' => false,
         'total' => false
     ];
@@ -182,6 +185,7 @@ class MainBranchCounts implements ModelInterface, ArrayAccess, \JsonSerializable
         'failed' => 'failed',
         'passed' => 'passed',
         'running' => 'running',
+        'cancelled' => 'cancelled',
         'none' => 'none',
         'total' => 'total'
     ];
@@ -195,6 +199,7 @@ class MainBranchCounts implements ModelInterface, ArrayAccess, \JsonSerializable
         'failed' => 'setFailed',
         'passed' => 'setPassed',
         'running' => 'setRunning',
+        'cancelled' => 'setCancelled',
         'none' => 'setNone',
         'total' => 'setTotal'
     ];
@@ -208,6 +213,7 @@ class MainBranchCounts implements ModelInterface, ArrayAccess, \JsonSerializable
         'failed' => 'getFailed',
         'passed' => 'getPassed',
         'running' => 'getRunning',
+        'cancelled' => 'getCancelled',
         'none' => 'getNone',
         'total' => 'getTotal'
     ];
@@ -272,6 +278,7 @@ class MainBranchCounts implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('failed', $data ?? [], null);
         $this->setIfExists('passed', $data ?? [], null);
         $this->setIfExists('running', $data ?? [], null);
+        $this->setIfExists('cancelled', $data ?? [], null);
         $this->setIfExists('none', $data ?? [], null);
         $this->setIfExists('total', $data ?? [], null);
     }
@@ -322,6 +329,13 @@ class MainBranchCounts implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if (($this->container['running'] < 0)) {
             $invalidProperties[] = "invalid value for 'running', must be bigger than or equal to 0.";
+        }
+
+        if ($this->container['cancelled'] === null) {
+            $invalidProperties[] = "'cancelled' can't be null";
+        }
+        if (($this->container['cancelled'] < 0)) {
+            $invalidProperties[] = "invalid value for 'cancelled', must be bigger than or equal to 0.";
         }
 
         if ($this->container['none'] === null) {
@@ -442,6 +456,37 @@ class MainBranchCounts implements ModelInterface, ArrayAccess, \JsonSerializable
         }
 
         $this->container['running'] = $running;
+
+        return $this;
+    }
+
+    /**
+     * Gets cancelled
+     *
+     * @return int
+     */
+    public function getCancelled()
+    {
+        return $this->container['cancelled'];
+    }
+
+    /**
+     * Sets cancelled
+     *
+     * @param int $cancelled cancelled
+     *
+     * @return self
+     */
+    public function setCancelled($cancelled)
+    {
+        if (is_null($cancelled)) {
+            throw new \InvalidArgumentException('non-nullable cancelled cannot be null');
+        }
+        if (($cancelled < 0)) {
+            throw new \InvalidArgumentException('invalid value for $cancelled when calling MainBranchCounts., must be bigger than or equal to 0.');
+        }
+
+        $this->container['cancelled'] = $cancelled;
 
         return $this;
     }

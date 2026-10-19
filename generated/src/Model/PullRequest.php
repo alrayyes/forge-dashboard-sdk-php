@@ -98,6 +98,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'hidden' => 'bool',
         'hidden_until' => '\DateTime',
         'ready_to_merge' => 'bool',
+        'failing_ci' => 'bool',
         'needs_review' => 'bool'
     ];
 
@@ -150,6 +151,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'hidden' => null,
         'hidden_until' => 'date-time',
         'ready_to_merge' => null,
+        'failing_ci' => null,
         'needs_review' => null
     ];
 
@@ -200,6 +202,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'hidden' => false,
         'hidden_until' => false,
         'ready_to_merge' => false,
+        'failing_ci' => false,
         'needs_review' => false
     ];
 
@@ -330,6 +333,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'hidden' => 'hidden',
         'hidden_until' => 'hiddenUntil',
         'ready_to_merge' => 'readyToMerge',
+        'failing_ci' => 'failingCi',
         'needs_review' => 'needsReview'
     ];
 
@@ -380,6 +384,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'hidden' => 'setHidden',
         'hidden_until' => 'setHiddenUntil',
         'ready_to_merge' => 'setReadyToMerge',
+        'failing_ci' => 'setFailingCi',
         'needs_review' => 'setNeedsReview'
     ];
 
@@ -430,6 +435,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'hidden' => 'getHidden',
         'hidden_until' => 'getHiddenUntil',
         'ready_to_merge' => 'getReadyToMerge',
+        'failing_ci' => 'getFailingCi',
         'needs_review' => 'getNeedsReview'
     ];
 
@@ -548,6 +554,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('hidden', $data ?? [], null);
         $this->setIfExists('hidden_until', $data ?? [], null);
         $this->setIfExists('ready_to_merge', $data ?? [], null);
+        $this->setIfExists('failing_ci', $data ?? [], null);
         $this->setIfExists('needs_review', $data ?? [], null);
     }
 
@@ -691,6 +698,9 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if ($this->container['ready_to_merge'] === null) {
             $invalidProperties[] = "'ready_to_merge' can't be null";
+        }
+        if ($this->container['failing_ci'] === null) {
+            $invalidProperties[] = "'failing_ci' can't be null";
         }
         if ($this->container['needs_review'] === null) {
             $invalidProperties[] = "'needs_review' can't be null";
@@ -1884,6 +1894,33 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable ready_to_merge cannot be null');
         }
         $this->container['ready_to_merge'] = $ready_to_merge;
+
+        return $this;
+    }
+
+    /**
+     * Gets failing_ci
+     *
+     * @return bool
+     */
+    public function getFailingCi()
+    {
+        return $this->container['failing_ci'];
+    }
+
+    /**
+     * Sets failing_ci
+     *
+     * @param bool $failing_ci True when CI is failing and not only because a workflow run is held for approval: what the Failing CI quick filter and the status filter's Failing choice list, and what the menu pill's Failed number counts. Always present.
+     *
+     * @return self
+     */
+    public function setFailingCi($failing_ci)
+    {
+        if (is_null($failing_ci)) {
+            throw new \InvalidArgumentException('non-nullable failing_ci cannot be null');
+        }
+        $this->container['failing_ci'] = $failing_ci;
 
         return $this;
     }

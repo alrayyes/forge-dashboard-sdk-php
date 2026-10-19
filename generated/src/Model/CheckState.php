@@ -33,7 +33,7 @@ use \ForgeDashboard\Generated\ObjectSerializer;
  * CheckState Class Doc Comment
  *
  * @category Class
- * @description One job/check&#39;s own status — the per-job detail CIStatus deliberately doesn&#39;t carry, since CIStatus is the combined result across every one of them.
+ * @description One job/check&#39;s own status — the per-job detail CIStatus deliberately doesn&#39;t carry, since CIStatus is the combined result across every one of them.  \&quot;awaiting_approval\&quot; is a GitHub workflow run held until a maintainer approves it. It has no jobs yet, so it is not queued and not failed; its &#x60;url&#x60; is the run&#39;s page, where the approve button is.
  * @package  ForgeDashboard\Generated
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -57,6 +57,8 @@ class CheckState
 
     public const TIMED_OUT = 'timed_out';
 
+    public const AWAITING_APPROVAL = 'awaiting_approval';
+
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -70,7 +72,8 @@ class CheckState
             self::FAILURE,
             self::CANCELLED,
             self::SKIPPED,
-            self::TIMED_OUT
+            self::TIMED_OUT,
+            self::AWAITING_APPROVAL
         ];
     }
 }
