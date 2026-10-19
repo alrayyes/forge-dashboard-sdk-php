@@ -88,9 +88,7 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *AdminApi* | [**createInvite**](docs/Api/AdminApi.md#createinvite) | **POST** /api/admin/invites | Generate a new single-use registration invite
 *AdminApi* | [**deleteUser**](docs/Api/AdminApi.md#deleteuser) | **DELETE** /api/admin/users/{username} | Remove a user outright
-*AdminApi* | [**exportRequests**](docs/Api/AdminApi.md#exportrequests) | **GET** /api/admin/requests/export | Export the (filtered) outbound-request log as CSV
 *AdminApi* | [**listInvites**](docs/Api/AdminApi.md#listinvites) | **GET** /api/admin/invites | List outstanding registration invites
-*AdminApi* | [**listRequests**](docs/Api/AdminApi.md#listrequests) | **GET** /api/admin/requests | List every outbound GitHub/Forgejo request this instance has made
 *AdminApi* | [**listUsers**](docs/Api/AdminApi.md#listusers) | **GET** /api/admin/users | List every registered user
 *AdminApi* | [**revokeInvite**](docs/Api/AdminApi.md#revokeinvite) | **POST** /api/admin/invites/{token}/revoke | Revoke an outstanding invite
 *AdminApi* | [**revokeUser**](docs/Api/AdminApi.md#revokeuser) | **POST** /api/admin/users/{username}/revoke | Revoke a user&#39;s passkeys and sessions
@@ -208,7 +206,6 @@ Class | Method | HTTP request | Description
 - [RegistrationStatus](docs/Model/RegistrationStatus.md)
 - [RepoIgnoreRequest](docs/Model/RepoIgnoreRequest.md)
 - [RepoStatus](docs/Model/RepoStatus.md)
-- [RequestLogEntry](docs/Model/RequestLogEntry.md)
 - [ReviewState](docs/Model/ReviewState.md)
 - [SessionUser](docs/Model/SessionUser.md)
 - [SettingsRequest](docs/Model/SettingsRequest.md)
