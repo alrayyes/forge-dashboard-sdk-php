@@ -84,6 +84,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'requested_reviewer_logins' => 'string[]',
         'awaiting_workflow_approval' => 'bool',
         'review_comments' => 'int',
+        'conversation_comments' => 'int',
         'unresolved_threads' => 'int',
         'review_requested_from_me' => 'bool',
         'empty' => 'bool',
@@ -135,6 +136,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'requested_reviewer_logins' => null,
         'awaiting_workflow_approval' => null,
         'review_comments' => null,
+        'conversation_comments' => null,
         'unresolved_threads' => null,
         'review_requested_from_me' => null,
         'empty' => null,
@@ -184,6 +186,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'requested_reviewer_logins' => false,
         'awaiting_workflow_approval' => false,
         'review_comments' => false,
+        'conversation_comments' => false,
         'unresolved_threads' => true,
         'review_requested_from_me' => false,
         'empty' => false,
@@ -313,6 +316,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'requested_reviewer_logins' => 'requestedReviewerLogins',
         'awaiting_workflow_approval' => 'awaitingWorkflowApproval',
         'review_comments' => 'reviewComments',
+        'conversation_comments' => 'conversationComments',
         'unresolved_threads' => 'unresolvedThreads',
         'review_requested_from_me' => 'reviewRequestedFromMe',
         'empty' => 'empty',
@@ -362,6 +366,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'requested_reviewer_logins' => 'setRequestedReviewerLogins',
         'awaiting_workflow_approval' => 'setAwaitingWorkflowApproval',
         'review_comments' => 'setReviewComments',
+        'conversation_comments' => 'setConversationComments',
         'unresolved_threads' => 'setUnresolvedThreads',
         'review_requested_from_me' => 'setReviewRequestedFromMe',
         'empty' => 'setEmpty',
@@ -411,6 +416,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'requested_reviewer_logins' => 'getRequestedReviewerLogins',
         'awaiting_workflow_approval' => 'getAwaitingWorkflowApproval',
         'review_comments' => 'getReviewComments',
+        'conversation_comments' => 'getConversationComments',
         'unresolved_threads' => 'getUnresolvedThreads',
         'review_requested_from_me' => 'getReviewRequestedFromMe',
         'empty' => 'getEmpty',
@@ -528,6 +534,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('requested_reviewer_logins', $data ?? [], null);
         $this->setIfExists('awaiting_workflow_approval', $data ?? [], null);
         $this->setIfExists('review_comments', $data ?? [], null);
+        $this->setIfExists('conversation_comments', $data ?? [], null);
         $this->setIfExists('unresolved_threads', $data ?? [], null);
         $this->setIfExists('review_requested_from_me', $data ?? [], null);
         $this->setIfExists('empty', $data ?? [], null);
@@ -654,6 +661,13 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if (($this->container['review_comments'] < 0)) {
             $invalidProperties[] = "invalid value for 'review_comments', must be bigger than or equal to 0.";
+        }
+
+        if ($this->container['conversation_comments'] === null) {
+            $invalidProperties[] = "'conversation_comments' can't be null";
+        }
+        if (($this->container['conversation_comments'] < 0)) {
+            $invalidProperties[] = "invalid value for 'conversation_comments', must be bigger than or equal to 0.";
         }
 
         if ($this->container['unresolved_threads'] === null && !$this->isNullableSetToNull('unresolved_threads')) {
@@ -1456,7 +1470,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets review_comments
      *
-     * @param int $review_comments How many review comments the pull request has. Ordinary conversation comments are not counted. Always present, and 0 when there are none or the forge can't say (a Forgejo draft or failed reviews call, GitHub's unauthenticated fallback). On GitHub it is read from the review threads in the pull request query, first 30 threads; on Forgejo it is the sum of each review's comment count, from the reviews call that already feeds `review`, so a draft (which makes no such call) reports 0.
+     * @param int $review_comments How many review comments the pull request has, the ones on a line of code. Ordinary conversation comments are counted apart, in `conversationComments`. Always present, and 0 when there are none or the forge can't say (a Forgejo draft or failed reviews call, GitHub's unauthenticated fallback). On GitHub it is read from the review threads in the pull request query, first 30 threads; on Forgejo it is the sum of each review's comment count, from the reviews call that already feeds `review`, so a draft (which makes no such call) reports 0.
      *
      * @return self
      */
@@ -1470,6 +1484,37 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         }
 
         $this->container['review_comments'] = $review_comments;
+
+        return $this;
+    }
+
+    /**
+     * Gets conversation_comments
+     *
+     * @return int
+     */
+    public function getConversationComments()
+    {
+        return $this->container['conversation_comments'];
+    }
+
+    /**
+     * Sets conversation_comments
+     *
+     * @param int $conversation_comments How many ordinary comments the pull request's conversation has, apart from `reviewComments`. A review's own body is not a comment. Always present, and 0 when there are none. On GitHub it comes from the pull request query, on Forgejo from the pull request itself, so neither costs a request.
+     *
+     * @return self
+     */
+    public function setConversationComments($conversation_comments)
+    {
+        if (is_null($conversation_comments)) {
+            throw new \InvalidArgumentException('non-nullable conversation_comments cannot be null');
+        }
+        if (($conversation_comments < 0)) {
+            throw new \InvalidArgumentException('invalid value for $conversation_comments when calling PullRequest., must be bigger than or equal to 0.');
+        }
+
+        $this->container['conversation_comments'] = $conversation_comments;
 
         return $this;
     }
