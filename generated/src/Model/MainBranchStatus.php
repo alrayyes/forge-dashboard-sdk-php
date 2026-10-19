@@ -33,7 +33,7 @@ use \ForgeDashboard\Generated\ObjectSerializer;
  * MainBranchStatus Class Doc Comment
  *
  * @category Class
- * @description The result of the latest pipeline on a default branch&#39;s newest commit, across all its workflows. \&quot;failed\&quot; when any job failed, \&quot;running\&quot; when none failed and some are still queued or running, \&quot;passed\&quot; when all finished green, \&quot;none\&quot; when the commit has no pipeline at all (or the repository has no commit yet).
+ * @description The result of the latest pipeline on a default branch&#39;s newest commit, across all its workflows. \&quot;failed\&quot; when any job failed, \&quot;running\&quot; when none failed and some are still queued or running, \&quot;cancelled\&quot; when nothing failed and nothing is running but some run was cancelled (a newer push or a person stopped it, so nothing broke), \&quot;passed\&quot; when all finished green, \&quot;none\&quot; when the commit has no pipeline at all (or the repository has no commit yet).
  * @package  ForgeDashboard\Generated
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -49,6 +49,8 @@ class MainBranchStatus
 
     public const RUNNING = 'running';
 
+    public const CANCELLED = 'cancelled';
+
     public const NONE = 'none';
 
     /**
@@ -61,6 +63,7 @@ class MainBranchStatus
             self::FAILED,
             self::PASSED,
             self::RUNNING,
+            self::CANCELLED,
             self::NONE
         ];
     }

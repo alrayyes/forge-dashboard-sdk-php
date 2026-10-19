@@ -414,7 +414,7 @@ class NavPullRequestCount implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets failed
      *
-     * @param int $failed How many of them have failing CI.
+     * @param int $failed How many of them have failing CI. A pull request whose only failure is workflow runs held until someone approves them (`awaitingWorkflowApproval`) is counted in `total` and not here, as nothing failed; one with a job that really failed beside a held run still counts.
      *
      * @return self
      */
