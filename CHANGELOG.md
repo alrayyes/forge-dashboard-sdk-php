@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.0.2](https://github.com/alrayyes/forge-dashboard-sdk-php/compare/v4.0.1...v4.0.2) (2026-10-19)
+
+
+### Bug Fixes
+
+* **ci:** arm auto-merge on a regeneration pull request whose label arrives after it opens ([#229](https://github.com/alrayyes/forge-dashboard-sdk-php/issues/229)) ([dd5a795](https://github.com/alrayyes/forge-dashboard-sdk-php/commit/dd5a795580d8c248c821773debfc37a2e0a95ce4)), closes [#228](https://github.com/alrayyes/forge-dashboard-sdk-php/issues/228)
+
 ## [4.0.1](https://github.com/alrayyes/forge-dashboard-sdk-php/compare/v4.0.0...v4.0.1) (2026-10-19)
 
 
