@@ -64,6 +64,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'url' => 'string',
         'author' => 'string',
         'author_avatar_url' => 'string',
+        'author_url' => 'string',
         'draft' => 'bool',
         'labels' => '\ForgeDashboard\Generated\Model\Label[]',
         'created_at' => '\DateTime',
@@ -119,6 +120,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'url' => 'uri',
         'author' => null,
         'author_avatar_url' => null,
+        'author_url' => null,
         'draft' => null,
         'labels' => null,
         'created_at' => 'date-time',
@@ -172,6 +174,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'url' => false,
         'author' => false,
         'author_avatar_url' => false,
+        'author_url' => false,
         'draft' => false,
         'labels' => false,
         'created_at' => false,
@@ -305,6 +308,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'url' => 'url',
         'author' => 'author',
         'author_avatar_url' => 'authorAvatarUrl',
+        'author_url' => 'authorUrl',
         'draft' => 'draft',
         'labels' => 'labels',
         'created_at' => 'createdAt',
@@ -358,6 +362,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'url' => 'setUrl',
         'author' => 'setAuthor',
         'author_avatar_url' => 'setAuthorAvatarUrl',
+        'author_url' => 'setAuthorUrl',
         'draft' => 'setDraft',
         'labels' => 'setLabels',
         'created_at' => 'setCreatedAt',
@@ -411,6 +416,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'url' => 'getUrl',
         'author' => 'getAuthor',
         'author_avatar_url' => 'getAuthorAvatarUrl',
+        'author_url' => 'getAuthorUrl',
         'draft' => 'getDraft',
         'labels' => 'getLabels',
         'created_at' => 'getCreatedAt',
@@ -532,6 +538,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('url', $data ?? [], null);
         $this->setIfExists('author', $data ?? [], null);
         $this->setIfExists('author_avatar_url', $data ?? [], null);
+        $this->setIfExists('author_url', $data ?? [], null);
         $this->setIfExists('draft', $data ?? [], null);
         $this->setIfExists('labels', $data ?? [], null);
         $this->setIfExists('created_at', $data ?? [], null);
@@ -619,6 +626,9 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if ($this->container['author_avatar_url'] === null) {
             $invalidProperties[] = "'author_avatar_url' can't be null";
+        }
+        if ($this->container['author_url'] === null) {
+            $invalidProperties[] = "'author_url' can't be null";
         }
         if ($this->container['draft'] === null) {
             $invalidProperties[] = "'draft' can't be null";
@@ -929,6 +939,33 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable author_avatar_url cannot be null');
         }
         $this->container['author_avatar_url'] = $author_avatar_url;
+
+        return $this;
+    }
+
+    /**
+     * Gets author_url
+     *
+     * @return string
+     */
+    public function getAuthorUrl()
+    {
+        return $this->container['author_url'];
+    }
+
+    /**
+     * Sets author_url
+     *
+     * @param string $author_url The author's profile page on the forge, built by the server from the forge's own web address, so a client needs no rule per forge. A GitHub bot links to its app page. Empty when there is nothing to link to, such as a deleted account.
+     *
+     * @return self
+     */
+    public function setAuthorUrl($author_url)
+    {
+        if (is_null($author_url)) {
+            throw new \InvalidArgumentException('non-nullable author_url cannot be null');
+        }
+        $this->container['author_url'] = $author_url;
 
         return $this;
     }

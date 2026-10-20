@@ -65,6 +65,7 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
         'housekeeping' => 'bool',
         'author' => 'string',
         'author_avatar_url' => 'string',
+        'author_url' => 'string',
         'labels' => '\ForgeDashboard\Generated\Model\Label[]',
         'created_at' => '\DateTime',
         'updated_at' => '\DateTime'
@@ -86,6 +87,7 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
         'housekeeping' => null,
         'author' => null,
         'author_avatar_url' => null,
+        'author_url' => null,
         'labels' => null,
         'created_at' => 'date-time',
         'updated_at' => 'date-time'
@@ -105,6 +107,7 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
         'housekeeping' => false,
         'author' => false,
         'author_avatar_url' => false,
+        'author_url' => false,
         'labels' => false,
         'created_at' => false,
         'updated_at' => false
@@ -204,6 +207,7 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
         'housekeeping' => 'housekeeping',
         'author' => 'author',
         'author_avatar_url' => 'authorAvatarUrl',
+        'author_url' => 'authorUrl',
         'labels' => 'labels',
         'created_at' => 'createdAt',
         'updated_at' => 'updatedAt'
@@ -223,6 +227,7 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
         'housekeeping' => 'setHousekeeping',
         'author' => 'setAuthor',
         'author_avatar_url' => 'setAuthorAvatarUrl',
+        'author_url' => 'setAuthorUrl',
         'labels' => 'setLabels',
         'created_at' => 'setCreatedAt',
         'updated_at' => 'setUpdatedAt'
@@ -242,6 +247,7 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
         'housekeeping' => 'getHousekeeping',
         'author' => 'getAuthor',
         'author_avatar_url' => 'getAuthorAvatarUrl',
+        'author_url' => 'getAuthorUrl',
         'labels' => 'getLabels',
         'created_at' => 'getCreatedAt',
         'updated_at' => 'getUpdatedAt'
@@ -312,6 +318,7 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('housekeeping', $data ?? [], null);
         $this->setIfExists('author', $data ?? [], null);
         $this->setIfExists('author_avatar_url', $data ?? [], null);
+        $this->setIfExists('author_url', $data ?? [], null);
         $this->setIfExists('labels', $data ?? [], null);
         $this->setIfExists('created_at', $data ?? [], null);
         $this->setIfExists('updated_at', $data ?? [], null);
@@ -367,6 +374,9 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if ($this->container['author_avatar_url'] === null) {
             $invalidProperties[] = "'author_avatar_url' can't be null";
+        }
+        if ($this->container['author_url'] === null) {
+            $invalidProperties[] = "'author_url' can't be null";
         }
         if ($this->container['labels'] === null) {
             $invalidProperties[] = "'labels' can't be null";
@@ -604,6 +614,33 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable author_avatar_url cannot be null');
         }
         $this->container['author_avatar_url'] = $author_avatar_url;
+
+        return $this;
+    }
+
+    /**
+     * Gets author_url
+     *
+     * @return string
+     */
+    public function getAuthorUrl()
+    {
+        return $this->container['author_url'];
+    }
+
+    /**
+     * Sets author_url
+     *
+     * @param string $author_url The author's profile page on the forge, built by the server from the forge's own web address. Empty when there is nothing to link to, such as a deleted account.
+     *
+     * @return self
+     */
+    public function setAuthorUrl($author_url)
+    {
+        if (is_null($author_url)) {
+            throw new \InvalidArgumentException('non-nullable author_url cannot be null');
+        }
+        $this->container['author_url'] = $author_url;
 
         return $this;
     }
