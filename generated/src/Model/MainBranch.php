@@ -68,6 +68,8 @@ class MainBranch implements ModelInterface, ArrayAccess, \JsonSerializable
         'finished_at' => '\DateTime',
         'duration_seconds' => 'int',
         'run_url' => 'string',
+        'checks' => '\ForgeDashboard\Generated\Model\CheckCounts',
+        'latest_release' => '\ForgeDashboard\Generated\Model\MainBranchRelease',
         'stale' => 'bool',
         'stale_since' => '\DateTime'
     ];
@@ -90,6 +92,8 @@ class MainBranch implements ModelInterface, ArrayAccess, \JsonSerializable
         'finished_at' => 'date-time',
         'duration_seconds' => null,
         'run_url' => null,
+        'checks' => null,
+        'latest_release' => null,
         'stale' => null,
         'stale_since' => 'date-time'
     ];
@@ -110,6 +114,8 @@ class MainBranch implements ModelInterface, ArrayAccess, \JsonSerializable
         'finished_at' => true,
         'duration_seconds' => true,
         'run_url' => false,
+        'checks' => false,
+        'latest_release' => true,
         'stale' => false,
         'stale_since' => true
     ];
@@ -210,6 +216,8 @@ class MainBranch implements ModelInterface, ArrayAccess, \JsonSerializable
         'finished_at' => 'finishedAt',
         'duration_seconds' => 'durationSeconds',
         'run_url' => 'runUrl',
+        'checks' => 'checks',
+        'latest_release' => 'latestRelease',
         'stale' => 'stale',
         'stale_since' => 'staleSince'
     ];
@@ -230,6 +238,8 @@ class MainBranch implements ModelInterface, ArrayAccess, \JsonSerializable
         'finished_at' => 'setFinishedAt',
         'duration_seconds' => 'setDurationSeconds',
         'run_url' => 'setRunUrl',
+        'checks' => 'setChecks',
+        'latest_release' => 'setLatestRelease',
         'stale' => 'setStale',
         'stale_since' => 'setStaleSince'
     ];
@@ -250,6 +260,8 @@ class MainBranch implements ModelInterface, ArrayAccess, \JsonSerializable
         'finished_at' => 'getFinishedAt',
         'duration_seconds' => 'getDurationSeconds',
         'run_url' => 'getRunUrl',
+        'checks' => 'getChecks',
+        'latest_release' => 'getLatestRelease',
         'stale' => 'getStale',
         'stale_since' => 'getStaleSince'
     ];
@@ -321,6 +333,8 @@ class MainBranch implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('finished_at', $data ?? [], null);
         $this->setIfExists('duration_seconds', $data ?? [], null);
         $this->setIfExists('run_url', $data ?? [], null);
+        $this->setIfExists('checks', $data ?? [], null);
+        $this->setIfExists('latest_release', $data ?? [], null);
         $this->setIfExists('stale', $data ?? [], null);
         $this->setIfExists('stale_since', $data ?? [], null);
     }
@@ -385,6 +399,12 @@ class MainBranch implements ModelInterface, ArrayAccess, \JsonSerializable
 
         if ($this->container['run_url'] === null) {
             $invalidProperties[] = "'run_url' can't be null";
+        }
+        if ($this->container['checks'] === null) {
+            $invalidProperties[] = "'checks' can't be null";
+        }
+        if ($this->container['latest_release'] === null && !$this->isNullableSetToNull('latest_release')) {
+            $invalidProperties[] = "'latest_release' is required";
         }
         if ($this->container['stale'] === null) {
             $invalidProperties[] = "'stale' can't be null";
@@ -698,6 +718,67 @@ class MainBranch implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable run_url cannot be null');
         }
         $this->container['run_url'] = $run_url;
+
+        return $this;
+    }
+
+    /**
+     * Gets checks
+     *
+     * @return \ForgeDashboard\Generated\Model\CheckCounts
+     */
+    public function getChecks()
+    {
+        return $this->container['checks'];
+    }
+
+    /**
+     * Sets checks
+     *
+     * @param \ForgeDashboard\Generated\Model\CheckCounts $checks checks
+     *
+     * @return self
+     */
+    public function setChecks($checks)
+    {
+        if (is_null($checks)) {
+            throw new \InvalidArgumentException('non-nullable checks cannot be null');
+        }
+        $this->container['checks'] = $checks;
+
+        return $this;
+    }
+
+    /**
+     * Gets latest_release
+     *
+     * @return \ForgeDashboard\Generated\Model\MainBranchRelease|null
+     */
+    public function getLatestRelease()
+    {
+        return $this->container['latest_release'];
+    }
+
+    /**
+     * Sets latest_release
+     *
+     * @param \ForgeDashboard\Generated\Model\MainBranchRelease|null $latest_release The repository's latest published release, for a link to its notes. Null when the repository has none, when its only releases are drafts or pre-releases, and for every Forgejo repository, whose latest release is a separate read per repository that the refresh does not make.
+     *
+     * @return self
+     */
+    public function setLatestRelease($latest_release)
+    {
+        if (is_null($latest_release)) {
+            array_push($this->openAPINullablesSetToNull, 'latest_release');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('latest_release', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['latest_release'] = $latest_release;
 
         return $this;
     }

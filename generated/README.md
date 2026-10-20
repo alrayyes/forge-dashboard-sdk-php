@@ -194,6 +194,7 @@ Class | Method | HTTP request | Description
 - [MainBranch](docs/Model/MainBranch.md)
 - [MainBranchCommit](docs/Model/MainBranchCommit.md)
 - [MainBranchCounts](docs/Model/MainBranchCounts.md)
+- [MainBranchRelease](docs/Model/MainBranchRelease.md)
 - [MainBranchStatus](docs/Model/MainBranchStatus.md)
 - [MainBranches](docs/Model/MainBranches.md)
 - [MergeStatus](docs/Model/MergeStatus.md)
