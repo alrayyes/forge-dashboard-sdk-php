@@ -59,7 +59,8 @@ class Person implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $openAPITypes = [
         'login' => 'string',
-        'avatar_url' => 'string'
+        'avatar_url' => 'string',
+        'url' => 'string'
     ];
 
     /**
@@ -71,7 +72,8 @@ class Person implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $openAPIFormats = [
         'login' => null,
-        'avatar_url' => null
+        'avatar_url' => null,
+        'url' => null
     ];
 
     /**
@@ -81,7 +83,8 @@ class Person implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static array $openAPINullables = [
         'login' => false,
-        'avatar_url' => false
+        'avatar_url' => false,
+        'url' => false
     ];
 
     /**
@@ -171,7 +174,8 @@ class Person implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $attributeMap = [
         'login' => 'login',
-        'avatar_url' => 'avatarUrl'
+        'avatar_url' => 'avatarUrl',
+        'url' => 'url'
     ];
 
     /**
@@ -181,7 +185,8 @@ class Person implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $setters = [
         'login' => 'setLogin',
-        'avatar_url' => 'setAvatarUrl'
+        'avatar_url' => 'setAvatarUrl',
+        'url' => 'setUrl'
     ];
 
     /**
@@ -191,7 +196,8 @@ class Person implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $getters = [
         'login' => 'getLogin',
-        'avatar_url' => 'getAvatarUrl'
+        'avatar_url' => 'getAvatarUrl',
+        'url' => 'getUrl'
     ];
 
     /**
@@ -253,6 +259,7 @@ class Person implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $this->setIfExists('login', $data ?? [], null);
         $this->setIfExists('avatar_url', $data ?? [], null);
+        $this->setIfExists('url', $data ?? [], null);
     }
 
     /**
@@ -287,6 +294,9 @@ class Person implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if ($this->container['avatar_url'] === null) {
             $invalidProperties[] = "'avatar_url' can't be null";
+        }
+        if ($this->container['url'] === null) {
+            $invalidProperties[] = "'url' can't be null";
         }
         return $invalidProperties;
     }
@@ -353,6 +363,33 @@ class Person implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable avatar_url cannot be null');
         }
         $this->container['avatar_url'] = $avatar_url;
+
+        return $this;
+    }
+
+    /**
+     * Gets url
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->container['url'];
+    }
+
+    /**
+     * Sets url
+     *
+     * @param string $url The person's profile page on the forge, built by the server from the web address of an item the board already holds for that forge. Empty when the board holds none yet, so a client shows the name alone.
+     *
+     * @return self
+     */
+    public function setUrl($url)
+    {
+        if (is_null($url)) {
+            throw new \InvalidArgumentException('non-nullable url cannot be null');
+        }
+        $this->container['url'] = $url;
 
         return $this;
     }
