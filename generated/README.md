@@ -106,6 +106,7 @@ Class | Method | HTTP request | Description
 *DashboardApi* | [**disableAutoUpdateBranch**](docs/Api/DashboardApi.md#disableautoupdatebranch) | **POST** /api/repos/auto-update-branch/disable | Turn off automatic branch updates for one tracked repo
 *DashboardApi* | [**enableAutoUpdateBranch**](docs/Api/DashboardApi.md#enableautoupdatebranch) | **POST** /api/repos/auto-update-branch/enable | Turn on automatic branch updates for one tracked repo
 *DashboardApi* | [**getDashboard**](docs/Api/DashboardApi.md#getdashboard) | **GET** /api/dashboard | The aggregated view
+*DashboardApi* | [**getMainBranchChecks**](docs/Api/DashboardApi.md#getmainbranchchecks) | **GET** /api/main-branches/checks | List every job/check of a repository&#39;s default-branch pipeline, on demand
 *DashboardApi* | [**getMainBranches**](docs/Api/DashboardApi.md#getmainbranches) | **GET** /api/main-branches | The CI status of every tracked repository&#39;s default branch
 *DashboardApi* | [**ignoreRepo**](docs/Api/DashboardApi.md#ignorerepo) | **POST** /api/repos/ignore | Hide one tracked repo&#39;s pull requests, issues, or both from the dashboard and Insights
 *DashboardApi* | [**refreshDashboard**](docs/Api/DashboardApi.md#refreshdashboard) | **POST** /api/dashboard/refresh | Trigger an immediate refresh of the signed-in user&#39;s own dashboard
