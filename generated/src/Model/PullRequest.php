@@ -2076,7 +2076,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets failing_ci
      *
-     * @param bool $failing_ci True when CI is failing and not only because a workflow run is held for approval: what the Failing CI quick filter and the status filter's Failing choice list, and what the menu pill's Failed number counts. Always present.
+     * @param bool $failing_ci True when CI is failing and not only because a workflow run is held for approval: what the Failing CI quick filter lists, and what the menu pill's Failed number counts. Always present.
      *
      * @return self
      */
