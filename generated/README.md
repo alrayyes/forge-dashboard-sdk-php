@@ -106,6 +106,7 @@ Class | Method | HTTP request | Description
 *DashboardApi* | [**disableAutoUpdateBranch**](docs/Api/DashboardApi.md#disableautoupdatebranch) | **POST** /api/repos/auto-update-branch/disable | Turn off automatic branch updates for one tracked repo
 *DashboardApi* | [**enableAutoUpdateBranch**](docs/Api/DashboardApi.md#enableautoupdatebranch) | **POST** /api/repos/auto-update-branch/enable | Turn on automatic branch updates for one tracked repo
 *DashboardApi* | [**getDashboard**](docs/Api/DashboardApi.md#getdashboard) | **GET** /api/dashboard | The aggregated view
+*DashboardApi* | [**getForgeApiStats**](docs/Api/DashboardApi.md#getforgeapistats) | **GET** /api/stats/forge-api | How many forge API calls the dashboard has spent, and on what
 *DashboardApi* | [**getIssueDetails**](docs/Api/DashboardApi.md#getissuedetails) | **GET** /api/issues/details | Read an issue&#39;s description, comments and reactions, on demand
 *DashboardApi* | [**getMainBranchChecks**](docs/Api/DashboardApi.md#getmainbranchchecks) | **GET** /api/main-branches/checks | List every job/check of a repository&#39;s default-branch pipeline, on demand
 *DashboardApi* | [**getMainBranches**](docs/Api/DashboardApi.md#getmainbranches) | **GET** /api/main-branches | The CI status of every tracked repository&#39;s default branch
@@ -179,6 +180,9 @@ Class | Method | HTTP request | Description
 - [DetailsComment](docs/Model/DetailsComment.md)
 - [Error](docs/Model/Error.md)
 - [Forge](docs/Model/Forge.md)
+- [ForgeApiBucket](docs/Model/ForgeApiBucket.md)
+- [ForgeApiBudget](docs/Model/ForgeApiBudget.md)
+- [ForgeApiStats](docs/Model/ForgeApiStats.md)
 - [ForgeErrorKind](docs/Model/ForgeErrorKind.md)
 - [ForgeHealth](docs/Model/ForgeHealth.md)
 - [Health](docs/Model/Health.md)
