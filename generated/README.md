@@ -126,6 +126,7 @@ Class | Method | HTTP request | Description
 *PullRequestsApi* | [**postPullRequestDependabotAction**](docs/Api/PullRequestsApi.md#postpullrequestdependabotaction) | **POST** /api/pull-requests/dependabot-action | Post one of Dependabot&#39;s own documented PR-comment commands on a pull request, on the signed-in user&#39;s behalf
 *PullRequestsApi* | [**postPullRequestRenovateRebase**](docs/Api/PullRequestsApi.md#postpullrequestrenovaterebase) | **POST** /api/pull-requests/renovate-rebase | Trigger Renovate&#39;s own rebase/retry on a pull request, on the signed-in user&#39;s behalf
 *PullRequestsApi* | [**rerunPullRequestChecks**](docs/Api/PullRequestsApi.md#rerunpullrequestchecks) | **POST** /api/pull-requests/rerun-checks | Rerun only the failed jobs of one pull request&#39;s checks, on the signed-in user&#39;s behalf
+*PullRequestsApi* | [**setPullRequestAutoUpdate**](docs/Api/PullRequestsApi.md#setpullrequestautoupdate) | **POST** /api/pull-requests/auto-update | Turn the automatic branch update on or off for one pull request
 *PullRequestsApi* | [**unhidePullRequest**](docs/Api/PullRequestsApi.md#unhidepullrequest) | **POST** /api/pull-requests/unhide | Bring a hidden pull request back onto the signed-in user&#39;s dashboard
 *PullRequestsApi* | [**updatePullRequestBranch**](docs/Api/PullRequestsApi.md#updatepullrequestbranch) | **POST** /api/pull-requests/update-branch | Bring one pull request&#39;s branch up to date with its base, on the signed-in user&#39;s behalf
 *QueuedActionsApi* | [**cancelQueuedAction**](docs/Api/QueuedActionsApi.md#cancelqueuedaction) | **DELETE** /api/queued-actions/{id} | Cancel a queued action, or clear a finished one from the list
@@ -164,6 +165,8 @@ Class | Method | HTTP request | Description
 - [AllowedActionBlocked](docs/Model/AllowedActionBlocked.md)
 - [AutoMergeStatus](docs/Model/AutoMergeStatus.md)
 - [AutoMergedPullRequest](docs/Model/AutoMergedPullRequest.md)
+- [AutoUpdate](docs/Model/AutoUpdate.md)
+- [AutoUpdateUnavailable](docs/Model/AutoUpdateUnavailable.md)
 - [BotRequest](docs/Model/BotRequest.md)
 - [CIStatus](docs/Model/CIStatus.md)
 - [Check](docs/Model/Check.md)
@@ -196,6 +199,7 @@ Class | Method | HTTP request | Description
 - [Person](docs/Model/Person.md)
 - [PullRequest](docs/Model/PullRequest.md)
 - [PullRequestActionRequest](docs/Model/PullRequestActionRequest.md)
+- [PullRequestAutoUpdateRequest](docs/Model/PullRequestAutoUpdateRequest.md)
 - [PullRequestChecksResponse](docs/Model/PullRequestChecksResponse.md)
 - [PullRequestDependabotActionRequest](docs/Model/PullRequestDependabotActionRequest.md)
 - [PullRequestDetails](docs/Model/PullRequestDetails.md)

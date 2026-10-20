@@ -104,6 +104,9 @@ class PullRequestsApi
         'rerunPullRequestChecks' => [
             'application/json',
         ],
+        'setPullRequestAutoUpdate' => [
+            'application/json',
+        ],
         'unhidePullRequest' => [
             'application/json',
         ],
@@ -3109,6 +3112,259 @@ class PullRequestsApi
                 }
             } else {
                 $httpBody = $pull_request_action_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                try {
+                    $httpBody = json_encode($formParams, JSON_THROW_ON_ERROR);
+                } catch (\JsonException $e) {
+                    throw new \InvalidArgumentException('json_encode error: ' . $e->getMessage(), 0, $e);
+                }
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation setPullRequestAutoUpdate
+     *
+     * Turn the automatic branch update on or off for one pull request
+     *
+     * @param  \ForgeDashboard\Generated\Model\PullRequestAutoUpdateRequest $pull_request_auto_update_request pull_request_auto_update_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['setPullRequestAutoUpdate'] to see the possible values for this operation
+     *
+     * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function setPullRequestAutoUpdate($pull_request_auto_update_request, string $contentType = self::contentTypes['setPullRequestAutoUpdate'][0])
+    {
+        $this->setPullRequestAutoUpdateWithHttpInfo($pull_request_auto_update_request, $contentType);
+    }
+
+    /**
+     * Operation setPullRequestAutoUpdateWithHttpInfo
+     *
+     * Turn the automatic branch update on or off for one pull request
+     *
+     * @param  \ForgeDashboard\Generated\Model\PullRequestAutoUpdateRequest $pull_request_auto_update_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['setPullRequestAutoUpdate'] to see the possible values for this operation
+     *
+     * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function setPullRequestAutoUpdateWithHttpInfo($pull_request_auto_update_request, string $contentType = self::contentTypes['setPullRequestAutoUpdate'][0])
+    {
+        $request = $this->setPullRequestAutoUpdateRequest($pull_request_auto_update_request, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation setPullRequestAutoUpdateAsync
+     *
+     * Turn the automatic branch update on or off for one pull request
+     *
+     * @param  \ForgeDashboard\Generated\Model\PullRequestAutoUpdateRequest $pull_request_auto_update_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['setPullRequestAutoUpdate'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function setPullRequestAutoUpdateAsync($pull_request_auto_update_request, string $contentType = self::contentTypes['setPullRequestAutoUpdate'][0])
+    {
+        return $this->setPullRequestAutoUpdateAsyncWithHttpInfo($pull_request_auto_update_request, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation setPullRequestAutoUpdateAsyncWithHttpInfo
+     *
+     * Turn the automatic branch update on or off for one pull request
+     *
+     * @param  \ForgeDashboard\Generated\Model\PullRequestAutoUpdateRequest $pull_request_auto_update_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['setPullRequestAutoUpdate'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function setPullRequestAutoUpdateAsyncWithHttpInfo($pull_request_auto_update_request, string $contentType = self::contentTypes['setPullRequestAutoUpdate'][0])
+    {
+        $returnType = '';
+        $request = $this->setPullRequestAutoUpdateRequest($pull_request_auto_update_request, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'setPullRequestAutoUpdate'
+     *
+     * @param  \ForgeDashboard\Generated\Model\PullRequestAutoUpdateRequest $pull_request_auto_update_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['setPullRequestAutoUpdate'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function setPullRequestAutoUpdateRequest($pull_request_auto_update_request, string $contentType = self::contentTypes['setPullRequestAutoUpdate'][0])
+    {
+
+        // verify the required parameter 'pull_request_auto_update_request' is set
+        if ($pull_request_auto_update_request === null || (is_array($pull_request_auto_update_request) && count($pull_request_auto_update_request) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $pull_request_auto_update_request when calling setPullRequestAutoUpdate'
+            );
+        }
+
+
+        $resourcePath = '/api/pull-requests/auto-update';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($pull_request_auto_update_request)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                try {
+                    $httpBody = json_encode(ObjectSerializer::sanitizeForSerialization($pull_request_auto_update_request), JSON_THROW_ON_ERROR);
+                } catch (\JsonException $e) {
+                    throw new \InvalidArgumentException('json_encode error: ' . $e->getMessage(), 0, $e);
+                }
+            } else {
+                $httpBody = $pull_request_auto_update_request;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
