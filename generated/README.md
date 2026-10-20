@@ -112,6 +112,7 @@ Class | Method | HTTP request | Description
 *DashboardApi* | [**getMainBranches**](docs/Api/DashboardApi.md#getmainbranches) | **GET** /api/main-branches | The CI status of every tracked repository&#39;s default branch
 *DashboardApi* | [**ignoreRepo**](docs/Api/DashboardApi.md#ignorerepo) | **POST** /api/repos/ignore | Hide one tracked repo&#39;s pull requests, issues, or both from the dashboard and Insights
 *DashboardApi* | [**refreshDashboard**](docs/Api/DashboardApi.md#refreshdashboard) | **POST** /api/dashboard/refresh | Trigger an immediate refresh of the signed-in user&#39;s own dashboard
+*DashboardApi* | [**reportDashboardPresence**](docs/Api/DashboardApi.md#reportdashboardpresence) | **POST** /api/presence | Say whether a browser tab of the dashboard is being looked at
 *DashboardApi* | [**streamDashboard**](docs/Api/DashboardApi.md#streamdashboard) | **GET** /api/dashboard/stream | Server-Sent Events stream of the signed-in user&#39;s own dashboard
 *DashboardApi* | [**unignoreRepo**](docs/Api/DashboardApi.md#unignorerepo) | **POST** /api/repos/unignore | Stop ignoring one tracked repo
 *HealthApi* | [**getVersion**](docs/Api/HealthApi.md#getversion) | **GET** /api/version | The running server&#39;s own version
@@ -201,6 +202,8 @@ Class | Method | HTTP request | Description
 - [NavIssueCount](docs/Model/NavIssueCount.md)
 - [NavPullRequestCount](docs/Model/NavPullRequestCount.md)
 - [Person](docs/Model/Person.md)
+- [PresenceAnswer](docs/Model/PresenceAnswer.md)
+- [PresenceReport](docs/Model/PresenceReport.md)
 - [PullRequest](docs/Model/PullRequest.md)
 - [PullRequestActionRequest](docs/Model/PullRequestActionRequest.md)
 - [PullRequestAutoUpdateRequest](docs/Model/PullRequestAutoUpdateRequest.md)
