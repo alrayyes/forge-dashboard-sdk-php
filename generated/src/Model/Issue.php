@@ -64,6 +64,7 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
         'url' => 'string',
         'housekeeping' => 'bool',
         'author' => 'string',
+        'author_avatar_url' => 'string',
         'labels' => '\ForgeDashboard\Generated\Model\Label[]',
         'created_at' => '\DateTime',
         'updated_at' => '\DateTime'
@@ -84,6 +85,7 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
         'url' => 'uri',
         'housekeeping' => null,
         'author' => null,
+        'author_avatar_url' => null,
         'labels' => null,
         'created_at' => 'date-time',
         'updated_at' => 'date-time'
@@ -102,6 +104,7 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
         'url' => false,
         'housekeeping' => false,
         'author' => false,
+        'author_avatar_url' => false,
         'labels' => false,
         'created_at' => false,
         'updated_at' => false
@@ -200,6 +203,7 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
         'url' => 'url',
         'housekeeping' => 'housekeeping',
         'author' => 'author',
+        'author_avatar_url' => 'authorAvatarUrl',
         'labels' => 'labels',
         'created_at' => 'createdAt',
         'updated_at' => 'updatedAt'
@@ -218,6 +222,7 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
         'url' => 'setUrl',
         'housekeeping' => 'setHousekeeping',
         'author' => 'setAuthor',
+        'author_avatar_url' => 'setAuthorAvatarUrl',
         'labels' => 'setLabels',
         'created_at' => 'setCreatedAt',
         'updated_at' => 'setUpdatedAt'
@@ -236,6 +241,7 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
         'url' => 'getUrl',
         'housekeeping' => 'getHousekeeping',
         'author' => 'getAuthor',
+        'author_avatar_url' => 'getAuthorAvatarUrl',
         'labels' => 'getLabels',
         'created_at' => 'getCreatedAt',
         'updated_at' => 'getUpdatedAt'
@@ -305,6 +311,7 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('url', $data ?? [], null);
         $this->setIfExists('housekeeping', $data ?? [], null);
         $this->setIfExists('author', $data ?? [], null);
+        $this->setIfExists('author_avatar_url', $data ?? [], null);
         $this->setIfExists('labels', $data ?? [], null);
         $this->setIfExists('created_at', $data ?? [], null);
         $this->setIfExists('updated_at', $data ?? [], null);
@@ -357,6 +364,9 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if ($this->container['author'] === null) {
             $invalidProperties[] = "'author' can't be null";
+        }
+        if ($this->container['author_avatar_url'] === null) {
+            $invalidProperties[] = "'author_avatar_url' can't be null";
         }
         if ($this->container['labels'] === null) {
             $invalidProperties[] = "'labels' can't be null";
@@ -567,6 +577,33 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable author cannot be null');
         }
         $this->container['author'] = $author;
+
+        return $this;
+    }
+
+    /**
+     * Gets author_avatar_url
+     *
+     * @return string
+     */
+    public function getAuthorAvatarUrl()
+    {
+        return $this->container['author_avatar_url'];
+    }
+
+    /**
+     * Sets author_avatar_url
+     *
+     * @param string $author_avatar_url The forge's own avatar URL for whoever filed the issue, passed through unchanged and never proxied. Empty when the forge supplies none, such as a deleted account.
+     *
+     * @return self
+     */
+    public function setAuthorAvatarUrl($author_avatar_url)
+    {
+        if (is_null($author_avatar_url)) {
+            throw new \InvalidArgumentException('non-nullable author_avatar_url cannot be null');
+        }
+        $this->container['author_avatar_url'] = $author_avatar_url;
 
         return $this;
     }
