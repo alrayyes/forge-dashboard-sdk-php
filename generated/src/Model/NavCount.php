@@ -35,7 +35,7 @@ use \ForgeDashboard\Generated\ObjectSerializer;
  * NavCount Class Doc Comment
  *
  * @category Class
- * @description The Branches page&#39;s numbers: how many default branches it lists and how many of those have a pipeline running, failed and passed, the same four as &#x60;NavPullRequestCount&#x60;, plus &#x60;none&#x60;, the ones with no pipeline. A branch whose only trouble is a cancelled run counts in &#x60;total&#x60; only, as a pull request with no checks does, so the parts need not add up. All five are always present.
+ * @description The Branches page&#39;s numbers: how many default branches it lists and how many of those have a pipeline running, failed and passed, the same four as &#x60;NavPullRequestCount&#x60;, plus &#x60;none&#x60;, the ones with no pipeline, and &#x60;awaitingApproval&#x60;, the ones whose workflow runs are held until someone approves them. A branch whose only trouble is a cancelled run counts in &#x60;total&#x60; only, as a pull request with no checks does, so the parts need not add up. All six are always present.
  * @package  ForgeDashboard\Generated
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -62,7 +62,8 @@ class NavCount implements ModelInterface, ArrayAccess, \JsonSerializable
         'running' => 'int',
         'failed' => 'int',
         'passed' => 'int',
-        'none' => 'int'
+        'none' => 'int',
+        'awaiting_approval' => 'int'
     ];
 
     /**
@@ -77,7 +78,8 @@ class NavCount implements ModelInterface, ArrayAccess, \JsonSerializable
         'running' => null,
         'failed' => null,
         'passed' => null,
-        'none' => null
+        'none' => null,
+        'awaiting_approval' => null
     ];
 
     /**
@@ -90,7 +92,8 @@ class NavCount implements ModelInterface, ArrayAccess, \JsonSerializable
         'running' => false,
         'failed' => false,
         'passed' => false,
-        'none' => false
+        'none' => false,
+        'awaiting_approval' => false
     ];
 
     /**
@@ -183,7 +186,8 @@ class NavCount implements ModelInterface, ArrayAccess, \JsonSerializable
         'running' => 'running',
         'failed' => 'failed',
         'passed' => 'passed',
-        'none' => 'none'
+        'none' => 'none',
+        'awaiting_approval' => 'awaitingApproval'
     ];
 
     /**
@@ -196,7 +200,8 @@ class NavCount implements ModelInterface, ArrayAccess, \JsonSerializable
         'running' => 'setRunning',
         'failed' => 'setFailed',
         'passed' => 'setPassed',
-        'none' => 'setNone'
+        'none' => 'setNone',
+        'awaiting_approval' => 'setAwaitingApproval'
     ];
 
     /**
@@ -209,7 +214,8 @@ class NavCount implements ModelInterface, ArrayAccess, \JsonSerializable
         'running' => 'getRunning',
         'failed' => 'getFailed',
         'passed' => 'getPassed',
-        'none' => 'getNone'
+        'none' => 'getNone',
+        'awaiting_approval' => 'getAwaitingApproval'
     ];
 
     /**
@@ -274,6 +280,7 @@ class NavCount implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('failed', $data ?? [], null);
         $this->setIfExists('passed', $data ?? [], null);
         $this->setIfExists('none', $data ?? [], null);
+        $this->setIfExists('awaiting_approval', $data ?? [], null);
     }
 
     /**
@@ -336,6 +343,13 @@ class NavCount implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if (($this->container['none'] < 0)) {
             $invalidProperties[] = "invalid value for 'none', must be bigger than or equal to 0.";
+        }
+
+        if ($this->container['awaiting_approval'] === null) {
+            $invalidProperties[] = "'awaiting_approval' can't be null";
+        }
+        if (($this->container['awaiting_approval'] < 0)) {
+            $invalidProperties[] = "invalid value for 'awaiting_approval', must be bigger than or equal to 0.";
         }
 
         return $invalidProperties;
@@ -504,6 +518,37 @@ class NavCount implements ModelInterface, ArrayAccess, \JsonSerializable
         }
 
         $this->container['none'] = $none;
+
+        return $this;
+    }
+
+    /**
+     * Gets awaiting_approval
+     *
+     * @return int
+     */
+    public function getAwaitingApproval()
+    {
+        return $this->container['awaiting_approval'];
+    }
+
+    /**
+     * Sets awaiting_approval
+     *
+     * @param int $awaiting_approval How many of them have workflow runs held until someone approves them. Nothing has run and nothing has failed, so they are in none of `running`, `failed` and `passed`.
+     *
+     * @return self
+     */
+    public function setAwaitingApproval($awaiting_approval)
+    {
+        if (is_null($awaiting_approval)) {
+            throw new \InvalidArgumentException('non-nullable awaiting_approval cannot be null');
+        }
+        if (($awaiting_approval < 0)) {
+            throw new \InvalidArgumentException('invalid value for $awaiting_approval when calling NavCount., must be bigger than or equal to 0.');
+        }
+
+        $this->container['awaiting_approval'] = $awaiting_approval;
 
         return $this;
     }
