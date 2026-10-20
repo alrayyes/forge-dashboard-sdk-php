@@ -45,6 +45,7 @@ src/Model/ForgeErrorKind.php
 src/Model/ForgeHealth.php
 src/Model/Health.php
 src/Model/Issue.php
+src/Model/IssueDetails.php
 src/Model/Label.php
 src/Model/LoginBeginRequest.php
 src/Model/MainBranch.php
