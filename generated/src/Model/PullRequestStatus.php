@@ -35,7 +35,7 @@ use \ForgeDashboard\Generated\ObjectSerializer;
  * PullRequestStatus Class Doc Comment
  *
  * @category Class
- * @description Why a pull request is waiting on something or can&#39;t be merged, in one place for a client to show. Same shape as &#x60;AllowedAction.blocked&#x60;.
+ * @description Why a pull request is waiting on something or can&#39;t be merged, in one place for a client to show. Same fields as &#x60;AllowedAction.blocked&#x60;, plus &#x60;action&#x60;.
  * @package  ForgeDashboard\Generated
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -60,7 +60,8 @@ class PullRequestStatus implements ModelInterface, ArrayAccess, \JsonSerializabl
     protected static $openAPITypes = [
         'code' => 'string',
         'message' => 'string',
-        'next' => 'string'
+        'next' => 'string',
+        'action' => 'string'
     ];
 
     /**
@@ -73,7 +74,8 @@ class PullRequestStatus implements ModelInterface, ArrayAccess, \JsonSerializabl
     protected static $openAPIFormats = [
         'code' => null,
         'message' => null,
-        'next' => null
+        'next' => null,
+        'action' => null
     ];
 
     /**
@@ -84,7 +86,8 @@ class PullRequestStatus implements ModelInterface, ArrayAccess, \JsonSerializabl
     protected static array $openAPINullables = [
         'code' => false,
         'message' => false,
-        'next' => false
+        'next' => false,
+        'action' => false
     ];
 
     /**
@@ -175,7 +178,8 @@ class PullRequestStatus implements ModelInterface, ArrayAccess, \JsonSerializabl
     protected static $attributeMap = [
         'code' => 'code',
         'message' => 'message',
-        'next' => 'next'
+        'next' => 'next',
+        'action' => 'action'
     ];
 
     /**
@@ -186,7 +190,8 @@ class PullRequestStatus implements ModelInterface, ArrayAccess, \JsonSerializabl
     protected static $setters = [
         'code' => 'setCode',
         'message' => 'setMessage',
-        'next' => 'setNext'
+        'next' => 'setNext',
+        'action' => 'setAction'
     ];
 
     /**
@@ -197,7 +202,8 @@ class PullRequestStatus implements ModelInterface, ArrayAccess, \JsonSerializabl
     protected static $getters = [
         'code' => 'getCode',
         'message' => 'getMessage',
-        'next' => 'getNext'
+        'next' => 'getNext',
+        'action' => 'getAction'
     ];
 
     /**
@@ -260,6 +266,7 @@ class PullRequestStatus implements ModelInterface, ArrayAccess, \JsonSerializabl
         $this->setIfExists('code', $data ?? [], null);
         $this->setIfExists('message', $data ?? [], null);
         $this->setIfExists('next', $data ?? [], null);
+        $this->setIfExists('action', $data ?? [], null);
     }
 
     /**
@@ -387,6 +394,33 @@ class PullRequestStatus implements ModelInterface, ArrayAccess, \JsonSerializabl
             throw new \InvalidArgumentException('non-nullable next cannot be null');
         }
         $this->container['next'] = $next;
+
+        return $this;
+    }
+
+    /**
+     * Gets action
+     *
+     * @return string|null
+     */
+    public function getAction()
+    {
+        return $this->container['action'];
+    }
+
+    /**
+     * Sets action
+     *
+     * @param string|null $action The `allowedActions[].action` that clears this status, set only when `code` is `behind`: `update_branch`, or the bot's own rebase on a Dependabot or Renovate pull request. A client draws that action's button inside the status line and nowhere else on the row. Absent when no action clears it (a conflict, a check still running, a draft) and when the action is locked, such as a Renovate rebase already waiting. Same action as the entry marked `primary`, so a client that ignores this field still has it.
+     *
+     * @return self
+     */
+    public function setAction($action)
+    {
+        if (is_null($action)) {
+            throw new \InvalidArgumentException('non-nullable action cannot be null');
+        }
+        $this->container['action'] = $action;
 
         return $this;
     }
