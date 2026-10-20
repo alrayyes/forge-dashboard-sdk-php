@@ -35,6 +35,7 @@ src/Model/BotRequest.php
 src/Model/CIStatus.php
 src/Model/Check.php
 src/Model/CheckState.php
+src/Model/ClosingIssue.php
 src/Model/Credential.php
 src/Model/Dashboard.php
 src/Model/DetailsBody.php

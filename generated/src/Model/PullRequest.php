@@ -86,6 +86,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'awaiting_workflow_approval' => 'bool',
         'review_comments' => 'int',
         'conversation_comments' => 'int',
+        'closes_issues' => '\ForgeDashboard\Generated\Model\ClosingIssue[]',
         'unresolved_threads' => 'int',
         'review_requested_from_me' => 'bool',
         'empty' => 'bool',
@@ -140,6 +141,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'awaiting_workflow_approval' => null,
         'review_comments' => null,
         'conversation_comments' => null,
+        'closes_issues' => null,
         'unresolved_threads' => null,
         'review_requested_from_me' => null,
         'empty' => null,
@@ -192,6 +194,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'awaiting_workflow_approval' => false,
         'review_comments' => false,
         'conversation_comments' => false,
+        'closes_issues' => false,
         'unresolved_threads' => true,
         'review_requested_from_me' => false,
         'empty' => false,
@@ -324,6 +327,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'awaiting_workflow_approval' => 'awaitingWorkflowApproval',
         'review_comments' => 'reviewComments',
         'conversation_comments' => 'conversationComments',
+        'closes_issues' => 'closesIssues',
         'unresolved_threads' => 'unresolvedThreads',
         'review_requested_from_me' => 'reviewRequestedFromMe',
         'empty' => 'empty',
@@ -376,6 +380,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'awaiting_workflow_approval' => 'setAwaitingWorkflowApproval',
         'review_comments' => 'setReviewComments',
         'conversation_comments' => 'setConversationComments',
+        'closes_issues' => 'setClosesIssues',
         'unresolved_threads' => 'setUnresolvedThreads',
         'review_requested_from_me' => 'setReviewRequestedFromMe',
         'empty' => 'setEmpty',
@@ -428,6 +433,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'awaiting_workflow_approval' => 'getAwaitingWorkflowApproval',
         'review_comments' => 'getReviewComments',
         'conversation_comments' => 'getConversationComments',
+        'closes_issues' => 'getClosesIssues',
         'unresolved_threads' => 'getUnresolvedThreads',
         'review_requested_from_me' => 'getReviewRequestedFromMe',
         'empty' => 'getEmpty',
@@ -548,6 +554,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('awaiting_workflow_approval', $data ?? [], null);
         $this->setIfExists('review_comments', $data ?? [], null);
         $this->setIfExists('conversation_comments', $data ?? [], null);
+        $this->setIfExists('closes_issues', $data ?? [], null);
         $this->setIfExists('unresolved_threads', $data ?? [], null);
         $this->setIfExists('review_requested_from_me', $data ?? [], null);
         $this->setIfExists('empty', $data ?? [], null);
@@ -685,6 +692,13 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if (($this->container['conversation_comments'] < 0)) {
             $invalidProperties[] = "invalid value for 'conversation_comments', must be bigger than or equal to 0.";
+        }
+
+        if ($this->container['closes_issues'] === null) {
+            $invalidProperties[] = "'closes_issues' can't be null";
+        }
+        if ((count($this->container['closes_issues']) > 20)) {
+            $invalidProperties[] = "invalid value for 'closes_issues', number of items must be less than or equal to 20.";
         }
 
         if ($this->container['unresolved_threads'] === null && !$this->isNullableSetToNull('unresolved_threads')) {
@@ -1562,6 +1576,36 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         }
 
         $this->container['conversation_comments'] = $conversation_comments;
+
+        return $this;
+    }
+
+    /**
+     * Gets closes_issues
+     *
+     * @return \ForgeDashboard\Generated\Model\ClosingIssue[]
+     */
+    public function getClosesIssues()
+    {
+        return $this->container['closes_issues'];
+    }
+
+    /**
+     * Sets closes_issues
+     *
+     * @param \ForgeDashboard\Generated\Model\ClosingIssue[] $closes_issues The issues the pull request will close when it merges. Always present, and empty when there are none. On GitHub it is the forge's own list of closing references, read in the pull request query; GitHub's unauthenticated fallback (no token) has no such field, so it lists none. Forgejo has none either, so the server reads the closing keywords (close, closes, closed, fix, fixes, fixed, resolve, resolves, resolved) in the description the way Forgejo does: a keyword, an optional colon, one space, then `#NUMBER` or `owner/repo#NUMBER`, and each keyword covers the one reference right after it. Code, HTML comments and a number that runs into letters count for nothing. The `owner/repo#NUMBER` form follows Forgejo's source and has not been tried on a live instance. Only a pull request aimed at its repo's default branch closes anything, so one aimed elsewhere always lists none.
+     *
+     * @return self
+     */
+    public function setClosesIssues($closes_issues)
+    {
+        if (is_null($closes_issues)) {
+            throw new \InvalidArgumentException('non-nullable closes_issues cannot be null');
+        }
+        if ((count($closes_issues) > 20)) {
+            throw new \InvalidArgumentException('invalid value for $closes_issues when calling PullRequest., number of items must be less than or equal to 20.');
+        }
+        $this->container['closes_issues'] = $closes_issues;
 
         return $this;
     }

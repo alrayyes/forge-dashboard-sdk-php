@@ -168,6 +168,7 @@ Class | Method | HTTP request | Description
 - [CIStatus](docs/Model/CIStatus.md)
 - [Check](docs/Model/Check.md)
 - [CheckState](docs/Model/CheckState.md)
+- [ClosingIssue](docs/Model/ClosingIssue.md)
 - [Credential](docs/Model/Credential.md)
 - [Dashboard](docs/Model/Dashboard.md)
 - [DetailsBody](docs/Model/DetailsBody.md)
