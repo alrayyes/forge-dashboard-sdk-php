@@ -61,6 +61,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         'forge' => '\ForgeDashboard\Generated\Model\Forge',
         'full_name' => 'string',
         'url' => 'string',
+        'logo_url' => 'string',
         'ignored' => 'bool',
         'ignored_prs' => 'bool',
         'ignored_issues' => 'bool',
@@ -82,6 +83,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         'forge' => null,
         'full_name' => null,
         'url' => 'uri',
+        'logo_url' => 'uri',
         'ignored' => null,
         'ignored_prs' => null,
         'ignored_issues' => null,
@@ -101,6 +103,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         'forge' => false,
         'full_name' => false,
         'url' => false,
+        'logo_url' => false,
         'ignored' => false,
         'ignored_prs' => false,
         'ignored_issues' => false,
@@ -200,6 +203,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         'forge' => 'forge',
         'full_name' => 'fullName',
         'url' => 'url',
+        'logo_url' => 'logoUrl',
         'ignored' => 'ignored',
         'ignored_prs' => 'ignoredPRs',
         'ignored_issues' => 'ignoredIssues',
@@ -219,6 +223,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         'forge' => 'setForge',
         'full_name' => 'setFullName',
         'url' => 'setUrl',
+        'logo_url' => 'setLogoUrl',
         'ignored' => 'setIgnored',
         'ignored_prs' => 'setIgnoredPrs',
         'ignored_issues' => 'setIgnoredIssues',
@@ -238,6 +243,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         'forge' => 'getForge',
         'full_name' => 'getFullName',
         'url' => 'getUrl',
+        'logo_url' => 'getLogoUrl',
         'ignored' => 'getIgnored',
         'ignored_prs' => 'getIgnoredPrs',
         'ignored_issues' => 'getIgnoredIssues',
@@ -308,6 +314,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('forge', $data ?? [], null);
         $this->setIfExists('full_name', $data ?? [], null);
         $this->setIfExists('url', $data ?? [], null);
+        $this->setIfExists('logo_url', $data ?? [], null);
         $this->setIfExists('ignored', $data ?? [], null);
         $this->setIfExists('ignored_prs', $data ?? [], null);
         $this->setIfExists('ignored_issues', $data ?? [], null);
@@ -464,6 +471,33 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable url cannot be null');
         }
         $this->container['url'] = $url;
+
+        return $this;
+    }
+
+    /**
+     * Gets logo_url
+     *
+     * @return string|null
+     */
+    public function getLogoUrl()
+    {
+        return $this->container['logo_url'];
+    }
+
+    /**
+     * Sets logo_url
+     *
+     * @param string|null $logo_url The repository's own logo, only when it has one: a GitHub repository's custom social preview image, or a Forgejo repository's own avatar. Absent otherwise, and never the generated social card GitHub shows for a repository with none, nor the owner's avatar. Always an https URL, passed through unchanged and never proxied: on GitHub exactly repository-images.githubusercontent.com, on Forgejo the instance's own host. A GitHub custom image is a wide banner, not a square logo. Absent for a repository reached through an unauthenticated, username-only listing, since that listing carries no image.
+     *
+     * @return self
+     */
+    public function setLogoUrl($logo_url)
+    {
+        if (is_null($logo_url)) {
+            throw new \InvalidArgumentException('non-nullable logo_url cannot be null');
+        }
+        $this->container['logo_url'] = $logo_url;
 
         return $this;
     }

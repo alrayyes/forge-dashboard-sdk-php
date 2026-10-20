@@ -70,6 +70,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'created_at' => '\DateTime',
         'updated_at' => '\DateTime',
         'ci' => '\ForgeDashboard\Generated\Model\CIStatus',
+        'checks' => '\ForgeDashboard\Generated\Model\CheckCounts',
         'merge_status' => '\ForgeDashboard\Generated\Model\MergeStatus',
         'behind' => 'bool',
         'head_sha' => 'string',
@@ -126,6 +127,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'created_at' => 'date-time',
         'updated_at' => 'date-time',
         'ci' => null,
+        'checks' => null,
         'merge_status' => null,
         'behind' => null,
         'head_sha' => null,
@@ -180,6 +182,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'created_at' => false,
         'updated_at' => false,
         'ci' => false,
+        'checks' => false,
         'merge_status' => false,
         'behind' => false,
         'head_sha' => false,
@@ -314,6 +317,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'created_at' => 'createdAt',
         'updated_at' => 'updatedAt',
         'ci' => 'ci',
+        'checks' => 'checks',
         'merge_status' => 'mergeStatus',
         'behind' => 'behind',
         'head_sha' => 'headSha',
@@ -368,6 +372,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'created_at' => 'setCreatedAt',
         'updated_at' => 'setUpdatedAt',
         'ci' => 'setCi',
+        'checks' => 'setChecks',
         'merge_status' => 'setMergeStatus',
         'behind' => 'setBehind',
         'head_sha' => 'setHeadSha',
@@ -422,6 +427,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'created_at' => 'getCreatedAt',
         'updated_at' => 'getUpdatedAt',
         'ci' => 'getCi',
+        'checks' => 'getChecks',
         'merge_status' => 'getMergeStatus',
         'behind' => 'getBehind',
         'head_sha' => 'getHeadSha',
@@ -544,6 +550,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('created_at', $data ?? [], null);
         $this->setIfExists('updated_at', $data ?? [], null);
         $this->setIfExists('ci', $data ?? [], null);
+        $this->setIfExists('checks', $data ?? [], null);
         $this->setIfExists('merge_status', $data ?? [], null);
         $this->setIfExists('behind', $data ?? [], null);
         $this->setIfExists('head_sha', $data ?? [], null);
@@ -644,6 +651,9 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if ($this->container['ci'] === null) {
             $invalidProperties[] = "'ci' can't be null";
+        }
+        if ($this->container['checks'] === null) {
+            $invalidProperties[] = "'checks' can't be null";
         }
         if ($this->container['merge_status'] === null) {
             $invalidProperties[] = "'merge_status' can't be null";
@@ -1101,6 +1111,33 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable ci cannot be null');
         }
         $this->container['ci'] = $ci;
+
+        return $this;
+    }
+
+    /**
+     * Gets checks
+     *
+     * @return \ForgeDashboard\Generated\Model\CheckCounts
+     */
+    public function getChecks()
+    {
+        return $this->container['checks'];
+    }
+
+    /**
+     * Sets checks
+     *
+     * @param \ForgeDashboard\Generated\Model\CheckCounts $checks checks
+     *
+     * @return self
+     */
+    public function setChecks($checks)
+    {
+        if (is_null($checks)) {
+            throw new \InvalidArgumentException('non-nullable checks cannot be null');
+        }
+        $this->container['checks'] = $checks;
 
         return $this;
     }
