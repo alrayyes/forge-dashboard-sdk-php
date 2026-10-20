@@ -190,6 +190,7 @@ Class | Method | HTTP request | Description
 - [Issue](docs/Model/Issue.md)
 - [IssueDetails](docs/Model/IssueDetails.md)
 - [Label](docs/Model/Label.md)
+- [LinkedPullRequest](docs/Model/LinkedPullRequest.md)
 - [LoginBeginRequest](docs/Model/LoginBeginRequest.md)
 - [MainBranch](docs/Model/MainBranch.md)
 - [MainBranchCommit](docs/Model/MainBranchCommit.md)
