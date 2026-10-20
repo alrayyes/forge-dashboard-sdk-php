@@ -103,7 +103,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'hidden_until' => '\DateTime',
         'ready_to_merge' => 'bool',
         'failing_ci' => 'bool',
-        'needs_review' => 'bool'
+        'needs_review' => 'bool',
+        'auto_update' => '\ForgeDashboard\Generated\Model\AutoUpdate'
     ];
 
     /**
@@ -160,7 +161,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'hidden_until' => 'date-time',
         'ready_to_merge' => null,
         'failing_ci' => null,
-        'needs_review' => null
+        'needs_review' => null,
+        'auto_update' => null
     ];
 
     /**
@@ -215,7 +217,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'hidden_until' => false,
         'ready_to_merge' => false,
         'failing_ci' => false,
-        'needs_review' => false
+        'needs_review' => false,
+        'auto_update' => false
     ];
 
     /**
@@ -350,7 +353,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'hidden_until' => 'hiddenUntil',
         'ready_to_merge' => 'readyToMerge',
         'failing_ci' => 'failingCi',
-        'needs_review' => 'needsReview'
+        'needs_review' => 'needsReview',
+        'auto_update' => 'autoUpdate'
     ];
 
     /**
@@ -405,7 +409,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'hidden_until' => 'setHiddenUntil',
         'ready_to_merge' => 'setReadyToMerge',
         'failing_ci' => 'setFailingCi',
-        'needs_review' => 'setNeedsReview'
+        'needs_review' => 'setNeedsReview',
+        'auto_update' => 'setAutoUpdate'
     ];
 
     /**
@@ -460,7 +465,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'hidden_until' => 'getHiddenUntil',
         'ready_to_merge' => 'getReadyToMerge',
         'failing_ci' => 'getFailingCi',
-        'needs_review' => 'getNeedsReview'
+        'needs_review' => 'getNeedsReview',
+        'auto_update' => 'getAutoUpdate'
     ];
 
     /**
@@ -584,6 +590,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('ready_to_merge', $data ?? [], null);
         $this->setIfExists('failing_ci', $data ?? [], null);
         $this->setIfExists('needs_review', $data ?? [], null);
+        $this->setIfExists('auto_update', $data ?? [], null);
     }
 
     /**
@@ -748,6 +755,9 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if ($this->container['needs_review'] === null) {
             $invalidProperties[] = "'needs_review' can't be null";
+        }
+        if ($this->container['auto_update'] === null) {
+            $invalidProperties[] = "'auto_update' can't be null";
         }
         return $invalidProperties;
     }
@@ -2103,6 +2113,33 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable needs_review cannot be null');
         }
         $this->container['needs_review'] = $needs_review;
+
+        return $this;
+    }
+
+    /**
+     * Gets auto_update
+     *
+     * @return \ForgeDashboard\Generated\Model\AutoUpdate
+     */
+    public function getAutoUpdate()
+    {
+        return $this->container['auto_update'];
+    }
+
+    /**
+     * Sets auto_update
+     *
+     * @param \ForgeDashboard\Generated\Model\AutoUpdate $auto_update auto_update
+     *
+     * @return self
+     */
+    public function setAutoUpdate($auto_update)
+    {
+        if (is_null($auto_update)) {
+            throw new \InvalidArgumentException('non-nullable auto_update cannot be null');
+        }
+        $this->container['auto_update'] = $auto_update;
 
         return $this;
     }

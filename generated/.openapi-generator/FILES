@@ -31,6 +31,8 @@ src/Model/AllowedAction.php
 src/Model/AllowedActionBlocked.php
 src/Model/AutoMergeStatus.php
 src/Model/AutoMergedPullRequest.php
+src/Model/AutoUpdate.php
+src/Model/AutoUpdateUnavailable.php
 src/Model/BotRequest.php
 src/Model/CIStatus.php
 src/Model/Check.php
@@ -64,6 +66,7 @@ src/Model/NavPullRequestCount.php
 src/Model/Person.php
 src/Model/PullRequest.php
 src/Model/PullRequestActionRequest.php
+src/Model/PullRequestAutoUpdateRequest.php
 src/Model/PullRequestChecksResponse.php
 src/Model/PullRequestDependabotActionRequest.php
 src/Model/PullRequestDetails.php
