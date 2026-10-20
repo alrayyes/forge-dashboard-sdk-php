@@ -63,6 +63,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'title' => 'string',
         'url' => 'string',
         'author' => 'string',
+        'author_avatar_url' => 'string',
         'draft' => 'bool',
         'labels' => '\ForgeDashboard\Generated\Model\Label[]',
         'created_at' => '\DateTime',
@@ -116,6 +117,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'title' => null,
         'url' => 'uri',
         'author' => null,
+        'author_avatar_url' => null,
         'draft' => null,
         'labels' => null,
         'created_at' => 'date-time',
@@ -167,6 +169,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'title' => false,
         'url' => false,
         'author' => false,
+        'author_avatar_url' => false,
         'draft' => false,
         'labels' => false,
         'created_at' => false,
@@ -298,6 +301,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'title' => 'title',
         'url' => 'url',
         'author' => 'author',
+        'author_avatar_url' => 'authorAvatarUrl',
         'draft' => 'draft',
         'labels' => 'labels',
         'created_at' => 'createdAt',
@@ -349,6 +353,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'title' => 'setTitle',
         'url' => 'setUrl',
         'author' => 'setAuthor',
+        'author_avatar_url' => 'setAuthorAvatarUrl',
         'draft' => 'setDraft',
         'labels' => 'setLabels',
         'created_at' => 'setCreatedAt',
@@ -400,6 +405,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'title' => 'getTitle',
         'url' => 'getUrl',
         'author' => 'getAuthor',
+        'author_avatar_url' => 'getAuthorAvatarUrl',
         'draft' => 'getDraft',
         'labels' => 'getLabels',
         'created_at' => 'getCreatedAt',
@@ -519,6 +525,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('title', $data ?? [], null);
         $this->setIfExists('url', $data ?? [], null);
         $this->setIfExists('author', $data ?? [], null);
+        $this->setIfExists('author_avatar_url', $data ?? [], null);
         $this->setIfExists('draft', $data ?? [], null);
         $this->setIfExists('labels', $data ?? [], null);
         $this->setIfExists('created_at', $data ?? [], null);
@@ -602,6 +609,9 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if ($this->container['author'] === null) {
             $invalidProperties[] = "'author' can't be null";
+        }
+        if ($this->container['author_avatar_url'] === null) {
+            $invalidProperties[] = "'author_avatar_url' can't be null";
         }
         if ($this->container['draft'] === null) {
             $invalidProperties[] = "'draft' can't be null";
@@ -878,6 +888,33 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable author cannot be null');
         }
         $this->container['author'] = $author;
+
+        return $this;
+    }
+
+    /**
+     * Gets author_avatar_url
+     *
+     * @return string
+     */
+    public function getAuthorAvatarUrl()
+    {
+        return $this->container['author_avatar_url'];
+    }
+
+    /**
+     * Sets author_avatar_url
+     *
+     * @param string $author_avatar_url The forge's own avatar URL for the author, passed through unchanged and never proxied. Empty when the forge supplies none, such as a deleted account.
+     *
+     * @return self
+     */
+    public function setAuthorAvatarUrl($author_avatar_url)
+    {
+        if (is_null($author_avatar_url)) {
+            throw new \InvalidArgumentException('non-nullable author_avatar_url cannot be null');
+        }
+        $this->container['author_avatar_url'] = $author_avatar_url;
 
         return $this;
     }
