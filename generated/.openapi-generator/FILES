@@ -58,6 +58,7 @@ src/Model/LoginBeginRequest.php
 src/Model/MainBranch.php
 src/Model/MainBranchCommit.php
 src/Model/MainBranchCounts.php
+src/Model/MainBranchRelease.php
 src/Model/MainBranchStatus.php
 src/Model/MainBranches.php
 src/Model/MergeStatus.php
