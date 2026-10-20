@@ -35,7 +35,7 @@ use \ForgeDashboard\Generated\ObjectSerializer;
  * MainBranchCounts Class Doc Comment
  *
  * @category Class
- * @description How many rows are in each status, the numbers on the filter pills. &#x60;total&#x60; is every row, so it equals the sum of the other five.
+ * @description How many rows are in each status, the numbers on the filter pills. &#x60;total&#x60; is every row, so it equals the sum of the other six.
  * @package  ForgeDashboard\Generated
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -62,6 +62,7 @@ class MainBranchCounts implements ModelInterface, ArrayAccess, \JsonSerializable
         'passed' => 'int',
         'running' => 'int',
         'cancelled' => 'int',
+        'awaiting_approval' => 'int',
         'none' => 'int',
         'total' => 'int'
     ];
@@ -78,6 +79,7 @@ class MainBranchCounts implements ModelInterface, ArrayAccess, \JsonSerializable
         'passed' => null,
         'running' => null,
         'cancelled' => null,
+        'awaiting_approval' => null,
         'none' => null,
         'total' => null
     ];
@@ -92,6 +94,7 @@ class MainBranchCounts implements ModelInterface, ArrayAccess, \JsonSerializable
         'passed' => false,
         'running' => false,
         'cancelled' => false,
+        'awaiting_approval' => false,
         'none' => false,
         'total' => false
     ];
@@ -186,6 +189,7 @@ class MainBranchCounts implements ModelInterface, ArrayAccess, \JsonSerializable
         'passed' => 'passed',
         'running' => 'running',
         'cancelled' => 'cancelled',
+        'awaiting_approval' => 'awaitingApproval',
         'none' => 'none',
         'total' => 'total'
     ];
@@ -200,6 +204,7 @@ class MainBranchCounts implements ModelInterface, ArrayAccess, \JsonSerializable
         'passed' => 'setPassed',
         'running' => 'setRunning',
         'cancelled' => 'setCancelled',
+        'awaiting_approval' => 'setAwaitingApproval',
         'none' => 'setNone',
         'total' => 'setTotal'
     ];
@@ -214,6 +219,7 @@ class MainBranchCounts implements ModelInterface, ArrayAccess, \JsonSerializable
         'passed' => 'getPassed',
         'running' => 'getRunning',
         'cancelled' => 'getCancelled',
+        'awaiting_approval' => 'getAwaitingApproval',
         'none' => 'getNone',
         'total' => 'getTotal'
     ];
@@ -279,6 +285,7 @@ class MainBranchCounts implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('passed', $data ?? [], null);
         $this->setIfExists('running', $data ?? [], null);
         $this->setIfExists('cancelled', $data ?? [], null);
+        $this->setIfExists('awaiting_approval', $data ?? [], null);
         $this->setIfExists('none', $data ?? [], null);
         $this->setIfExists('total', $data ?? [], null);
     }
@@ -336,6 +343,13 @@ class MainBranchCounts implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if (($this->container['cancelled'] < 0)) {
             $invalidProperties[] = "invalid value for 'cancelled', must be bigger than or equal to 0.";
+        }
+
+        if ($this->container['awaiting_approval'] === null) {
+            $invalidProperties[] = "'awaiting_approval' can't be null";
+        }
+        if (($this->container['awaiting_approval'] < 0)) {
+            $invalidProperties[] = "invalid value for 'awaiting_approval', must be bigger than or equal to 0.";
         }
 
         if ($this->container['none'] === null) {
@@ -487,6 +501,37 @@ class MainBranchCounts implements ModelInterface, ArrayAccess, \JsonSerializable
         }
 
         $this->container['cancelled'] = $cancelled;
+
+        return $this;
+    }
+
+    /**
+     * Gets awaiting_approval
+     *
+     * @return int
+     */
+    public function getAwaitingApproval()
+    {
+        return $this->container['awaiting_approval'];
+    }
+
+    /**
+     * Sets awaiting_approval
+     *
+     * @param int $awaiting_approval awaiting_approval
+     *
+     * @return self
+     */
+    public function setAwaitingApproval($awaiting_approval)
+    {
+        if (is_null($awaiting_approval)) {
+            throw new \InvalidArgumentException('non-nullable awaiting_approval cannot be null');
+        }
+        if (($awaiting_approval < 0)) {
+            throw new \InvalidArgumentException('invalid value for $awaiting_approval when calling MainBranchCounts., must be bigger than or equal to 0.');
+        }
+
+        $this->container['awaiting_approval'] = $awaiting_approval;
 
         return $this;
     }
