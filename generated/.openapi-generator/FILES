@@ -34,6 +34,7 @@ src/Model/AutoMergedPullRequest.php
 src/Model/BotRequest.php
 src/Model/CIStatus.php
 src/Model/Check.php
+src/Model/CheckCounts.php
 src/Model/CheckState.php
 src/Model/ClosingIssue.php
 src/Model/Credential.php

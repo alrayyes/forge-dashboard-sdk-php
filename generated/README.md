@@ -167,6 +167,7 @@ Class | Method | HTTP request | Description
 - [BotRequest](docs/Model/BotRequest.md)
 - [CIStatus](docs/Model/CIStatus.md)
 - [Check](docs/Model/Check.md)
+- [CheckCounts](docs/Model/CheckCounts.md)
 - [CheckState](docs/Model/CheckState.md)
 - [ClosingIssue](docs/Model/ClosingIssue.md)
 - [Credential](docs/Model/Credential.md)
