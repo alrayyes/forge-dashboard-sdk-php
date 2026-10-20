@@ -106,6 +106,7 @@ Class | Method | HTTP request | Description
 *DashboardApi* | [**disableAutoUpdateBranch**](docs/Api/DashboardApi.md#disableautoupdatebranch) | **POST** /api/repos/auto-update-branch/disable | Turn off automatic branch updates for one tracked repo
 *DashboardApi* | [**enableAutoUpdateBranch**](docs/Api/DashboardApi.md#enableautoupdatebranch) | **POST** /api/repos/auto-update-branch/enable | Turn on automatic branch updates for one tracked repo
 *DashboardApi* | [**getDashboard**](docs/Api/DashboardApi.md#getdashboard) | **GET** /api/dashboard | The aggregated view
+*DashboardApi* | [**getIssueDetails**](docs/Api/DashboardApi.md#getissuedetails) | **GET** /api/issues/details | Read an issue&#39;s description, comments and reactions, on demand
 *DashboardApi* | [**getMainBranchChecks**](docs/Api/DashboardApi.md#getmainbranchchecks) | **GET** /api/main-branches/checks | List every job/check of a repository&#39;s default-branch pipeline, on demand
 *DashboardApi* | [**getMainBranches**](docs/Api/DashboardApi.md#getmainbranches) | **GET** /api/main-branches | The CI status of every tracked repository&#39;s default branch
 *DashboardApi* | [**ignoreRepo**](docs/Api/DashboardApi.md#ignorerepo) | **POST** /api/repos/ignore | Hide one tracked repo&#39;s pull requests, issues, or both from the dashboard and Insights
@@ -177,6 +178,7 @@ Class | Method | HTTP request | Description
 - [ForgeHealth](docs/Model/ForgeHealth.md)
 - [Health](docs/Model/Health.md)
 - [Issue](docs/Model/Issue.md)
+- [IssueDetails](docs/Model/IssueDetails.md)
 - [Label](docs/Model/Label.md)
 - [LoginBeginRequest](docs/Model/LoginBeginRequest.md)
 - [MainBranch](docs/Model/MainBranch.md)
