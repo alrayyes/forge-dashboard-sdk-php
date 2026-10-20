@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.0.8](https://github.com/alrayyes/forge-dashboard-sdk-php/compare/v4.0.7...v4.0.8) (2026-10-20)
+
+
+### Bug Fixes
+
+* regenerate client from forge-dashboard openapi.yaml ([#241](https://github.com/alrayyes/forge-dashboard-sdk-php/issues/241)) ([518f353](https://github.com/alrayyes/forge-dashboard-sdk-php/commit/518f353228b2c39665e11374e083c7a99e425bc5))
+
 ## [4.0.7](https://github.com/alrayyes/forge-dashboard-sdk-php/compare/v4.0.6...v4.0.7) (2026-10-20)
 
 
