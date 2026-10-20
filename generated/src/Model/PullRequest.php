@@ -1162,7 +1162,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets kind
      *
-     * @param string $kind What sort of pull request this is, decided by the server so no client keeps its own copy of the rule. `release`: release-please's, by its `autorelease:` label (a person opens these, so the label is the only signal, and it wins over any bot author). `dependency`: opened by Dependabot or Renovate, in either spelling of the login (the bare slug GraphQL gives, or REST's `[bot]` form), on either forge. `regular`: everything else. Always present.
+     * @param string $kind What sort of pull request this is, decided by the server so no client keeps its own copy of the rule. `release`: release-please's, by its `autorelease:` label (a person opens these, so the label is the main signal, and it wins over any bot author), or, when the label is missing because release-please failed before applying it, by its head branch: `release-please--branches--<base branch>` (with `--components--<name>` after it for a repo that releases several components) in the same repository and aimed at that base branch. A fork's pull request is never a release. `dependency`: opened by Dependabot or Renovate, in either spelling of the login (the bare slug GraphQL gives, or REST's `[bot]` form), on either forge. `regular`: everything else. Always present.
      *
      * @return self
      */

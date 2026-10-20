@@ -61,7 +61,9 @@ class ActionError implements ModelInterface, ArrayAccess, \JsonSerializable
         'error' => 'string',
         'code' => 'string',
         'message' => 'string',
-        'resets_at' => '\DateTime'
+        'resets_at' => '\DateTime',
+        'upstream_status' => 'int',
+        'request_id' => 'string'
     ];
 
     /**
@@ -75,7 +77,9 @@ class ActionError implements ModelInterface, ArrayAccess, \JsonSerializable
         'error' => null,
         'code' => null,
         'message' => null,
-        'resets_at' => 'date-time'
+        'resets_at' => 'date-time',
+        'upstream_status' => null,
+        'request_id' => null
     ];
 
     /**
@@ -87,7 +91,9 @@ class ActionError implements ModelInterface, ArrayAccess, \JsonSerializable
         'error' => false,
         'code' => false,
         'message' => false,
-        'resets_at' => false
+        'resets_at' => false,
+        'upstream_status' => false,
+        'request_id' => false
     ];
 
     /**
@@ -179,7 +185,9 @@ class ActionError implements ModelInterface, ArrayAccess, \JsonSerializable
         'error' => 'error',
         'code' => 'code',
         'message' => 'message',
-        'resets_at' => 'resetsAt'
+        'resets_at' => 'resetsAt',
+        'upstream_status' => 'upstreamStatus',
+        'request_id' => 'requestId'
     ];
 
     /**
@@ -191,7 +199,9 @@ class ActionError implements ModelInterface, ArrayAccess, \JsonSerializable
         'error' => 'setError',
         'code' => 'setCode',
         'message' => 'setMessage',
-        'resets_at' => 'setResetsAt'
+        'resets_at' => 'setResetsAt',
+        'upstream_status' => 'setUpstreamStatus',
+        'request_id' => 'setRequestId'
     ];
 
     /**
@@ -203,7 +213,9 @@ class ActionError implements ModelInterface, ArrayAccess, \JsonSerializable
         'error' => 'getError',
         'code' => 'getCode',
         'message' => 'getMessage',
-        'resets_at' => 'getResetsAt'
+        'resets_at' => 'getResetsAt',
+        'upstream_status' => 'getUpstreamStatus',
+        'request_id' => 'getRequestId'
     ];
 
     /**
@@ -260,6 +272,7 @@ class ActionError implements ModelInterface, ArrayAccess, \JsonSerializable
     public const CODE_READY_TO_MERGE = 'ready_to_merge';
     public const CODE_PERMISSION = 'permission';
     public const CODE_RATE_LIMITED = 'rate_limited';
+    public const CODE_FORGE_ERROR = 'forge_error';
     public const CODE_NOT_RATE_LIMITED = 'not_rate_limited';
     public const CODE_NOT_OPEN = 'not_open';
     public const CODE_UNKNOWN = 'unknown';
@@ -285,6 +298,7 @@ class ActionError implements ModelInterface, ArrayAccess, \JsonSerializable
             self::CODE_READY_TO_MERGE,
             self::CODE_PERMISSION,
             self::CODE_RATE_LIMITED,
+            self::CODE_FORGE_ERROR,
             self::CODE_NOT_RATE_LIMITED,
             self::CODE_NOT_OPEN,
             self::CODE_UNKNOWN,
@@ -310,6 +324,8 @@ class ActionError implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('code', $data ?? [], null);
         $this->setIfExists('message', $data ?? [], null);
         $this->setIfExists('resets_at', $data ?? [], null);
+        $this->setIfExists('upstream_status', $data ?? [], null);
+        $this->setIfExists('request_id', $data ?? [], null);
     }
 
     /**
@@ -357,6 +373,14 @@ class ActionError implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['message'] === null) {
             $invalidProperties[] = "'message' can't be null";
         }
+        if (!is_null($this->container['upstream_status']) && ($this->container['upstream_status'] > 599)) {
+            $invalidProperties[] = "invalid value for 'upstream_status', must be smaller than or equal to 599.";
+        }
+
+        if (!is_null($this->container['upstream_status']) && ($this->container['upstream_status'] < 500)) {
+            $invalidProperties[] = "invalid value for 'upstream_status', must be bigger than or equal to 500.";
+        }
+
         return $invalidProperties;
     }
 
@@ -412,7 +436,7 @@ class ActionError implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets code
      *
-     * @param string $code Why the action was refused, from a re-read of the pull request's real state. `already_merged` and `already_closed` mean the dashboard's row was stale: the pull request has nothing left to merge.  `not_rate_limited` belongs to queueing an action: the forge isn't rate limited, so act directly. `not_open` is only an outcome of a queued action: the pull request was gone from the board when the reset came, merged or closed.  Three codes belong to a few actions each: `already_up_to_date` (Update branch: nothing to bring in; Merge or Enable auto-merge on an empty pull request: nothing to merge), `auto_merge_not_allowed` (Enable auto-merge: the repo or pull request doesn't allow it) and `ready_to_merge` (Enable auto-merge: already clean, use Merge).
+     * @param string $code Why the action was refused, from a re-read of the pull request's real state. `already_merged` and `already_closed` mean the dashboard's row was stale: the pull request has nothing left to merge.  `forge_error` means the forge failed on its own side (a 5xx): nothing is wrong with the request, so asking again may work. `upstreamStatus` and `requestId` then say what the forge answered with, for tracing a report. Update branch is tried a second time by the server before this is answered.  `not_rate_limited` belongs to queueing an action: the forge isn't rate limited, so act directly. `not_open` is only an outcome of a queued action: the pull request was gone from the board when the reset came, merged or closed.  Three codes belong to a few actions each: `already_up_to_date` (Update branch: nothing to bring in; Merge or Enable auto-merge on an empty pull request: nothing to merge), `auto_merge_not_allowed` (Enable auto-merge: the repo or pull request doesn't allow it) and `ready_to_merge` (Enable auto-merge: already clean, use Merge).
      *
      * @return self
      */
@@ -486,6 +510,67 @@ class ActionError implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable resets_at cannot be null');
         }
         $this->container['resets_at'] = $resets_at;
+
+        return $this;
+    }
+
+    /**
+     * Gets upstream_status
+     *
+     * @return int|null
+     */
+    public function getUpstreamStatus()
+    {
+        return $this->container['upstream_status'];
+    }
+
+    /**
+     * Sets upstream_status
+     *
+     * @param int|null $upstream_status Only with `forge_error`. The HTTP status the forge answered with.
+     *
+     * @return self
+     */
+    public function setUpstreamStatus($upstream_status)
+    {
+        if (is_null($upstream_status)) {
+            throw new \InvalidArgumentException('non-nullable upstream_status cannot be null');
+        }
+        if (($upstream_status > 599)) {
+            throw new \InvalidArgumentException('invalid value for $upstream_status when calling ActionError., must be smaller than or equal to 599.');
+        }
+        if (($upstream_status < 500)) {
+            throw new \InvalidArgumentException('invalid value for $upstream_status when calling ActionError., must be bigger than or equal to 500.');
+        }
+
+        $this->container['upstream_status'] = $upstream_status;
+
+        return $this;
+    }
+
+    /**
+     * Gets request_id
+     *
+     * @return string|null
+     */
+    public function getRequestId()
+    {
+        return $this->container['request_id'];
+    }
+
+    /**
+     * Sets request_id
+     *
+     * @param string|null $request_id Only with `forge_error`, and only when the forge sent one (GitHub's `X-GitHub-Request-Id`). What the forge's support asks for.
+     *
+     * @return self
+     */
+    public function setRequestId($request_id)
+    {
+        if (is_null($request_id)) {
+            throw new \InvalidArgumentException('non-nullable request_id cannot be null');
+        }
+        $this->container['request_id'] = $request_id;
 
         return $this;
     }
