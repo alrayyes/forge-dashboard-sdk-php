@@ -62,6 +62,7 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
         'number' => 'int',
         'title' => 'string',
         'url' => 'string',
+        'linked_pull_requests' => '\ForgeDashboard\Generated\Model\LinkedPullRequest[]',
         'housekeeping' => 'bool',
         'author' => 'string',
         'author_avatar_url' => 'string',
@@ -84,6 +85,7 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
         'number' => null,
         'title' => null,
         'url' => 'uri',
+        'linked_pull_requests' => null,
         'housekeeping' => null,
         'author' => null,
         'author_avatar_url' => null,
@@ -104,6 +106,7 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
         'number' => false,
         'title' => false,
         'url' => false,
+        'linked_pull_requests' => false,
         'housekeeping' => false,
         'author' => false,
         'author_avatar_url' => false,
@@ -204,6 +207,7 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
         'number' => 'number',
         'title' => 'title',
         'url' => 'url',
+        'linked_pull_requests' => 'linkedPullRequests',
         'housekeeping' => 'housekeeping',
         'author' => 'author',
         'author_avatar_url' => 'authorAvatarUrl',
@@ -224,6 +228,7 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
         'number' => 'setNumber',
         'title' => 'setTitle',
         'url' => 'setUrl',
+        'linked_pull_requests' => 'setLinkedPullRequests',
         'housekeeping' => 'setHousekeeping',
         'author' => 'setAuthor',
         'author_avatar_url' => 'setAuthorAvatarUrl',
@@ -244,6 +249,7 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
         'number' => 'getNumber',
         'title' => 'getTitle',
         'url' => 'getUrl',
+        'linked_pull_requests' => 'getLinkedPullRequests',
         'housekeeping' => 'getHousekeeping',
         'author' => 'getAuthor',
         'author_avatar_url' => 'getAuthorAvatarUrl',
@@ -315,6 +321,7 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('number', $data ?? [], null);
         $this->setIfExists('title', $data ?? [], null);
         $this->setIfExists('url', $data ?? [], null);
+        $this->setIfExists('linked_pull_requests', $data ?? [], null);
         $this->setIfExists('housekeeping', $data ?? [], null);
         $this->setIfExists('author', $data ?? [], null);
         $this->setIfExists('author_avatar_url', $data ?? [], null);
@@ -365,6 +372,9 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if ($this->container['url'] === null) {
             $invalidProperties[] = "'url' can't be null";
+        }
+        if ($this->container['linked_pull_requests'] === null) {
+            $invalidProperties[] = "'linked_pull_requests' can't be null";
         }
         if ($this->container['housekeeping'] === null) {
             $invalidProperties[] = "'housekeeping' can't be null";
@@ -533,6 +543,33 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable url cannot be null');
         }
         $this->container['url'] = $url;
+
+        return $this;
+    }
+
+    /**
+     * Gets linked_pull_requests
+     *
+     * @return \ForgeDashboard\Generated\Model\LinkedPullRequest[]
+     */
+    public function getLinkedPullRequests()
+    {
+        return $this->container['linked_pull_requests'];
+    }
+
+    /**
+     * Sets linked_pull_requests
+     *
+     * @param \ForgeDashboard\Generated\Model\LinkedPullRequest[] $linked_pull_requests The open pull requests that will close the issue when they merge, the other side of a pull request's `closesIssues`, ordered by repository and number. Always present, and empty when there are none. The server joins the pull requests it already holds, so it costs the forge no request. It counts every open pull request the user could see, including a draft and one they hid, but not one in a repository whose pull requests they ignore. A pull request that merged or closed is gone from the list on the next refresh.
+     *
+     * @return self
+     */
+    public function setLinkedPullRequests($linked_pull_requests)
+    {
+        if (is_null($linked_pull_requests)) {
+            throw new \InvalidArgumentException('non-nullable linked_pull_requests cannot be null');
+        }
+        $this->container['linked_pull_requests'] = $linked_pull_requests;
 
         return $this;
     }
