@@ -7,6 +7,8 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  checks: read
+  statuses: read
 
 jobs:
   auto-merge:
@@ -18,7 +20,22 @@ jobs:
     if: "contains(github.event.pull_request.labels.*.name, 'autorelease: pending')"
     runs-on: ubuntu-latest
     steps:
-      - run: gh pr merge --auto --squash "$PR_URL"
+      - name: Merge the release PR
+        run: |
+          # Arming auto-merge is refused while GitHub calls the pull request
+          # unstable (a non-required check still running) or clean (nothing left to
+          # wait for). Merge directly then, but only once the required checks pass:
+          # enforce_admins is off on main, so GitHub would not stop this token.
+          set -euo pipefail
+          if out=$(gh pr merge --auto --squash "$PR_URL" 2>&1); then echo "$out"; exit 0; fi
+          echo "$out" >&2
+          case "$out" in
+            *"is in unstable status"* | *"is in clean status"*)
+              gh pr checks "$PR_URL" --required
+              gh pr merge --squash "$PR_URL"
+              ;;
+            *) exit 1 ;;
+          esac
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
           GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
