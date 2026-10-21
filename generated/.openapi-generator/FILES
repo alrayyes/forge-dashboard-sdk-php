@@ -89,6 +89,7 @@ src/Model/Reactions.php
 src/Model/Ready.php
 src/Model/RegisterBeginRequest.php
 src/Model/RegistrationStatus.php
+src/Model/ReleaseDetails.php
 src/Model/RepoIgnoreRequest.php
 src/Model/RepoStatus.php
 src/Model/ReviewState.php

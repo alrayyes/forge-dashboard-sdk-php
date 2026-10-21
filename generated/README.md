@@ -110,6 +110,7 @@ Class | Method | HTTP request | Description
 *DashboardApi* | [**getIssueDetails**](docs/Api/DashboardApi.md#getissuedetails) | **GET** /api/issues/details | Read an issue&#39;s description, comments and reactions, on demand
 *DashboardApi* | [**getMainBranchChecks**](docs/Api/DashboardApi.md#getmainbranchchecks) | **GET** /api/main-branches/checks | List every job/check of a repository&#39;s default-branch pipeline, on demand
 *DashboardApi* | [**getMainBranches**](docs/Api/DashboardApi.md#getmainbranches) | **GET** /api/main-branches | The CI status of every tracked repository&#39;s default branch
+*DashboardApi* | [**getReleaseDetails**](docs/Api/DashboardApi.md#getreleasedetails) | **GET** /api/releases/details | Read a published release&#39;s title and notes, on demand
 *DashboardApi* | [**ignoreRepo**](docs/Api/DashboardApi.md#ignorerepo) | **POST** /api/repos/ignore | Hide one tracked repo&#39;s pull requests, issues, or both from the dashboard and Insights
 *DashboardApi* | [**refreshDashboard**](docs/Api/DashboardApi.md#refreshdashboard) | **POST** /api/dashboard/refresh | Trigger an immediate refresh of the signed-in user&#39;s own dashboard
 *DashboardApi* | [**reportDashboardPresence**](docs/Api/DashboardApi.md#reportdashboardpresence) | **POST** /api/presence | Say whether a browser tab of the dashboard is being looked at
@@ -223,6 +224,7 @@ Class | Method | HTTP request | Description
 - [Ready](docs/Model/Ready.md)
 - [RegisterBeginRequest](docs/Model/RegisterBeginRequest.md)
 - [RegistrationStatus](docs/Model/RegistrationStatus.md)
+- [ReleaseDetails](docs/Model/ReleaseDetails.md)
 - [RepoIgnoreRequest](docs/Model/RepoIgnoreRequest.md)
 - [RepoStatus](docs/Model/RepoStatus.md)
 - [ReviewState](docs/Model/ReviewState.md)
