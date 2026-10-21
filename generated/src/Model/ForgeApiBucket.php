@@ -461,7 +461,7 @@ class ForgeApiBucket implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets kind
      *
-     * @param string $kind Why the requests were made. Open-ended, so a new kind is not a breaking change; today `full`, `scoped_webhook`, `ci_poll`, `auto_merge_poll`, `details`, `hook_maintenance`, `user_action` and `unknown`.
+     * @param string $kind Why the requests were made. Open-ended, so a new kind is not a breaking change; today `full`, `scoped_webhook`, `ci_poll`, `auto_merge_poll`, `details`, `hook_maintenance`, `advisories`, `user_action` and `unknown`.
      *
      * @return self
      */

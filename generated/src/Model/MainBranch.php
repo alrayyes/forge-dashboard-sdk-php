@@ -71,7 +71,8 @@ class MainBranch implements ModelInterface, ArrayAccess, \JsonSerializable
         'checks' => '\ForgeDashboard\Generated\Model\CheckCounts',
         'latest_release' => '\ForgeDashboard\Generated\Model\MainBranchRelease',
         'stale' => 'bool',
-        'stale_since' => '\DateTime'
+        'stale_since' => '\DateTime',
+        'advisories' => '\ForgeDashboard\Generated\Model\Advisories'
     ];
 
     /**
@@ -95,7 +96,8 @@ class MainBranch implements ModelInterface, ArrayAccess, \JsonSerializable
         'checks' => null,
         'latest_release' => null,
         'stale' => null,
-        'stale_since' => 'date-time'
+        'stale_since' => 'date-time',
+        'advisories' => null
     ];
 
     /**
@@ -117,7 +119,8 @@ class MainBranch implements ModelInterface, ArrayAccess, \JsonSerializable
         'checks' => false,
         'latest_release' => true,
         'stale' => false,
-        'stale_since' => true
+        'stale_since' => true,
+        'advisories' => false
     ];
 
     /**
@@ -219,7 +222,8 @@ class MainBranch implements ModelInterface, ArrayAccess, \JsonSerializable
         'checks' => 'checks',
         'latest_release' => 'latestRelease',
         'stale' => 'stale',
-        'stale_since' => 'staleSince'
+        'stale_since' => 'staleSince',
+        'advisories' => 'advisories'
     ];
 
     /**
@@ -241,7 +245,8 @@ class MainBranch implements ModelInterface, ArrayAccess, \JsonSerializable
         'checks' => 'setChecks',
         'latest_release' => 'setLatestRelease',
         'stale' => 'setStale',
-        'stale_since' => 'setStaleSince'
+        'stale_since' => 'setStaleSince',
+        'advisories' => 'setAdvisories'
     ];
 
     /**
@@ -263,7 +268,8 @@ class MainBranch implements ModelInterface, ArrayAccess, \JsonSerializable
         'checks' => 'getChecks',
         'latest_release' => 'getLatestRelease',
         'stale' => 'getStale',
-        'stale_since' => 'getStaleSince'
+        'stale_since' => 'getStaleSince',
+        'advisories' => 'getAdvisories'
     ];
 
     /**
@@ -337,6 +343,7 @@ class MainBranch implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('latest_release', $data ?? [], null);
         $this->setIfExists('stale', $data ?? [], null);
         $this->setIfExists('stale_since', $data ?? [], null);
+        $this->setIfExists('advisories', $data ?? [], null);
     }
 
     /**
@@ -840,6 +847,33 @@ class MainBranch implements ModelInterface, ArrayAccess, \JsonSerializable
             }
         }
         $this->container['stale_since'] = $stale_since;
+
+        return $this;
+    }
+
+    /**
+     * Gets advisories
+     *
+     * @return \ForgeDashboard\Generated\Model\Advisories|null
+     */
+    public function getAdvisories()
+    {
+        return $this->container['advisories'];
+    }
+
+    /**
+     * Sets advisories
+     *
+     * @param \ForgeDashboard\Generated\Model\Advisories|null $advisories advisories
+     *
+     * @return self
+     */
+    public function setAdvisories($advisories)
+    {
+        if (is_null($advisories)) {
+            throw new \InvalidArgumentException('non-nullable advisories cannot be null');
+        }
+        $this->container['advisories'] = $advisories;
 
         return $this;
     }

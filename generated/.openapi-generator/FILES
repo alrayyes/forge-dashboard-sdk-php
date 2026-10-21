@@ -27,6 +27,9 @@ src/Model/AdminInvite.php
 src/Model/AdminInviteCreateRequest.php
 src/Model/AdminInviteCreateResponse.php
 src/Model/AdminUser.php
+src/Model/Advisories.php
+src/Model/AdvisorySeverity.php
+src/Model/AdvisoryState.php
 src/Model/AllowedAction.php
 src/Model/AllowedActionBlocked.php
 src/Model/AutoMergeStatus.php
