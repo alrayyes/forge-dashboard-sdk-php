@@ -557,7 +557,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets first_refresh_done
      *
-     * @param bool $first_refresh_done False from process start until this viewer's first refresh has finished, whether it succeeded or failed; true from then on, including after later refreshes. Per viewer: another user's refresh does not flip it. A client shows a loading state instead of empty lists while it is false; a failed first refresh is reported through forge health, not by keeping this false. The same on `GET /api/dashboard`, the stream and the MCP `get_dashboard` output. Always present. A client of an older server that lacks it should treat a missing flag as true (loaded).
+     * @param bool $first_refresh_done False from process start until this viewer's first refresh has finished, whether it succeeded or failed; true from then on, including after later refreshes. Per viewer: another user's refresh does not flip it. A client shows a loading state instead of empty lists while it is false; a failed first refresh is reported through forge health, not by keeping this false. It is also true when the server started from the snapshot saved by its last run: those rows are on the page, and their forge reports `reachable: false` with `staleSince` until the first refresh succeeds. The same on `GET /api/dashboard`, the stream and the MCP `get_dashboard` output. Always present. A client of an older server that lacks it should treat a missing flag as true (loaded).
      *
      * @return self
      */
