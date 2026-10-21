@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use RuntimeException;
+
 // The three auto-merge workflows (release, regenerate, Dependabot) ran
 // `gh pr merge --auto --squash` and nothing else. When one ran while only a
 // non-required check (coverage, docs) was still going, GitHub reports the
