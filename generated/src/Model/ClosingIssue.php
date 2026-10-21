@@ -60,7 +60,8 @@ class ClosingIssue implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPITypes = [
         'repo' => 'string',
         'number' => 'int',
-        'url' => 'string'
+        'url' => 'string',
+        'page_url' => 'string'
     ];
 
     /**
@@ -73,7 +74,8 @@ class ClosingIssue implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'repo' => null,
         'number' => null,
-        'url' => 'uri'
+        'url' => 'uri',
+        'page_url' => null
     ];
 
     /**
@@ -84,7 +86,8 @@ class ClosingIssue implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static array $openAPINullables = [
         'repo' => false,
         'number' => false,
-        'url' => false
+        'url' => false,
+        'page_url' => false
     ];
 
     /**
@@ -175,7 +178,8 @@ class ClosingIssue implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $attributeMap = [
         'repo' => 'repo',
         'number' => 'number',
-        'url' => 'url'
+        'url' => 'url',
+        'page_url' => 'pageUrl'
     ];
 
     /**
@@ -186,7 +190,8 @@ class ClosingIssue implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $setters = [
         'repo' => 'setRepo',
         'number' => 'setNumber',
-        'url' => 'setUrl'
+        'url' => 'setUrl',
+        'page_url' => 'setPageUrl'
     ];
 
     /**
@@ -197,7 +202,8 @@ class ClosingIssue implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $getters = [
         'repo' => 'getRepo',
         'number' => 'getNumber',
-        'url' => 'getUrl'
+        'url' => 'getUrl',
+        'page_url' => 'getPageUrl'
     ];
 
     /**
@@ -260,6 +266,7 @@ class ClosingIssue implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('repo', $data ?? [], null);
         $this->setIfExists('number', $data ?? [], null);
         $this->setIfExists('url', $data ?? [], null);
+        $this->setIfExists('page_url', $data ?? [], null);
     }
 
     /**
@@ -301,6 +308,9 @@ class ClosingIssue implements ModelInterface, ArrayAccess, \JsonSerializable
 
         if ($this->container['url'] === null) {
             $invalidProperties[] = "'url' can't be null";
+        }
+        if ($this->container['page_url'] === null) {
+            $invalidProperties[] = "'page_url' can't be null";
         }
         return $invalidProperties;
     }
@@ -398,6 +408,33 @@ class ClosingIssue implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable url cannot be null');
         }
         $this->container['url'] = $url;
+
+        return $this;
+    }
+
+    /**
+     * Gets page_url
+     *
+     * @return string
+     */
+    public function getPageUrl()
+    {
+        return $this->container['page_url'];
+    }
+
+    /**
+     * Sets page_url
+     *
+     * @param string $page_url The address on this dashboard that opens the Issues page with this issue's pop-up open: `/issues.html?issue=` and `forge/owner/name/number`, on the pull request's own forge. A relative address. When the issue is closed, hidden by the user's settings or in a repo the dashboard does not track, the page opens no pop-up and shows a plain note over the list. The note has no forge link, since the dashboard knows nothing else about the issue.
+     *
+     * @return self
+     */
+    public function setPageUrl($page_url)
+    {
+        if (is_null($page_url)) {
+            throw new \InvalidArgumentException('non-nullable page_url cannot be null');
+        }
+        $this->container['page_url'] = $page_url;
 
         return $this;
     }
