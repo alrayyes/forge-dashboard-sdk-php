@@ -144,9 +144,6 @@ Class | Method | HTTP request | Description
 *SettingsApi* | [**setFilterState**](docs/Api/SettingsApi.md#setfilterstate) | **PUT** /api/settings/filter-state | Save the signed-in user&#39;s own dashboard/Insights filter state
 *SettingsApi* | [**setTheme**](docs/Api/SettingsApi.md#settheme) | **PUT** /api/settings/theme | Save the signed-in user&#39;s own theme preference
 *SettingsApi* | [**setTimezone**](docs/Api/SettingsApi.md#settimezone) | **PUT** /api/settings/timezone | Save the signed-in user&#39;s own time zone
-*SharingApi* | [**getSharing**](docs/Api/SharingApi.md#getsharing) | **GET** /api/sharing | The signed-in user&#39;s sharing relationships
-*SharingApi* | [**shareWith**](docs/Api/SharingApi.md#sharewith) | **PUT** /api/sharing/{username} | Share the signed-in user&#39;s dashboard with username
-*SharingApi* | [**unshareWith**](docs/Api/SharingApi.md#unsharewith) | **DELETE** /api/sharing/{username} | Stop sharing the signed-in user&#39;s dashboard with username
 *TokensApi* | [**createAPIToken**](docs/Api/TokensApi.md#createapitoken) | **POST** /api/tokens | Generate a new personal API token
 *TokensApi* | [**deleteAPIToken**](docs/Api/TokensApi.md#deleteapitoken) | **DELETE** /api/tokens/{id} | Revoke a personal API token
 *TokensApi* | [**listAPITokens**](docs/Api/TokensApi.md#listapitokens) | **GET** /api/tokens | List the signed-in user&#39;s own personal API tokens
@@ -233,8 +230,6 @@ Class | Method | HTTP request | Description
 - [SettingsRequest](docs/Model/SettingsRequest.md)
 - [SettingsResponse](docs/Model/SettingsResponse.md)
 - [SettingsSummary](docs/Model/SettingsSummary.md)
-- [SharedUser](docs/Model/SharedUser.md)
-- [SharingResponse](docs/Model/SharingResponse.md)
 - [StackPosition](docs/Model/StackPosition.md)
 - [StackRef](docs/Model/StackRef.md)
 - [ThemeRequest](docs/Model/ThemeRequest.md)

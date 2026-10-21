@@ -445,7 +445,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets queued_actions
      *
-     * @param \ForgeDashboard\Generated\Model\QueuedAction[] $queued_actions The signed-in user's queued actions, waiting and finished in the last 24 hours (GET /api/queued-actions), so a client lists them in its Activity panel and learns an outcome from the stream it already reads. Always present, empty when there are none, and always empty on another user's shared dashboard.
+     * @param \ForgeDashboard\Generated\Model\QueuedAction[] $queued_actions The signed-in user's queued actions, waiting and finished in the last 24 hours (GET /api/queued-actions), so a client lists them in its Activity panel and learns an outcome from the stream it already reads. Always present, empty when there are none.
      *
      * @return self
      */
