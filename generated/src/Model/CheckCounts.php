@@ -35,7 +35,7 @@ use \ForgeDashboard\Generated\ObjectSerializer;
  * CheckCounts Class Doc Comment
  *
  * @category Class
- * @description How many checks are in each state, so a client can say how far a pipeline is without opening it. It is on every pull request and on every default branch, for a passed, a failed and a running pipeline alike. The server tallies them from what it already reads to work out the overall state, so they cost no request. Always present, all zero when there are no checks.  &#x60;waiting&#x60; is a check that has not started: queued, or pending where the forge doesn&#39;t tell queued from running. A failed pipeline can still have checks running or waiting, and says so. A pull request&#39;s counts agree with its &#x60;ci&#x60;: one whose &#x60;ci&#x60; is &#x60;pending&#x60; has &#x60;failed&#x60; at 0, and one whose &#x60;ci&#x60; is &#x60;success&#x60; has nothing running, waiting or failed. Two kinds of run are therefore in none of the four, as long as something else explains the state. A run held for approval: on a pull request &#x60;awaitingWorkflowApproval&#x60; says that. A cancelled run: a push or a concurrency group superseded it, and the overall state does not read it as a failure while others still run. When cancelled runs (and, on a branch, held ones) are the only reason a pipeline reads as failed, they count as &#x60;failed&#x60; (a held run first, where both are there), so a failed pipeline always has a failed count on GitHub. A branch whose status is &#x60;cancelled&#x60; has &#x60;failed&#x60; at 0. A timed-out or stale check counts as &#x60;failed&#x60;, a skipped, neutral or bare completed one as &#x60;passed&#x60;, on Forgejo too.  On GitHub the counts come from the same rollup as the overall state, for a pull request and a branch alike; on Forgejo a pull request counts the statuses of the combined commit status, where nothing is ever &#x60;running&#x60;, and a default branch counts the workflow runs of the newest commit that has one (a job count would cost a request per run), where a running run is &#x60;running&#x60; and a queued or blocked one &#x60;waiting&#x60;. Forgejo answers one page of those statuses, and when its total says there are more than the page holds a pull request&#39;s counts are all zero rather than an undercount. When GitHub&#39;s rollup of a pull request is of an earlier commit than the head (a push still being processed), the counts are zero too. GitHub&#39;s unauthenticated fallback has no such counts, so there they are all zero.
+ * @description How many checks are in each state, so a client can say how far a pipeline is without opening it. It is on every pull request and on every default branch, for a passed, a failed and a running pipeline alike. The server tallies them from what it already reads to work out the overall state, so they cost no request. Always present, all zero when there are no checks.  &#x60;waiting&#x60; is a check that has not started: queued, or pending where the forge doesn&#39;t tell queued from running. A failed pipeline can still have checks running or waiting, and says so. A pull request&#39;s counts agree with its &#x60;ci&#x60;: one whose &#x60;ci&#x60; is &#x60;pending&#x60; has &#x60;failed&#x60; at 0, and one whose &#x60;ci&#x60; is &#x60;success&#x60; has nothing running, waiting or failed. Two kinds of run are therefore in none of the four, as long as something else explains the state. A run held for approval: on a pull request &#x60;awaitingWorkflowApproval&#x60; says that. A cancelled run: a push or a concurrency group superseded it, and the overall state does not read it as a failure while others still run. When cancelled runs (and, on a branch, held ones) are the only reason a pipeline reads as failed, they count as &#x60;failed&#x60; (a held run first, where both are there), so a failed pipeline always has a failed count on GitHub. A branch whose status is &#x60;cancelled&#x60; has &#x60;failed&#x60; at 0. A timed-out or stale check counts as &#x60;failed&#x60;, a skipped, neutral or bare completed one as &#x60;passed&#x60;, on Forgejo too.  &#x60;skipped&#x60; is a newer field and says how many of the &#x60;passed&#x60; checks were skipped. It never exceeds &#x60;passed&#x60;: it is inside &#x60;passed&#x60;, not beside it, so &#x60;passed&#x60; still counts every check that needs nothing more and the four states still add up to the checks the pipeline lists. The server always sends it; a client that may talk to an older server reads a missing one as none. A neutral or bare completed check is passed without being skipped. A client that draws it shows it as detail on the passed count, and a pipeline where every passed check was skipped can read as skipped.  On GitHub the counts come from the same rollup as the overall state, for a pull request and a branch alike; on Forgejo a pull request counts the statuses of the combined commit status, where nothing is ever &#x60;running&#x60;, and a default branch counts the workflow runs of the newest commit that has one (a job count would cost a request per run), where a running run is &#x60;running&#x60; and a queued or blocked one &#x60;waiting&#x60;. Forgejo answers one page of those statuses, and when its total says there are more than the page holds a pull request&#39;s counts are all zero rather than an undercount. When GitHub&#39;s rollup of a pull request is of an earlier commit than the head (a push still being processed), the counts are zero too. GitHub&#39;s unauthenticated fallback has no such counts, so there they are all zero.
  * @package  ForgeDashboard\Generated
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -61,7 +61,8 @@ class CheckCounts implements ModelInterface, ArrayAccess, \JsonSerializable
         'passed' => 'int',
         'running' => 'int',
         'waiting' => 'int',
-        'failed' => 'int'
+        'failed' => 'int',
+        'skipped' => 'int'
     ];
 
     /**
@@ -75,7 +76,8 @@ class CheckCounts implements ModelInterface, ArrayAccess, \JsonSerializable
         'passed' => null,
         'running' => null,
         'waiting' => null,
-        'failed' => null
+        'failed' => null,
+        'skipped' => null
     ];
 
     /**
@@ -87,7 +89,8 @@ class CheckCounts implements ModelInterface, ArrayAccess, \JsonSerializable
         'passed' => false,
         'running' => false,
         'waiting' => false,
-        'failed' => false
+        'failed' => false,
+        'skipped' => false
     ];
 
     /**
@@ -179,7 +182,8 @@ class CheckCounts implements ModelInterface, ArrayAccess, \JsonSerializable
         'passed' => 'passed',
         'running' => 'running',
         'waiting' => 'waiting',
-        'failed' => 'failed'
+        'failed' => 'failed',
+        'skipped' => 'skipped'
     ];
 
     /**
@@ -191,7 +195,8 @@ class CheckCounts implements ModelInterface, ArrayAccess, \JsonSerializable
         'passed' => 'setPassed',
         'running' => 'setRunning',
         'waiting' => 'setWaiting',
-        'failed' => 'setFailed'
+        'failed' => 'setFailed',
+        'skipped' => 'setSkipped'
     ];
 
     /**
@@ -203,7 +208,8 @@ class CheckCounts implements ModelInterface, ArrayAccess, \JsonSerializable
         'passed' => 'getPassed',
         'running' => 'getRunning',
         'waiting' => 'getWaiting',
-        'failed' => 'getFailed'
+        'failed' => 'getFailed',
+        'skipped' => 'getSkipped'
     ];
 
     /**
@@ -267,6 +273,7 @@ class CheckCounts implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('running', $data ?? [], null);
         $this->setIfExists('waiting', $data ?? [], null);
         $this->setIfExists('failed', $data ?? [], null);
+        $this->setIfExists('skipped', $data ?? [], null);
     }
 
     /**
@@ -322,6 +329,13 @@ class CheckCounts implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if (($this->container['failed'] < 0)) {
             $invalidProperties[] = "invalid value for 'failed', must be bigger than or equal to 0.";
+        }
+
+        if ($this->container['skipped'] === null) {
+            $invalidProperties[] = "'skipped' can't be null";
+        }
+        if (($this->container['skipped'] < 0)) {
+            $invalidProperties[] = "invalid value for 'skipped', must be bigger than or equal to 0.";
         }
 
         return $invalidProperties;
@@ -459,6 +473,37 @@ class CheckCounts implements ModelInterface, ArrayAccess, \JsonSerializable
         }
 
         $this->container['failed'] = $failed;
+
+        return $this;
+    }
+
+    /**
+     * Gets skipped
+     *
+     * @return int
+     */
+    public function getSkipped()
+    {
+        return $this->container['skipped'];
+    }
+
+    /**
+     * Sets skipped
+     *
+     * @param int $skipped skipped
+     *
+     * @return self
+     */
+    public function setSkipped($skipped)
+    {
+        if (is_null($skipped)) {
+            throw new \InvalidArgumentException('non-nullable skipped cannot be null');
+        }
+        if (($skipped < 0)) {
+            throw new \InvalidArgumentException('invalid value for $skipped when calling CheckCounts., must be bigger than or equal to 0.');
+        }
+
+        $this->container['skipped'] = $skipped;
 
         return $this;
     }
