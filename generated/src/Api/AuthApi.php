@@ -1908,7 +1908,7 @@ class AuthApi
      *
      * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \ForgeDashboard\Generated\Model\SessionUser|\ForgeDashboard\Generated\Model\Error
+     * @return \ForgeDashboard\Generated\Model\SessionUser|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error
      */
     public function finishRegistration($username, $request_body, string $contentType = self::contentTypes['finishRegistration'][0])
     {
@@ -1927,7 +1927,7 @@ class AuthApi
      *
      * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \ForgeDashboard\Generated\Model\SessionUser|\ForgeDashboard\Generated\Model\Error, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \ForgeDashboard\Generated\Model\SessionUser|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error, HTTP status code, HTTP response headers (array of strings)
      */
     public function finishRegistrationWithHttpInfo($username, $request_body, string $contentType = self::contentTypes['finishRegistration'][0])
     {
@@ -1969,6 +1969,12 @@ class AuthApi
                         $request,
                         $response,
                     );
+                case 403:
+                    return $this->handleResponseWithDataType(
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -2002,6 +2008,14 @@ class AuthApi
                     $e->setResponseObject($data);
                     throw $e;
                 case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\ForgeDashboard\Generated\Model\Error',
