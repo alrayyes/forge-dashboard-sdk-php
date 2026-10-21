@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.0.20](https://github.com/alrayyes/forge-dashboard-sdk-php/compare/v4.0.19...v4.0.20) (2026-10-21)
+
+
+### Bug Fixes
+
+* **ci:** merge directly when auto-merge is refused as unstable or clean ([#266](https://github.com/alrayyes/forge-dashboard-sdk-php/issues/266)) ([0f21e0c](https://github.com/alrayyes/forge-dashboard-sdk-php/commit/0f21e0cf9ec9cc94f132e961dda6bc4c9d4edd64))
+
 ## [4.0.19](https://github.com/alrayyes/forge-dashboard-sdk-php/compare/v4.0.18...v4.0.19) (2026-10-20)
 
 
