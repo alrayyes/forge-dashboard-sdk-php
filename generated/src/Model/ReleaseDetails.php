@@ -427,7 +427,7 @@ class ReleaseDetails implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets published_at
      *
-     * @param string $published_at When it was published, RFC 3339. Empty when the forge didn't say.
+     * @param string $published_at When it was published, RFC 3339. Always set, since a release with no publish date is a 404 instead.
      *
      * @return self
      */
