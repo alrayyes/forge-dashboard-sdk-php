@@ -275,6 +275,7 @@ class ActionError implements ModelInterface, ArrayAccess, \JsonSerializable
     public const CODE_FORGE_ERROR = 'forge_error';
     public const CODE_NOT_RATE_LIMITED = 'not_rate_limited';
     public const CODE_NOT_OPEN = 'not_open';
+    public const CODE_NOT_REOPENABLE = 'not_reopenable';
     public const CODE_UNKNOWN = 'unknown';
 
     /**
@@ -301,6 +302,7 @@ class ActionError implements ModelInterface, ArrayAccess, \JsonSerializable
             self::CODE_FORGE_ERROR,
             self::CODE_NOT_RATE_LIMITED,
             self::CODE_NOT_OPEN,
+            self::CODE_NOT_REOPENABLE,
             self::CODE_UNKNOWN,
         ];
     }
@@ -436,7 +438,7 @@ class ActionError implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets code
      *
-     * @param string $code Why the action was refused, from a re-read of the pull request's real state. `already_merged` and `already_closed` mean the dashboard's row was stale: the pull request has nothing left to merge.  `forge_error` means the forge failed on its own side (a 5xx): nothing is wrong with the request, so asking again may work. `upstreamStatus` and `requestId` then say what the forge answered with, for tracing a report. Update branch is tried a second time by the server before this is answered.  `not_rate_limited` belongs to queueing an action: the forge isn't rate limited, so act directly. `not_open` is only an outcome of a queued action: the pull request was gone from the board when the reset came, merged or closed.  Three codes belong to a few actions each: `already_up_to_date` (Update branch: nothing to bring in; Merge or Enable auto-merge on an empty pull request: nothing to merge), `auto_merge_not_allowed` (Enable auto-merge: the repo or pull request doesn't allow it) and `ready_to_merge` (Enable auto-merge: already clean, use Merge).
+     * @param string $code Why the action was refused, from a re-read of the pull request's real state. `already_merged` and `already_closed` mean the dashboard's row was stale: the pull request has nothing left to merge.  `not_reopenable` belongs to Reopen: the pull request is still closed and the forge won't reopen it, usually because its branch was deleted or rewritten after the close.  `forge_error` means the forge failed on its own side (a 5xx): nothing is wrong with the request, so asking again may work. `upstreamStatus` and `requestId` then say what the forge answered with, for tracing a report. Update branch is tried a second time by the server before this is answered.  `not_rate_limited` belongs to queueing an action: the forge isn't rate limited, so act directly. `not_open` is only an outcome of a queued action: the pull request was gone from the board when the reset came, merged or closed.  Three codes belong to a few actions each: `already_up_to_date` (Update branch: nothing to bring in; Merge or Enable auto-merge on an empty pull request: nothing to merge), `auto_merge_not_allowed` (Enable auto-merge: the repo or pull request doesn't allow it) and `ready_to_merge` (Enable auto-merge: already clean, use Merge).
      *
      * @return self
      */
