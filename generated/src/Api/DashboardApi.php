@@ -653,7 +653,6 @@ class DashboardApi
      *
      * The aggregated view
      *
-     * @param  string|null $owner A username that has shared their dashboard with the caller. Defaults to the caller&#39;s own. (optional)
      * @param  bool|null $include_drafts Whether draft pull requests are in &#x60;pullRequests&#x60;. Defaults to &#x60;false&#x60;: nothing can be merged, auto-merged or updated on a draft, so a draft is left out and counted in the response&#39;s &#x60;hiddenDrafts&#x60; instead. The stream and the refresh endpoint take the same parameter, so every snapshot a client receives follows one rule. (optional, default to false)
      * @param  bool|null $include_hidden Whether pull requests the user hid (&#x60;POST /api/pull-requests/hide&#x60;) are in &#x60;pullRequests&#x60;, marked &#x60;hidden: true&#x60;. Defaults to &#x60;false&#x60;: a hidden pull request is left out and counted in the response&#39;s &#x60;hiddenPullRequests&#x60;. A client lists the hidden ones, to offer a Restore, by asking with &#x60;true&#x60;. The stream and the refresh endpoint take the same parameter. (optional, default to false)
      * @param  string|null $x_background_read Any value says the read is the page&#39;s own timed refresh of its data, not something a person asked for. Such a read does not count as use of the dashboard, so a tab nobody is looking at cannot keep the scheduled refresh running by polling. (optional)
@@ -661,11 +660,11 @@ class DashboardApi
      *
      * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \ForgeDashboard\Generated\Model\Dashboard|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error
+     * @return \ForgeDashboard\Generated\Model\Dashboard|\ForgeDashboard\Generated\Model\Error
      */
-    public function getDashboard($owner = null, $include_drafts = false, $include_hidden = false, $x_background_read = null, string $contentType = self::contentTypes['getDashboard'][0])
+    public function getDashboard($include_drafts = false, $include_hidden = false, $x_background_read = null, string $contentType = self::contentTypes['getDashboard'][0])
     {
-        list($response) = $this->getDashboardWithHttpInfo($owner, $include_drafts, $include_hidden, $x_background_read, $contentType);
+        list($response) = $this->getDashboardWithHttpInfo($include_drafts, $include_hidden, $x_background_read, $contentType);
         return $response;
     }
 
@@ -674,7 +673,6 @@ class DashboardApi
      *
      * The aggregated view
      *
-     * @param  string|null $owner A username that has shared their dashboard with the caller. Defaults to the caller&#39;s own. (optional)
      * @param  bool|null $include_drafts Whether draft pull requests are in &#x60;pullRequests&#x60;. Defaults to &#x60;false&#x60;: nothing can be merged, auto-merged or updated on a draft, so a draft is left out and counted in the response&#39;s &#x60;hiddenDrafts&#x60; instead. The stream and the refresh endpoint take the same parameter, so every snapshot a client receives follows one rule. (optional, default to false)
      * @param  bool|null $include_hidden Whether pull requests the user hid (&#x60;POST /api/pull-requests/hide&#x60;) are in &#x60;pullRequests&#x60;, marked &#x60;hidden: true&#x60;. Defaults to &#x60;false&#x60;: a hidden pull request is left out and counted in the response&#39;s &#x60;hiddenPullRequests&#x60;. A client lists the hidden ones, to offer a Restore, by asking with &#x60;true&#x60;. The stream and the refresh endpoint take the same parameter. (optional, default to false)
      * @param  string|null $x_background_read Any value says the read is the page&#39;s own timed refresh of its data, not something a person asked for. Such a read does not count as use of the dashboard, so a tab nobody is looking at cannot keep the scheduled refresh running by polling. (optional)
@@ -682,11 +680,11 @@ class DashboardApi
      *
      * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \ForgeDashboard\Generated\Model\Dashboard|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \ForgeDashboard\Generated\Model\Dashboard|\ForgeDashboard\Generated\Model\Error, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getDashboardWithHttpInfo($owner = null, $include_drafts = false, $include_hidden = false, $x_background_read = null, string $contentType = self::contentTypes['getDashboard'][0])
+    public function getDashboardWithHttpInfo($include_drafts = false, $include_hidden = false, $x_background_read = null, string $contentType = self::contentTypes['getDashboard'][0])
     {
-        $request = $this->getDashboardRequest($owner, $include_drafts, $include_hidden, $x_background_read, $contentType);
+        $request = $this->getDashboardRequest($include_drafts, $include_hidden, $x_background_read, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -719,18 +717,6 @@ class DashboardApi
                         $response,
                     );
                 case 401:
-                    return $this->handleResponseWithDataType(
-                        '\ForgeDashboard\Generated\Model\Error',
-                        $request,
-                        $response,
-                    );
-                case 403:
-                    return $this->handleResponseWithDataType(
-                        '\ForgeDashboard\Generated\Model\Error',
-                        $request,
-                        $response,
-                    );
-                case 404:
                     return $this->handleResponseWithDataType(
                         '\ForgeDashboard\Generated\Model\Error',
                         $request,
@@ -776,22 +762,6 @@ class DashboardApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 403:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\ForgeDashboard\Generated\Model\Error',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-                case 404:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\ForgeDashboard\Generated\Model\Error',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
             }
         
 
@@ -804,7 +774,6 @@ class DashboardApi
      *
      * The aggregated view
      *
-     * @param  string|null $owner A username that has shared their dashboard with the caller. Defaults to the caller&#39;s own. (optional)
      * @param  bool|null $include_drafts Whether draft pull requests are in &#x60;pullRequests&#x60;. Defaults to &#x60;false&#x60;: nothing can be merged, auto-merged or updated on a draft, so a draft is left out and counted in the response&#39;s &#x60;hiddenDrafts&#x60; instead. The stream and the refresh endpoint take the same parameter, so every snapshot a client receives follows one rule. (optional, default to false)
      * @param  bool|null $include_hidden Whether pull requests the user hid (&#x60;POST /api/pull-requests/hide&#x60;) are in &#x60;pullRequests&#x60;, marked &#x60;hidden: true&#x60;. Defaults to &#x60;false&#x60;: a hidden pull request is left out and counted in the response&#39;s &#x60;hiddenPullRequests&#x60;. A client lists the hidden ones, to offer a Restore, by asking with &#x60;true&#x60;. The stream and the refresh endpoint take the same parameter. (optional, default to false)
      * @param  string|null $x_background_read Any value says the read is the page&#39;s own timed refresh of its data, not something a person asked for. Such a read does not count as use of the dashboard, so a tab nobody is looking at cannot keep the scheduled refresh running by polling. (optional)
@@ -813,9 +782,9 @@ class DashboardApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getDashboardAsync($owner = null, $include_drafts = false, $include_hidden = false, $x_background_read = null, string $contentType = self::contentTypes['getDashboard'][0])
+    public function getDashboardAsync($include_drafts = false, $include_hidden = false, $x_background_read = null, string $contentType = self::contentTypes['getDashboard'][0])
     {
-        return $this->getDashboardAsyncWithHttpInfo($owner, $include_drafts, $include_hidden, $x_background_read, $contentType)
+        return $this->getDashboardAsyncWithHttpInfo($include_drafts, $include_hidden, $x_background_read, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -828,7 +797,6 @@ class DashboardApi
      *
      * The aggregated view
      *
-     * @param  string|null $owner A username that has shared their dashboard with the caller. Defaults to the caller&#39;s own. (optional)
      * @param  bool|null $include_drafts Whether draft pull requests are in &#x60;pullRequests&#x60;. Defaults to &#x60;false&#x60;: nothing can be merged, auto-merged or updated on a draft, so a draft is left out and counted in the response&#39;s &#x60;hiddenDrafts&#x60; instead. The stream and the refresh endpoint take the same parameter, so every snapshot a client receives follows one rule. (optional, default to false)
      * @param  bool|null $include_hidden Whether pull requests the user hid (&#x60;POST /api/pull-requests/hide&#x60;) are in &#x60;pullRequests&#x60;, marked &#x60;hidden: true&#x60;. Defaults to &#x60;false&#x60;: a hidden pull request is left out and counted in the response&#39;s &#x60;hiddenPullRequests&#x60;. A client lists the hidden ones, to offer a Restore, by asking with &#x60;true&#x60;. The stream and the refresh endpoint take the same parameter. (optional, default to false)
      * @param  string|null $x_background_read Any value says the read is the page&#39;s own timed refresh of its data, not something a person asked for. Such a read does not count as use of the dashboard, so a tab nobody is looking at cannot keep the scheduled refresh running by polling. (optional)
@@ -837,10 +805,10 @@ class DashboardApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getDashboardAsyncWithHttpInfo($owner = null, $include_drafts = false, $include_hidden = false, $x_background_read = null, string $contentType = self::contentTypes['getDashboard'][0])
+    public function getDashboardAsyncWithHttpInfo($include_drafts = false, $include_hidden = false, $x_background_read = null, string $contentType = self::contentTypes['getDashboard'][0])
     {
         $returnType = '\ForgeDashboard\Generated\Model\Dashboard';
-        $request = $this->getDashboardRequest($owner, $include_drafts, $include_hidden, $x_background_read, $contentType);
+        $request = $this->getDashboardRequest($include_drafts, $include_hidden, $x_background_read, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -881,7 +849,6 @@ class DashboardApi
     /**
      * Create request for operation 'getDashboard'
      *
-     * @param  string|null $owner A username that has shared their dashboard with the caller. Defaults to the caller&#39;s own. (optional)
      * @param  bool|null $include_drafts Whether draft pull requests are in &#x60;pullRequests&#x60;. Defaults to &#x60;false&#x60;: nothing can be merged, auto-merged or updated on a draft, so a draft is left out and counted in the response&#39;s &#x60;hiddenDrafts&#x60; instead. The stream and the refresh endpoint take the same parameter, so every snapshot a client receives follows one rule. (optional, default to false)
      * @param  bool|null $include_hidden Whether pull requests the user hid (&#x60;POST /api/pull-requests/hide&#x60;) are in &#x60;pullRequests&#x60;, marked &#x60;hidden: true&#x60;. Defaults to &#x60;false&#x60;: a hidden pull request is left out and counted in the response&#39;s &#x60;hiddenPullRequests&#x60;. A client lists the hidden ones, to offer a Restore, by asking with &#x60;true&#x60;. The stream and the refresh endpoint take the same parameter. (optional, default to false)
      * @param  string|null $x_background_read Any value says the read is the page&#39;s own timed refresh of its data, not something a person asked for. Such a read does not count as use of the dashboard, so a tab nobody is looking at cannot keep the scheduled refresh running by polling. (optional)
@@ -890,9 +857,8 @@ class DashboardApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getDashboardRequest($owner = null, $include_drafts = false, $include_hidden = false, $x_background_read = null, string $contentType = self::contentTypes['getDashboard'][0])
+    public function getDashboardRequest($include_drafts = false, $include_hidden = false, $x_background_read = null, string $contentType = self::contentTypes['getDashboard'][0])
     {
-
 
 
 
@@ -905,15 +871,6 @@ class DashboardApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $owner,
-            'owner', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            false // required
-        ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $include_drafts,
