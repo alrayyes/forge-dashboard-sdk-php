@@ -62,7 +62,10 @@ class LinkedPullRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
         'repo' => 'string',
         'number' => 'int',
         'draft' => 'bool',
-        'page_url' => 'string'
+        'page_url' => 'string',
+        'ci' => '\ForgeDashboard\Generated\Model\CIStatus',
+        'checks' => '\ForgeDashboard\Generated\Model\CheckCounts',
+        'awaiting_workflow_approval' => 'bool'
     ];
 
     /**
@@ -77,7 +80,10 @@ class LinkedPullRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
         'repo' => null,
         'number' => null,
         'draft' => null,
-        'page_url' => null
+        'page_url' => null,
+        'ci' => null,
+        'checks' => null,
+        'awaiting_workflow_approval' => null
     ];
 
     /**
@@ -90,7 +96,10 @@ class LinkedPullRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
         'repo' => false,
         'number' => false,
         'draft' => false,
-        'page_url' => false
+        'page_url' => false,
+        'ci' => false,
+        'checks' => false,
+        'awaiting_workflow_approval' => false
     ];
 
     /**
@@ -183,7 +192,10 @@ class LinkedPullRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
         'repo' => 'repo',
         'number' => 'number',
         'draft' => 'draft',
-        'page_url' => 'pageUrl'
+        'page_url' => 'pageUrl',
+        'ci' => 'ci',
+        'checks' => 'checks',
+        'awaiting_workflow_approval' => 'awaitingWorkflowApproval'
     ];
 
     /**
@@ -196,7 +208,10 @@ class LinkedPullRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
         'repo' => 'setRepo',
         'number' => 'setNumber',
         'draft' => 'setDraft',
-        'page_url' => 'setPageUrl'
+        'page_url' => 'setPageUrl',
+        'ci' => 'setCi',
+        'checks' => 'setChecks',
+        'awaiting_workflow_approval' => 'setAwaitingWorkflowApproval'
     ];
 
     /**
@@ -209,7 +224,10 @@ class LinkedPullRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
         'repo' => 'getRepo',
         'number' => 'getNumber',
         'draft' => 'getDraft',
-        'page_url' => 'getPageUrl'
+        'page_url' => 'getPageUrl',
+        'ci' => 'getCi',
+        'checks' => 'getChecks',
+        'awaiting_workflow_approval' => 'getAwaitingWorkflowApproval'
     ];
 
     /**
@@ -274,6 +292,9 @@ class LinkedPullRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
         $this->setIfExists('number', $data ?? [], null);
         $this->setIfExists('draft', $data ?? [], null);
         $this->setIfExists('page_url', $data ?? [], null);
+        $this->setIfExists('ci', $data ?? [], null);
+        $this->setIfExists('checks', $data ?? [], null);
+        $this->setIfExists('awaiting_workflow_approval', $data ?? [], null);
     }
 
     /**
@@ -321,6 +342,15 @@ class LinkedPullRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
         }
         if ($this->container['page_url'] === null) {
             $invalidProperties[] = "'page_url' can't be null";
+        }
+        if ($this->container['ci'] === null) {
+            $invalidProperties[] = "'ci' can't be null";
+        }
+        if ($this->container['checks'] === null) {
+            $invalidProperties[] = "'checks' can't be null";
+        }
+        if ($this->container['awaiting_workflow_approval'] === null) {
+            $invalidProperties[] = "'awaiting_workflow_approval' can't be null";
         }
         return $invalidProperties;
     }
@@ -472,6 +502,87 @@ class LinkedPullRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
             throw new \InvalidArgumentException('non-nullable page_url cannot be null');
         }
         $this->container['page_url'] = $page_url;
+
+        return $this;
+    }
+
+    /**
+     * Gets ci
+     *
+     * @return \ForgeDashboard\Generated\Model\CIStatus
+     */
+    public function getCi()
+    {
+        return $this->container['ci'];
+    }
+
+    /**
+     * Sets ci
+     *
+     * @param \ForgeDashboard\Generated\Model\CIStatus $ci ci
+     *
+     * @return self
+     */
+    public function setCi($ci)
+    {
+        if (is_null($ci)) {
+            throw new \InvalidArgumentException('non-nullable ci cannot be null');
+        }
+        $this->container['ci'] = $ci;
+
+        return $this;
+    }
+
+    /**
+     * Gets checks
+     *
+     * @return \ForgeDashboard\Generated\Model\CheckCounts
+     */
+    public function getChecks()
+    {
+        return $this->container['checks'];
+    }
+
+    /**
+     * Sets checks
+     *
+     * @param \ForgeDashboard\Generated\Model\CheckCounts $checks checks
+     *
+     * @return self
+     */
+    public function setChecks($checks)
+    {
+        if (is_null($checks)) {
+            throw new \InvalidArgumentException('non-nullable checks cannot be null');
+        }
+        $this->container['checks'] = $checks;
+
+        return $this;
+    }
+
+    /**
+     * Gets awaiting_workflow_approval
+     *
+     * @return bool
+     */
+    public function getAwaitingWorkflowApproval()
+    {
+        return $this->container['awaiting_workflow_approval'];
+    }
+
+    /**
+     * Sets awaiting_workflow_approval
+     *
+     * @param bool $awaiting_workflow_approval The same flag as on the pull request itself: true when GitHub is holding a workflow run on the head commit until someone approves it. A client says \"waiting for approval\" rather than \"check failed\" while it is true. Always present; false on Forgejo.
+     *
+     * @return self
+     */
+    public function setAwaitingWorkflowApproval($awaiting_workflow_approval)
+    {
+        if (is_null($awaiting_workflow_approval)) {
+            throw new \InvalidArgumentException('non-nullable awaiting_workflow_approval cannot be null');
+        }
+        $this->container['awaiting_workflow_approval'] = $awaiting_workflow_approval;
 
         return $this;
     }
