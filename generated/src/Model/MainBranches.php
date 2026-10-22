@@ -59,6 +59,7 @@ class MainBranches implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPITypes = [
         'generated_at' => '\DateTime',
         'counts' => '\ForgeDashboard\Generated\Model\MainBranchCounts',
+        'forges' => '\ForgeDashboard\Generated\Model\ForgeHealth[]',
         'branches' => '\ForgeDashboard\Generated\Model\MainBranch[]'
     ];
 
@@ -72,6 +73,7 @@ class MainBranches implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'generated_at' => 'date-time',
         'counts' => null,
+        'forges' => null,
         'branches' => null
     ];
 
@@ -83,6 +85,7 @@ class MainBranches implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static array $openAPINullables = [
         'generated_at' => false,
         'counts' => false,
+        'forges' => false,
         'branches' => false
     ];
 
@@ -174,6 +177,7 @@ class MainBranches implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $attributeMap = [
         'generated_at' => 'generatedAt',
         'counts' => 'counts',
+        'forges' => 'forges',
         'branches' => 'branches'
     ];
 
@@ -185,6 +189,7 @@ class MainBranches implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $setters = [
         'generated_at' => 'setGeneratedAt',
         'counts' => 'setCounts',
+        'forges' => 'setForges',
         'branches' => 'setBranches'
     ];
 
@@ -196,6 +201,7 @@ class MainBranches implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $getters = [
         'generated_at' => 'getGeneratedAt',
         'counts' => 'getCounts',
+        'forges' => 'getForges',
         'branches' => 'getBranches'
     ];
 
@@ -258,6 +264,7 @@ class MainBranches implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $this->setIfExists('generated_at', $data ?? [], null);
         $this->setIfExists('counts', $data ?? [], null);
+        $this->setIfExists('forges', $data ?? [], null);
         $this->setIfExists('branches', $data ?? [], null);
     }
 
@@ -293,6 +300,9 @@ class MainBranches implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if ($this->container['counts'] === null) {
             $invalidProperties[] = "'counts' can't be null";
+        }
+        if ($this->container['forges'] === null) {
+            $invalidProperties[] = "'forges' can't be null";
         }
         if ($this->container['branches'] === null) {
             $invalidProperties[] = "'branches' can't be null";
@@ -362,6 +372,33 @@ class MainBranches implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable counts cannot be null');
         }
         $this->container['counts'] = $counts;
+
+        return $this;
+    }
+
+    /**
+     * Gets forges
+     *
+     * @return \ForgeDashboard\Generated\Model\ForgeHealth[]
+     */
+    public function getForges()
+    {
+        return $this->container['forges'];
+    }
+
+    /**
+     * Sets forges
+     *
+     * @param \ForgeDashboard\Generated\Model\ForgeHealth[] $forges Each forge's health as of the last refresh, the same as the dashboard's. A client uses it to hold back an action that a forge which can't be reached, or whose rate limit is spent, would probably refuse. The budget can run out between refreshes, so the forge still has the final say.
+     *
+     * @return self
+     */
+    public function setForges($forges)
+    {
+        if (is_null($forges)) {
+            throw new \InvalidArgumentException('non-nullable forges cannot be null');
+        }
+        $this->container['forges'] = $forges;
 
         return $this;
     }
