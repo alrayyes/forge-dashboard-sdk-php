@@ -22,6 +22,7 @@ src/Model/APITokenCreateRequest.php
 src/Model/APITokenCreateResponse.php
 src/Model/ActionError.php
 src/Model/Advisories.php
+src/Model/AdvisoryReason.php
 src/Model/AdvisorySeverity.php
 src/Model/AdvisoryState.php
 src/Model/AllowedAction.php

@@ -61,7 +61,8 @@ class Advisories implements ModelInterface, ArrayAccess, \JsonSerializable
         'state' => '\ForgeDashboard\Generated\Model\AdvisoryState',
         'count' => 'int',
         'highest' => '\ForgeDashboard\Generated\Model\AdvisorySeverity',
-        'url' => 'string'
+        'url' => 'string',
+        'reason' => '\ForgeDashboard\Generated\Model\AdvisoryReason'
     ];
 
     /**
@@ -75,7 +76,8 @@ class Advisories implements ModelInterface, ArrayAccess, \JsonSerializable
         'state' => null,
         'count' => null,
         'highest' => null,
-        'url' => null
+        'url' => null,
+        'reason' => null
     ];
 
     /**
@@ -87,7 +89,8 @@ class Advisories implements ModelInterface, ArrayAccess, \JsonSerializable
         'state' => false,
         'count' => false,
         'highest' => false,
-        'url' => false
+        'url' => false,
+        'reason' => false
     ];
 
     /**
@@ -179,7 +182,8 @@ class Advisories implements ModelInterface, ArrayAccess, \JsonSerializable
         'state' => 'state',
         'count' => 'count',
         'highest' => 'highest',
-        'url' => 'url'
+        'url' => 'url',
+        'reason' => 'reason'
     ];
 
     /**
@@ -191,7 +195,8 @@ class Advisories implements ModelInterface, ArrayAccess, \JsonSerializable
         'state' => 'setState',
         'count' => 'setCount',
         'highest' => 'setHighest',
-        'url' => 'setUrl'
+        'url' => 'setUrl',
+        'reason' => 'setReason'
     ];
 
     /**
@@ -203,7 +208,8 @@ class Advisories implements ModelInterface, ArrayAccess, \JsonSerializable
         'state' => 'getState',
         'count' => 'getCount',
         'highest' => 'getHighest',
-        'url' => 'getUrl'
+        'url' => 'getUrl',
+        'reason' => 'getReason'
     ];
 
     /**
@@ -267,6 +273,7 @@ class Advisories implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('count', $data ?? [], null);
         $this->setIfExists('highest', $data ?? [], null);
         $this->setIfExists('url', $data ?? [], null);
+        $this->setIfExists('reason', $data ?? [], null);
     }
 
     /**
@@ -429,6 +436,33 @@ class Advisories implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable url cannot be null');
         }
         $this->container['url'] = $url;
+
+        return $this;
+    }
+
+    /**
+     * Gets reason
+     *
+     * @return \ForgeDashboard\Generated\Model\AdvisoryReason|null
+     */
+    public function getReason()
+    {
+        return $this->container['reason'];
+    }
+
+    /**
+     * Sets reason
+     *
+     * @param \ForgeDashboard\Generated\Model\AdvisoryReason|null $reason reason
+     *
+     * @return self
+     */
+    public function setReason($reason)
+    {
+        if (is_null($reason)) {
+            throw new \InvalidArgumentException('non-nullable reason cannot be null');
+        }
+        $this->container['reason'] = $reason;
 
         return $this;
     }
