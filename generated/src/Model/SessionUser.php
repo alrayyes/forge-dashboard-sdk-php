@@ -58,8 +58,7 @@ class SessionUser implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $openAPITypes = [
         'username' => 'string',
-        'display_name' => 'string',
-        'is_admin' => 'bool'
+        'display_name' => 'string'
     ];
 
     /**
@@ -71,8 +70,7 @@ class SessionUser implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $openAPIFormats = [
         'username' => null,
-        'display_name' => null,
-        'is_admin' => null
+        'display_name' => null
     ];
 
     /**
@@ -82,8 +80,7 @@ class SessionUser implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static array $openAPINullables = [
         'username' => false,
-        'display_name' => false,
-        'is_admin' => false
+        'display_name' => false
     ];
 
     /**
@@ -173,8 +170,7 @@ class SessionUser implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $attributeMap = [
         'username' => 'username',
-        'display_name' => 'displayName',
-        'is_admin' => 'isAdmin'
+        'display_name' => 'displayName'
     ];
 
     /**
@@ -184,8 +180,7 @@ class SessionUser implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $setters = [
         'username' => 'setUsername',
-        'display_name' => 'setDisplayName',
-        'is_admin' => 'setIsAdmin'
+        'display_name' => 'setDisplayName'
     ];
 
     /**
@@ -195,8 +190,7 @@ class SessionUser implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $getters = [
         'username' => 'getUsername',
-        'display_name' => 'getDisplayName',
-        'is_admin' => 'getIsAdmin'
+        'display_name' => 'getDisplayName'
     ];
 
     /**
@@ -258,7 +252,6 @@ class SessionUser implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $this->setIfExists('username', $data ?? [], null);
         $this->setIfExists('display_name', $data ?? [], null);
-        $this->setIfExists('is_admin', $data ?? [], null);
     }
 
     /**
@@ -293,9 +286,6 @@ class SessionUser implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if ($this->container['display_name'] === null) {
             $invalidProperties[] = "'display_name' can't be null";
-        }
-        if ($this->container['is_admin'] === null) {
-            $invalidProperties[] = "'is_admin' can't be null";
         }
         return $invalidProperties;
     }
@@ -362,33 +352,6 @@ class SessionUser implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable display_name cannot be null');
         }
         $this->container['display_name'] = $display_name;
-
-        return $this;
-    }
-
-    /**
-     * Gets is_admin
-     *
-     * @return bool
-     */
-    public function getIsAdmin()
-    {
-        return $this->container['is_admin'];
-    }
-
-    /**
-     * Sets is_admin
-     *
-     * @param bool $is_admin is_admin
-     *
-     * @return self
-     */
-    public function setIsAdmin($is_admin)
-    {
-        if (is_null($is_admin)) {
-            throw new \InvalidArgumentException('non-nullable is_admin cannot be null');
-        }
-        $this->container['is_admin'] = $is_admin;
 
         return $this;
     }

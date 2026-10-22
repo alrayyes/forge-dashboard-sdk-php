@@ -5,7 +5,6 @@ README.md
 composer.json
 git_push.sh
 phpunit.xml.dist
-src/Api/AdminApi.php
 src/Api/AuthApi.php
 src/Api/DashboardApi.php
 src/Api/HealthApi.php
@@ -22,10 +21,6 @@ src/Model/APIToken.php
 src/Model/APITokenCreateRequest.php
 src/Model/APITokenCreateResponse.php
 src/Model/ActionError.php
-src/Model/AdminInvite.php
-src/Model/AdminInviteCreateRequest.php
-src/Model/AdminInviteCreateResponse.php
-src/Model/AdminUser.php
 src/Model/Advisories.php
 src/Model/AdvisorySeverity.php
 src/Model/AdvisoryState.php
