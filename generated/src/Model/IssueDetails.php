@@ -58,6 +58,7 @@ class IssueDetails implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $openAPITypes = [
+        'state' => 'string',
         'description' => '\ForgeDashboard\Generated\Model\DetailsBody',
         'comments' => '\ForgeDashboard\Generated\Model\DetailsComment[]',
         'comment_count' => 'int',
@@ -72,6 +73,7 @@ class IssueDetails implements ModelInterface, ArrayAccess, \JsonSerializable
      * @psalm-var array<string, string|null>
      */
     protected static $openAPIFormats = [
+        'state' => null,
         'description' => null,
         'comments' => null,
         'comment_count' => null,
@@ -84,6 +86,7 @@ class IssueDetails implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var boolean[]
      */
     protected static array $openAPINullables = [
+        'state' => false,
         'description' => false,
         'comments' => false,
         'comment_count' => false,
@@ -176,6 +179,7 @@ class IssueDetails implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
+        'state' => 'state',
         'description' => 'description',
         'comments' => 'comments',
         'comment_count' => 'commentCount',
@@ -188,6 +192,7 @@ class IssueDetails implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
+        'state' => 'setState',
         'description' => 'setDescription',
         'comments' => 'setComments',
         'comment_count' => 'setCommentCount',
@@ -200,6 +205,7 @@ class IssueDetails implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
+        'state' => 'getState',
         'description' => 'getDescription',
         'comments' => 'getComments',
         'comment_count' => 'getCommentCount',
@@ -247,6 +253,21 @@ class IssueDetails implements ModelInterface, ArrayAccess, \JsonSerializable
         return self::$openAPIModelName;
     }
 
+    public const STATE_OPEN = 'open';
+    public const STATE_CLOSED = 'closed';
+
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getStateAllowableValues()
+    {
+        return [
+            self::STATE_OPEN,
+            self::STATE_CLOSED,
+        ];
+    }
 
     /**
      * Associative array for storing property values
@@ -263,6 +284,7 @@ class IssueDetails implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
+        $this->setIfExists('state', $data ?? [], null);
         $this->setIfExists('description', $data ?? [], null);
         $this->setIfExists('comments', $data ?? [], null);
         $this->setIfExists('comment_count', $data ?? [], null);
@@ -295,6 +317,18 @@ class IssueDetails implements ModelInterface, ArrayAccess, \JsonSerializable
     public function listInvalidProperties()
     {
         $invalidProperties = [];
+
+        if ($this->container['state'] === null) {
+            $invalidProperties[] = "'state' can't be null";
+        }
+        $allowedValues = $this->getStateAllowableValues();
+        if (!is_null($this->container['state']) && !in_array($this->container['state'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value '%s' for 'state', must be one of '%s'",
+                $this->container['state'],
+                implode("', '", $allowedValues)
+            );
+        }
 
         if ($this->container['description'] === null) {
             $invalidProperties[] = "'description' can't be null";
@@ -330,6 +364,43 @@ class IssueDetails implements ModelInterface, ArrayAccess, \JsonSerializable
         return count($this->listInvalidProperties()) === 0;
     }
 
+
+    /**
+     * Gets state
+     *
+     * @return string
+     */
+    public function getState()
+    {
+        return $this->container['state'];
+    }
+
+    /**
+     * Sets state
+     *
+     * @param string $state Whether the forge has the issue open or closed right now. The dialog draws its status from this, so an issue closed or reopened while the dialog is open shows the change.
+     *
+     * @return self
+     */
+    public function setState($state)
+    {
+        if (is_null($state)) {
+            throw new \InvalidArgumentException('non-nullable state cannot be null');
+        }
+        $allowedValues = $this->getStateAllowableValues();
+        if (!in_array($state, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value '%s' for 'state', must be one of '%s'",
+                    $state,
+                    implode("', '", $allowedValues)
+                )
+            );
+        }
+        $this->container['state'] = $state;
+
+        return $this;
+    }
 
     /**
      * Gets description
