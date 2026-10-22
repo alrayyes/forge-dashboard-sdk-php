@@ -31,3 +31,22 @@ it('drops generated files whose operation left the spec', function (): void {
     expect(file_exists($dir.'/generated/src/Api/GoneApi.php'))->toBeFalse();
     expect(file_exists($dir.'/generated/src/Api/KeptApi.php'))->toBeTrue();
 });
+it('has no code for the admin and sharing operations the server dropped', function (): void {
+    $root = dirname(__DIR__);
+    $hits = [];
+
+    foreach (['generated', 'src'] as $dir) {
+        $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($root.'/'.$dir, FilesystemIterator::SKIP_DOTS));
+        foreach ($files as $file) {
+            if (! $file instanceof SplFileInfo) {
+                continue;
+            }
+
+            if (preg_match('/createInvite|listUsers|shareWith/', (string) file_get_contents($file->getPathname())) === 1) {
+                $hits[] = $file->getPathname();
+            }
+        }
+    }
+
+    expect($hits)->toBe([]);
+});

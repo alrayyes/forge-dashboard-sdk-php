@@ -91,7 +91,7 @@ try {
 
 Every other operation is a direct call on the matching generated Api class —
 `$client->settings`, `$client->tokens`, `$client->pullRequests`,
-`$client->admin`, `$client->sharing`, `$client->auth`, `$client->webhooks` —
+`$client->auth`, `$client->webhooks` —
 each named after the spec's own tags. These throw the generated
 `ForgeDashboard\Generated\ApiException` on any non-2xx response; convert
 it to a typed error uniformly with `ApiError::fromGeneratedException()`, as
