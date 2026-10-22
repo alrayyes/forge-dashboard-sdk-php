@@ -63,19 +63,18 @@ require_once(__DIR__ . '/vendor/autoload.php');
 $config = ForgeDashboard\Generated\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 
-$apiInstance = new ForgeDashboard\Generated\Api\AdminApi(
+$apiInstance = new ForgeDashboard\Generated\Api\AuthApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),
     $config
 );
-$admin_invite_create_request = new \ForgeDashboard\Generated\Model\AdminInviteCreateRequest(); // \ForgeDashboard\Generated\Model\AdminInviteCreateRequest
 
 try {
-    $result = $apiInstance->createInvite($admin_invite_create_request);
+    $result = $apiInstance->beginAddCredential();
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling AdminApi->createInvite: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling AuthApi->beginAddCredential: ', $e->getMessage(), PHP_EOL;
 }
 
 ```
@@ -86,12 +85,6 @@ All URIs are relative to *https://localhost:8080*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*AdminApi* | [**createInvite**](docs/Api/AdminApi.md#createinvite) | **POST** /api/admin/invites | Generate a new single-use registration invite
-*AdminApi* | [**deleteUser**](docs/Api/AdminApi.md#deleteuser) | **DELETE** /api/admin/users/{username} | Remove a user outright
-*AdminApi* | [**listInvites**](docs/Api/AdminApi.md#listinvites) | **GET** /api/admin/invites | List outstanding registration invites
-*AdminApi* | [**listUsers**](docs/Api/AdminApi.md#listusers) | **GET** /api/admin/users | List every registered user
-*AdminApi* | [**revokeInvite**](docs/Api/AdminApi.md#revokeinvite) | **POST** /api/admin/invites/{token}/revoke | Revoke an outstanding invite
-*AdminApi* | [**revokeUser**](docs/Api/AdminApi.md#revokeuser) | **POST** /api/admin/users/{username}/revoke | Revoke a user&#39;s passkeys and sessions
 *AuthApi* | [**beginAddCredential**](docs/Api/AuthApi.md#beginaddcredential) | **POST** /api/auth/credentials/begin | Start a ceremony to add another passkey to the signed-in account
 *AuthApi* | [**beginLogin**](docs/Api/AuthApi.md#beginlogin) | **POST** /api/auth/login/begin | Start a passkey login ceremony
 *AuthApi* | [**beginRegistration**](docs/Api/AuthApi.md#beginregistration) | **POST** /api/auth/register/begin | Start a passkey registration ceremony
@@ -158,10 +151,6 @@ Class | Method | HTTP request | Description
 - [APITokenCreateRequest](docs/Model/APITokenCreateRequest.md)
 - [APITokenCreateResponse](docs/Model/APITokenCreateResponse.md)
 - [ActionError](docs/Model/ActionError.md)
-- [AdminInvite](docs/Model/AdminInvite.md)
-- [AdminInviteCreateRequest](docs/Model/AdminInviteCreateRequest.md)
-- [AdminInviteCreateResponse](docs/Model/AdminInviteCreateResponse.md)
-- [AdminUser](docs/Model/AdminUser.md)
 - [Advisories](docs/Model/Advisories.md)
 - [AdvisorySeverity](docs/Model/AdvisorySeverity.md)
 - [AdvisoryState](docs/Model/AdvisoryState.md)
