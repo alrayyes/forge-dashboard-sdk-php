@@ -69,6 +69,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         'can_manage_webhooks' => 'bool',
         'webhook_locked_by_connection' => 'bool',
         'webhook_needs_token' => 'bool',
+        'failing_since' => '\DateTime',
         'auto_update_branch' => 'bool'
     ];
 
@@ -91,6 +92,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         'can_manage_webhooks' => null,
         'webhook_locked_by_connection' => null,
         'webhook_needs_token' => null,
+        'failing_since' => 'date-time',
         'auto_update_branch' => null
     ];
 
@@ -111,6 +113,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         'can_manage_webhooks' => false,
         'webhook_locked_by_connection' => false,
         'webhook_needs_token' => false,
+        'failing_since' => false,
         'auto_update_branch' => false
     ];
 
@@ -211,6 +214,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         'can_manage_webhooks' => 'canManageWebhooks',
         'webhook_locked_by_connection' => 'webhookLockedByConnection',
         'webhook_needs_token' => 'webhookNeedsToken',
+        'failing_since' => 'failingSince',
         'auto_update_branch' => 'autoUpdateBranch'
     ];
 
@@ -231,6 +235,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         'can_manage_webhooks' => 'setCanManageWebhooks',
         'webhook_locked_by_connection' => 'setWebhookLockedByConnection',
         'webhook_needs_token' => 'setWebhookNeedsToken',
+        'failing_since' => 'setFailingSince',
         'auto_update_branch' => 'setAutoUpdateBranch'
     ];
 
@@ -251,6 +256,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         'can_manage_webhooks' => 'getCanManageWebhooks',
         'webhook_locked_by_connection' => 'getWebhookLockedByConnection',
         'webhook_needs_token' => 'getWebhookNeedsToken',
+        'failing_since' => 'getFailingSince',
         'auto_update_branch' => 'getAutoUpdateBranch'
     ];
 
@@ -322,6 +328,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('can_manage_webhooks', $data ?? [], null);
         $this->setIfExists('webhook_locked_by_connection', $data ?? [], null);
         $this->setIfExists('webhook_needs_token', $data ?? [], null);
+        $this->setIfExists('failing_since', $data ?? [], null);
         $this->setIfExists('auto_update_branch', $data ?? [], null);
     }
 
@@ -687,6 +694,33 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable webhook_needs_token cannot be null');
         }
         $this->container['webhook_needs_token'] = $webhook_needs_token;
+
+        return $this;
+    }
+
+    /**
+     * Gets failing_since
+     *
+     * @return \DateTime|null
+     */
+    public function getFailingSince()
+    {
+        return $this->container['failing_since'];
+    }
+
+    /**
+     * Sets failing_since
+     *
+     * @param \DateTime|null $failing_since Present when the last fetch of this repository failed, and the time of the first failure in the run it is still part of. Its pull requests and issues are then the last good ones. Absent when the repository is fetching fine. It is not saved, so it restarts from the first failure after a restart.
+     *
+     * @return self
+     */
+    public function setFailingSince($failing_since)
+    {
+        if (is_null($failing_since)) {
+            throw new \InvalidArgumentException('non-nullable failing_since cannot be null');
+        }
+        $this->container['failing_since'] = $failing_since;
 
         return $this;
     }
