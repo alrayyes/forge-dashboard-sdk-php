@@ -98,6 +98,7 @@ Class | Method | HTTP request | Description
 *AuthApi* | [**logout**](docs/Api/AuthApi.md#logout) | **POST** /api/auth/logout | End the current session
 *DashboardApi* | [**disableAutoUpdateBranch**](docs/Api/DashboardApi.md#disableautoupdatebranch) | **POST** /api/repos/auto-update-branch/disable | Turn off automatic branch updates for one tracked repo
 *DashboardApi* | [**enableAutoUpdateBranch**](docs/Api/DashboardApi.md#enableautoupdatebranch) | **POST** /api/repos/auto-update-branch/enable | Turn on automatic branch updates for one tracked repo
+*DashboardApi* | [**getCheckLog**](docs/Api/DashboardApi.md#getchecklog) | **GET** /api/checks/log | Read the output of one CI job, on demand
 *DashboardApi* | [**getDashboard**](docs/Api/DashboardApi.md#getdashboard) | **GET** /api/dashboard | The aggregated view
 *DashboardApi* | [**getForgeApiStats**](docs/Api/DashboardApi.md#getforgeapistats) | **GET** /api/stats/forge-api | How many forge API calls the dashboard has spent, and on what
 *DashboardApi* | [**getIssueDetails**](docs/Api/DashboardApi.md#getissuedetails) | **GET** /api/issues/details | Read an issue&#39;s description, comments and reactions, on demand
@@ -164,6 +165,7 @@ Class | Method | HTTP request | Description
 - [CIStatus](docs/Model/CIStatus.md)
 - [Check](docs/Model/Check.md)
 - [CheckCounts](docs/Model/CheckCounts.md)
+- [CheckLog](docs/Model/CheckLog.md)
 - [CheckState](docs/Model/CheckState.md)
 - [ClosingIssue](docs/Model/ClosingIssue.md)
 - [Credential](docs/Model/Credential.md)

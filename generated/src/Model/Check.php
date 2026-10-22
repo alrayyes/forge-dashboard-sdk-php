@@ -61,6 +61,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'name' => 'string',
         'state' => '\ForgeDashboard\Generated\Model\CheckState',
         'url' => 'string',
+        'job_id' => 'int',
         'required' => 'bool',
         'duration_seconds' => 'int',
         'failed_step' => 'string',
@@ -78,6 +79,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'name' => null,
         'state' => null,
         'url' => null,
+        'job_id' => null,
         'required' => null,
         'duration_seconds' => null,
         'failed_step' => null,
@@ -93,6 +95,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'name' => false,
         'state' => false,
         'url' => false,
+        'job_id' => false,
         'required' => false,
         'duration_seconds' => false,
         'failed_step' => false,
@@ -188,6 +191,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'name' => 'name',
         'state' => 'state',
         'url' => 'url',
+        'job_id' => 'jobId',
         'required' => 'required',
         'duration_seconds' => 'durationSeconds',
         'failed_step' => 'failedStep',
@@ -203,6 +207,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'name' => 'setName',
         'state' => 'setState',
         'url' => 'setUrl',
+        'job_id' => 'setJobId',
         'required' => 'setRequired',
         'duration_seconds' => 'setDurationSeconds',
         'failed_step' => 'setFailedStep',
@@ -218,6 +223,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'name' => 'getName',
         'state' => 'getState',
         'url' => 'getUrl',
+        'job_id' => 'getJobId',
         'required' => 'getRequired',
         'duration_seconds' => 'getDurationSeconds',
         'failed_step' => 'getFailedStep',
@@ -284,6 +290,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('name', $data ?? [], null);
         $this->setIfExists('state', $data ?? [], null);
         $this->setIfExists('url', $data ?? [], null);
+        $this->setIfExists('job_id', $data ?? [], null);
         $this->setIfExists('required', $data ?? [], null);
         $this->setIfExists('duration_seconds', $data ?? [], null);
         $this->setIfExists('failed_step', $data ?? [], null);
@@ -326,6 +333,10 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['url'] === null) {
             $invalidProperties[] = "'url' can't be null";
         }
+        if (!is_null($this->container['job_id']) && ($this->container['job_id'] < 1)) {
+            $invalidProperties[] = "invalid value for 'job_id', must be bigger than or equal to 1.";
+        }
+
         if (!is_null($this->container['duration_seconds']) && ($this->container['duration_seconds'] < 0)) {
             $invalidProperties[] = "invalid value for 'duration_seconds', must be bigger than or equal to 0.";
         }
@@ -422,6 +433,37 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable url cannot be null');
         }
         $this->container['url'] = $url;
+
+        return $this;
+    }
+
+    /**
+     * Gets job_id
+     *
+     * @return int|null
+     */
+    public function getJobId()
+    {
+        return $this->container['job_id'];
+    }
+
+    /**
+     * Sets job_id
+     *
+     * @param int|null $job_id The Actions job (or check run) id to pass to GET /api/checks/log. Absent for a legacy commit status and for a workflow held for approval, which have no output to read.
+     *
+     * @return self
+     */
+    public function setJobId($job_id)
+    {
+        if (is_null($job_id)) {
+            throw new \InvalidArgumentException('non-nullable job_id cannot be null');
+        }
+        if (($job_id < 1)) {
+            throw new \InvalidArgumentException('invalid value for $job_id when calling Check., must be bigger than or equal to 1.');
+        }
+
+        $this->container['job_id'] = $job_id;
 
         return $this;
     }
@@ -524,7 +566,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets excerpt
      *
-     * @param string|null $excerpt The tail of the failed job's log as plain text: the last lines, with per-line timestamps and colour codes removed, at most 2,000 characters. Never markup, and a client must render it as text. Whatever the forge already masks stays masked. Absent when the log can't be read or has expired. GitHub only: Forgejo's API doesn't serve job logs, so there the link to the run is all a failed check offers.
+     * @param string|null $excerpt The tail of the failed job's log as plain text: the last lines, with per-line timestamps and colour codes removed, at most 2,000 characters. Never markup, and a client must render it as text. Whatever the forge already masks stays masked. Absent when the log can't be read or has expired. GitHub only: for Forgejo the whole output is read through GET /api/checks/log.
      *
      * @return self
      */
