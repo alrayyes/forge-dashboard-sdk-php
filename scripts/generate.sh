@@ -16,6 +16,11 @@ GENERATOR_IMAGE="openapitools/openapi-generator-cli@sha256:2ab0a9680222de65dc9d3
 # mount is one --user can't write into (alrayyes/dotfiles#609).
 mkdir -p "${HOME}/.cache/openapi-generator-docker"
 
+# Clear generated/ first. The generator only adds and overwrites files, so a
+# class for an operation that left the spec would otherwise stay behind.
+rm -rf generated
+mkdir -p generated
+
 docker run --rm --user "$(id -u):$(id -g)" \
   -e HOME=/tmp \
   -v "$(pwd):/local" \

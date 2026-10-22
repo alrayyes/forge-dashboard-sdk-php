@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace ForgeDashboard;
 
-use ForgeDashboard\Generated\Api\AdminApi;
 use ForgeDashboard\Generated\Api\AuthApi;
 use ForgeDashboard\Generated\Api\DashboardApi;
 use ForgeDashboard\Generated\Api\HealthApi;
 use ForgeDashboard\Generated\Api\PullRequestsApi;
 use ForgeDashboard\Generated\Api\SettingsApi;
-use ForgeDashboard\Generated\Api\SharingApi;
 use ForgeDashboard\Generated\Api\TokensApi;
 use ForgeDashboard\Generated\Api\WebhooksApi;
 use ForgeDashboard\Generated\Configuration;
@@ -61,10 +59,6 @@ final readonly class Client
 
     public PullRequestsApi $pullRequests;
 
-    public AdminApi $admin;
-
-    public SharingApi $sharing;
-
     /**
      * @param  string  $baseUrl  the forge-dashboard instance's origin, e.g.
      *                           "https://forge-dashboard.example.com"
@@ -113,8 +107,6 @@ final readonly class Client
         $this->tokens = new TokensApi($guzzle, $config);
         $this->webhooks = new WebhooksApi($guzzle, $config);
         $this->pullRequests = new PullRequestsApi($guzzle, $config);
-        $this->admin = new AdminApi($guzzle, $config);
-        $this->sharing = new SharingApi($guzzle, $config);
     }
 
     private function buildGuzzleClient(HandlerStack $stack, ?string $token, int $maxRetries, float $baseDelaySeconds): GuzzleClient
