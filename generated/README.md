@@ -108,6 +108,7 @@ Class | Method | HTTP request | Description
 *DashboardApi* | [**ignoreRepo**](docs/Api/DashboardApi.md#ignorerepo) | **POST** /api/repos/ignore | Hide one tracked repo&#39;s pull requests, issues, or both from the dashboard and Insights
 *DashboardApi* | [**refreshDashboard**](docs/Api/DashboardApi.md#refreshdashboard) | **POST** /api/dashboard/refresh | Trigger an immediate refresh of the signed-in user&#39;s own dashboard
 *DashboardApi* | [**reportDashboardPresence**](docs/Api/DashboardApi.md#reportdashboardpresence) | **POST** /api/presence | Say whether a browser tab of the dashboard is being looked at
+*DashboardApi* | [**rerunMainBranchChecks**](docs/Api/DashboardApi.md#rerunmainbranchchecks) | **POST** /api/main-branches/rerun-checks | Rerun only the failed jobs of a repository&#39;s default-branch pipeline, on the signed-in user&#39;s behalf
 *DashboardApi* | [**streamDashboard**](docs/Api/DashboardApi.md#streamdashboard) | **GET** /api/dashboard/stream | Server-Sent Events stream of the signed-in user&#39;s own dashboard
 *DashboardApi* | [**unignoreRepo**](docs/Api/DashboardApi.md#unignorerepo) | **POST** /api/repos/unignore | Stop ignoring one tracked repo
 *HealthApi* | [**getVersion**](docs/Api/HealthApi.md#getversion) | **GET** /api/version | The running server&#39;s own version
@@ -189,6 +190,7 @@ Class | Method | HTTP request | Description
 - [MainBranchCommit](docs/Model/MainBranchCommit.md)
 - [MainBranchCounts](docs/Model/MainBranchCounts.md)
 - [MainBranchRelease](docs/Model/MainBranchRelease.md)
+- [MainBranchRerunRequest](docs/Model/MainBranchRerunRequest.md)
 - [MainBranchStatus](docs/Model/MainBranchStatus.md)
 - [MainBranches](docs/Model/MainBranches.md)
 - [MergeStatus](docs/Model/MergeStatus.md)
