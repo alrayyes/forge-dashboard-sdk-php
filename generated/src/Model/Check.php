@@ -64,6 +64,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'job_id' => 'int',
         'required' => 'bool',
         'duration_seconds' => 'int',
+        'run_attempt' => 'int',
         'failed_step' => 'string',
         'excerpt' => 'string'
     ];
@@ -82,6 +83,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'job_id' => null,
         'required' => null,
         'duration_seconds' => null,
+        'run_attempt' => null,
         'failed_step' => null,
         'excerpt' => null
     ];
@@ -98,6 +100,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'job_id' => false,
         'required' => false,
         'duration_seconds' => false,
+        'run_attempt' => false,
         'failed_step' => false,
         'excerpt' => false
     ];
@@ -194,6 +197,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'job_id' => 'jobId',
         'required' => 'required',
         'duration_seconds' => 'durationSeconds',
+        'run_attempt' => 'runAttempt',
         'failed_step' => 'failedStep',
         'excerpt' => 'excerpt'
     ];
@@ -210,6 +214,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'job_id' => 'setJobId',
         'required' => 'setRequired',
         'duration_seconds' => 'setDurationSeconds',
+        'run_attempt' => 'setRunAttempt',
         'failed_step' => 'setFailedStep',
         'excerpt' => 'setExcerpt'
     ];
@@ -226,6 +231,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'job_id' => 'getJobId',
         'required' => 'getRequired',
         'duration_seconds' => 'getDurationSeconds',
+        'run_attempt' => 'getRunAttempt',
         'failed_step' => 'getFailedStep',
         'excerpt' => 'getExcerpt'
     ];
@@ -293,6 +299,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('job_id', $data ?? [], null);
         $this->setIfExists('required', $data ?? [], null);
         $this->setIfExists('duration_seconds', $data ?? [], null);
+        $this->setIfExists('run_attempt', $data ?? [], null);
         $this->setIfExists('failed_step', $data ?? [], null);
         $this->setIfExists('excerpt', $data ?? [], null);
     }
@@ -339,6 +346,10 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
 
         if (!is_null($this->container['duration_seconds']) && ($this->container['duration_seconds'] < 0)) {
             $invalidProperties[] = "invalid value for 'duration_seconds', must be bigger than or equal to 0.";
+        }
+
+        if (!is_null($this->container['run_attempt']) && ($this->container['run_attempt'] < 1)) {
+            $invalidProperties[] = "invalid value for 'run_attempt', must be bigger than or equal to 1.";
         }
 
         return $invalidProperties;
@@ -527,6 +538,37 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
+     * Gets run_attempt
+     *
+     * @return int|null
+     */
+    public function getRunAttempt()
+    {
+        return $this->container['run_attempt'];
+    }
+
+    /**
+     * Sets run_attempt
+     *
+     * @param int|null $run_attempt Which attempt of its workflow run the job belongs to. Forgejo only: it keeps a job's id and page when a run is retried, so this is what tells a retry's output from the first attempt's. Absent when the forge doesn't number attempts.
+     *
+     * @return self
+     */
+    public function setRunAttempt($run_attempt)
+    {
+        if (is_null($run_attempt)) {
+            throw new \InvalidArgumentException('non-nullable run_attempt cannot be null');
+        }
+        if (($run_attempt < 1)) {
+            throw new \InvalidArgumentException('invalid value for $run_attempt when calling Check., must be bigger than or equal to 1.');
+        }
+
+        $this->container['run_attempt'] = $run_attempt;
+
+        return $this;
+    }
+
+    /**
      * Gets failed_step
      *
      * @return string|null
@@ -566,7 +608,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets excerpt
      *
-     * @param string|null $excerpt The tail of the failed job's log as plain text: the last lines, with per-line timestamps and colour codes removed, at most 2,000 characters. Never markup, and a client must render it as text. Whatever the forge already masks stays masked. Absent when the log can't be read or has expired. GitHub only: for Forgejo the whole output is read through GET /api/checks/log.
+     * @param string|null $excerpt The tail of the failed job's log as plain text: the last lines, with per-line timestamps and colour codes removed, at most 2,000 characters. Never markup, and a client must render it as text. Whatever the forge already masks stays masked. Absent when the log can't be read or has expired. Both forges fill it for at most five failed jobs of a list: on GitHub the first five in the list's order, on Forgejo up to five, newest first. The whole output is read through GET /api/checks/log.
      *
      * @return self
      */
