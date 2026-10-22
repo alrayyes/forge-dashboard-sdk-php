@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.0.8](https://github.com/alrayyes/forge-dashboard-sdk-php/compare/v6.0.7...v6.0.8) (2026-10-22)
+
+
+### Bug Fixes
+
+* remove the stale admin and sharing classes and clear generated/ on regeneration ([#312](https://github.com/alrayyes/forge-dashboard-sdk-php/issues/312)) ([21be8a5](https://github.com/alrayyes/forge-dashboard-sdk-php/commit/21be8a5958e1cdbe3429c667567692687ba8cf92))
+
 ## [6.0.7](https://github.com/alrayyes/forge-dashboard-sdk-php/compare/v6.0.6...v6.0.7) (2026-10-22)
 
 
