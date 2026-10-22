@@ -154,6 +154,7 @@ Class | Method | HTTP request | Description
 - [APITokenCreateResponse](docs/Model/APITokenCreateResponse.md)
 - [ActionError](docs/Model/ActionError.md)
 - [Advisories](docs/Model/Advisories.md)
+- [AdvisoryReason](docs/Model/AdvisoryReason.md)
 - [AdvisorySeverity](docs/Model/AdvisorySeverity.md)
 - [AdvisoryState](docs/Model/AdvisoryState.md)
 - [AllowedAction](docs/Model/AllowedAction.md)
