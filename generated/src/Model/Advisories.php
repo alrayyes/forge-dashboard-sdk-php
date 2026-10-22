@@ -35,7 +35,7 @@ use \ForgeDashboard\Generated\ObjectSerializer;
  * Advisories Class Doc Comment
  *
  * @category Class
- * @description The open dependency advisories on a repository&#39;s default branch, read from the forge&#39;s own source (GitHub&#39;s Dependabot alerts). Absent from the row when no source reads them for its forge. A source that can&#39;t answer, such as alerts switched off or a token without the &#x60;security_events&#x60; scope, gives &#x60;state&#x60; \&quot;unknown\&quot;, never a count of zero.
+ * @description The open dependency advisories on a repository&#39;s default branch, read from GitHub&#39;s Dependabot alerts, or for a Forgejo repository from the packages in its lockfiles matched against OSV, when the operator has switched that on. Absent from the row when no source reads them for its forge. A source that can&#39;t answer, such as alerts switched off or a token without the &#x60;security_events&#x60; scope, gives &#x60;state&#x60; \&quot;unknown\&quot;, never a count of zero.
  * @package  ForgeDashboard\Generated
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -426,7 +426,7 @@ class Advisories implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets url
      *
-     * @param string|null $url Where to see the advisories on the forge. Absent when there are none or the state is unknown.
+     * @param string|null $url Where to see the advisories on the forge. Absent when there are none or the state is unknown, and for Forgejo, which has no page for them.
      *
      * @return self
      */
