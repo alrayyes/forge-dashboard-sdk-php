@@ -59,6 +59,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPITypes = [
         'forge' => '\ForgeDashboard\Generated\Model\Forge',
         'reachable' => 'bool',
+        'starting' => 'bool',
         'stale_since' => '\DateTime',
         'error' => 'string',
         'error_kind' => '\ForgeDashboard\Generated\Model\ForgeErrorKind',
@@ -78,6 +79,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'forge' => null,
         'reachable' => null,
+        'starting' => null,
         'stale_since' => 'date-time',
         'error' => null,
         'error_kind' => null,
@@ -95,6 +97,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static array $openAPINullables = [
         'forge' => false,
         'reachable' => false,
+        'starting' => false,
         'stale_since' => false,
         'error' => false,
         'error_kind' => false,
@@ -192,6 +195,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $attributeMap = [
         'forge' => 'forge',
         'reachable' => 'reachable',
+        'starting' => 'starting',
         'stale_since' => 'staleSince',
         'error' => 'error',
         'error_kind' => 'errorKind',
@@ -209,6 +213,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $setters = [
         'forge' => 'setForge',
         'reachable' => 'setReachable',
+        'starting' => 'setStarting',
         'stale_since' => 'setStaleSince',
         'error' => 'setError',
         'error_kind' => 'setErrorKind',
@@ -226,6 +231,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $getters = [
         'forge' => 'getForge',
         'reachable' => 'getReachable',
+        'starting' => 'getStarting',
         'stale_since' => 'getStaleSince',
         'error' => 'getError',
         'error_kind' => 'getErrorKind',
@@ -294,6 +300,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $this->setIfExists('forge', $data ?? [], null);
         $this->setIfExists('reachable', $data ?? [], null);
+        $this->setIfExists('starting', $data ?? [], null);
         $this->setIfExists('stale_since', $data ?? [], null);
         $this->setIfExists('error', $data ?? [], null);
         $this->setIfExists('error_kind', $data ?? [], null);
@@ -413,6 +420,33 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
+     * Gets starting
+     *
+     * @return bool|null
+     */
+    public function getStarting()
+    {
+        return $this->container['starting'];
+    }
+
+    /**
+     * Sets starting
+     *
+     * @param bool|null $starting True while the rows shown for this forge are the ones the last run saved and no refresh has asked the forge since the app started. The forge is then neither reachable nor in error (errorKind is absent); it has not been checked yet. The first refresh that reaches it replaces this entry. A client says \"starting up, showing data from 3 minutes ago\", and never \"unreachable\".
+     *
+     * @return self
+     */
+    public function setStarting($starting)
+    {
+        if (is_null($starting)) {
+            throw new \InvalidArgumentException('non-nullable starting cannot be null');
+        }
+        $this->container['starting'] = $starting;
+
+        return $this;
+    }
+
+    /**
      * Gets stale_since
      *
      * @return \DateTime|null
@@ -425,7 +459,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets stale_since
      *
-     * @param \DateTime|null $stale_since Present when the last refresh against this forge failed and the pull requests, issues and repos in the response are the last good ones, fetched at this time, instead of none. Absent when the data is current, and for a forge that has never fetched successfully, which has nothing to show. A client can say \"unreachable, showing data from 3 minutes ago\".
+     * @param \DateTime|null $stale_since Present when the last refresh against this forge failed, or the forge has not been asked yet since the app started (see starting), and the pull requests, issues and repos in the response are the last good ones, fetched at this time, instead of none. Absent when the data is current, and for a forge that has never fetched successfully, which has nothing to show. A client can say \"unreachable, showing data from 3 minutes ago\".
      *
      * @return self
      */
