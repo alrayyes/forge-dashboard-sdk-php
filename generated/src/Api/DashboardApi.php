@@ -665,15 +665,16 @@ class DashboardApi
      * @param  \ForgeDashboard\Generated\Model\Forge $forge forge (required)
      * @param  string $full_name \&quot;owner/repo\&quot; of the repository the check ran in. (required)
      * @param  int $job_id Matching a Check.jobId. (required)
+     * @param  bool|null $excerpt True to answer the job&#39;s excerpt (the last lines, at most 2,000 characters) instead of its output. Forgejo only; any other forge answers 400. (optional, default to false)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCheckLog'] to see the possible values for this operation
      *
      * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \ForgeDashboard\Generated\Model\CheckLog|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error
      */
-    public function getCheckLog($forge, $full_name, $job_id, string $contentType = self::contentTypes['getCheckLog'][0])
+    public function getCheckLog($forge, $full_name, $job_id, $excerpt = false, string $contentType = self::contentTypes['getCheckLog'][0])
     {
-        list($response) = $this->getCheckLogWithHttpInfo($forge, $full_name, $job_id, $contentType);
+        list($response) = $this->getCheckLogWithHttpInfo($forge, $full_name, $job_id, $excerpt, $contentType);
         return $response;
     }
 
@@ -685,15 +686,16 @@ class DashboardApi
      * @param  \ForgeDashboard\Generated\Model\Forge $forge (required)
      * @param  string $full_name \&quot;owner/repo\&quot; of the repository the check ran in. (required)
      * @param  int $job_id Matching a Check.jobId. (required)
+     * @param  bool|null $excerpt True to answer the job&#39;s excerpt (the last lines, at most 2,000 characters) instead of its output. Forgejo only; any other forge answers 400. (optional, default to false)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCheckLog'] to see the possible values for this operation
      *
      * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \ForgeDashboard\Generated\Model\CheckLog|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getCheckLogWithHttpInfo($forge, $full_name, $job_id, string $contentType = self::contentTypes['getCheckLog'][0])
+    public function getCheckLogWithHttpInfo($forge, $full_name, $job_id, $excerpt = false, string $contentType = self::contentTypes['getCheckLog'][0])
     {
-        $request = $this->getCheckLogRequest($forge, $full_name, $job_id, $contentType);
+        $request = $this->getCheckLogRequest($forge, $full_name, $job_id, $excerpt, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -870,14 +872,15 @@ class DashboardApi
      * @param  \ForgeDashboard\Generated\Model\Forge $forge (required)
      * @param  string $full_name \&quot;owner/repo\&quot; of the repository the check ran in. (required)
      * @param  int $job_id Matching a Check.jobId. (required)
+     * @param  bool|null $excerpt True to answer the job&#39;s excerpt (the last lines, at most 2,000 characters) instead of its output. Forgejo only; any other forge answers 400. (optional, default to false)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCheckLog'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getCheckLogAsync($forge, $full_name, $job_id, string $contentType = self::contentTypes['getCheckLog'][0])
+    public function getCheckLogAsync($forge, $full_name, $job_id, $excerpt = false, string $contentType = self::contentTypes['getCheckLog'][0])
     {
-        return $this->getCheckLogAsyncWithHttpInfo($forge, $full_name, $job_id, $contentType)
+        return $this->getCheckLogAsyncWithHttpInfo($forge, $full_name, $job_id, $excerpt, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -893,15 +896,16 @@ class DashboardApi
      * @param  \ForgeDashboard\Generated\Model\Forge $forge (required)
      * @param  string $full_name \&quot;owner/repo\&quot; of the repository the check ran in. (required)
      * @param  int $job_id Matching a Check.jobId. (required)
+     * @param  bool|null $excerpt True to answer the job&#39;s excerpt (the last lines, at most 2,000 characters) instead of its output. Forgejo only; any other forge answers 400. (optional, default to false)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCheckLog'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getCheckLogAsyncWithHttpInfo($forge, $full_name, $job_id, string $contentType = self::contentTypes['getCheckLog'][0])
+    public function getCheckLogAsyncWithHttpInfo($forge, $full_name, $job_id, $excerpt = false, string $contentType = self::contentTypes['getCheckLog'][0])
     {
         $returnType = '\ForgeDashboard\Generated\Model\CheckLog';
-        $request = $this->getCheckLogRequest($forge, $full_name, $job_id, $contentType);
+        $request = $this->getCheckLogRequest($forge, $full_name, $job_id, $excerpt, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -945,12 +949,13 @@ class DashboardApi
      * @param  \ForgeDashboard\Generated\Model\Forge $forge (required)
      * @param  string $full_name \&quot;owner/repo\&quot; of the repository the check ran in. (required)
      * @param  int $job_id Matching a Check.jobId. (required)
+     * @param  bool|null $excerpt True to answer the job&#39;s excerpt (the last lines, at most 2,000 characters) instead of its output. Forgejo only; any other forge answers 400. (optional, default to false)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCheckLog'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getCheckLogRequest($forge, $full_name, $job_id, string $contentType = self::contentTypes['getCheckLog'][0])
+    public function getCheckLogRequest($forge, $full_name, $job_id, $excerpt = false, string $contentType = self::contentTypes['getCheckLog'][0])
     {
 
         // verify the required parameter 'forge' is set
@@ -977,6 +982,7 @@ class DashboardApi
             throw new \InvalidArgumentException('invalid value for "$job_id" when calling DashboardApi.getCheckLog, must be bigger than or equal to 1.');
         }
         
+
 
         $resourcePath = '/api/checks/log';
         $formParams = [];
@@ -1011,6 +1017,15 @@ class DashboardApi
             'form', // style
             true, // explode
             true // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $excerpt,
+            'excerpt', // param base name
+            'boolean', // openApiType
+            'form', // style
+            true, // explode
+            false // required
         ) ?? []);
 
 
