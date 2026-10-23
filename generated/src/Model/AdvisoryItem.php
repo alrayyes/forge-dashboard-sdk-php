@@ -62,6 +62,7 @@ class AdvisoryItem implements ModelInterface, ArrayAccess, \JsonSerializable
         'state' => 'string',
         'severity' => '\ForgeDashboard\Generated\Model\AdvisorySeverity',
         'summary' => 'string',
+        'id' => 'string',
         'ghsa_id' => 'string',
         'cve_id' => 'string',
         'package' => 'string',
@@ -92,6 +93,7 @@ class AdvisoryItem implements ModelInterface, ArrayAccess, \JsonSerializable
         'state' => null,
         'severity' => null,
         'summary' => null,
+        'id' => null,
         'ghsa_id' => null,
         'cve_id' => null,
         'package' => null,
@@ -120,6 +122,7 @@ class AdvisoryItem implements ModelInterface, ArrayAccess, \JsonSerializable
         'state' => false,
         'severity' => false,
         'summary' => false,
+        'id' => false,
         'ghsa_id' => false,
         'cve_id' => false,
         'package' => false,
@@ -228,6 +231,7 @@ class AdvisoryItem implements ModelInterface, ArrayAccess, \JsonSerializable
         'state' => 'state',
         'severity' => 'severity',
         'summary' => 'summary',
+        'id' => 'id',
         'ghsa_id' => 'ghsaId',
         'cve_id' => 'cveId',
         'package' => 'package',
@@ -256,6 +260,7 @@ class AdvisoryItem implements ModelInterface, ArrayAccess, \JsonSerializable
         'state' => 'setState',
         'severity' => 'setSeverity',
         'summary' => 'setSummary',
+        'id' => 'setId',
         'ghsa_id' => 'setGhsaId',
         'cve_id' => 'setCveId',
         'package' => 'setPackage',
@@ -284,6 +289,7 @@ class AdvisoryItem implements ModelInterface, ArrayAccess, \JsonSerializable
         'state' => 'getState',
         'severity' => 'getSeverity',
         'summary' => 'getSummary',
+        'id' => 'getId',
         'ghsa_id' => 'getGhsaId',
         'cve_id' => 'getCveId',
         'package' => 'getPackage',
@@ -363,6 +369,7 @@ class AdvisoryItem implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('state', $data ?? [], null);
         $this->setIfExists('severity', $data ?? [], null);
         $this->setIfExists('summary', $data ?? [], null);
+        $this->setIfExists('id', $data ?? [], null);
         $this->setIfExists('ghsa_id', $data ?? [], null);
         $this->setIfExists('cve_id', $data ?? [], null);
         $this->setIfExists('package', $data ?? [], null);
@@ -445,7 +452,7 @@ class AdvisoryItem implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets number
      *
-     * @param int $number The alert's number on the forge.
+     * @param int $number The alert's number on the forge. For Forgejo, the advisory's place in the list.
      *
      * @return self
      */
@@ -536,6 +543,33 @@ class AdvisoryItem implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable summary cannot be null');
         }
         $this->container['summary'] = $summary;
+
+        return $this;
+    }
+
+    /**
+     * Gets id
+     *
+     * @return string|null
+     */
+    public function getId()
+    {
+        return $this->container['id'];
+    }
+
+    /**
+     * Sets id
+     *
+     * @param string|null $id The advisory's own id in the database that states it. Set for Forgejo.
+     *
+     * @return self
+     */
+    public function setId($id)
+    {
+        if (is_null($id)) {
+            throw new \InvalidArgumentException('non-nullable id cannot be null');
+        }
+        $this->container['id'] = $id;
 
         return $this;
     }

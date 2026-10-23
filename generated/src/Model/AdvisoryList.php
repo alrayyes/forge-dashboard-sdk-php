@@ -60,6 +60,7 @@ class AdvisoryList implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPITypes = [
         'state' => '\ForgeDashboard\Generated\Model\AdvisoryState',
         'reason' => '\ForgeDashboard\Generated\Model\AdvisoryReason',
+        'partial' => 'bool',
         'url' => 'string',
         'advisories' => '\ForgeDashboard\Generated\Model\AdvisoryItem[]'
     ];
@@ -74,6 +75,7 @@ class AdvisoryList implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'state' => null,
         'reason' => null,
+        'partial' => null,
         'url' => null,
         'advisories' => null
     ];
@@ -86,6 +88,7 @@ class AdvisoryList implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static array $openAPINullables = [
         'state' => false,
         'reason' => false,
+        'partial' => false,
         'url' => false,
         'advisories' => false
     ];
@@ -178,6 +181,7 @@ class AdvisoryList implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $attributeMap = [
         'state' => 'state',
         'reason' => 'reason',
+        'partial' => 'partial',
         'url' => 'url',
         'advisories' => 'advisories'
     ];
@@ -190,6 +194,7 @@ class AdvisoryList implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $setters = [
         'state' => 'setState',
         'reason' => 'setReason',
+        'partial' => 'setPartial',
         'url' => 'setUrl',
         'advisories' => 'setAdvisories'
     ];
@@ -202,6 +207,7 @@ class AdvisoryList implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $getters = [
         'state' => 'getState',
         'reason' => 'getReason',
+        'partial' => 'getPartial',
         'url' => 'getUrl',
         'advisories' => 'getAdvisories'
     ];
@@ -265,6 +271,7 @@ class AdvisoryList implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $this->setIfExists('state', $data ?? [], null);
         $this->setIfExists('reason', $data ?? [], null);
+        $this->setIfExists('partial', $data ?? [], null);
         $this->setIfExists('url', $data ?? [], null);
         $this->setIfExists('advisories', $data ?? [], null);
     }
@@ -372,6 +379,33 @@ class AdvisoryList implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
+     * Gets partial
+     *
+     * @return bool|null
+     */
+    public function getPartial()
+    {
+        return $this->container['partial'];
+    }
+
+    /**
+     * Sets partial
+     *
+     * @param bool|null $partial Set on a known Forgejo list that leaves out packages the dashboard may not send to OSV, because they may be private. Absent otherwise.
+     *
+     * @return self
+     */
+    public function setPartial($partial)
+    {
+        if (is_null($partial)) {
+            throw new \InvalidArgumentException('non-nullable partial cannot be null');
+        }
+        $this->container['partial'] = $partial;
+
+        return $this;
+    }
+
+    /**
      * Gets url
      *
      * @return string|null
@@ -384,7 +418,7 @@ class AdvisoryList implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets url
      *
-     * @param string|null $url The repository's advisories page on the forge. Absent when none are open or the state is unknown.
+     * @param string|null $url The repository's advisories page on the forge. Absent when none are open or the state is unknown, and for Forgejo, which has no page for a whole repository.
      *
      * @return self
      */
