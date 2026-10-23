@@ -608,7 +608,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets excerpt
      *
-     * @param string|null $excerpt The tail of the failed job's log as plain text: the last lines, with per-line timestamps and colour codes removed, at most 2,000 characters. Never markup, and a client must render it as text. Whatever the forge already masks stays masked. Absent when the log can't be read or has expired. Both forges fill it for at most five failed jobs of a list: on GitHub the first five in the list's order, on Forgejo up to five, newest first. The whole output is read through GET /api/checks/log.
+     * @param string|null $excerpt The tail of the failed job's log as plain text: the last lines, with per-line timestamps and colour codes removed, at most 2,000 characters. Never markup, and a client must render it as text. Whatever the forge already masks stays masked. Absent when the log can't be read or has expired. GitHub fills it for at most the first five failed jobs of a list, in the list's order. Forgejo never fills it in a list, since that would read a log while the list is built: ask for it through GET /api/checks/log with `excerpt=true`. The whole output is read through GET /api/checks/log.
      *
      * @return self
      */
