@@ -411,7 +411,7 @@ class PullRequestStatus implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets action
      *
-     * @param string|null $action The `allowedActions[].action` that clears this status, set only when `code` is `behind`: `update_branch`, or the bot's own rebase on a Dependabot or Renovate pull request. A client draws that action's button inside the status line and nowhere else on the row. Absent when no action clears it (a conflict, a check still running, a draft) and when the action is locked, such as a Renovate rebase already waiting. Same action as the entry marked `primary`, so a client that ignores this field still has it.
+     * @param string|null $action The `allowedActions[].action` that clears this status, set only when `code` is `behind`: `update_branch`, or the bot's own rebase on a Dependabot or Renovate pull request. A client draws that action's button inside the status line and nowhere else on the row. Absent when no action clears it (a conflict, a check still running, a draft) and when the action is locked, such as a Renovate rebase already waiting. When set it is the entry marked `primary`. The reverse doesn't hold: a behind bot pull request that waits on checks has a primary rebase and no `action` here.
      *
      * @return self
      */
