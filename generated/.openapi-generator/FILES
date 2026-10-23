@@ -9,6 +9,7 @@ phpunit.xml.dist
 src/Api/AuthApi.php
 src/Api/DashboardApi.php
 src/Api/HealthApi.php
+src/Api/IssuesApi.php
 src/Api/PullRequestsApi.php
 src/Api/QueuedActionsApi.php
 src/Api/SettingsApi.php
@@ -52,6 +53,8 @@ src/Model/ForgeErrorKind.php
 src/Model/ForgeHealth.php
 src/Model/Health.php
 src/Model/Issue.php
+src/Model/IssueActionRequest.php
+src/Model/IssueCommentRequest.php
 src/Model/IssueDetails.php
 src/Model/Label.php
 src/Model/LinkedPullRequest.php
