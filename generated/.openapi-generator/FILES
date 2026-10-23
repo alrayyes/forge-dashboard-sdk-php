@@ -24,9 +24,14 @@ src/Model/APITokenCreateRequest.php
 src/Model/APITokenCreateResponse.php
 src/Model/ActionError.php
 src/Model/Advisories.php
+src/Model/AdvisoryCVSS.php
+src/Model/AdvisoryEPSS.php
+src/Model/AdvisoryItem.php
+src/Model/AdvisoryList.php
 src/Model/AdvisoryReason.php
 src/Model/AdvisorySeverity.php
 src/Model/AdvisoryState.php
+src/Model/AdvisoryWeakness.php
 src/Model/AllowedAction.php
 src/Model/AllowedActionBlocked.php
 src/Model/AutoMergeStatus.php

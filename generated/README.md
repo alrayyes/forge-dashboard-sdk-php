@@ -106,6 +106,7 @@ Class | Method | HTTP request | Description
 *DashboardApi* | [**getMainBranches**](docs/Api/DashboardApi.md#getmainbranches) | **GET** /api/main-branches | The CI status of every tracked repository&#39;s default branch
 *DashboardApi* | [**getReleaseDetails**](docs/Api/DashboardApi.md#getreleasedetails) | **GET** /api/releases/details | Read a published release&#39;s title and notes, on demand
 *DashboardApi* | [**ignoreRepo**](docs/Api/DashboardApi.md#ignorerepo) | **POST** /api/repos/ignore | Hide one tracked repo&#39;s pull requests, issues, or both from the dashboard and Insights
+*DashboardApi* | [**listAdvisories**](docs/Api/DashboardApi.md#listadvisories) | **GET** /api/main-branches/advisories | List a repository&#39;s open dependency advisories in full, on demand
 *DashboardApi* | [**refreshDashboard**](docs/Api/DashboardApi.md#refreshdashboard) | **POST** /api/dashboard/refresh | Trigger an immediate refresh of the signed-in user&#39;s own dashboard
 *DashboardApi* | [**reportDashboardPresence**](docs/Api/DashboardApi.md#reportdashboardpresence) | **POST** /api/presence | Say whether a browser tab of the dashboard is being looked at
 *DashboardApi* | [**rerunMainBranchChecks**](docs/Api/DashboardApi.md#rerunmainbranchchecks) | **POST** /api/main-branches/rerun-checks | Rerun only the failed jobs of a repository&#39;s default-branch pipeline, on the signed-in user&#39;s behalf
@@ -157,9 +158,14 @@ Class | Method | HTTP request | Description
 - [APITokenCreateResponse](docs/Model/APITokenCreateResponse.md)
 - [ActionError](docs/Model/ActionError.md)
 - [Advisories](docs/Model/Advisories.md)
+- [AdvisoryCVSS](docs/Model/AdvisoryCVSS.md)
+- [AdvisoryEPSS](docs/Model/AdvisoryEPSS.md)
+- [AdvisoryItem](docs/Model/AdvisoryItem.md)
+- [AdvisoryList](docs/Model/AdvisoryList.md)
 - [AdvisoryReason](docs/Model/AdvisoryReason.md)
 - [AdvisorySeverity](docs/Model/AdvisorySeverity.md)
 - [AdvisoryState](docs/Model/AdvisoryState.md)
+- [AdvisoryWeakness](docs/Model/AdvisoryWeakness.md)
 - [AllowedAction](docs/Model/AllowedAction.md)
 - [AllowedActionBlocked](docs/Model/AllowedActionBlocked.md)
 - [AutoMergeStatus](docs/Model/AutoMergeStatus.md)
