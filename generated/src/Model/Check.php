@@ -62,6 +62,8 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'state' => '\ForgeDashboard\Generated\Model\CheckState',
         'url' => 'string',
         'job_id' => 'int',
+        'run_id' => 'int',
+        'run_name' => 'string',
         'required' => 'bool',
         'duration_seconds' => 'int',
         'run_attempt' => 'int',
@@ -81,6 +83,8 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'state' => null,
         'url' => null,
         'job_id' => null,
+        'run_id' => null,
+        'run_name' => null,
         'required' => null,
         'duration_seconds' => null,
         'run_attempt' => null,
@@ -98,6 +102,8 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'state' => false,
         'url' => false,
         'job_id' => false,
+        'run_id' => false,
+        'run_name' => false,
         'required' => false,
         'duration_seconds' => false,
         'run_attempt' => false,
@@ -195,6 +201,8 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'state' => 'state',
         'url' => 'url',
         'job_id' => 'jobId',
+        'run_id' => 'runId',
+        'run_name' => 'runName',
         'required' => 'required',
         'duration_seconds' => 'durationSeconds',
         'run_attempt' => 'runAttempt',
@@ -212,6 +220,8 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'state' => 'setState',
         'url' => 'setUrl',
         'job_id' => 'setJobId',
+        'run_id' => 'setRunId',
+        'run_name' => 'setRunName',
         'required' => 'setRequired',
         'duration_seconds' => 'setDurationSeconds',
         'run_attempt' => 'setRunAttempt',
@@ -229,6 +239,8 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'state' => 'getState',
         'url' => 'getUrl',
         'job_id' => 'getJobId',
+        'run_id' => 'getRunId',
+        'run_name' => 'getRunName',
         'required' => 'getRequired',
         'duration_seconds' => 'getDurationSeconds',
         'run_attempt' => 'getRunAttempt',
@@ -297,6 +309,8 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('state', $data ?? [], null);
         $this->setIfExists('url', $data ?? [], null);
         $this->setIfExists('job_id', $data ?? [], null);
+        $this->setIfExists('run_id', $data ?? [], null);
+        $this->setIfExists('run_name', $data ?? [], null);
         $this->setIfExists('required', $data ?? [], null);
         $this->setIfExists('duration_seconds', $data ?? [], null);
         $this->setIfExists('run_attempt', $data ?? [], null);
@@ -342,6 +356,10 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if (!is_null($this->container['job_id']) && ($this->container['job_id'] < 1)) {
             $invalidProperties[] = "invalid value for 'job_id', must be bigger than or equal to 1.";
+        }
+
+        if (!is_null($this->container['run_id']) && ($this->container['run_id'] < 1)) {
+            $invalidProperties[] = "invalid value for 'run_id', must be bigger than or equal to 1.";
         }
 
         if (!is_null($this->container['duration_seconds']) && ($this->container['duration_seconds'] < 0)) {
@@ -475,6 +493,64 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         }
 
         $this->container['job_id'] = $job_id;
+
+        return $this;
+    }
+
+    /**
+     * Gets run_id
+     *
+     * @return int|null
+     */
+    public function getRunId()
+    {
+        return $this->container['run_id'];
+    }
+
+    /**
+     * Sets run_id
+     *
+     * @param int|null $run_id The Actions workflow run this job belongs to, to pass to `POST /api/checks/cancel-run`. Present only while the job is queued or running, and only for an Actions job: a finished job, a third-party check and a legacy commit status have none, and nothing is left to cancel.  A Forgejo run whose jobs couldn't be read is listed as one check named for the run, with a `runId` and no `jobId`. A client treats a check with a `runId` and no `jobId` as the run itself, not as a job of it, and doesn't list its name among the run's jobs.
+     *
+     * @return self
+     */
+    public function setRunId($run_id)
+    {
+        if (is_null($run_id)) {
+            throw new \InvalidArgumentException('non-nullable run_id cannot be null');
+        }
+        if (($run_id < 1)) {
+            throw new \InvalidArgumentException('invalid value for $run_id when calling Check., must be bigger than or equal to 1.');
+        }
+
+        $this->container['run_id'] = $run_id;
+
+        return $this;
+    }
+
+    /**
+     * Gets run_name
+     *
+     * @return string|null
+     */
+    public function getRunName()
+    {
+        return $this->container['run_name'];
+    }
+
+    /**
+     * Sets run_name
+     *
+     * @param string|null $run_name The name of that workflow run, for a client to say which run a cancel stops. Present with `runId`.
+     *
+     * @return self
+     */
+    public function setRunName($run_name)
+    {
+        if (is_null($run_name)) {
+            throw new \InvalidArgumentException('non-nullable run_name cannot be null');
+        }
+        $this->container['run_name'] = $run_name;
 
         return $this;
     }

@@ -40,6 +40,7 @@ src/Model/AutoUpdate.php
 src/Model/AutoUpdateUnavailable.php
 src/Model/BotRequest.php
 src/Model/CIStatus.php
+src/Model/CancelRunRequest.php
 src/Model/Check.php
 src/Model/CheckCounts.php
 src/Model/CheckLog.php
