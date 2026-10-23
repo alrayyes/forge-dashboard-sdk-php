@@ -119,6 +119,7 @@ Class | Method | HTTP request | Description
 *IssuesApi* | [**commentOnIssue**](docs/Api/IssuesApi.md#commentonissue) | **POST** /api/issues/comment | Post a comment on one issue, on the signed-in user&#39;s behalf
 *IssuesApi* | [**reopenIssue**](docs/Api/IssuesApi.md#reopenissue) | **POST** /api/issues/reopen | Reopen one issue that was closed, on the signed-in user&#39;s behalf
 *PullRequestsApi* | [**cancelPullRequestAutoMerge**](docs/Api/PullRequestsApi.md#cancelpullrequestautomerge) | **POST** /api/pull-requests/auto-merge/cancel | Cancel auto-merge on a pull request, on the signed-in user&#39;s behalf
+*PullRequestsApi* | [**cancelWorkflowRun**](docs/Api/PullRequestsApi.md#cancelworkflowrun) | **POST** /api/checks/cancel-run | Cancel one running or queued Actions workflow run, on the signed-in user&#39;s behalf
 *PullRequestsApi* | [**closePullRequest**](docs/Api/PullRequestsApi.md#closepullrequest) | **POST** /api/pull-requests/close | Close one pull request without merging it, on the signed-in user&#39;s behalf
 *PullRequestsApi* | [**enablePullRequestAutoMerge**](docs/Api/PullRequestsApi.md#enablepullrequestautomerge) | **POST** /api/pull-requests/auto-merge | Arm auto-merge on a pull request, on the signed-in user&#39;s behalf
 *PullRequestsApi* | [**getPullRequestChecks**](docs/Api/PullRequestsApi.md#getpullrequestchecks) | **GET** /api/pull-requests/checks | List every job/check run against a pull request&#39;s head commit, on demand
@@ -174,6 +175,7 @@ Class | Method | HTTP request | Description
 - [AutoUpdateUnavailable](docs/Model/AutoUpdateUnavailable.md)
 - [BotRequest](docs/Model/BotRequest.md)
 - [CIStatus](docs/Model/CIStatus.md)
+- [CancelRunRequest](docs/Model/CancelRunRequest.md)
 - [Check](docs/Model/Check.md)
 - [CheckCounts](docs/Model/CheckCounts.md)
 - [CheckLog](docs/Model/CheckLog.md)
