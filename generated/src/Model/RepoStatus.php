@@ -70,6 +70,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         'webhook_locked_by_connection' => 'bool',
         'webhook_needs_token' => 'bool',
         'failing_since' => '\DateTime',
+        'failing_for_good' => 'bool',
         'auto_update_branch' => 'bool'
     ];
 
@@ -93,6 +94,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         'webhook_locked_by_connection' => null,
         'webhook_needs_token' => null,
         'failing_since' => 'date-time',
+        'failing_for_good' => null,
         'auto_update_branch' => null
     ];
 
@@ -114,6 +116,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         'webhook_locked_by_connection' => false,
         'webhook_needs_token' => false,
         'failing_since' => false,
+        'failing_for_good' => false,
         'auto_update_branch' => false
     ];
 
@@ -215,6 +218,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         'webhook_locked_by_connection' => 'webhookLockedByConnection',
         'webhook_needs_token' => 'webhookNeedsToken',
         'failing_since' => 'failingSince',
+        'failing_for_good' => 'failingForGood',
         'auto_update_branch' => 'autoUpdateBranch'
     ];
 
@@ -236,6 +240,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         'webhook_locked_by_connection' => 'setWebhookLockedByConnection',
         'webhook_needs_token' => 'setWebhookNeedsToken',
         'failing_since' => 'setFailingSince',
+        'failing_for_good' => 'setFailingForGood',
         'auto_update_branch' => 'setAutoUpdateBranch'
     ];
 
@@ -257,6 +262,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         'webhook_locked_by_connection' => 'getWebhookLockedByConnection',
         'webhook_needs_token' => 'getWebhookNeedsToken',
         'failing_since' => 'getFailingSince',
+        'failing_for_good' => 'getFailingForGood',
         'auto_update_branch' => 'getAutoUpdateBranch'
     ];
 
@@ -329,6 +335,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('webhook_locked_by_connection', $data ?? [], null);
         $this->setIfExists('webhook_needs_token', $data ?? [], null);
         $this->setIfExists('failing_since', $data ?? [], null);
+        $this->setIfExists('failing_for_good', $data ?? [], null);
         $this->setIfExists('auto_update_branch', $data ?? [], null);
     }
 
@@ -721,6 +728,33 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable failing_since cannot be null');
         }
         $this->container['failing_since'] = $failing_since;
+
+        return $this;
+    }
+
+    /**
+     * Gets failing_for_good
+     *
+     * @return bool|null
+     */
+    public function getFailingForGood()
+    {
+        return $this->container['failing_for_good'];
+    }
+
+    /**
+     * Sets failing_for_good
+     *
+     * @param bool|null $failing_for_good Present and true when failingSince is older than the cutoff the refresh schedule uses for a repository that keeps failing, a fixed multiple of the refresh interval. Retrying has not helped by then. The server works this out when it builds the response, so a client shows it without doing the arithmetic, and a repository crosses the cutoff in what the client sees at the next refresh. Absent otherwise.
+     *
+     * @return self
+     */
+    public function setFailingForGood($failing_for_good)
+    {
+        if (is_null($failing_for_good)) {
+            throw new \InvalidArgumentException('non-nullable failing_for_good cannot be null');
+        }
+        $this->container['failing_for_good'] = $failing_for_good;
 
         return $this;
     }
