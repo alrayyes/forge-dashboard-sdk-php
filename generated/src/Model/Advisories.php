@@ -62,7 +62,8 @@ class Advisories implements ModelInterface, ArrayAccess, \JsonSerializable
         'count' => 'int',
         'highest' => '\ForgeDashboard\Generated\Model\AdvisorySeverity',
         'url' => 'string',
-        'reason' => '\ForgeDashboard\Generated\Model\AdvisoryReason'
+        'reason' => '\ForgeDashboard\Generated\Model\AdvisoryReason',
+        'partial' => 'bool'
     ];
 
     /**
@@ -77,7 +78,8 @@ class Advisories implements ModelInterface, ArrayAccess, \JsonSerializable
         'count' => null,
         'highest' => null,
         'url' => null,
-        'reason' => null
+        'reason' => null,
+        'partial' => null
     ];
 
     /**
@@ -90,7 +92,8 @@ class Advisories implements ModelInterface, ArrayAccess, \JsonSerializable
         'count' => false,
         'highest' => false,
         'url' => false,
-        'reason' => false
+        'reason' => false,
+        'partial' => false
     ];
 
     /**
@@ -183,7 +186,8 @@ class Advisories implements ModelInterface, ArrayAccess, \JsonSerializable
         'count' => 'count',
         'highest' => 'highest',
         'url' => 'url',
-        'reason' => 'reason'
+        'reason' => 'reason',
+        'partial' => 'partial'
     ];
 
     /**
@@ -196,7 +200,8 @@ class Advisories implements ModelInterface, ArrayAccess, \JsonSerializable
         'count' => 'setCount',
         'highest' => 'setHighest',
         'url' => 'setUrl',
-        'reason' => 'setReason'
+        'reason' => 'setReason',
+        'partial' => 'setPartial'
     ];
 
     /**
@@ -209,7 +214,8 @@ class Advisories implements ModelInterface, ArrayAccess, \JsonSerializable
         'count' => 'getCount',
         'highest' => 'getHighest',
         'url' => 'getUrl',
-        'reason' => 'getReason'
+        'reason' => 'getReason',
+        'partial' => 'getPartial'
     ];
 
     /**
@@ -274,6 +280,7 @@ class Advisories implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('highest', $data ?? [], null);
         $this->setIfExists('url', $data ?? [], null);
         $this->setIfExists('reason', $data ?? [], null);
+        $this->setIfExists('partial', $data ?? [], null);
     }
 
     /**
@@ -463,6 +470,33 @@ class Advisories implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable reason cannot be null');
         }
         $this->container['reason'] = $reason;
+
+        return $this;
+    }
+
+    /**
+     * Gets partial
+     *
+     * @return bool|null
+     */
+    public function getPartial()
+    {
+        return $this->container['partial'];
+    }
+
+    /**
+     * Sets partial
+     *
+     * @param bool|null $partial Only on a Forgejo repository whose `state` is \"known\": its lock files list packages the dashboard leaves out because they are not public (a private registry, a git or path source, a module on the forge's own host), so `count` covers only the rest. Read it as \"at least this many\", and a count of zero as \"none found among what was checked\", not \"none\". Absent when the answer covers every package the lock files list.
+     *
+     * @return self
+     */
+    public function setPartial($partial)
+    {
+        if (is_null($partial)) {
+            throw new \InvalidArgumentException('non-nullable partial cannot be null');
+        }
+        $this->container['partial'] = $partial;
 
         return $this;
     }
