@@ -114,6 +114,9 @@ Class | Method | HTTP request | Description
 *HealthApi* | [**getVersion**](docs/Api/HealthApi.md#getversion) | **GET** /api/version | The running server&#39;s own version
 *HealthApi* | [**health**](docs/Api/HealthApi.md#health) | **GET** /healthz | Liveness
 *HealthApi* | [**ready**](docs/Api/HealthApi.md#ready) | **GET** /readyz | Readiness
+*IssuesApi* | [**closeIssue**](docs/Api/IssuesApi.md#closeissue) | **POST** /api/issues/close | Close one issue, on the signed-in user&#39;s behalf
+*IssuesApi* | [**commentOnIssue**](docs/Api/IssuesApi.md#commentonissue) | **POST** /api/issues/comment | Post a comment on one issue, on the signed-in user&#39;s behalf
+*IssuesApi* | [**reopenIssue**](docs/Api/IssuesApi.md#reopenissue) | **POST** /api/issues/reopen | Reopen one issue that was closed, on the signed-in user&#39;s behalf
 *PullRequestsApi* | [**cancelPullRequestAutoMerge**](docs/Api/PullRequestsApi.md#cancelpullrequestautomerge) | **POST** /api/pull-requests/auto-merge/cancel | Cancel auto-merge on a pull request, on the signed-in user&#39;s behalf
 *PullRequestsApi* | [**closePullRequest**](docs/Api/PullRequestsApi.md#closepullrequest) | **POST** /api/pull-requests/close | Close one pull request without merging it, on the signed-in user&#39;s behalf
 *PullRequestsApi* | [**enablePullRequestAutoMerge**](docs/Api/PullRequestsApi.md#enablepullrequestautomerge) | **POST** /api/pull-requests/auto-merge | Arm auto-merge on a pull request, on the signed-in user&#39;s behalf
@@ -183,6 +186,8 @@ Class | Method | HTTP request | Description
 - [ForgeHealth](docs/Model/ForgeHealth.md)
 - [Health](docs/Model/Health.md)
 - [Issue](docs/Model/Issue.md)
+- [IssueActionRequest](docs/Model/IssueActionRequest.md)
+- [IssueCommentRequest](docs/Model/IssueCommentRequest.md)
 - [IssueDetails](docs/Model/IssueDetails.md)
 - [Label](docs/Model/Label.md)
 - [LinkedPullRequest](docs/Model/LinkedPullRequest.md)
