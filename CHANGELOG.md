@@ -1,5 +1,19 @@
 # Changelog
 
+## [6.0.20](https://github.com/alrayyes/forge-dashboard-sdk-php/compare/v6.0.19...v6.0.20) (2026-10-24)
+
+
+### Bug Fixes
+
+* bump guzzlehttp/guzzle from 8.2.0 to 8.3.0 ([#336](https://github.com/alrayyes/forge-dashboard-sdk-php/issues/336)) ([a649d27](https://github.com/alrayyes/forge-dashboard-sdk-php/commit/a649d27b495e0cafffc9c69db988284a939453f0))
+* regenerate client from forge-dashboard openapi.yaml ([#340](https://github.com/alrayyes/forge-dashboard-sdk-php/issues/340)) ([022c2ca](https://github.com/alrayyes/forge-dashboard-sdk-php/commit/022c2ca2097ab4ad97c5bc568dbe1396db458360))
+
+
+### Miscellaneous Chores
+
+* bump @commitlint/cli from 21.2.3 to 21.2.4 ([#339](https://github.com/alrayyes/forge-dashboard-sdk-php/issues/339)) ([7ee9c95](https://github.com/alrayyes/forge-dashboard-sdk-php/commit/7ee9c95942706fe6ec2f0a540cdd33e37c971df8))
+* bump @commitlint/config-conventional from 21.2.3 to 21.2.4 ([#338](https://github.com/alrayyes/forge-dashboard-sdk-php/issues/338)) ([27b490b](https://github.com/alrayyes/forge-dashboard-sdk-php/commit/27b490b3a965c10ac37090c6c1229f91c575870f))
+
 ## [6.0.19](https://github.com/alrayyes/forge-dashboard-sdk-php/compare/v6.0.18...v6.0.19) (2026-10-23)
 
 
