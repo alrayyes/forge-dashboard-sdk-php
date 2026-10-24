@@ -64,7 +64,6 @@ src/Model/IssueCommentRequest.php
 src/Model/IssueDetails.php
 src/Model/Label.php
 src/Model/LinkedPullRequest.php
-src/Model/LoginBeginRequest.php
 src/Model/MainBranch.php
 src/Model/MainBranchCommit.php
 src/Model/MainBranchCounts.php
@@ -96,7 +95,6 @@ src/Model/RateLimit.php
 src/Model/Reaction.php
 src/Model/Reactions.php
 src/Model/Ready.php
-src/Model/RegisterBeginRequest.php
 src/Model/RegistrationStatus.php
 src/Model/ReleaseDetails.php
 src/Model/RepoIgnoreRequest.php
