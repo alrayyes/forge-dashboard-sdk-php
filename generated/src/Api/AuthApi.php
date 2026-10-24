@@ -430,16 +430,15 @@ class AuthApi
      *
      * Start a passkey login ceremony
      *
-     * @param  \ForgeDashboard\Generated\Model\LoginBeginRequest $login_begin_request login_begin_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['beginLogin'] to see the possible values for this operation
      *
      * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array<string,mixed>|\ForgeDashboard\Generated\Model\Error
      */
-    public function beginLogin($login_begin_request, string $contentType = self::contentTypes['beginLogin'][0])
+    public function beginLogin(string $contentType = self::contentTypes['beginLogin'][0])
     {
-        list($response) = $this->beginLoginWithHttpInfo($login_begin_request, $contentType);
+        list($response) = $this->beginLoginWithHttpInfo($contentType);
         return $response;
     }
 
@@ -448,16 +447,15 @@ class AuthApi
      *
      * Start a passkey login ceremony
      *
-     * @param  \ForgeDashboard\Generated\Model\LoginBeginRequest $login_begin_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['beginLogin'] to see the possible values for this operation
      *
      * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of array<string,mixed>|\ForgeDashboard\Generated\Model\Error, HTTP status code, HTTP response headers (array of strings)
      */
-    public function beginLoginWithHttpInfo($login_begin_request, string $contentType = self::contentTypes['beginLogin'][0])
+    public function beginLoginWithHttpInfo(string $contentType = self::contentTypes['beginLogin'][0])
     {
-        $request = $this->beginLoginRequest($login_begin_request, $contentType);
+        $request = $this->beginLoginRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -547,15 +545,14 @@ class AuthApi
      *
      * Start a passkey login ceremony
      *
-     * @param  \ForgeDashboard\Generated\Model\LoginBeginRequest $login_begin_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['beginLogin'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function beginLoginAsync($login_begin_request, string $contentType = self::contentTypes['beginLogin'][0])
+    public function beginLoginAsync(string $contentType = self::contentTypes['beginLogin'][0])
     {
-        return $this->beginLoginAsyncWithHttpInfo($login_begin_request, $contentType)
+        return $this->beginLoginAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -568,16 +565,15 @@ class AuthApi
      *
      * Start a passkey login ceremony
      *
-     * @param  \ForgeDashboard\Generated\Model\LoginBeginRequest $login_begin_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['beginLogin'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function beginLoginAsyncWithHttpInfo($login_begin_request, string $contentType = self::contentTypes['beginLogin'][0])
+    public function beginLoginAsyncWithHttpInfo(string $contentType = self::contentTypes['beginLogin'][0])
     {
         $returnType = 'array<string,mixed>';
-        $request = $this->beginLoginRequest($login_begin_request, $contentType);
+        $request = $this->beginLoginRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -618,21 +614,13 @@ class AuthApi
     /**
      * Create request for operation 'beginLogin'
      *
-     * @param  \ForgeDashboard\Generated\Model\LoginBeginRequest $login_begin_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['beginLogin'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function beginLoginRequest($login_begin_request, string $contentType = self::contentTypes['beginLogin'][0])
+    public function beginLoginRequest(string $contentType = self::contentTypes['beginLogin'][0])
     {
-
-        // verify the required parameter 'login_begin_request' is set
-        if ($login_begin_request === null || (is_array($login_begin_request) && count($login_begin_request) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $login_begin_request when calling beginLogin'
-            );
-        }
 
 
         $resourcePath = '/api/auth/login/begin';
@@ -653,18 +641,7 @@ class AuthApi
         );
 
         // for model (json/xml)
-        if (isset($login_begin_request)) {
-            if (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the body
-                try {
-                    $httpBody = json_encode(ObjectSerializer::sanitizeForSerialization($login_begin_request), JSON_THROW_ON_ERROR);
-                } catch (\JsonException $e) {
-                    throw new \InvalidArgumentException('json_encode error: ' . $e->getMessage(), 0, $e);
-                }
-            } else {
-                $httpBody = $login_begin_request;
-            }
-        } elseif (count($formParams) > 0) {
+        if (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -719,16 +696,15 @@ class AuthApi
      *
      * Start a passkey registration ceremony
      *
-     * @param  \ForgeDashboard\Generated\Model\RegisterBeginRequest $register_begin_request register_begin_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['beginRegistration'] to see the possible values for this operation
      *
      * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array<string,mixed>|\ForgeDashboard\Generated\Model\Error
      */
-    public function beginRegistration($register_begin_request, string $contentType = self::contentTypes['beginRegistration'][0])
+    public function beginRegistration(string $contentType = self::contentTypes['beginRegistration'][0])
     {
-        list($response) = $this->beginRegistrationWithHttpInfo($register_begin_request, $contentType);
+        list($response) = $this->beginRegistrationWithHttpInfo($contentType);
         return $response;
     }
 
@@ -737,16 +713,15 @@ class AuthApi
      *
      * Start a passkey registration ceremony
      *
-     * @param  \ForgeDashboard\Generated\Model\RegisterBeginRequest $register_begin_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['beginRegistration'] to see the possible values for this operation
      *
      * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of array<string,mixed>|\ForgeDashboard\Generated\Model\Error, HTTP status code, HTTP response headers (array of strings)
      */
-    public function beginRegistrationWithHttpInfo($register_begin_request, string $contentType = self::contentTypes['beginRegistration'][0])
+    public function beginRegistrationWithHttpInfo(string $contentType = self::contentTypes['beginRegistration'][0])
     {
-        $request = $this->beginRegistrationRequest($register_begin_request, $contentType);
+        $request = $this->beginRegistrationRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -836,15 +811,14 @@ class AuthApi
      *
      * Start a passkey registration ceremony
      *
-     * @param  \ForgeDashboard\Generated\Model\RegisterBeginRequest $register_begin_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['beginRegistration'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function beginRegistrationAsync($register_begin_request, string $contentType = self::contentTypes['beginRegistration'][0])
+    public function beginRegistrationAsync(string $contentType = self::contentTypes['beginRegistration'][0])
     {
-        return $this->beginRegistrationAsyncWithHttpInfo($register_begin_request, $contentType)
+        return $this->beginRegistrationAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -857,16 +831,15 @@ class AuthApi
      *
      * Start a passkey registration ceremony
      *
-     * @param  \ForgeDashboard\Generated\Model\RegisterBeginRequest $register_begin_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['beginRegistration'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function beginRegistrationAsyncWithHttpInfo($register_begin_request, string $contentType = self::contentTypes['beginRegistration'][0])
+    public function beginRegistrationAsyncWithHttpInfo(string $contentType = self::contentTypes['beginRegistration'][0])
     {
         $returnType = 'array<string,mixed>';
-        $request = $this->beginRegistrationRequest($register_begin_request, $contentType);
+        $request = $this->beginRegistrationRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -907,21 +880,13 @@ class AuthApi
     /**
      * Create request for operation 'beginRegistration'
      *
-     * @param  \ForgeDashboard\Generated\Model\RegisterBeginRequest $register_begin_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['beginRegistration'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function beginRegistrationRequest($register_begin_request, string $contentType = self::contentTypes['beginRegistration'][0])
+    public function beginRegistrationRequest(string $contentType = self::contentTypes['beginRegistration'][0])
     {
-
-        // verify the required parameter 'register_begin_request' is set
-        if ($register_begin_request === null || (is_array($register_begin_request) && count($register_begin_request) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $register_begin_request when calling beginRegistration'
-            );
-        }
 
 
         $resourcePath = '/api/auth/register/begin';
@@ -942,18 +907,7 @@ class AuthApi
         );
 
         // for model (json/xml)
-        if (isset($register_begin_request)) {
-            if (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the body
-                try {
-                    $httpBody = json_encode(ObjectSerializer::sanitizeForSerialization($register_begin_request), JSON_THROW_ON_ERROR);
-                } catch (\JsonException $e) {
-                    throw new \InvalidArgumentException('json_encode error: ' . $e->getMessage(), 0, $e);
-                }
-            } else {
-                $httpBody = $register_begin_request;
-            }
-        } elseif (count($formParams) > 0) {
+        if (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -1578,7 +1532,6 @@ class AuthApi
      *
      * Complete a passkey login ceremony
      *
-     * @param  string $username username (required)
      * @param  array<string,mixed> $request_body The raw response from &#x60;navigator.credentials.get()&#x60;, exactly as the browser produced it — forwarded to the server untouched. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['finishLogin'] to see the possible values for this operation
      *
@@ -1586,9 +1539,9 @@ class AuthApi
      * @throws \InvalidArgumentException
      * @return \ForgeDashboard\Generated\Model\SessionUser|\ForgeDashboard\Generated\Model\Error
      */
-    public function finishLogin($username, $request_body, string $contentType = self::contentTypes['finishLogin'][0])
+    public function finishLogin($request_body, string $contentType = self::contentTypes['finishLogin'][0])
     {
-        list($response) = $this->finishLoginWithHttpInfo($username, $request_body, $contentType);
+        list($response) = $this->finishLoginWithHttpInfo($request_body, $contentType);
         return $response;
     }
 
@@ -1597,7 +1550,6 @@ class AuthApi
      *
      * Complete a passkey login ceremony
      *
-     * @param  string $username (required)
      * @param  array<string,mixed> $request_body The raw response from &#x60;navigator.credentials.get()&#x60;, exactly as the browser produced it — forwarded to the server untouched. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['finishLogin'] to see the possible values for this operation
      *
@@ -1605,9 +1557,9 @@ class AuthApi
      * @throws \InvalidArgumentException
      * @return array of \ForgeDashboard\Generated\Model\SessionUser|\ForgeDashboard\Generated\Model\Error, HTTP status code, HTTP response headers (array of strings)
      */
-    public function finishLoginWithHttpInfo($username, $request_body, string $contentType = self::contentTypes['finishLogin'][0])
+    public function finishLoginWithHttpInfo($request_body, string $contentType = self::contentTypes['finishLogin'][0])
     {
-        $request = $this->finishLoginRequest($username, $request_body, $contentType);
+        $request = $this->finishLoginRequest($request_body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1697,16 +1649,15 @@ class AuthApi
      *
      * Complete a passkey login ceremony
      *
-     * @param  string $username (required)
      * @param  array<string,mixed> $request_body The raw response from &#x60;navigator.credentials.get()&#x60;, exactly as the browser produced it — forwarded to the server untouched. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['finishLogin'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function finishLoginAsync($username, $request_body, string $contentType = self::contentTypes['finishLogin'][0])
+    public function finishLoginAsync($request_body, string $contentType = self::contentTypes['finishLogin'][0])
     {
-        return $this->finishLoginAsyncWithHttpInfo($username, $request_body, $contentType)
+        return $this->finishLoginAsyncWithHttpInfo($request_body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1719,17 +1670,16 @@ class AuthApi
      *
      * Complete a passkey login ceremony
      *
-     * @param  string $username (required)
      * @param  array<string,mixed> $request_body The raw response from &#x60;navigator.credentials.get()&#x60;, exactly as the browser produced it — forwarded to the server untouched. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['finishLogin'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function finishLoginAsyncWithHttpInfo($username, $request_body, string $contentType = self::contentTypes['finishLogin'][0])
+    public function finishLoginAsyncWithHttpInfo($request_body, string $contentType = self::contentTypes['finishLogin'][0])
     {
         $returnType = '\ForgeDashboard\Generated\Model\SessionUser';
-        $request = $this->finishLoginRequest($username, $request_body, $contentType);
+        $request = $this->finishLoginRequest($request_body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1770,22 +1720,14 @@ class AuthApi
     /**
      * Create request for operation 'finishLogin'
      *
-     * @param  string $username (required)
      * @param  array<string,mixed> $request_body The raw response from &#x60;navigator.credentials.get()&#x60;, exactly as the browser produced it — forwarded to the server untouched. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['finishLogin'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function finishLoginRequest($username, $request_body, string $contentType = self::contentTypes['finishLogin'][0])
+    public function finishLoginRequest($request_body, string $contentType = self::contentTypes['finishLogin'][0])
     {
-
-        // verify the required parameter 'username' is set
-        if ($username === null || (is_array($username) && count($username) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $username when calling finishLogin'
-            );
-        }
 
         // verify the required parameter 'request_body' is set
         if ($request_body === null || (is_array($request_body) && count($request_body) === 0)) {
@@ -1802,15 +1744,6 @@ class AuthApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $username,
-            'username', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
 
 
 
@@ -1888,7 +1821,6 @@ class AuthApi
      *
      * Complete a passkey registration ceremony
      *
-     * @param  string $username username (required)
      * @param  array<string,mixed> $request_body The raw response from &#x60;navigator.credentials.create()&#x60;, exactly as the browser produced it — forwarded to the server untouched. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['finishRegistration'] to see the possible values for this operation
      *
@@ -1896,9 +1828,9 @@ class AuthApi
      * @throws \InvalidArgumentException
      * @return \ForgeDashboard\Generated\Model\SessionUser|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error
      */
-    public function finishRegistration($username, $request_body, string $contentType = self::contentTypes['finishRegistration'][0])
+    public function finishRegistration($request_body, string $contentType = self::contentTypes['finishRegistration'][0])
     {
-        list($response) = $this->finishRegistrationWithHttpInfo($username, $request_body, $contentType);
+        list($response) = $this->finishRegistrationWithHttpInfo($request_body, $contentType);
         return $response;
     }
 
@@ -1907,7 +1839,6 @@ class AuthApi
      *
      * Complete a passkey registration ceremony
      *
-     * @param  string $username (required)
      * @param  array<string,mixed> $request_body The raw response from &#x60;navigator.credentials.create()&#x60;, exactly as the browser produced it — forwarded to the server untouched. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['finishRegistration'] to see the possible values for this operation
      *
@@ -1915,9 +1846,9 @@ class AuthApi
      * @throws \InvalidArgumentException
      * @return array of \ForgeDashboard\Generated\Model\SessionUser|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error, HTTP status code, HTTP response headers (array of strings)
      */
-    public function finishRegistrationWithHttpInfo($username, $request_body, string $contentType = self::contentTypes['finishRegistration'][0])
+    public function finishRegistrationWithHttpInfo($request_body, string $contentType = self::contentTypes['finishRegistration'][0])
     {
-        $request = $this->finishRegistrationRequest($username, $request_body, $contentType);
+        $request = $this->finishRegistrationRequest($request_body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2021,16 +1952,15 @@ class AuthApi
      *
      * Complete a passkey registration ceremony
      *
-     * @param  string $username (required)
      * @param  array<string,mixed> $request_body The raw response from &#x60;navigator.credentials.create()&#x60;, exactly as the browser produced it — forwarded to the server untouched. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['finishRegistration'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function finishRegistrationAsync($username, $request_body, string $contentType = self::contentTypes['finishRegistration'][0])
+    public function finishRegistrationAsync($request_body, string $contentType = self::contentTypes['finishRegistration'][0])
     {
-        return $this->finishRegistrationAsyncWithHttpInfo($username, $request_body, $contentType)
+        return $this->finishRegistrationAsyncWithHttpInfo($request_body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2043,17 +1973,16 @@ class AuthApi
      *
      * Complete a passkey registration ceremony
      *
-     * @param  string $username (required)
      * @param  array<string,mixed> $request_body The raw response from &#x60;navigator.credentials.create()&#x60;, exactly as the browser produced it — forwarded to the server untouched. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['finishRegistration'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function finishRegistrationAsyncWithHttpInfo($username, $request_body, string $contentType = self::contentTypes['finishRegistration'][0])
+    public function finishRegistrationAsyncWithHttpInfo($request_body, string $contentType = self::contentTypes['finishRegistration'][0])
     {
         $returnType = '\ForgeDashboard\Generated\Model\SessionUser';
-        $request = $this->finishRegistrationRequest($username, $request_body, $contentType);
+        $request = $this->finishRegistrationRequest($request_body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2094,22 +2023,14 @@ class AuthApi
     /**
      * Create request for operation 'finishRegistration'
      *
-     * @param  string $username (required)
      * @param  array<string,mixed> $request_body The raw response from &#x60;navigator.credentials.create()&#x60;, exactly as the browser produced it — forwarded to the server untouched. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['finishRegistration'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function finishRegistrationRequest($username, $request_body, string $contentType = self::contentTypes['finishRegistration'][0])
+    public function finishRegistrationRequest($request_body, string $contentType = self::contentTypes['finishRegistration'][0])
     {
-
-        // verify the required parameter 'username' is set
-        if ($username === null || (is_array($username) && count($username) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $username when calling finishRegistration'
-            );
-        }
 
         // verify the required parameter 'request_body' is set
         if ($request_body === null || (is_array($request_body) && count($request_body) === 0)) {
@@ -2126,15 +2047,6 @@ class AuthApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $username,
-            'username', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
 
 
 
