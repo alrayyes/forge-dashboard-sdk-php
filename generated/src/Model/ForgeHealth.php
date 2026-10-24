@@ -66,7 +66,8 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'repo_count' => 'int',
         'rate_limit_graph_ql' => '\ForgeDashboard\Generated\Model\RateLimit',
         'rate_limit_rest' => '\ForgeDashboard\Generated\Model\RateLimit',
-        'dependabot_commands_blocked' => 'string'
+        'dependabot_commands_blocked' => 'string',
+        'rerun_checks_blocked' => 'string'
     ];
 
     /**
@@ -86,7 +87,8 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'repo_count' => null,
         'rate_limit_graph_ql' => null,
         'rate_limit_rest' => null,
-        'dependabot_commands_blocked' => null
+        'dependabot_commands_blocked' => null,
+        'rerun_checks_blocked' => null
     ];
 
     /**
@@ -104,7 +106,8 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'repo_count' => false,
         'rate_limit_graph_ql' => false,
         'rate_limit_rest' => false,
-        'dependabot_commands_blocked' => false
+        'dependabot_commands_blocked' => false,
+        'rerun_checks_blocked' => false
     ];
 
     /**
@@ -202,7 +205,8 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'repo_count' => 'repoCount',
         'rate_limit_graph_ql' => 'rateLimitGraphQL',
         'rate_limit_rest' => 'rateLimitREST',
-        'dependabot_commands_blocked' => 'dependabotCommandsBlocked'
+        'dependabot_commands_blocked' => 'dependabotCommandsBlocked',
+        'rerun_checks_blocked' => 'rerunChecksBlocked'
     ];
 
     /**
@@ -220,7 +224,8 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'repo_count' => 'setRepoCount',
         'rate_limit_graph_ql' => 'setRateLimitGraphQl',
         'rate_limit_rest' => 'setRateLimitRest',
-        'dependabot_commands_blocked' => 'setDependabotCommandsBlocked'
+        'dependabot_commands_blocked' => 'setDependabotCommandsBlocked',
+        'rerun_checks_blocked' => 'setRerunChecksBlocked'
     ];
 
     /**
@@ -238,7 +243,8 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'repo_count' => 'getRepoCount',
         'rate_limit_graph_ql' => 'getRateLimitGraphQl',
         'rate_limit_rest' => 'getRateLimitRest',
-        'dependabot_commands_blocked' => 'getDependabotCommandsBlocked'
+        'dependabot_commands_blocked' => 'getDependabotCommandsBlocked',
+        'rerun_checks_blocked' => 'getRerunChecksBlocked'
     ];
 
     /**
@@ -308,6 +314,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('rate_limit_graph_ql', $data ?? [], null);
         $this->setIfExists('rate_limit_rest', $data ?? [], null);
         $this->setIfExists('dependabot_commands_blocked', $data ?? [], null);
+        $this->setIfExists('rerun_checks_blocked', $data ?? [], null);
     }
 
     /**
@@ -635,6 +642,33 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable dependabot_commands_blocked cannot be null');
         }
         $this->container['dependabot_commands_blocked'] = $dependabot_commands_blocked;
+
+        return $this;
+    }
+
+    /**
+     * Gets rerun_checks_blocked
+     *
+     * @return string|null
+     */
+    public function getRerunChecksBlocked()
+    {
+        return $this->container['rerun_checks_blocked'];
+    }
+
+    /**
+     * Sets rerun_checks_blocked
+     *
+     * @param string|null $rerun_checks_blocked Why this forge can't rerun checks. Set only for a Forgejo whose version is 7 to 16, which has no API route for it; a version below 7 may be a Gitea and is left to the forge. The version is read in the background, read again after an hour while it blocks, and retried after a failed read or one that gives no number. A block that has gone stale is dropped when the read fails. Rerun failed checks is not offered for the forge, and the page shows this text where the button would be. Omitted when rerunning works or the version could not be read.
+     *
+     * @return self
+     */
+    public function setRerunChecksBlocked($rerun_checks_blocked)
+    {
+        if (is_null($rerun_checks_blocked)) {
+            throw new \InvalidArgumentException('non-nullable rerun_checks_blocked cannot be null');
+        }
+        $this->container['rerun_checks_blocked'] = $rerun_checks_blocked;
 
         return $this;
     }
