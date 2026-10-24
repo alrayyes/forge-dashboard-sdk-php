@@ -437,7 +437,7 @@ class AuthApi
      *
      * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array<string,mixed>|\ForgeDashboard\Generated\Model\Error
+     * @return array<string,mixed>|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error
      */
     public function beginLogin(string $contentType = self::contentTypes['beginLogin'][0])
     {
@@ -454,7 +454,7 @@ class AuthApi
      *
      * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of array<string,mixed>|\ForgeDashboard\Generated\Model\Error, HTTP status code, HTTP response headers (array of strings)
+     * @return array of array<string,mixed>|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error, HTTP status code, HTTP response headers (array of strings)
      */
     public function beginLoginWithHttpInfo(string $contentType = self::contentTypes['beginLogin'][0])
     {
@@ -496,6 +496,12 @@ class AuthApi
                         $request,
                         $response,
                     );
+                case 429:
+                    return $this->handleResponseWithDataType(
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -529,6 +535,14 @@ class AuthApi
                     $e->setResponseObject($data);
                     throw $e;
                 case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 429:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\ForgeDashboard\Generated\Model\Error',
@@ -703,7 +717,7 @@ class AuthApi
      *
      * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array<string,mixed>|\ForgeDashboard\Generated\Model\Error
+     * @return array<string,mixed>|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error
      */
     public function beginRegistration(string $contentType = self::contentTypes['beginRegistration'][0])
     {
@@ -720,7 +734,7 @@ class AuthApi
      *
      * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of array<string,mixed>|\ForgeDashboard\Generated\Model\Error, HTTP status code, HTTP response headers (array of strings)
+     * @return array of array<string,mixed>|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error, HTTP status code, HTTP response headers (array of strings)
      */
     public function beginRegistrationWithHttpInfo(string $contentType = self::contentTypes['beginRegistration'][0])
     {
@@ -762,6 +776,12 @@ class AuthApi
                         $request,
                         $response,
                     );
+                case 429:
+                    return $this->handleResponseWithDataType(
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -795,6 +815,14 @@ class AuthApi
                     $e->setResponseObject($data);
                     throw $e;
                 case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 429:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\ForgeDashboard\Generated\Model\Error',
@@ -1540,7 +1568,7 @@ class AuthApi
      *
      * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \ForgeDashboard\Generated\Model\SessionUser|\ForgeDashboard\Generated\Model\Error
+     * @return \ForgeDashboard\Generated\Model\SessionUser|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error
      */
     public function finishLogin($request_body, string $contentType = self::contentTypes['finishLogin'][0])
     {
@@ -1558,7 +1586,7 @@ class AuthApi
      *
      * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \ForgeDashboard\Generated\Model\SessionUser|\ForgeDashboard\Generated\Model\Error, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \ForgeDashboard\Generated\Model\SessionUser|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error, HTTP status code, HTTP response headers (array of strings)
      */
     public function finishLoginWithHttpInfo($request_body, string $contentType = self::contentTypes['finishLogin'][0])
     {
@@ -1600,6 +1628,12 @@ class AuthApi
                         $request,
                         $response,
                     );
+                case 429:
+                    return $this->handleResponseWithDataType(
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -1633,6 +1667,14 @@ class AuthApi
                     $e->setResponseObject($data);
                     throw $e;
                 case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 429:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\ForgeDashboard\Generated\Model\Error',
@@ -1829,7 +1871,7 @@ class AuthApi
      *
      * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \ForgeDashboard\Generated\Model\SessionUser|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error
+     * @return \ForgeDashboard\Generated\Model\SessionUser|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error
      */
     public function finishRegistration($request_body, string $contentType = self::contentTypes['finishRegistration'][0])
     {
@@ -1847,7 +1889,7 @@ class AuthApi
      *
      * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \ForgeDashboard\Generated\Model\SessionUser|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \ForgeDashboard\Generated\Model\SessionUser|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error, HTTP status code, HTTP response headers (array of strings)
      */
     public function finishRegistrationWithHttpInfo($request_body, string $contentType = self::contentTypes['finishRegistration'][0])
     {
@@ -1895,6 +1937,12 @@ class AuthApi
                         $request,
                         $response,
                     );
+                case 429:
+                    return $this->handleResponseWithDataType(
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -1936,6 +1984,14 @@ class AuthApi
                     $e->setResponseObject($data);
                     throw $e;
                 case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 429:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\ForgeDashboard\Generated\Model\Error',
