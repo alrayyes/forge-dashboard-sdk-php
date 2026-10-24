@@ -64,6 +64,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'job_id' => 'int',
         'run_id' => 'int',
         'run_name' => 'string',
+        'run_number' => 'int',
         'required' => 'bool',
         'duration_seconds' => 'int',
         'run_attempt' => 'int',
@@ -85,6 +86,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'job_id' => null,
         'run_id' => null,
         'run_name' => null,
+        'run_number' => null,
         'required' => null,
         'duration_seconds' => null,
         'run_attempt' => null,
@@ -104,6 +106,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'job_id' => false,
         'run_id' => false,
         'run_name' => false,
+        'run_number' => false,
         'required' => false,
         'duration_seconds' => false,
         'run_attempt' => false,
@@ -203,6 +206,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'job_id' => 'jobId',
         'run_id' => 'runId',
         'run_name' => 'runName',
+        'run_number' => 'runNumber',
         'required' => 'required',
         'duration_seconds' => 'durationSeconds',
         'run_attempt' => 'runAttempt',
@@ -222,6 +226,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'job_id' => 'setJobId',
         'run_id' => 'setRunId',
         'run_name' => 'setRunName',
+        'run_number' => 'setRunNumber',
         'required' => 'setRequired',
         'duration_seconds' => 'setDurationSeconds',
         'run_attempt' => 'setRunAttempt',
@@ -241,6 +246,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'job_id' => 'getJobId',
         'run_id' => 'getRunId',
         'run_name' => 'getRunName',
+        'run_number' => 'getRunNumber',
         'required' => 'getRequired',
         'duration_seconds' => 'getDurationSeconds',
         'run_attempt' => 'getRunAttempt',
@@ -311,6 +317,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('job_id', $data ?? [], null);
         $this->setIfExists('run_id', $data ?? [], null);
         $this->setIfExists('run_name', $data ?? [], null);
+        $this->setIfExists('run_number', $data ?? [], null);
         $this->setIfExists('required', $data ?? [], null);
         $this->setIfExists('duration_seconds', $data ?? [], null);
         $this->setIfExists('run_attempt', $data ?? [], null);
@@ -360,6 +367,10 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
 
         if (!is_null($this->container['run_id']) && ($this->container['run_id'] < 1)) {
             $invalidProperties[] = "invalid value for 'run_id', must be bigger than or equal to 1.";
+        }
+
+        if (!is_null($this->container['run_number']) && ($this->container['run_number'] < 1)) {
+            $invalidProperties[] = "invalid value for 'run_number', must be bigger than or equal to 1.";
         }
 
         if (!is_null($this->container['duration_seconds']) && ($this->container['duration_seconds'] < 0)) {
@@ -551,6 +562,37 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable run_name cannot be null');
         }
         $this->container['run_name'] = $run_name;
+
+        return $this;
+    }
+
+    /**
+     * Gets run_number
+     *
+     * @return int|null
+     */
+    public function getRunNumber()
+    {
+        return $this->container['run_number'];
+    }
+
+    /**
+     * Sets run_number
+     *
+     * @param int|null $run_number The forge's own number for that run, the one in the run's page address. It tells two runs of one workflow apart. Present with `runId` when the forge says it.
+     *
+     * @return self
+     */
+    public function setRunNumber($run_number)
+    {
+        if (is_null($run_number)) {
+            throw new \InvalidArgumentException('non-nullable run_number cannot be null');
+        }
+        if (($run_number < 1)) {
+            throw new \InvalidArgumentException('invalid value for $run_number when calling Check., must be bigger than or equal to 1.');
+        }
+
+        $this->container['run_number'] = $run_number;
 
         return $this;
     }
