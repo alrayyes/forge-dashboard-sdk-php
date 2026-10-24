@@ -96,6 +96,7 @@ Class | Method | HTTP request | Description
 *AuthApi* | [**getSession**](docs/Api/AuthApi.md#getsession) | **GET** /api/auth/session | Who, if anyone, the current session cookie belongs to
 *AuthApi* | [**listCredentials**](docs/Api/AuthApi.md#listcredentials) | **GET** /api/auth/credentials | List the signed-in user&#39;s own passkeys
 *AuthApi* | [**logout**](docs/Api/AuthApi.md#logout) | **POST** /api/auth/logout | End the current session
+*AuthApi* | [**renameCredential**](docs/Api/AuthApi.md#renamecredential) | **PATCH** /api/auth/credentials/{id} | Rename one of the signed-in user&#39;s own passkeys
 *DashboardApi* | [**disableAutoUpdateBranch**](docs/Api/DashboardApi.md#disableautoupdatebranch) | **POST** /api/repos/auto-update-branch/disable | Turn off automatic branch updates for one tracked repo
 *DashboardApi* | [**enableAutoUpdateBranch**](docs/Api/DashboardApi.md#enableautoupdatebranch) | **POST** /api/repos/auto-update-branch/enable | Turn on automatic branch updates for one tracked repo
 *DashboardApi* | [**getCheckLog**](docs/Api/DashboardApi.md#getchecklog) | **GET** /api/checks/log | Read the output of one CI job, on demand
@@ -232,6 +233,7 @@ Class | Method | HTTP request | Description
 - [Ready](docs/Model/Ready.md)
 - [RegistrationStatus](docs/Model/RegistrationStatus.md)
 - [ReleaseDetails](docs/Model/ReleaseDetails.md)
+- [RenameCredentialRequest](docs/Model/RenameCredentialRequest.md)
 - [RepoIgnoreRequest](docs/Model/RepoIgnoreRequest.md)
 - [RepoStatus](docs/Model/RepoStatus.md)
 - [ReviewState](docs/Model/ReviewState.md)
