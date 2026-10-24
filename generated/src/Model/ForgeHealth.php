@@ -659,7 +659,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets rerun_checks_blocked
      *
-     * @param string|null $rerun_checks_blocked Why this forge can't rerun checks. Set only for a Forgejo whose version is 7 to 16, which has no API route for it; a version below 7 may be a Gitea and is left to the forge. The version is read in the background, read again after an hour while it blocks, and retried after a failed read or one that gives no number. A block that has gone stale is dropped when the read fails. Rerun failed checks is not offered for the forge, and the page shows this text where the button would be. Omitted when rerunning works or the version could not be read.
+     * @param string|null $rerun_checks_blocked Why this forge can't rerun checks. Set only for a Forgejo whose version is 7 to 16, which has no API route for it. A version below 7 is left to the forge, because a Gitea numbers itself that way. The version is read in the background, read again after an hour while it blocks, and retried after a failed read or one that gives no number. A block that has gone stale is dropped when the read fails. Rerun failed checks is not offered for the forge, and the page shows this text where the button would be. Omitted when rerunning works or the version could not be read.
      *
      * @return self
      */
