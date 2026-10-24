@@ -35,7 +35,7 @@ use \ForgeDashboard\Generated\ObjectSerializer;
  * AllowedActionBlocked Class Doc Comment
  *
  * @category Class
- * @description Present when the action is offered but can&#39;t be taken yet. Merge is blocked rather than hidden while waiting or fixing something can unlock it. An empty pull request, which nothing can unlock, has no &#x60;merge&#x60; entry at all: see &#x60;status&#x60;. &#x60;renovate_rebase&#x60; is blocked with &#x60;already_requested&#x60; while Renovate&#39;s rebase checkbox in the pull request description is ticked, whether it was ticked from this app or on the forge: one rebase is already waiting for Renovate, and it is offered again once Renovate has rebased and cleared the box.
+ * @description Present when the action is offered but can&#39;t be taken yet. Merge is blocked rather than hidden while waiting or fixing something can unlock it. An empty pull request, which nothing can unlock, has no &#x60;merge&#x60; entry at all: see &#x60;status&#x60;. A request that is already waiting is never listed blocked. While Renovate&#39;s rebase checkbox in the pull request description is ticked, whether from this app or on the forge, &#x60;renovate_rebase&#x60; is absent and &#x60;cancel_renovate_rebase&#x60; is listed instead. A Renovate rebase asked for through this app with no checkbox behind it, and a Dependabot rebase or recreate that is pending, list neither request nor cancel: Dependabot has no command to withdraw one. The request is offered again once the bot has acted or the request has expired.
  * @package  ForgeDashboard\Generated
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
