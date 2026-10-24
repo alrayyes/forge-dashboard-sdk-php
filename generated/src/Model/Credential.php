@@ -353,7 +353,7 @@ class Credential implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets label
      *
-     * @param string $label The name given at registration time, so a list of several is tellable apart.
+     * @param string $label The passkey's name, given at registration and changeable with `PATCH /api/auth/credentials/{id}`. Empty when it was never named; clients then fall back to `createdAt`.
      *
      * @return self
      */
