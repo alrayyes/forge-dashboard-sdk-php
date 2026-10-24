@@ -63,6 +63,7 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
         'title' => 'string',
         'url' => 'string',
         'linked_pull_requests' => '\ForgeDashboard\Generated\Model\LinkedPullRequest[]',
+        'mentioned_by_pull_requests' => '\ForgeDashboard\Generated\Model\LinkedPullRequest[]',
         'housekeeping' => 'bool',
         'author' => 'string',
         'author_avatar_url' => 'string',
@@ -86,6 +87,7 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
         'title' => null,
         'url' => 'uri',
         'linked_pull_requests' => null,
+        'mentioned_by_pull_requests' => null,
         'housekeeping' => null,
         'author' => null,
         'author_avatar_url' => null,
@@ -107,6 +109,7 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
         'title' => false,
         'url' => false,
         'linked_pull_requests' => false,
+        'mentioned_by_pull_requests' => false,
         'housekeeping' => false,
         'author' => false,
         'author_avatar_url' => false,
@@ -208,6 +211,7 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
         'title' => 'title',
         'url' => 'url',
         'linked_pull_requests' => 'linkedPullRequests',
+        'mentioned_by_pull_requests' => 'mentionedByPullRequests',
         'housekeeping' => 'housekeeping',
         'author' => 'author',
         'author_avatar_url' => 'authorAvatarUrl',
@@ -229,6 +233,7 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
         'title' => 'setTitle',
         'url' => 'setUrl',
         'linked_pull_requests' => 'setLinkedPullRequests',
+        'mentioned_by_pull_requests' => 'setMentionedByPullRequests',
         'housekeeping' => 'setHousekeeping',
         'author' => 'setAuthor',
         'author_avatar_url' => 'setAuthorAvatarUrl',
@@ -250,6 +255,7 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
         'title' => 'getTitle',
         'url' => 'getUrl',
         'linked_pull_requests' => 'getLinkedPullRequests',
+        'mentioned_by_pull_requests' => 'getMentionedByPullRequests',
         'housekeeping' => 'getHousekeeping',
         'author' => 'getAuthor',
         'author_avatar_url' => 'getAuthorAvatarUrl',
@@ -322,6 +328,7 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('title', $data ?? [], null);
         $this->setIfExists('url', $data ?? [], null);
         $this->setIfExists('linked_pull_requests', $data ?? [], null);
+        $this->setIfExists('mentioned_by_pull_requests', $data ?? [], null);
         $this->setIfExists('housekeeping', $data ?? [], null);
         $this->setIfExists('author', $data ?? [], null);
         $this->setIfExists('author_avatar_url', $data ?? [], null);
@@ -375,6 +382,9 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if ($this->container['linked_pull_requests'] === null) {
             $invalidProperties[] = "'linked_pull_requests' can't be null";
+        }
+        if ($this->container['mentioned_by_pull_requests'] === null) {
+            $invalidProperties[] = "'mentioned_by_pull_requests' can't be null";
         }
         if ($this->container['housekeeping'] === null) {
             $invalidProperties[] = "'housekeeping' can't be null";
@@ -570,6 +580,33 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable linked_pull_requests cannot be null');
         }
         $this->container['linked_pull_requests'] = $linked_pull_requests;
+
+        return $this;
+    }
+
+    /**
+     * Gets mentioned_by_pull_requests
+     *
+     * @return \ForgeDashboard\Generated\Model\LinkedPullRequest[]
+     */
+    public function getMentionedByPullRequests()
+    {
+        return $this->container['mentioned_by_pull_requests'];
+    }
+
+    /**
+     * Sets mentioned_by_pull_requests
+     *
+     * @param \ForgeDashboard\Generated\Model\LinkedPullRequest[] $mentioned_by_pull_requests The open pull requests that mention the issue without closing it, the other side of a pull request's `mentionsIssues`, ordered by repository and number and with the same entry as `linkedPullRequests`. A pull request that closes the issue is only in `linkedPullRequests`. Always present, and empty when there are none. The pull requests counted are the same as in `linkedPullRequests`.
+     *
+     * @return self
+     */
+    public function setMentionedByPullRequests($mentioned_by_pull_requests)
+    {
+        if (is_null($mentioned_by_pull_requests)) {
+            throw new \InvalidArgumentException('non-nullable mentioned_by_pull_requests cannot be null');
+        }
+        $this->container['mentioned_by_pull_requests'] = $mentioned_by_pull_requests;
 
         return $this;
     }

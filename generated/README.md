@@ -207,6 +207,7 @@ Class | Method | HTTP request | Description
 - [MainBranchRerunRequest](docs/Model/MainBranchRerunRequest.md)
 - [MainBranchStatus](docs/Model/MainBranchStatus.md)
 - [MainBranches](docs/Model/MainBranches.md)
+- [MentionedIssue](docs/Model/MentionedIssue.md)
 - [MergeStatus](docs/Model/MergeStatus.md)
 - [NavCount](docs/Model/NavCount.md)
 - [NavCounts](docs/Model/NavCounts.md)

@@ -89,6 +89,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'review_comments' => 'int',
         'conversation_comments' => 'int',
         'closes_issues' => '\ForgeDashboard\Generated\Model\ClosingIssue[]',
+        'mentions_issues' => '\ForgeDashboard\Generated\Model\MentionedIssue[]',
         'unresolved_threads' => 'int',
         'review_requested_from_me' => 'bool',
         'empty' => 'bool',
@@ -147,6 +148,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'review_comments' => null,
         'conversation_comments' => null,
         'closes_issues' => null,
+        'mentions_issues' => null,
         'unresolved_threads' => null,
         'review_requested_from_me' => null,
         'empty' => null,
@@ -203,6 +205,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'review_comments' => false,
         'conversation_comments' => false,
         'closes_issues' => false,
+        'mentions_issues' => false,
         'unresolved_threads' => true,
         'review_requested_from_me' => false,
         'empty' => false,
@@ -339,6 +342,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'review_comments' => 'reviewComments',
         'conversation_comments' => 'conversationComments',
         'closes_issues' => 'closesIssues',
+        'mentions_issues' => 'mentionsIssues',
         'unresolved_threads' => 'unresolvedThreads',
         'review_requested_from_me' => 'reviewRequestedFromMe',
         'empty' => 'empty',
@@ -395,6 +399,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'review_comments' => 'setReviewComments',
         'conversation_comments' => 'setConversationComments',
         'closes_issues' => 'setClosesIssues',
+        'mentions_issues' => 'setMentionsIssues',
         'unresolved_threads' => 'setUnresolvedThreads',
         'review_requested_from_me' => 'setReviewRequestedFromMe',
         'empty' => 'setEmpty',
@@ -451,6 +456,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'review_comments' => 'getReviewComments',
         'conversation_comments' => 'getConversationComments',
         'closes_issues' => 'getClosesIssues',
+        'mentions_issues' => 'getMentionsIssues',
         'unresolved_threads' => 'getUnresolvedThreads',
         'review_requested_from_me' => 'getReviewRequestedFromMe',
         'empty' => 'getEmpty',
@@ -575,6 +581,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('review_comments', $data ?? [], null);
         $this->setIfExists('conversation_comments', $data ?? [], null);
         $this->setIfExists('closes_issues', $data ?? [], null);
+        $this->setIfExists('mentions_issues', $data ?? [], null);
         $this->setIfExists('unresolved_threads', $data ?? [], null);
         $this->setIfExists('review_requested_from_me', $data ?? [], null);
         $this->setIfExists('empty', $data ?? [], null);
@@ -726,6 +733,13 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if ((count($this->container['closes_issues']) > 20)) {
             $invalidProperties[] = "invalid value for 'closes_issues', number of items must be less than or equal to 20.";
+        }
+
+        if ($this->container['mentions_issues'] === null) {
+            $invalidProperties[] = "'mentions_issues' can't be null";
+        }
+        if ((count($this->container['mentions_issues']) > 20)) {
+            $invalidProperties[] = "invalid value for 'mentions_issues', number of items must be less than or equal to 20.";
         }
 
         if ($this->container['unresolved_threads'] === null && !$this->isNullableSetToNull('unresolved_threads')) {
@@ -1690,6 +1704,36 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('invalid value for $closes_issues when calling PullRequest., number of items must be less than or equal to 20.');
         }
         $this->container['closes_issues'] = $closes_issues;
+
+        return $this;
+    }
+
+    /**
+     * Gets mentions_issues
+     *
+     * @return \ForgeDashboard\Generated\Model\MentionedIssue[]
+     */
+    public function getMentionsIssues()
+    {
+        return $this->container['mentions_issues'];
+    }
+
+    /**
+     * Sets mentions_issues
+     *
+     * @param \ForgeDashboard\Generated\Model\MentionedIssue[] $mentions_issues The issues and pull requests the title or description mentions without closing them, in order of first appearance and without repeats, at most 20. Always present, and empty when there are none. A mention is what GitHub and Forgejo both link: `#NUMBER`, `owner/repo#NUMBER`, or the address of an issue or pull request page on the forge, and on GitHub also `GH-NUMBER`. It has to stand alone: `abc#1`, `&#1` and `#1abc` are not mentions, while emphasis and table markup around it (`**#1**`, `_#1_`, `|#1|`) is fine. Code, HTML comments and the text of a link, Markdown or HTML anchor, count for nothing, and a link counts only by its target, when that is a page on the forge. Only the first 64 KiB of the description is read, cut at a space, and the first 100 references in it. A reference in a quotation still counts, and the pull request's own number does not. What the pull request actually closes is left out, even when the text also mentions it, and the cap applies after that. Which references close depends on the branch the pull request aims at, so a closing keyword on a pull request that does not target the default branch is a mention. Only the description closes, so a keyword in the title is a mention. Comments, reviews and commit messages are not read. The server reads the text on both forges, with or without a GitHub token, so a client needs no rule of its own.
+     *
+     * @return self
+     */
+    public function setMentionsIssues($mentions_issues)
+    {
+        if (is_null($mentions_issues)) {
+            throw new \InvalidArgumentException('non-nullable mentions_issues cannot be null');
+        }
+        if ((count($mentions_issues) > 20)) {
+            throw new \InvalidArgumentException('invalid value for $mentions_issues when calling PullRequest., number of items must be less than or equal to 20.');
+        }
+        $this->container['mentions_issues'] = $mentions_issues;
 
         return $this;
     }
