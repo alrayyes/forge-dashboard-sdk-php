@@ -2611,16 +2611,17 @@ class PullRequestsApi
      *
      * Merge one pull request, on the signed-in user&#39;s behalf
      *
-     * @param  \ForgeDashboard\Generated\Model\PullRequestActionRequest $pull_request_action_request pull_request_action_request (required)
+     * @param  \ForgeDashboard\Generated\Model\PullRequestMergeRequest $pull_request_merge_request pull_request_merge_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mergePullRequest'] to see the possible values for this operation
      *
      * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return void
+     * @return \ForgeDashboard\Generated\Model\PullRequestMergeResult|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\ActionError|\ForgeDashboard\Generated\Model\ActionError|\ForgeDashboard\Generated\Model\ActionError|\ForgeDashboard\Generated\Model\ActionError|\ForgeDashboard\Generated\Model\ActionError
      */
-    public function mergePullRequest($pull_request_action_request, string $contentType = self::contentTypes['mergePullRequest'][0])
+    public function mergePullRequest($pull_request_merge_request, string $contentType = self::contentTypes['mergePullRequest'][0])
     {
-        $this->mergePullRequestWithHttpInfo($pull_request_action_request, $contentType);
+        list($response) = $this->mergePullRequestWithHttpInfo($pull_request_merge_request, $contentType);
+        return $response;
     }
 
     /**
@@ -2628,16 +2629,16 @@ class PullRequestsApi
      *
      * Merge one pull request, on the signed-in user&#39;s behalf
      *
-     * @param  \ForgeDashboard\Generated\Model\PullRequestActionRequest $pull_request_action_request (required)
+     * @param  \ForgeDashboard\Generated\Model\PullRequestMergeRequest $pull_request_merge_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mergePullRequest'] to see the possible values for this operation
      *
      * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \ForgeDashboard\Generated\Model\PullRequestMergeResult|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\ActionError|\ForgeDashboard\Generated\Model\ActionError|\ForgeDashboard\Generated\Model\ActionError|\ForgeDashboard\Generated\Model\ActionError|\ForgeDashboard\Generated\Model\ActionError, HTTP status code, HTTP response headers (array of strings)
      */
-    public function mergePullRequestWithHttpInfo($pull_request_action_request, string $contentType = self::contentTypes['mergePullRequest'][0])
+    public function mergePullRequestWithHttpInfo($pull_request_merge_request, string $contentType = self::contentTypes['mergePullRequest'][0])
     {
-        $request = $this->mergePullRequestRequest($pull_request_action_request, $contentType);
+        $request = $this->mergePullRequestRequest($pull_request_merge_request, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2662,9 +2663,87 @@ class PullRequestsApi
             $statusCode = $response->getStatusCode();
 
 
-            return [null, $statusCode, $response->getHeaders()];
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\ForgeDashboard\Generated\Model\PullRequestMergeResult',
+                        $request,
+                        $response,
+                    );
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $request,
+                        $response,
+                    );
+                case 403:
+                    return $this->handleResponseWithDataType(
+                        '\ForgeDashboard\Generated\Model\ActionError',
+                        $request,
+                        $response,
+                    );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\ForgeDashboard\Generated\Model\ActionError',
+                        $request,
+                        $response,
+                    );
+                case 409:
+                    return $this->handleResponseWithDataType(
+                        '\ForgeDashboard\Generated\Model\ActionError',
+                        $request,
+                        $response,
+                    );
+                case 429:
+                    return $this->handleResponseWithDataType(
+                        '\ForgeDashboard\Generated\Model\ActionError',
+                        $request,
+                        $response,
+                    );
+                case 502:
+                    return $this->handleResponseWithDataType(
+                        '\ForgeDashboard\Generated\Model\ActionError',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\ForgeDashboard\Generated\Model\PullRequestMergeResult',
+                $request,
+                $response,
+            );
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\PullRequestMergeResult',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
                 case 400:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
@@ -2733,15 +2812,15 @@ class PullRequestsApi
      *
      * Merge one pull request, on the signed-in user&#39;s behalf
      *
-     * @param  \ForgeDashboard\Generated\Model\PullRequestActionRequest $pull_request_action_request (required)
+     * @param  \ForgeDashboard\Generated\Model\PullRequestMergeRequest $pull_request_merge_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mergePullRequest'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function mergePullRequestAsync($pull_request_action_request, string $contentType = self::contentTypes['mergePullRequest'][0])
+    public function mergePullRequestAsync($pull_request_merge_request, string $contentType = self::contentTypes['mergePullRequest'][0])
     {
-        return $this->mergePullRequestAsyncWithHttpInfo($pull_request_action_request, $contentType)
+        return $this->mergePullRequestAsyncWithHttpInfo($pull_request_merge_request, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2754,22 +2833,35 @@ class PullRequestsApi
      *
      * Merge one pull request, on the signed-in user&#39;s behalf
      *
-     * @param  \ForgeDashboard\Generated\Model\PullRequestActionRequest $pull_request_action_request (required)
+     * @param  \ForgeDashboard\Generated\Model\PullRequestMergeRequest $pull_request_merge_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mergePullRequest'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function mergePullRequestAsyncWithHttpInfo($pull_request_action_request, string $contentType = self::contentTypes['mergePullRequest'][0])
+    public function mergePullRequestAsyncWithHttpInfo($pull_request_merge_request, string $contentType = self::contentTypes['mergePullRequest'][0])
     {
-        $returnType = '';
-        $request = $this->mergePullRequestRequest($pull_request_action_request, $contentType);
+        $returnType = '\ForgeDashboard\Generated\Model\PullRequestMergeResult';
+        $request = $this->mergePullRequestRequest($pull_request_merge_request, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
                 function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
                 },
                 function ($exception) {
                     $response = $exception->getResponse();
@@ -2791,19 +2883,19 @@ class PullRequestsApi
     /**
      * Create request for operation 'mergePullRequest'
      *
-     * @param  \ForgeDashboard\Generated\Model\PullRequestActionRequest $pull_request_action_request (required)
+     * @param  \ForgeDashboard\Generated\Model\PullRequestMergeRequest $pull_request_merge_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mergePullRequest'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function mergePullRequestRequest($pull_request_action_request, string $contentType = self::contentTypes['mergePullRequest'][0])
+    public function mergePullRequestRequest($pull_request_merge_request, string $contentType = self::contentTypes['mergePullRequest'][0])
     {
 
-        // verify the required parameter 'pull_request_action_request' is set
-        if ($pull_request_action_request === null || (is_array($pull_request_action_request) && count($pull_request_action_request) === 0)) {
+        // verify the required parameter 'pull_request_merge_request' is set
+        if ($pull_request_merge_request === null || (is_array($pull_request_merge_request) && count($pull_request_merge_request) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $pull_request_action_request when calling mergePullRequest'
+                'Missing the required parameter $pull_request_merge_request when calling mergePullRequest'
             );
         }
 
@@ -2826,16 +2918,16 @@ class PullRequestsApi
         );
 
         // for model (json/xml)
-        if (isset($pull_request_action_request)) {
+        if (isset($pull_request_merge_request)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
                 try {
-                    $httpBody = json_encode(ObjectSerializer::sanitizeForSerialization($pull_request_action_request), JSON_THROW_ON_ERROR);
+                    $httpBody = json_encode(ObjectSerializer::sanitizeForSerialization($pull_request_merge_request), JSON_THROW_ON_ERROR);
                 } catch (\JsonException $e) {
                     throw new \InvalidArgumentException('json_encode error: ' . $e->getMessage(), 0, $e);
                 }
             } else {
-                $httpBody = $pull_request_action_request;
+                $httpBody = $pull_request_merge_request;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
