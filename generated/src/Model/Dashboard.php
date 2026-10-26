@@ -63,6 +63,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'settings_hidden_issue_count' => 'int',
         'first_refresh_done' => 'bool',
         'nav_counts' => '\ForgeDashboard\Generated\Model\NavCounts',
+        'main_branch_page' => '\ForgeDashboard\Generated\Model\MainBranches',
         'generated_at' => '\DateTime',
         'read_interval_seconds' => 'int',
         'hidden_drafts' => 'int',
@@ -87,6 +88,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'settings_hidden_issue_count' => null,
         'first_refresh_done' => null,
         'nav_counts' => null,
+        'main_branch_page' => null,
         'generated_at' => 'date-time',
         'read_interval_seconds' => null,
         'hidden_drafts' => null,
@@ -109,6 +111,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'settings_hidden_issue_count' => false,
         'first_refresh_done' => false,
         'nav_counts' => false,
+        'main_branch_page' => false,
         'generated_at' => false,
         'read_interval_seconds' => false,
         'hidden_drafts' => false,
@@ -211,6 +214,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'settings_hidden_issue_count' => 'settingsHiddenIssueCount',
         'first_refresh_done' => 'firstRefreshDone',
         'nav_counts' => 'navCounts',
+        'main_branch_page' => 'mainBranchPage',
         'generated_at' => 'generatedAt',
         'read_interval_seconds' => 'readIntervalSeconds',
         'hidden_drafts' => 'hiddenDrafts',
@@ -233,6 +237,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'settings_hidden_issue_count' => 'setSettingsHiddenIssueCount',
         'first_refresh_done' => 'setFirstRefreshDone',
         'nav_counts' => 'setNavCounts',
+        'main_branch_page' => 'setMainBranchPage',
         'generated_at' => 'setGeneratedAt',
         'read_interval_seconds' => 'setReadIntervalSeconds',
         'hidden_drafts' => 'setHiddenDrafts',
@@ -255,6 +260,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'settings_hidden_issue_count' => 'getSettingsHiddenIssueCount',
         'first_refresh_done' => 'getFirstRefreshDone',
         'nav_counts' => 'getNavCounts',
+        'main_branch_page' => 'getMainBranchPage',
         'generated_at' => 'getGeneratedAt',
         'read_interval_seconds' => 'getReadIntervalSeconds',
         'hidden_drafts' => 'getHiddenDrafts',
@@ -328,6 +334,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('settings_hidden_issue_count', $data ?? [], null);
         $this->setIfExists('first_refresh_done', $data ?? [], null);
         $this->setIfExists('nav_counts', $data ?? [], null);
+        $this->setIfExists('main_branch_page', $data ?? [], null);
         $this->setIfExists('generated_at', $data ?? [], null);
         $this->setIfExists('read_interval_seconds', $data ?? [], null);
         $this->setIfExists('hidden_drafts', $data ?? [], null);
@@ -383,6 +390,9 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if ($this->container['nav_counts'] === null) {
             $invalidProperties[] = "'nav_counts' can't be null";
+        }
+        if ($this->container['main_branch_page'] === null) {
+            $invalidProperties[] = "'main_branch_page' can't be null";
         }
         if ($this->container['generated_at'] === null) {
             $invalidProperties[] = "'generated_at' can't be null";
@@ -594,6 +604,33 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable nav_counts cannot be null');
         }
         $this->container['nav_counts'] = $nav_counts;
+
+        return $this;
+    }
+
+    /**
+     * Gets main_branch_page
+     *
+     * @return \ForgeDashboard\Generated\Model\MainBranches
+     */
+    public function getMainBranchPage()
+    {
+        return $this->container['main_branch_page'];
+    }
+
+    /**
+     * Sets main_branch_page
+     *
+     * @param \ForgeDashboard\Generated\Model\MainBranches $main_branch_page What `GET /api/main-branches` answers, from the same snapshot and with the same ignore list, so the Main branches page redraws from the message every other page reads. It reads the endpoint itself only while the stream is down or just back. Always present.
+     *
+     * @return self
+     */
+    public function setMainBranchPage($main_branch_page)
+    {
+        if (is_null($main_branch_page)) {
+            throw new \InvalidArgumentException('non-nullable main_branch_page cannot be null');
+        }
+        $this->container['main_branch_page'] = $main_branch_page;
 
         return $this;
     }
