@@ -39,6 +39,7 @@ src/Model/AutoMergedPullRequest.php
 src/Model/AutoUpdate.php
 src/Model/AutoUpdateUnavailable.php
 src/Model/BotRequest.php
+src/Model/BranchDeletion.php
 src/Model/CIStatus.php
 src/Model/CancelRunRequest.php
 src/Model/Check.php
@@ -88,6 +89,8 @@ src/Model/PullRequestChecksResponse.php
 src/Model/PullRequestDependabotActionRequest.php
 src/Model/PullRequestDetails.php
 src/Model/PullRequestHideRequest.php
+src/Model/PullRequestMergeRequest.php
+src/Model/PullRequestMergeResult.php
 src/Model/PullRequestStatus.php
 src/Model/QueuedAction.php
 src/Model/QueuedActionRequest.php
