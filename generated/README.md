@@ -98,7 +98,9 @@ Class | Method | HTTP request | Description
 *AuthApi* | [**logout**](docs/Api/AuthApi.md#logout) | **POST** /api/auth/logout | End the current session
 *AuthApi* | [**renameCredential**](docs/Api/AuthApi.md#renamecredential) | **PATCH** /api/auth/credentials/{id} | Rename one of the signed-in user&#39;s own passkeys
 *DashboardApi* | [**disableAutoUpdateBranch**](docs/Api/DashboardApi.md#disableautoupdatebranch) | **POST** /api/repos/auto-update-branch/disable | Turn off automatic branch updates for one tracked repo
+*DashboardApi* | [**disableRebaseBots**](docs/Api/DashboardApi.md#disablerebasebots) | **POST** /api/repos/rebase-bots/disable | Stop rebasing Dependabot and Renovate pull requests for one tracked repo
 *DashboardApi* | [**enableAutoUpdateBranch**](docs/Api/DashboardApi.md#enableautoupdatebranch) | **POST** /api/repos/auto-update-branch/enable | Turn on automatic branch updates for one tracked repo
+*DashboardApi* | [**enableRebaseBots**](docs/Api/DashboardApi.md#enablerebasebots) | **POST** /api/repos/rebase-bots/enable | Rebase Dependabot and Renovate pull requests for one tracked repo
 *DashboardApi* | [**getCheckLog**](docs/Api/DashboardApi.md#getchecklog) | **GET** /api/checks/log | Read the output of one CI job, on demand
 *DashboardApi* | [**getDashboard**](docs/Api/DashboardApi.md#getdashboard) | **GET** /api/dashboard | The aggregated view
 *DashboardApi* | [**getForgeApiStats**](docs/Api/DashboardApi.md#getforgeapistats) | **GET** /api/stats/forge-api | How many forge API calls the dashboard has spent, and on what
