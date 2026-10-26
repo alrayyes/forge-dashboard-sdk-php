@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.0.5](https://github.com/alrayyes/forge-dashboard-sdk-php/compare/v7.0.4...v7.0.5) (2026-10-26)
+
+
+### Bug Fixes
+
+* retry the phpDocumentor phar download ([#370](https://github.com/alrayyes/forge-dashboard-sdk-php/issues/370)) ([3f388a9](https://github.com/alrayyes/forge-dashboard-sdk-php/commit/3f388a968d59edc43f11443b8e02127cb62ed7bf)), closes [#369](https://github.com/alrayyes/forge-dashboard-sdk-php/issues/369)
+
 ## [7.0.4](https://github.com/alrayyes/forge-dashboard-sdk-php/compare/v7.0.3...v7.0.4) (2026-10-26)
 
 
