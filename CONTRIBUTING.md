@@ -12,6 +12,9 @@
 - [lefthook](https://github.com/evilmartians/lefthook) and
   [bun](https://bun.sh) (for commitlint). `bun install` then
   `lefthook install` once, after cloning.
+- [gitleaks](https://github.com/gitleaks/gitleaks) on your `PATH`. The
+  pre-commit hook scans the staged changes, the pre-push hook scans the
+  history, and CI scans it again on every pull request.
 
 ## Generator choice
 
