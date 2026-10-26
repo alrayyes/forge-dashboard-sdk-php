@@ -35,7 +35,7 @@ use \ForgeDashboard\Generated\ObjectSerializer;
  * NavCounts Class Doc Comment
  *
  * @category Class
- * @description The numbers behind the navigation badges, counted from what the board shows by default, so they match each page when it opens. Pull requests leave out ignored repos, draft pull requests and hidden pull requests whatever &#x60;includeDrafts&#x60; and &#x60;includeHidden&#x60; ask for, so the badge doesn&#39;t jump when a toggle flips; branches counts the default branches GET /api/main-branches lists, which also leave out ignored repos. Pull requests are split by &#x60;kind&#x60; (release pull requests under &#x60;releases&#x60;, Dependabot and Renovate under &#x60;bots&#x60;, the rest under &#x60;pullRequests&#x60;). Always present, with zeros when there is nothing. A client hides a page&#39;s whole nav item at zero total, and a state&#39;s number at zero. Every page except Issues also carries &#x60;running&#x60; and &#x60;passed&#x60;.
+ * @description The numbers behind the navigation badges, counted from what the board shows by default, so they match each page when it opens. Pull requests leave out ignored repos, draft pull requests and hidden pull requests whatever &#x60;includeDrafts&#x60; and &#x60;includeHidden&#x60; ask for, so the badge doesn&#39;t jump when a toggle flips. Pull requests are split by &#x60;kind&#x60; (release pull requests under &#x60;releases&#x60;, Dependabot and Renovate under &#x60;bots&#x60;, the rest under &#x60;pullRequests&#x60;). Always present, with zeros when there is nothing. A client hides a page&#39;s whole nav item at zero total, and a state&#39;s number at zero. Every page except Issues also carries &#x60;running&#x60; and &#x60;passed&#x60;. The Branches badge isn&#39;t here: a client counts the rows of &#x60;mainBranchPage&#x60;.
  * @package  ForgeDashboard\Generated
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -58,7 +58,6 @@ class NavCounts implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $openAPITypes = [
-        'branches' => '\ForgeDashboard\Generated\Model\NavCount',
         'pull_requests' => '\ForgeDashboard\Generated\Model\NavPullRequestCount',
         'issues' => '\ForgeDashboard\Generated\Model\NavIssueCount',
         'releases' => '\ForgeDashboard\Generated\Model\NavPullRequestCount',
@@ -73,7 +72,6 @@ class NavCounts implements ModelInterface, ArrayAccess, \JsonSerializable
      * @psalm-var array<string, string|null>
      */
     protected static $openAPIFormats = [
-        'branches' => null,
         'pull_requests' => null,
         'issues' => null,
         'releases' => null,
@@ -86,7 +84,6 @@ class NavCounts implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var boolean[]
      */
     protected static array $openAPINullables = [
-        'branches' => false,
         'pull_requests' => false,
         'issues' => false,
         'releases' => false,
@@ -179,7 +176,6 @@ class NavCounts implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'branches' => 'branches',
         'pull_requests' => 'pullRequests',
         'issues' => 'issues',
         'releases' => 'releases',
@@ -192,7 +188,6 @@ class NavCounts implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'branches' => 'setBranches',
         'pull_requests' => 'setPullRequests',
         'issues' => 'setIssues',
         'releases' => 'setReleases',
@@ -205,7 +200,6 @@ class NavCounts implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'branches' => 'getBranches',
         'pull_requests' => 'getPullRequests',
         'issues' => 'getIssues',
         'releases' => 'getReleases',
@@ -269,7 +263,6 @@ class NavCounts implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('branches', $data ?? [], null);
         $this->setIfExists('pull_requests', $data ?? [], null);
         $this->setIfExists('issues', $data ?? [], null);
         $this->setIfExists('releases', $data ?? [], null);
@@ -303,9 +296,6 @@ class NavCounts implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if ($this->container['branches'] === null) {
-            $invalidProperties[] = "'branches' can't be null";
-        }
         if ($this->container['pull_requests'] === null) {
             $invalidProperties[] = "'pull_requests' can't be null";
         }
@@ -332,33 +322,6 @@ class NavCounts implements ModelInterface, ArrayAccess, \JsonSerializable
         return count($this->listInvalidProperties()) === 0;
     }
 
-
-    /**
-     * Gets branches
-     *
-     * @return \ForgeDashboard\Generated\Model\NavCount
-     */
-    public function getBranches()
-    {
-        return $this->container['branches'];
-    }
-
-    /**
-     * Sets branches
-     *
-     * @param \ForgeDashboard\Generated\Model\NavCount $branches branches
-     *
-     * @return self
-     */
-    public function setBranches($branches)
-    {
-        if (is_null($branches)) {
-            throw new \InvalidArgumentException('non-nullable branches cannot be null');
-        }
-        $this->container['branches'] = $branches;
-
-        return $this;
-    }
 
     /**
      * Gets pull_requests
