@@ -67,7 +67,6 @@ src/Model/Label.php
 src/Model/LinkedPullRequest.php
 src/Model/MainBranch.php
 src/Model/MainBranchCommit.php
-src/Model/MainBranchCounts.php
 src/Model/MainBranchRelease.php
 src/Model/MainBranchRerunRequest.php
 src/Model/MainBranchStatus.php
@@ -75,7 +74,6 @@ src/Model/MainBranches.php
 src/Model/MentionedIssue.php
 src/Model/MergeStatus.php
 src/Model/ModelInterface.php
-src/Model/NavCount.php
 src/Model/NavCounts.php
 src/Model/NavIssueCount.php
 src/Model/NavPullRequestCount.php

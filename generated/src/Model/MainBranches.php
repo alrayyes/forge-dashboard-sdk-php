@@ -35,6 +35,7 @@ use \ForgeDashboard\Generated\ObjectSerializer;
  * MainBranches Class Doc Comment
  *
  * @category Class
+ * @description Every default branch the page lists, in no particular order. There is no tally: a client counts the rows it holds, so the filter pills and the navigation badge always agree with the list.
  * @package  ForgeDashboard\Generated
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -58,7 +59,6 @@ class MainBranches implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $openAPITypes = [
         'generated_at' => '\DateTime',
-        'counts' => '\ForgeDashboard\Generated\Model\MainBranchCounts',
         'forges' => '\ForgeDashboard\Generated\Model\ForgeHealth[]',
         'branches' => '\ForgeDashboard\Generated\Model\MainBranch[]'
     ];
@@ -72,7 +72,6 @@ class MainBranches implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $openAPIFormats = [
         'generated_at' => 'date-time',
-        'counts' => null,
         'forges' => null,
         'branches' => null
     ];
@@ -84,7 +83,6 @@ class MainBranches implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static array $openAPINullables = [
         'generated_at' => false,
-        'counts' => false,
         'forges' => false,
         'branches' => false
     ];
@@ -176,7 +174,6 @@ class MainBranches implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $attributeMap = [
         'generated_at' => 'generatedAt',
-        'counts' => 'counts',
         'forges' => 'forges',
         'branches' => 'branches'
     ];
@@ -188,7 +185,6 @@ class MainBranches implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $setters = [
         'generated_at' => 'setGeneratedAt',
-        'counts' => 'setCounts',
         'forges' => 'setForges',
         'branches' => 'setBranches'
     ];
@@ -200,7 +196,6 @@ class MainBranches implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $getters = [
         'generated_at' => 'getGeneratedAt',
-        'counts' => 'getCounts',
         'forges' => 'getForges',
         'branches' => 'getBranches'
     ];
@@ -263,7 +258,6 @@ class MainBranches implements ModelInterface, ArrayAccess, \JsonSerializable
     public function __construct(?array $data = null)
     {
         $this->setIfExists('generated_at', $data ?? [], null);
-        $this->setIfExists('counts', $data ?? [], null);
         $this->setIfExists('forges', $data ?? [], null);
         $this->setIfExists('branches', $data ?? [], null);
     }
@@ -297,9 +291,6 @@ class MainBranches implements ModelInterface, ArrayAccess, \JsonSerializable
 
         if ($this->container['generated_at'] === null) {
             $invalidProperties[] = "'generated_at' can't be null";
-        }
-        if ($this->container['counts'] === null) {
-            $invalidProperties[] = "'counts' can't be null";
         }
         if ($this->container['forges'] === null) {
             $invalidProperties[] = "'forges' can't be null";
@@ -345,33 +336,6 @@ class MainBranches implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable generated_at cannot be null');
         }
         $this->container['generated_at'] = $generated_at;
-
-        return $this;
-    }
-
-    /**
-     * Gets counts
-     *
-     * @return \ForgeDashboard\Generated\Model\MainBranchCounts
-     */
-    public function getCounts()
-    {
-        return $this->container['counts'];
-    }
-
-    /**
-     * Sets counts
-     *
-     * @param \ForgeDashboard\Generated\Model\MainBranchCounts $counts counts
-     *
-     * @return self
-     */
-    public function setCounts($counts)
-    {
-        if (is_null($counts)) {
-            throw new \InvalidArgumentException('non-nullable counts cannot be null');
-        }
-        $this->container['counts'] = $counts;
 
         return $this;
     }
