@@ -70,7 +70,6 @@ class MainBranch implements ModelInterface, ArrayAccess, \JsonSerializable
         'run_url' => 'string',
         'checks' => '\ForgeDashboard\Generated\Model\CheckCounts',
         'latest_release' => '\ForgeDashboard\Generated\Model\MainBranchRelease',
-        'stale' => 'bool',
         'stale_since' => '\DateTime',
         'advisories' => '\ForgeDashboard\Generated\Model\Advisories'
     ];
@@ -95,7 +94,6 @@ class MainBranch implements ModelInterface, ArrayAccess, \JsonSerializable
         'run_url' => null,
         'checks' => null,
         'latest_release' => null,
-        'stale' => null,
         'stale_since' => 'date-time',
         'advisories' => null
     ];
@@ -118,7 +116,6 @@ class MainBranch implements ModelInterface, ArrayAccess, \JsonSerializable
         'run_url' => false,
         'checks' => false,
         'latest_release' => true,
-        'stale' => false,
         'stale_since' => true,
         'advisories' => false
     ];
@@ -221,7 +218,6 @@ class MainBranch implements ModelInterface, ArrayAccess, \JsonSerializable
         'run_url' => 'runUrl',
         'checks' => 'checks',
         'latest_release' => 'latestRelease',
-        'stale' => 'stale',
         'stale_since' => 'staleSince',
         'advisories' => 'advisories'
     ];
@@ -244,7 +240,6 @@ class MainBranch implements ModelInterface, ArrayAccess, \JsonSerializable
         'run_url' => 'setRunUrl',
         'checks' => 'setChecks',
         'latest_release' => 'setLatestRelease',
-        'stale' => 'setStale',
         'stale_since' => 'setStaleSince',
         'advisories' => 'setAdvisories'
     ];
@@ -267,7 +262,6 @@ class MainBranch implements ModelInterface, ArrayAccess, \JsonSerializable
         'run_url' => 'getRunUrl',
         'checks' => 'getChecks',
         'latest_release' => 'getLatestRelease',
-        'stale' => 'getStale',
         'stale_since' => 'getStaleSince',
         'advisories' => 'getAdvisories'
     ];
@@ -341,7 +335,6 @@ class MainBranch implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('run_url', $data ?? [], null);
         $this->setIfExists('checks', $data ?? [], null);
         $this->setIfExists('latest_release', $data ?? [], null);
-        $this->setIfExists('stale', $data ?? [], null);
         $this->setIfExists('stale_since', $data ?? [], null);
         $this->setIfExists('advisories', $data ?? [], null);
     }
@@ -412,9 +405,6 @@ class MainBranch implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if ($this->container['latest_release'] === null && !$this->isNullableSetToNull('latest_release')) {
             $invalidProperties[] = "'latest_release' is required";
-        }
-        if ($this->container['stale'] === null) {
-            $invalidProperties[] = "'stale' can't be null";
         }
         if ($this->container['stale_since'] === null && !$this->isNullableSetToNull('stale_since')) {
             $invalidProperties[] = "'stale_since' is required";
@@ -791,33 +781,6 @@ class MainBranch implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets stale
-     *
-     * @return bool
-     */
-    public function getStale()
-    {
-        return $this->container['stale'];
-    }
-
-    /**
-     * Sets stale
-     *
-     * @param bool $stale True when this row is the last known one because its forge couldn't be read or its rate limit is spent. A client offers no write on a stale row.
-     *
-     * @return self
-     */
-    public function setStale($stale)
-    {
-        if (is_null($stale)) {
-            throw new \InvalidArgumentException('non-nullable stale cannot be null');
-        }
-        $this->container['stale'] = $stale;
-
-        return $this;
-    }
-
-    /**
      * Gets stale_since
      *
      * @return \DateTime|null
@@ -830,7 +793,7 @@ class MainBranch implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets stale_since
      *
-     * @param \DateTime|null $stale_since When this row was last fetched. Null unless `stale`.
+     * @param \DateTime|null $stale_since Set when this row is the last known one because its forge couldn't be read or its rate limit is spent: the time it was last fetched. Null otherwise. A client offers no write on a stale row.
      *
      * @return self
      */
