@@ -86,10 +86,12 @@ vendor/bin/pint --test     # formatting check
 composer rector:lint       # mechanical-upgrade check, dry run
 composer normalize:lint
 composer audit
+gitleaks git --redact --no-banner   # whole history, as CI does
 ```
 
-`lefthook run pre-push` runs the same set except `composer audit`, which CI owns, so
-that is the one command to run before opening a pull request.
+`lefthook run pre-push` runs the same set except `composer audit`, which CI owns,
+plus phpmd and a Bearer scan, so that is the one command to run before opening a
+pull request.
 
 Tests are written in Pest's `it()`/`test()` syntax, not PHPUnit's
 class-and-method form (`rules/php.md`'s Testing section). `composer test`'s
