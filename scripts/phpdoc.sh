@@ -18,7 +18,7 @@ PHAR_PATH="${CACHE_DIR}/phpDocumentor-${PHPDOC_VERSION}.phar"
 mkdir -p "$CACHE_DIR"
 
 if [ ! -f "$PHAR_PATH" ]; then
-  curl -fsSL -o "$PHAR_PATH.tmp" "$PHPDOC_URL"
+  curl -fsSL --retry 5 --retry-delay 5 --retry-all-errors -o "$PHAR_PATH.tmp" "$PHPDOC_URL"
   echo "${PHPDOC_SHA256}  ${PHAR_PATH}.tmp" | sha256sum -c -
   mv "$PHAR_PATH.tmp" "$PHAR_PATH"
 fi
