@@ -71,6 +71,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         'webhook_needs_token' => 'bool',
         'failing_since' => '\DateTime',
         'failing_for_good' => 'bool',
+        'rebase_bots' => 'bool',
         'auto_update_branch' => 'bool'
     ];
 
@@ -95,6 +96,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         'webhook_needs_token' => null,
         'failing_since' => 'date-time',
         'failing_for_good' => null,
+        'rebase_bots' => null,
         'auto_update_branch' => null
     ];
 
@@ -117,6 +119,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         'webhook_needs_token' => false,
         'failing_since' => false,
         'failing_for_good' => false,
+        'rebase_bots' => false,
         'auto_update_branch' => false
     ];
 
@@ -219,6 +222,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         'webhook_needs_token' => 'webhookNeedsToken',
         'failing_since' => 'failingSince',
         'failing_for_good' => 'failingForGood',
+        'rebase_bots' => 'rebaseBots',
         'auto_update_branch' => 'autoUpdateBranch'
     ];
 
@@ -241,6 +245,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         'webhook_needs_token' => 'setWebhookNeedsToken',
         'failing_since' => 'setFailingSince',
         'failing_for_good' => 'setFailingForGood',
+        'rebase_bots' => 'setRebaseBots',
         'auto_update_branch' => 'setAutoUpdateBranch'
     ];
 
@@ -263,6 +268,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         'webhook_needs_token' => 'getWebhookNeedsToken',
         'failing_since' => 'getFailingSince',
         'failing_for_good' => 'getFailingForGood',
+        'rebase_bots' => 'getRebaseBots',
         'auto_update_branch' => 'getAutoUpdateBranch'
     ];
 
@@ -336,6 +342,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('webhook_needs_token', $data ?? [], null);
         $this->setIfExists('failing_since', $data ?? [], null);
         $this->setIfExists('failing_for_good', $data ?? [], null);
+        $this->setIfExists('rebase_bots', $data ?? [], null);
         $this->setIfExists('auto_update_branch', $data ?? [], null);
     }
 
@@ -389,6 +396,9 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if ($this->container['can_manage_webhooks'] === null) {
             $invalidProperties[] = "'can_manage_webhooks' can't be null";
+        }
+        if ($this->container['rebase_bots'] === null) {
+            $invalidProperties[] = "'rebase_bots' can't be null";
         }
         if ($this->container['auto_update_branch'] === null) {
             $invalidProperties[] = "'auto_update_branch' can't be null";
@@ -755,6 +765,33 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable failing_for_good cannot be null');
         }
         $this->container['failing_for_good'] = $failing_for_good;
+
+        return $this;
+    }
+
+    /**
+     * Gets rebase_bots
+     *
+     * @return bool
+     */
+    public function getRebaseBots()
+    {
+        return $this->container['rebase_bots'];
+    }
+
+    /**
+     * Sets rebase_bots
+     *
+     * @param bool $rebase_bots Whether the signed-in user has turned on rebasing bot pull requests for this repo. A behind Dependabot or Renovate pull request gets the bot's own rebase, whatever the repo's automatic branch update setting says. Human, draft and release-please pull requests are not covered.
+     *
+     * @return self
+     */
+    public function setRebaseBots($rebase_bots)
+    {
+        if (is_null($rebase_bots)) {
+            throw new \InvalidArgumentException('non-nullable rebase_bots cannot be null');
+        }
+        $this->container['rebase_bots'] = $rebase_bots;
 
         return $this;
     }

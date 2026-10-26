@@ -77,7 +77,13 @@ class DashboardApi
         'disableAutoUpdateBranch' => [
             'application/json',
         ],
+        'disableRebaseBots' => [
+            'application/json',
+        ],
         'enableAutoUpdateBranch' => [
+            'application/json',
+        ],
+        'enableRebaseBots' => [
             'application/json',
         ],
         'getCheckLog' => [
@@ -416,6 +422,251 @@ class DashboardApi
     }
 
     /**
+     * Operation disableRebaseBots
+     *
+     * Stop rebasing Dependabot and Renovate pull requests for one tracked repo
+     *
+     * @param  \ForgeDashboard\Generated\Model\WebhookEnsureRequest $webhook_ensure_request webhook_ensure_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['disableRebaseBots'] to see the possible values for this operation
+     *
+     * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function disableRebaseBots($webhook_ensure_request, string $contentType = self::contentTypes['disableRebaseBots'][0])
+    {
+        $this->disableRebaseBotsWithHttpInfo($webhook_ensure_request, $contentType);
+    }
+
+    /**
+     * Operation disableRebaseBotsWithHttpInfo
+     *
+     * Stop rebasing Dependabot and Renovate pull requests for one tracked repo
+     *
+     * @param  \ForgeDashboard\Generated\Model\WebhookEnsureRequest $webhook_ensure_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['disableRebaseBots'] to see the possible values for this operation
+     *
+     * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function disableRebaseBotsWithHttpInfo($webhook_ensure_request, string $contentType = self::contentTypes['disableRebaseBots'][0])
+    {
+        $request = $this->disableRebaseBotsRequest($webhook_ensure_request, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation disableRebaseBotsAsync
+     *
+     * Stop rebasing Dependabot and Renovate pull requests for one tracked repo
+     *
+     * @param  \ForgeDashboard\Generated\Model\WebhookEnsureRequest $webhook_ensure_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['disableRebaseBots'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function disableRebaseBotsAsync($webhook_ensure_request, string $contentType = self::contentTypes['disableRebaseBots'][0])
+    {
+        return $this->disableRebaseBotsAsyncWithHttpInfo($webhook_ensure_request, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation disableRebaseBotsAsyncWithHttpInfo
+     *
+     * Stop rebasing Dependabot and Renovate pull requests for one tracked repo
+     *
+     * @param  \ForgeDashboard\Generated\Model\WebhookEnsureRequest $webhook_ensure_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['disableRebaseBots'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function disableRebaseBotsAsyncWithHttpInfo($webhook_ensure_request, string $contentType = self::contentTypes['disableRebaseBots'][0])
+    {
+        $returnType = '';
+        $request = $this->disableRebaseBotsRequest($webhook_ensure_request, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'disableRebaseBots'
+     *
+     * @param  \ForgeDashboard\Generated\Model\WebhookEnsureRequest $webhook_ensure_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['disableRebaseBots'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function disableRebaseBotsRequest($webhook_ensure_request, string $contentType = self::contentTypes['disableRebaseBots'][0])
+    {
+
+        // verify the required parameter 'webhook_ensure_request' is set
+        if ($webhook_ensure_request === null || (is_array($webhook_ensure_request) && count($webhook_ensure_request) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $webhook_ensure_request when calling disableRebaseBots'
+            );
+        }
+
+
+        $resourcePath = '/api/repos/rebase-bots/disable';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($webhook_ensure_request)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                try {
+                    $httpBody = json_encode(ObjectSerializer::sanitizeForSerialization($webhook_ensure_request), JSON_THROW_ON_ERROR);
+                } catch (\JsonException $e) {
+                    throw new \InvalidArgumentException('json_encode error: ' . $e->getMessage(), 0, $e);
+                }
+            } else {
+                $httpBody = $webhook_ensure_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                try {
+                    $httpBody = json_encode($formParams, JSON_THROW_ON_ERROR);
+                } catch (\JsonException $e) {
+                    throw new \InvalidArgumentException('json_encode error: ' . $e->getMessage(), 0, $e);
+                }
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation enableAutoUpdateBranch
      *
      * Turn on automatic branch updates for one tracked repo
@@ -578,6 +829,251 @@ class DashboardApi
 
 
         $resourcePath = '/api/repos/auto-update-branch/enable';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($webhook_ensure_request)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                try {
+                    $httpBody = json_encode(ObjectSerializer::sanitizeForSerialization($webhook_ensure_request), JSON_THROW_ON_ERROR);
+                } catch (\JsonException $e) {
+                    throw new \InvalidArgumentException('json_encode error: ' . $e->getMessage(), 0, $e);
+                }
+            } else {
+                $httpBody = $webhook_ensure_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                try {
+                    $httpBody = json_encode($formParams, JSON_THROW_ON_ERROR);
+                } catch (\JsonException $e) {
+                    throw new \InvalidArgumentException('json_encode error: ' . $e->getMessage(), 0, $e);
+                }
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation enableRebaseBots
+     *
+     * Rebase Dependabot and Renovate pull requests for one tracked repo
+     *
+     * @param  \ForgeDashboard\Generated\Model\WebhookEnsureRequest $webhook_ensure_request webhook_ensure_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['enableRebaseBots'] to see the possible values for this operation
+     *
+     * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function enableRebaseBots($webhook_ensure_request, string $contentType = self::contentTypes['enableRebaseBots'][0])
+    {
+        $this->enableRebaseBotsWithHttpInfo($webhook_ensure_request, $contentType);
+    }
+
+    /**
+     * Operation enableRebaseBotsWithHttpInfo
+     *
+     * Rebase Dependabot and Renovate pull requests for one tracked repo
+     *
+     * @param  \ForgeDashboard\Generated\Model\WebhookEnsureRequest $webhook_ensure_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['enableRebaseBots'] to see the possible values for this operation
+     *
+     * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function enableRebaseBotsWithHttpInfo($webhook_ensure_request, string $contentType = self::contentTypes['enableRebaseBots'][0])
+    {
+        $request = $this->enableRebaseBotsRequest($webhook_ensure_request, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation enableRebaseBotsAsync
+     *
+     * Rebase Dependabot and Renovate pull requests for one tracked repo
+     *
+     * @param  \ForgeDashboard\Generated\Model\WebhookEnsureRequest $webhook_ensure_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['enableRebaseBots'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function enableRebaseBotsAsync($webhook_ensure_request, string $contentType = self::contentTypes['enableRebaseBots'][0])
+    {
+        return $this->enableRebaseBotsAsyncWithHttpInfo($webhook_ensure_request, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation enableRebaseBotsAsyncWithHttpInfo
+     *
+     * Rebase Dependabot and Renovate pull requests for one tracked repo
+     *
+     * @param  \ForgeDashboard\Generated\Model\WebhookEnsureRequest $webhook_ensure_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['enableRebaseBots'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function enableRebaseBotsAsyncWithHttpInfo($webhook_ensure_request, string $contentType = self::contentTypes['enableRebaseBots'][0])
+    {
+        $returnType = '';
+        $request = $this->enableRebaseBotsRequest($webhook_ensure_request, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'enableRebaseBots'
+     *
+     * @param  \ForgeDashboard\Generated\Model\WebhookEnsureRequest $webhook_ensure_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['enableRebaseBots'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function enableRebaseBotsRequest($webhook_ensure_request, string $contentType = self::contentTypes['enableRebaseBots'][0])
+    {
+
+        // verify the required parameter 'webhook_ensure_request' is set
+        if ($webhook_ensure_request === null || (is_array($webhook_ensure_request) && count($webhook_ensure_request) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $webhook_ensure_request when calling enableRebaseBots'
+            );
+        }
+
+
+        $resourcePath = '/api/repos/rebase-bots/enable';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
