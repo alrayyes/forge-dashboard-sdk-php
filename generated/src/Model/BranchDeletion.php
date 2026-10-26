@@ -241,6 +241,7 @@ class BranchDeletion implements ModelInterface, ArrayAccess, \JsonSerializable
     public const REASON_FORK = 'fork';
     public const REASON_DEFAULT_BRANCH = 'default_branch';
     public const REASON__PROTECTED = 'protected';
+    public const REASON_IN_USE = 'in_use';
     public const REASON_UNSUPPORTED = 'unsupported';
 
     /**
@@ -268,6 +269,7 @@ class BranchDeletion implements ModelInterface, ArrayAccess, \JsonSerializable
             self::REASON_FORK,
             self::REASON_DEFAULT_BRANCH,
             self::REASON__PROTECTED,
+            self::REASON_IN_USE,
             self::REASON_UNSUPPORTED,
         ];
     }
@@ -404,7 +406,7 @@ class BranchDeletion implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets reason
      *
-     * @param string|null $reason Why a `skipped` branch was left. `fork`: the branch lives in another repo. `default_branch`: it is the repo's default branch. `protected`: the forge protects it. `unsupported`: the forge's client can't delete branches. Absent unless `outcome` is `skipped`.
+     * @param string|null $reason Why a `skipped` branch was left. `fork`: the branch lives in another repo. `default_branch`: it is the repo's default branch. `protected`: the forge protects it. `in_use`: another open pull request in the repo has it as its head or base, so deleting it would strand that pull request. `unsupported`: the forge's client can't delete branches. Absent unless `outcome` is `skipped`.
      *
      * @return self
      */
