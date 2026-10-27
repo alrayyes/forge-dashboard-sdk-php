@@ -44,8 +44,10 @@ src/Model/CIStatus.php
 src/Model/CancelRunRequest.php
 src/Model/Check.php
 src/Model/CheckCounts.php
+src/Model/CheckListEvent.php
 src/Model/CheckLog.php
 src/Model/CheckState.php
+src/Model/CheckSubject.php
 src/Model/ClosingIssue.php
 src/Model/Credential.php
 src/Model/Dashboard.php
@@ -108,6 +110,8 @@ src/Model/SettingsResponse.php
 src/Model/SettingsSummary.php
 src/Model/StackPosition.php
 src/Model/StackRef.php
+src/Model/StreamDashboard200Response.php
+src/Model/StreamWatchRequest.php
 src/Model/ThemeRequest.php
 src/Model/ThemeResponse.php
 src/Model/TimezoneRequest.php
