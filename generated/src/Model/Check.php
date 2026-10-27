@@ -66,7 +66,8 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'run_name' => 'string',
         'run_number' => 'int',
         'required' => 'bool',
-        'duration_seconds' => 'int',
+        'started_at' => '\DateTime',
+        'completed_at' => '\DateTime',
         'run_attempt' => 'int',
         'failed_step' => 'string',
         'excerpt' => 'string'
@@ -88,7 +89,8 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'run_name' => null,
         'run_number' => null,
         'required' => null,
-        'duration_seconds' => null,
+        'started_at' => 'date-time',
+        'completed_at' => 'date-time',
         'run_attempt' => null,
         'failed_step' => null,
         'excerpt' => null
@@ -108,7 +110,8 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'run_name' => false,
         'run_number' => false,
         'required' => false,
-        'duration_seconds' => false,
+        'started_at' => false,
+        'completed_at' => false,
         'run_attempt' => false,
         'failed_step' => false,
         'excerpt' => false
@@ -208,7 +211,8 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'run_name' => 'runName',
         'run_number' => 'runNumber',
         'required' => 'required',
-        'duration_seconds' => 'durationSeconds',
+        'started_at' => 'startedAt',
+        'completed_at' => 'completedAt',
         'run_attempt' => 'runAttempt',
         'failed_step' => 'failedStep',
         'excerpt' => 'excerpt'
@@ -228,7 +232,8 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'run_name' => 'setRunName',
         'run_number' => 'setRunNumber',
         'required' => 'setRequired',
-        'duration_seconds' => 'setDurationSeconds',
+        'started_at' => 'setStartedAt',
+        'completed_at' => 'setCompletedAt',
         'run_attempt' => 'setRunAttempt',
         'failed_step' => 'setFailedStep',
         'excerpt' => 'setExcerpt'
@@ -248,7 +253,8 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'run_name' => 'getRunName',
         'run_number' => 'getRunNumber',
         'required' => 'getRequired',
-        'duration_seconds' => 'getDurationSeconds',
+        'started_at' => 'getStartedAt',
+        'completed_at' => 'getCompletedAt',
         'run_attempt' => 'getRunAttempt',
         'failed_step' => 'getFailedStep',
         'excerpt' => 'getExcerpt'
@@ -319,7 +325,8 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('run_name', $data ?? [], null);
         $this->setIfExists('run_number', $data ?? [], null);
         $this->setIfExists('required', $data ?? [], null);
-        $this->setIfExists('duration_seconds', $data ?? [], null);
+        $this->setIfExists('started_at', $data ?? [], null);
+        $this->setIfExists('completed_at', $data ?? [], null);
         $this->setIfExists('run_attempt', $data ?? [], null);
         $this->setIfExists('failed_step', $data ?? [], null);
         $this->setIfExists('excerpt', $data ?? [], null);
@@ -371,10 +378,6 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
 
         if (!is_null($this->container['run_number']) && ($this->container['run_number'] < 1)) {
             $invalidProperties[] = "invalid value for 'run_number', must be bigger than or equal to 1.";
-        }
-
-        if (!is_null($this->container['duration_seconds']) && ($this->container['duration_seconds'] < 0)) {
-            $invalidProperties[] = "invalid value for 'duration_seconds', must be bigger than or equal to 0.";
         }
 
         if (!is_null($this->container['run_attempt']) && ($this->container['run_attempt'] < 1)) {
@@ -625,32 +628,55 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets duration_seconds
+     * Gets started_at
      *
-     * @return int|null
+     * @return \DateTime|null
      */
-    public function getDurationSeconds()
+    public function getStartedAt()
     {
-        return $this->container['duration_seconds'];
+        return $this->container['started_at'];
     }
 
     /**
-     * Sets duration_seconds
+     * Sets started_at
      *
-     * @param int|null $duration_seconds How long a completed check ran. Absent while it runs, or when the forge doesn't say. GitHub only: Forgejo's API doesn't give a job's timing.
+     * @param \DateTime|null $started_at When the forge says the job started. Absent until it has, and when the forge doesn't say. GitHub only: Forgejo's API doesn't give a job's timing. A client works out how long a job ran from this and `completedAt`.
      *
      * @return self
      */
-    public function setDurationSeconds($duration_seconds)
+    public function setStartedAt($started_at)
     {
-        if (is_null($duration_seconds)) {
-            throw new \InvalidArgumentException('non-nullable duration_seconds cannot be null');
+        if (is_null($started_at)) {
+            throw new \InvalidArgumentException('non-nullable started_at cannot be null');
         }
-        if (($duration_seconds < 0)) {
-            throw new \InvalidArgumentException('invalid value for $duration_seconds when calling Check., must be bigger than or equal to 0.');
-        }
+        $this->container['started_at'] = $started_at;
 
-        $this->container['duration_seconds'] = $duration_seconds;
+        return $this;
+    }
+
+    /**
+     * Gets completed_at
+     *
+     * @return \DateTime|null
+     */
+    public function getCompletedAt()
+    {
+        return $this->container['completed_at'];
+    }
+
+    /**
+     * Sets completed_at
+     *
+     * @param \DateTime|null $completed_at When the forge says the job finished. Absent while it runs, and when the forge doesn't say. GitHub only, like `startedAt`.
+     *
+     * @return self
+     */
+    public function setCompletedAt($completed_at)
+    {
+        if (is_null($completed_at)) {
+            throw new \InvalidArgumentException('non-nullable completed_at cannot be null');
+        }
+        $this->container['completed_at'] = $completed_at;
 
         return $this;
     }
