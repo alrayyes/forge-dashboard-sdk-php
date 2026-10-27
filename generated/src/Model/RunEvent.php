@@ -65,6 +65,10 @@ class RunEvent implements ModelInterface, ArrayAccess, \JsonSerializable
         'key' => 'string',
         'run_id' => 'int',
         'run_attempt' => 'int',
+        'status' => '\ForgeDashboard\Generated\Model\CheckStatus',
+        'conclusion' => 'string',
+        'started_at' => '\DateTime',
+        'completed_at' => '\DateTime',
         'checks' => '\ForgeDashboard\Generated\Model\Check[]',
         'gone' => 'bool',
         'final' => 'bool',
@@ -86,6 +90,10 @@ class RunEvent implements ModelInterface, ArrayAccess, \JsonSerializable
         'key' => null,
         'run_id' => 'int64',
         'run_attempt' => 'int64',
+        'status' => null,
+        'conclusion' => null,
+        'started_at' => 'date-time',
+        'completed_at' => 'date-time',
         'checks' => null,
         'gone' => null,
         'final' => null,
@@ -105,6 +113,10 @@ class RunEvent implements ModelInterface, ArrayAccess, \JsonSerializable
         'key' => false,
         'run_id' => false,
         'run_attempt' => false,
+        'status' => false,
+        'conclusion' => false,
+        'started_at' => false,
+        'completed_at' => false,
         'checks' => false,
         'gone' => false,
         'final' => false,
@@ -204,6 +216,10 @@ class RunEvent implements ModelInterface, ArrayAccess, \JsonSerializable
         'key' => 'key',
         'run_id' => 'runId',
         'run_attempt' => 'runAttempt',
+        'status' => 'status',
+        'conclusion' => 'conclusion',
+        'started_at' => 'startedAt',
+        'completed_at' => 'completedAt',
         'checks' => 'checks',
         'gone' => 'gone',
         'final' => 'final',
@@ -223,6 +239,10 @@ class RunEvent implements ModelInterface, ArrayAccess, \JsonSerializable
         'key' => 'setKey',
         'run_id' => 'setRunId',
         'run_attempt' => 'setRunAttempt',
+        'status' => 'setStatus',
+        'conclusion' => 'setConclusion',
+        'started_at' => 'setStartedAt',
+        'completed_at' => 'setCompletedAt',
         'checks' => 'setChecks',
         'gone' => 'setGone',
         'final' => 'setFinal',
@@ -242,6 +262,10 @@ class RunEvent implements ModelInterface, ArrayAccess, \JsonSerializable
         'key' => 'getKey',
         'run_id' => 'getRunId',
         'run_attempt' => 'getRunAttempt',
+        'status' => 'getStatus',
+        'conclusion' => 'getConclusion',
+        'started_at' => 'getStartedAt',
+        'completed_at' => 'getCompletedAt',
         'checks' => 'getChecks',
         'gone' => 'getGone',
         'final' => 'getFinal',
@@ -327,6 +351,10 @@ class RunEvent implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('key', $data ?? [], null);
         $this->setIfExists('run_id', $data ?? [], null);
         $this->setIfExists('run_attempt', $data ?? [], null);
+        $this->setIfExists('status', $data ?? [], null);
+        $this->setIfExists('conclusion', $data ?? [], null);
+        $this->setIfExists('started_at', $data ?? [], null);
+        $this->setIfExists('completed_at', $data ?? [], null);
         $this->setIfExists('checks', $data ?? [], null);
         $this->setIfExists('gone', $data ?? [], null);
         $this->setIfExists('final', $data ?? [], null);
@@ -620,6 +648,114 @@ class RunEvent implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable run_attempt cannot be null');
         }
         $this->container['run_attempt'] = $run_attempt;
+
+        return $this;
+    }
+
+    /**
+     * Gets status
+     *
+     * @return \ForgeDashboard\Generated\Model\CheckStatus|null
+     */
+    public function getStatus()
+    {
+        return $this->container['status'];
+    }
+
+    /**
+     * Sets status
+     *
+     * @param \ForgeDashboard\Generated\Model\CheckStatus|null $status How far the run attempt itself has got, as the forge reports it. Forgejo's own status words fold onto the four values (running is `in_progress`; waiting, blocked and unknown are `queued`); a GitHub status other than these four (requested, pending) is `queued`. Absent for a check with no run (a legacy commit status, a third-party check run, a GitHub check run whose run the forge's lists don't hold) and for a run the forge gave no status.
+     *
+     * @return self
+     */
+    public function setStatus($status)
+    {
+        if (is_null($status)) {
+            throw new \InvalidArgumentException('non-nullable status cannot be null');
+        }
+        $this->container['status'] = $status;
+
+        return $this;
+    }
+
+    /**
+     * Gets conclusion
+     *
+     * @return string|null
+     */
+    public function getConclusion()
+    {
+        return $this->container['conclusion'];
+    }
+
+    /**
+     * Sets conclusion
+     *
+     * @param string|null $conclusion How the run attempt ended, in the forge's own word, once its `status` is \"completed\". It can differ from its jobs: a run can fail while one of its jobs passed. Absent whenever `status` is.
+     *
+     * @return self
+     */
+    public function setConclusion($conclusion)
+    {
+        if (is_null($conclusion)) {
+            throw new \InvalidArgumentException('non-nullable conclusion cannot be null');
+        }
+        $this->container['conclusion'] = $conclusion;
+
+        return $this;
+    }
+
+    /**
+     * Gets started_at
+     *
+     * @return \DateTime|null
+     */
+    public function getStartedAt()
+    {
+        return $this->container['started_at'];
+    }
+
+    /**
+     * Sets started_at
+     *
+     * @param \DateTime|null $started_at When the forge says the run attempt started. Absent until it has, and when the forge doesn't say.
+     *
+     * @return self
+     */
+    public function setStartedAt($started_at)
+    {
+        if (is_null($started_at)) {
+            throw new \InvalidArgumentException('non-nullable started_at cannot be null');
+        }
+        $this->container['started_at'] = $started_at;
+
+        return $this;
+    }
+
+    /**
+     * Gets completed_at
+     *
+     * @return \DateTime|null
+     */
+    public function getCompletedAt()
+    {
+        return $this->container['completed_at'];
+    }
+
+    /**
+     * Sets completed_at
+     *
+     * @param \DateTime|null $completed_at When the forge says the run attempt finished. Absent until it has. GitHub gives no finish time for a run, so it is always absent there; the page can take the latest job's `completedAt`.
+     *
+     * @return self
+     */
+    public function setCompletedAt($completed_at)
+    {
+        if (is_null($completed_at)) {
+            throw new \InvalidArgumentException('non-nullable completed_at cannot be null');
+        }
+        $this->container['completed_at'] = $completed_at;
 
         return $this;
     }
