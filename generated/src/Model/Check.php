@@ -524,7 +524,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets run_id
      *
-     * @param int|null $run_id The Actions workflow run this job belongs to, to pass to `POST /api/checks/cancel-run`. Present only while the job is queued or running, and only for an Actions job: a finished job, a third-party check and a legacy commit status have none, and nothing is left to cancel.  A Forgejo run whose jobs couldn't be read is listed as one check named for the run, with a `runId` and no `jobId`. A client treats a check with a `runId` and no `jobId` as the run itself, not as a job of it, and doesn't list its name among the run's jobs.
+     * @param int|null $run_id The Actions workflow run this job belongs to, to pass to `POST /api/checks/cancel-run`. Present on every Actions job, finished or not; only a job that is queued or running has anything left to cancel, which a client reads from `state`. A third-party check and a legacy commit status have none.  A Forgejo run whose jobs couldn't be read is listed as one check named for the run, with a `runId` and no `jobId`. A client treats a check with a `runId` and no `jobId` as the run itself, not as a job of it, and doesn't list its name among the run's jobs.
      *
      * @return self
      */
@@ -555,7 +555,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets run_name
      *
-     * @param string|null $run_name The name of that workflow run, for a client to say which run a cancel stops. Present with `runId`.
+     * @param string|null $run_name The name of that workflow run, for a client to say which run a cancel stops. Present with `runId`; on GitHub it can be absent when the lookup of the commit's runs failed or didn't list the run.
      *
      * @return self
      */
@@ -582,7 +582,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets run_number
      *
-     * @param int|null $run_number The forge's own number for that run, the one in the run's page address. It tells two runs of one workflow apart. Present with `runId` when the forge says it.
+     * @param int|null $run_number The forge's own number for that run, the one in the run's page address. It tells two runs of one workflow apart. Present with `runId` when the forge says it; on GitHub it can be absent when the lookup of the commit's runs failed or didn't list the run.
      *
      * @return self
      */
