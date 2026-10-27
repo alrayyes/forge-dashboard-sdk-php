@@ -115,6 +115,7 @@ Class | Method | HTTP request | Description
 *DashboardApi* | [**rerunMainBranchChecks**](docs/Api/DashboardApi.md#rerunmainbranchchecks) | **POST** /api/main-branches/rerun-checks | Rerun only the failed jobs of a repository&#39;s default-branch pipeline, on the signed-in user&#39;s behalf
 *DashboardApi* | [**streamDashboard**](docs/Api/DashboardApi.md#streamdashboard) | **GET** /api/dashboard/stream | Server-Sent Events stream of the signed-in user&#39;s own dashboard
 *DashboardApi* | [**unignoreRepo**](docs/Api/DashboardApi.md#unignorerepo) | **POST** /api/repos/unignore | Stop ignoring one tracked repo
+*DashboardApi* | [**watchDashboardStreamChecks**](docs/Api/DashboardApi.md#watchdashboardstreamchecks) | **POST** /api/dashboard/stream/watch | Choose which job lists a dashboard stream sends
 *HealthApi* | [**getVersion**](docs/Api/HealthApi.md#getversion) | **GET** /api/version | The running server&#39;s own version
 *HealthApi* | [**health**](docs/Api/HealthApi.md#health) | **GET** /healthz | Liveness
 *HealthApi* | [**ready**](docs/Api/HealthApi.md#ready) | **GET** /readyz | Readiness
@@ -183,8 +184,10 @@ Class | Method | HTTP request | Description
 - [CancelRunRequest](docs/Model/CancelRunRequest.md)
 - [Check](docs/Model/Check.md)
 - [CheckCounts](docs/Model/CheckCounts.md)
+- [CheckListEvent](docs/Model/CheckListEvent.md)
 - [CheckLog](docs/Model/CheckLog.md)
 - [CheckState](docs/Model/CheckState.md)
+- [CheckSubject](docs/Model/CheckSubject.md)
 - [ClosingIssue](docs/Model/ClosingIssue.md)
 - [Credential](docs/Model/Credential.md)
 - [Dashboard](docs/Model/Dashboard.md)
@@ -246,6 +249,8 @@ Class | Method | HTTP request | Description
 - [SettingsSummary](docs/Model/SettingsSummary.md)
 - [StackPosition](docs/Model/StackPosition.md)
 - [StackRef](docs/Model/StackRef.md)
+- [StreamDashboard200Response](docs/Model/StreamDashboard200Response.md)
+- [StreamWatchRequest](docs/Model/StreamWatchRequest.md)
 - [ThemeRequest](docs/Model/ThemeRequest.md)
 - [ThemeResponse](docs/Model/ThemeResponse.md)
 - [TimezoneRequest](docs/Model/TimezoneRequest.md)

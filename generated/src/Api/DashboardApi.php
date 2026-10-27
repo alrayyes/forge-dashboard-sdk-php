@@ -128,6 +128,9 @@ class DashboardApi
         'unignoreRepo' => [
             'application/json',
         ],
+        'watchDashboardStreamChecks' => [
+            'application/json',
+        ],
     ];
 
     /**
@@ -5182,15 +5185,16 @@ class DashboardApi
      *
      * @param  bool|null $include_drafts Whether draft pull requests are in &#x60;pullRequests&#x60;. Defaults to &#x60;false&#x60;: nothing can be merged, auto-merged or updated on a draft, so a draft is left out and counted in the response&#39;s &#x60;hiddenDrafts&#x60; instead. The stream and the refresh endpoint take the same parameter, so every snapshot a client receives follows one rule. (optional, default to false)
      * @param  bool|null $include_hidden Whether pull requests the user hid (&#x60;POST /api/pull-requests/hide&#x60;) are in &#x60;pullRequests&#x60;, marked &#x60;hidden: true&#x60;. Defaults to &#x60;false&#x60;: a hidden pull request is left out and counted in the response&#39;s &#x60;hiddenPullRequests&#x60;. A client lists the hidden ones, to offer a Restore, by asking with &#x60;true&#x60;. The stream and the refresh endpoint take the same parameter. (optional, default to false)
+     * @param  string|null $sid A random id the client makes up for this connection, 8 to 64 letters, digits and dashes. It names the stream for the watch call. Anything else is ignored and the stream watches nothing. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['streamDashboard'] to see the possible values for this operation
      *
      * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \ForgeDashboard\Generated\Model\Dashboard|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error
+     * @return \ForgeDashboard\Generated\Model\StreamDashboard200Response|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error
      */
-    public function streamDashboard($include_drafts = false, $include_hidden = false, string $contentType = self::contentTypes['streamDashboard'][0])
+    public function streamDashboard($include_drafts = false, $include_hidden = false, $sid = null, string $contentType = self::contentTypes['streamDashboard'][0])
     {
-        list($response) = $this->streamDashboardWithHttpInfo($include_drafts, $include_hidden, $contentType);
+        list($response) = $this->streamDashboardWithHttpInfo($include_drafts, $include_hidden, $sid, $contentType);
         return $response;
     }
 
@@ -5201,15 +5205,16 @@ class DashboardApi
      *
      * @param  bool|null $include_drafts Whether draft pull requests are in &#x60;pullRequests&#x60;. Defaults to &#x60;false&#x60;: nothing can be merged, auto-merged or updated on a draft, so a draft is left out and counted in the response&#39;s &#x60;hiddenDrafts&#x60; instead. The stream and the refresh endpoint take the same parameter, so every snapshot a client receives follows one rule. (optional, default to false)
      * @param  bool|null $include_hidden Whether pull requests the user hid (&#x60;POST /api/pull-requests/hide&#x60;) are in &#x60;pullRequests&#x60;, marked &#x60;hidden: true&#x60;. Defaults to &#x60;false&#x60;: a hidden pull request is left out and counted in the response&#39;s &#x60;hiddenPullRequests&#x60;. A client lists the hidden ones, to offer a Restore, by asking with &#x60;true&#x60;. The stream and the refresh endpoint take the same parameter. (optional, default to false)
+     * @param  string|null $sid A random id the client makes up for this connection, 8 to 64 letters, digits and dashes. It names the stream for the watch call. Anything else is ignored and the stream watches nothing. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['streamDashboard'] to see the possible values for this operation
      *
      * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \ForgeDashboard\Generated\Model\Dashboard|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \ForgeDashboard\Generated\Model\StreamDashboard200Response|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error, HTTP status code, HTTP response headers (array of strings)
      */
-    public function streamDashboardWithHttpInfo($include_drafts = false, $include_hidden = false, string $contentType = self::contentTypes['streamDashboard'][0])
+    public function streamDashboardWithHttpInfo($include_drafts = false, $include_hidden = false, $sid = null, string $contentType = self::contentTypes['streamDashboard'][0])
     {
-        $request = $this->streamDashboardRequest($include_drafts, $include_hidden, $contentType);
+        $request = $this->streamDashboardRequest($include_drafts, $include_hidden, $sid, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5237,7 +5242,7 @@ class DashboardApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\ForgeDashboard\Generated\Model\Dashboard',
+                        '\ForgeDashboard\Generated\Model\StreamDashboard200Response',
                         $request,
                         $response,
                     );
@@ -5271,7 +5276,7 @@ class DashboardApi
             }
 
             return $this->handleResponseWithDataType(
-                '\ForgeDashboard\Generated\Model\Dashboard',
+                '\ForgeDashboard\Generated\Model\StreamDashboard200Response',
                 $request,
                 $response,
             );
@@ -5280,7 +5285,7 @@ class DashboardApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\ForgeDashboard\Generated\Model\Dashboard',
+                        '\ForgeDashboard\Generated\Model\StreamDashboard200Response',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5315,14 +5320,15 @@ class DashboardApi
      *
      * @param  bool|null $include_drafts Whether draft pull requests are in &#x60;pullRequests&#x60;. Defaults to &#x60;false&#x60;: nothing can be merged, auto-merged or updated on a draft, so a draft is left out and counted in the response&#39;s &#x60;hiddenDrafts&#x60; instead. The stream and the refresh endpoint take the same parameter, so every snapshot a client receives follows one rule. (optional, default to false)
      * @param  bool|null $include_hidden Whether pull requests the user hid (&#x60;POST /api/pull-requests/hide&#x60;) are in &#x60;pullRequests&#x60;, marked &#x60;hidden: true&#x60;. Defaults to &#x60;false&#x60;: a hidden pull request is left out and counted in the response&#39;s &#x60;hiddenPullRequests&#x60;. A client lists the hidden ones, to offer a Restore, by asking with &#x60;true&#x60;. The stream and the refresh endpoint take the same parameter. (optional, default to false)
+     * @param  string|null $sid A random id the client makes up for this connection, 8 to 64 letters, digits and dashes. It names the stream for the watch call. Anything else is ignored and the stream watches nothing. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['streamDashboard'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function streamDashboardAsync($include_drafts = false, $include_hidden = false, string $contentType = self::contentTypes['streamDashboard'][0])
+    public function streamDashboardAsync($include_drafts = false, $include_hidden = false, $sid = null, string $contentType = self::contentTypes['streamDashboard'][0])
     {
-        return $this->streamDashboardAsyncWithHttpInfo($include_drafts, $include_hidden, $contentType)
+        return $this->streamDashboardAsyncWithHttpInfo($include_drafts, $include_hidden, $sid, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -5337,15 +5343,16 @@ class DashboardApi
      *
      * @param  bool|null $include_drafts Whether draft pull requests are in &#x60;pullRequests&#x60;. Defaults to &#x60;false&#x60;: nothing can be merged, auto-merged or updated on a draft, so a draft is left out and counted in the response&#39;s &#x60;hiddenDrafts&#x60; instead. The stream and the refresh endpoint take the same parameter, so every snapshot a client receives follows one rule. (optional, default to false)
      * @param  bool|null $include_hidden Whether pull requests the user hid (&#x60;POST /api/pull-requests/hide&#x60;) are in &#x60;pullRequests&#x60;, marked &#x60;hidden: true&#x60;. Defaults to &#x60;false&#x60;: a hidden pull request is left out and counted in the response&#39;s &#x60;hiddenPullRequests&#x60;. A client lists the hidden ones, to offer a Restore, by asking with &#x60;true&#x60;. The stream and the refresh endpoint take the same parameter. (optional, default to false)
+     * @param  string|null $sid A random id the client makes up for this connection, 8 to 64 letters, digits and dashes. It names the stream for the watch call. Anything else is ignored and the stream watches nothing. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['streamDashboard'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function streamDashboardAsyncWithHttpInfo($include_drafts = false, $include_hidden = false, string $contentType = self::contentTypes['streamDashboard'][0])
+    public function streamDashboardAsyncWithHttpInfo($include_drafts = false, $include_hidden = false, $sid = null, string $contentType = self::contentTypes['streamDashboard'][0])
     {
-        $returnType = '\ForgeDashboard\Generated\Model\Dashboard';
-        $request = $this->streamDashboardRequest($include_drafts, $include_hidden, $contentType);
+        $returnType = '\ForgeDashboard\Generated\Model\StreamDashboard200Response';
+        $request = $this->streamDashboardRequest($include_drafts, $include_hidden, $sid, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -5388,16 +5395,21 @@ class DashboardApi
      *
      * @param  bool|null $include_drafts Whether draft pull requests are in &#x60;pullRequests&#x60;. Defaults to &#x60;false&#x60;: nothing can be merged, auto-merged or updated on a draft, so a draft is left out and counted in the response&#39;s &#x60;hiddenDrafts&#x60; instead. The stream and the refresh endpoint take the same parameter, so every snapshot a client receives follows one rule. (optional, default to false)
      * @param  bool|null $include_hidden Whether pull requests the user hid (&#x60;POST /api/pull-requests/hide&#x60;) are in &#x60;pullRequests&#x60;, marked &#x60;hidden: true&#x60;. Defaults to &#x60;false&#x60;: a hidden pull request is left out and counted in the response&#39;s &#x60;hiddenPullRequests&#x60;. A client lists the hidden ones, to offer a Restore, by asking with &#x60;true&#x60;. The stream and the refresh endpoint take the same parameter. (optional, default to false)
+     * @param  string|null $sid A random id the client makes up for this connection, 8 to 64 letters, digits and dashes. It names the stream for the watch call. Anything else is ignored and the stream watches nothing. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['streamDashboard'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function streamDashboardRequest($include_drafts = false, $include_hidden = false, string $contentType = self::contentTypes['streamDashboard'][0])
+    public function streamDashboardRequest($include_drafts = false, $include_hidden = false, $sid = null, string $contentType = self::contentTypes['streamDashboard'][0])
     {
 
 
 
+        if ($sid !== null && !preg_match("/^[A-Za-z0-9-]{8,64}$/", $sid)) {
+            throw new \InvalidArgumentException("invalid value for \"sid\" when calling DashboardApi.streamDashboard, must conform to the pattern /^[A-Za-z0-9-]{8,64}$/.");
+        }
+        
 
         $resourcePath = '/api/dashboard/stream';
         $formParams = [];
@@ -5420,6 +5432,15 @@ class DashboardApi
             $include_hidden,
             'includeHidden', // param base name
             'boolean', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $sid,
+            'sid', // param base name
+            'string', // openApiType
             'form', // style
             true, // explode
             false // required
@@ -5679,6 +5700,259 @@ class DashboardApi
                 }
             } else {
                 $httpBody = $webhook_ensure_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                try {
+                    $httpBody = json_encode($formParams, JSON_THROW_ON_ERROR);
+                } catch (\JsonException $e) {
+                    throw new \InvalidArgumentException('json_encode error: ' . $e->getMessage(), 0, $e);
+                }
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation watchDashboardStreamChecks
+     *
+     * Choose which job lists a dashboard stream sends
+     *
+     * @param  \ForgeDashboard\Generated\Model\StreamWatchRequest $stream_watch_request stream_watch_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['watchDashboardStreamChecks'] to see the possible values for this operation
+     *
+     * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function watchDashboardStreamChecks($stream_watch_request, string $contentType = self::contentTypes['watchDashboardStreamChecks'][0])
+    {
+        $this->watchDashboardStreamChecksWithHttpInfo($stream_watch_request, $contentType);
+    }
+
+    /**
+     * Operation watchDashboardStreamChecksWithHttpInfo
+     *
+     * Choose which job lists a dashboard stream sends
+     *
+     * @param  \ForgeDashboard\Generated\Model\StreamWatchRequest $stream_watch_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['watchDashboardStreamChecks'] to see the possible values for this operation
+     *
+     * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function watchDashboardStreamChecksWithHttpInfo($stream_watch_request, string $contentType = self::contentTypes['watchDashboardStreamChecks'][0])
+    {
+        $request = $this->watchDashboardStreamChecksRequest($stream_watch_request, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation watchDashboardStreamChecksAsync
+     *
+     * Choose which job lists a dashboard stream sends
+     *
+     * @param  \ForgeDashboard\Generated\Model\StreamWatchRequest $stream_watch_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['watchDashboardStreamChecks'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function watchDashboardStreamChecksAsync($stream_watch_request, string $contentType = self::contentTypes['watchDashboardStreamChecks'][0])
+    {
+        return $this->watchDashboardStreamChecksAsyncWithHttpInfo($stream_watch_request, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation watchDashboardStreamChecksAsyncWithHttpInfo
+     *
+     * Choose which job lists a dashboard stream sends
+     *
+     * @param  \ForgeDashboard\Generated\Model\StreamWatchRequest $stream_watch_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['watchDashboardStreamChecks'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function watchDashboardStreamChecksAsyncWithHttpInfo($stream_watch_request, string $contentType = self::contentTypes['watchDashboardStreamChecks'][0])
+    {
+        $returnType = '';
+        $request = $this->watchDashboardStreamChecksRequest($stream_watch_request, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'watchDashboardStreamChecks'
+     *
+     * @param  \ForgeDashboard\Generated\Model\StreamWatchRequest $stream_watch_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['watchDashboardStreamChecks'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function watchDashboardStreamChecksRequest($stream_watch_request, string $contentType = self::contentTypes['watchDashboardStreamChecks'][0])
+    {
+
+        // verify the required parameter 'stream_watch_request' is set
+        if ($stream_watch_request === null || (is_array($stream_watch_request) && count($stream_watch_request) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $stream_watch_request when calling watchDashboardStreamChecks'
+            );
+        }
+
+
+        $resourcePath = '/api/dashboard/stream/watch';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($stream_watch_request)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                try {
+                    $httpBody = json_encode(ObjectSerializer::sanitizeForSerialization($stream_watch_request), JSON_THROW_ON_ERROR);
+                } catch (\JsonException $e) {
+                    throw new \InvalidArgumentException('json_encode error: ' . $e->getMessage(), 0, $e);
+                }
+            } else {
+                $httpBody = $stream_watch_request;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
