@@ -60,7 +60,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPITypes = [
         'name' => 'string',
         'status' => '\ForgeDashboard\Generated\Model\CheckStatus',
-        'conclusion' => '\ForgeDashboard\Generated\Model\CheckConclusion',
+        'conclusion' => 'string',
         'url' => 'string',
         'job_id' => 'int',
         'run_id' => 'int',
@@ -463,7 +463,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets conclusion
      *
-     * @return \ForgeDashboard\Generated\Model\CheckConclusion|null
+     * @return string|null
      */
     public function getConclusion()
     {
@@ -473,7 +473,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets conclusion
      *
-     * @param \ForgeDashboard\Generated\Model\CheckConclusion|null $conclusion conclusion
+     * @param string|null $conclusion How a finished job ended, in the forge's own word. Sent only when `status` is \"completed\". It is not folded onto a fixed set: GitHub sends its check run conclusion as it is (`success`, `failure`, `neutral`, `cancelled`, `skipped`, `timed_out`, `action_required`, `stale`, `startup_failure`) and Forgejo sends the terminal status of the job (`success`, `failure`, `cancelled`, `skipped`). A legacy commit status, which has no conclusion, is sent as `success` or `failure`. A client decides what each word means and what to do with one it doesn't know.  `action_required` means the job needs someone's approval, and `url` is where to give it. The page shows it as waiting for approval, the same as a held run whose `status` is \"waiting\".
      *
      * @return self
      */

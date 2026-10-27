@@ -33,7 +33,7 @@ use \ForgeDashboard\Generated\ObjectSerializer;
  * CheckStatus Class Doc Comment
  *
  * @category Class
- * @description How far one job has got, as a fact. The page works out what to show from it and &#x60;conclusion&#x60;.  \&quot;waiting\&quot; is a GitHub workflow run held until a maintainer approves it. It has no jobs yet, so it is not queued and has not failed; its &#x60;url&#x60; is the run&#39;s page, where the approve button is.
+ * @description How far one job has got, as a fact. The page works out what to show from it and &#x60;conclusion&#x60;.  \&quot;waiting\&quot; is a GitHub workflow run held until a maintainer approves it. It has no jobs yet, so it is not queued and has not failed; its &#x60;url&#x60; is the run&#39;s page, where the approve button is. A check run that finishes as &#x60;action_required&#x60; is the other shape of the same wait: it is \&quot;completed\&quot; with that conclusion. The page treats the two alike.
  * @package  ForgeDashboard\Generated
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech

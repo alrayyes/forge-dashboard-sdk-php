@@ -181,7 +181,6 @@ Class | Method | HTTP request | Description
 - [CIStatus](docs/Model/CIStatus.md)
 - [CancelRunRequest](docs/Model/CancelRunRequest.md)
 - [Check](docs/Model/Check.md)
-- [CheckConclusion](docs/Model/CheckConclusion.md)
 - [CheckCounts](docs/Model/CheckCounts.md)
 - [CheckLog](docs/Model/CheckLog.md)
 - [CheckStatus](docs/Model/CheckStatus.md)
