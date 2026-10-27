@@ -43,7 +43,6 @@ src/Model/BranchDeletion.php
 src/Model/CIStatus.php
 src/Model/CancelRunRequest.php
 src/Model/Check.php
-src/Model/CheckConclusion.php
 src/Model/CheckCounts.php
 src/Model/CheckLog.php
 src/Model/CheckStatus.php
