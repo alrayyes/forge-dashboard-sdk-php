@@ -1,6 +1,6 @@
 <?php
 /**
- * CheckListEvent
+ * RunEvent
  *
  * PHP version 8.1
  *
@@ -32,16 +32,16 @@ use \ArrayAccess;
 use \ForgeDashboard\Generated\ObjectSerializer;
 
 /**
- * CheckListEvent Class Doc Comment
+ * RunEvent Class Doc Comment
  *
  * @category Class
- * @description The &#x60;data&#x60; of a &#x60;checks&#x60; event on the dashboard stream: one subject and its job list, or why it could not be listed.
+ * @description The &#x60;data&#x60; of a &#x60;run&#x60; event on the dashboard stream: the jobs of one workflow run attempt of one subject, or one check that belongs to no run. A later event with the same &#x60;key&#x60; replaces the earlier one. An event with no &#x60;key&#x60; and no &#x60;checks&#x60; says the subject has none. An event with &#x60;error&#x60; set stands in for the whole listing.
  * @package  ForgeDashboard\Generated
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class CheckListEvent implements ModelInterface, ArrayAccess, \JsonSerializable
+class RunEvent implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -50,7 +50,7 @@ class CheckListEvent implements ModelInterface, ArrayAccess, \JsonSerializable
      *
      * @var string
      */
-    protected static $openAPIModelName = 'CheckListEvent';
+    protected static $openAPIModelName = 'RunEvent';
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -62,7 +62,12 @@ class CheckListEvent implements ModelInterface, ArrayAccess, \JsonSerializable
         'forge' => 'string',
         'full_name' => 'string',
         'number' => 'int',
+        'key' => 'string',
+        'run_id' => 'int',
+        'run_attempt' => 'int',
         'checks' => '\ForgeDashboard\Generated\Model\Check[]',
+        'gone' => 'bool',
+        'final' => 'bool',
         'error' => 'string'
     ];
 
@@ -78,7 +83,12 @@ class CheckListEvent implements ModelInterface, ArrayAccess, \JsonSerializable
         'forge' => null,
         'full_name' => null,
         'number' => null,
+        'key' => null,
+        'run_id' => 'int64',
+        'run_attempt' => 'int64',
         'checks' => null,
+        'gone' => null,
+        'final' => null,
         'error' => null
     ];
 
@@ -92,7 +102,12 @@ class CheckListEvent implements ModelInterface, ArrayAccess, \JsonSerializable
         'forge' => false,
         'full_name' => false,
         'number' => false,
-        'checks' => true,
+        'key' => false,
+        'run_id' => false,
+        'run_attempt' => false,
+        'checks' => false,
+        'gone' => false,
+        'final' => false,
         'error' => false
     ];
 
@@ -186,7 +201,12 @@ class CheckListEvent implements ModelInterface, ArrayAccess, \JsonSerializable
         'forge' => 'forge',
         'full_name' => 'fullName',
         'number' => 'number',
+        'key' => 'key',
+        'run_id' => 'runId',
+        'run_attempt' => 'runAttempt',
         'checks' => 'checks',
+        'gone' => 'gone',
+        'final' => 'final',
         'error' => 'error'
     ];
 
@@ -200,7 +220,12 @@ class CheckListEvent implements ModelInterface, ArrayAccess, \JsonSerializable
         'forge' => 'setForge',
         'full_name' => 'setFullName',
         'number' => 'setNumber',
+        'key' => 'setKey',
+        'run_id' => 'setRunId',
+        'run_attempt' => 'setRunAttempt',
         'checks' => 'setChecks',
+        'gone' => 'setGone',
+        'final' => 'setFinal',
         'error' => 'setError'
     ];
 
@@ -214,7 +239,12 @@ class CheckListEvent implements ModelInterface, ArrayAccess, \JsonSerializable
         'forge' => 'getForge',
         'full_name' => 'getFullName',
         'number' => 'getNumber',
+        'key' => 'getKey',
+        'run_id' => 'getRunId',
+        'run_attempt' => 'getRunAttempt',
         'checks' => 'getChecks',
+        'gone' => 'getGone',
+        'final' => 'getFinal',
         'error' => 'getError'
     ];
 
@@ -294,7 +324,12 @@ class CheckListEvent implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('forge', $data ?? [], null);
         $this->setIfExists('full_name', $data ?? [], null);
         $this->setIfExists('number', $data ?? [], null);
+        $this->setIfExists('key', $data ?? [], null);
+        $this->setIfExists('run_id', $data ?? [], null);
+        $this->setIfExists('run_attempt', $data ?? [], null);
         $this->setIfExists('checks', $data ?? [], null);
+        $this->setIfExists('gone', $data ?? [], null);
+        $this->setIfExists('final', $data ?? [], null);
         $this->setIfExists('error', $data ?? [], null);
     }
 
@@ -359,9 +394,6 @@ class CheckListEvent implements ModelInterface, ArrayAccess, \JsonSerializable
             $invalidProperties[] = "invalid value for 'number', must be smaller than or equal to 2147483647.";
         }
 
-        if ($this->container['checks'] === null && !$this->isNullableSetToNull('checks')) {
-            $invalidProperties[] = "'checks' is required";
-        }
         return $invalidProperties;
     }
 
@@ -410,7 +442,7 @@ class CheckListEvent implements ModelInterface, ArrayAccess, \JsonSerializable
             );
         }
         if ((mb_strlen($kind) > 16)) {
-            throw new \InvalidArgumentException('invalid length for $kind when calling CheckListEvent., must be smaller than or equal to 16.');
+            throw new \InvalidArgumentException('invalid length for $kind when calling RunEvent., must be smaller than or equal to 16.');
         }
 
         $this->container['kind'] = $kind;
@@ -441,7 +473,7 @@ class CheckListEvent implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable forge cannot be null');
         }
         if ((mb_strlen($forge) > 32)) {
-            throw new \InvalidArgumentException('invalid length for $forge when calling CheckListEvent., must be smaller than or equal to 32.');
+            throw new \InvalidArgumentException('invalid length for $forge when calling RunEvent., must be smaller than or equal to 32.');
         }
 
         $this->container['forge'] = $forge;
@@ -472,7 +504,7 @@ class CheckListEvent implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable full_name cannot be null');
         }
         if ((mb_strlen($full_name) > 256)) {
-            throw new \InvalidArgumentException('invalid length for $full_name when calling CheckListEvent., must be smaller than or equal to 256.');
+            throw new \InvalidArgumentException('invalid length for $full_name when calling RunEvent., must be smaller than or equal to 256.');
         }
 
         $this->container['full_name'] = $full_name;
@@ -503,10 +535,91 @@ class CheckListEvent implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable number cannot be null');
         }
         if (($number > 2147483647)) {
-            throw new \InvalidArgumentException('invalid value for $number when calling CheckListEvent., must be smaller than or equal to 2147483647.');
+            throw new \InvalidArgumentException('invalid value for $number when calling RunEvent., must be smaller than or equal to 2147483647.');
         }
 
         $this->container['number'] = $number;
+
+        return $this;
+    }
+
+    /**
+     * Gets key
+     *
+     * @return string|null
+     */
+    public function getKey()
+    {
+        return $this->container['key'];
+    }
+
+    /**
+     * Sets key
+     *
+     * @param string|null $key Names the unit this event replaces: `run/<runId>/<attempt>` for a run attempt, `job/<url>|<name>` for a check with no run. Absent when the subject has no checks or on an error.
+     *
+     * @return self
+     */
+    public function setKey($key)
+    {
+        if (is_null($key)) {
+            throw new \InvalidArgumentException('non-nullable key cannot be null');
+        }
+        $this->container['key'] = $key;
+
+        return $this;
+    }
+
+    /**
+     * Gets run_id
+     *
+     * @return int|null
+     */
+    public function getRunId()
+    {
+        return $this->container['run_id'];
+    }
+
+    /**
+     * Sets run_id
+     *
+     * @param int|null $run_id Absent for a check with no run.
+     *
+     * @return self
+     */
+    public function setRunId($run_id)
+    {
+        if (is_null($run_id)) {
+            throw new \InvalidArgumentException('non-nullable run_id cannot be null');
+        }
+        $this->container['run_id'] = $run_id;
+
+        return $this;
+    }
+
+    /**
+     * Gets run_attempt
+     *
+     * @return int|null
+     */
+    public function getRunAttempt()
+    {
+        return $this->container['run_attempt'];
+    }
+
+    /**
+     * Sets run_attempt
+     *
+     * @param int|null $run_attempt Absent when the check has no run or the forge doesn't number attempts.
+     *
+     * @return self
+     */
+    public function setRunAttempt($run_attempt)
+    {
+        if (is_null($run_attempt)) {
+            throw new \InvalidArgumentException('non-nullable run_attempt cannot be null');
+        }
+        $this->container['run_attempt'] = $run_attempt;
 
         return $this;
     }
@@ -524,23 +637,70 @@ class CheckListEvent implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets checks
      *
-     * @param \ForgeDashboard\Generated\Model\Check[]|null $checks Null when `error` is set.
+     * @param \ForgeDashboard\Generated\Model\Check[]|null $checks Absent when `gone` or `error` is set.
      *
      * @return self
      */
     public function setChecks($checks)
     {
         if (is_null($checks)) {
-            array_push($this->openAPINullablesSetToNull, 'checks');
-        } else {
-            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
-            $index = array_search('checks', $nullablesSetToNull);
-            if ($index !== FALSE) {
-                unset($nullablesSetToNull[$index]);
-                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
-            }
+            throw new \InvalidArgumentException('non-nullable checks cannot be null');
         }
         $this->container['checks'] = $checks;
+
+        return $this;
+    }
+
+    /**
+     * Gets gone
+     *
+     * @return bool|null
+     */
+    public function getGone()
+    {
+        return $this->container['gone'];
+    }
+
+    /**
+     * Sets gone
+     *
+     * @param bool|null $gone The unit named by `key` is no longer listed; drop it.
+     *
+     * @return self
+     */
+    public function setGone($gone)
+    {
+        if (is_null($gone)) {
+            throw new \InvalidArgumentException('non-nullable gone cannot be null');
+        }
+        $this->container['gone'] = $gone;
+
+        return $this;
+    }
+
+    /**
+     * Gets final
+     *
+     * @return bool|null
+     */
+    public function getFinal()
+    {
+        return $this->container['final'];
+    }
+
+    /**
+     * Sets final
+     *
+     * @param bool|null $final Set on the last event of a listing, so a client can draw once the whole listing has arrived.
+     *
+     * @return self
+     */
+    public function setFinal($final)
+    {
+        if (is_null($final)) {
+            throw new \InvalidArgumentException('non-nullable final cannot be null');
+        }
+        $this->container['final'] = $final;
 
         return $this;
     }
