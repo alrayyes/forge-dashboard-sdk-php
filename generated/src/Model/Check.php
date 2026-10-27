@@ -59,7 +59,8 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $openAPITypes = [
         'name' => 'string',
-        'state' => '\ForgeDashboard\Generated\Model\CheckState',
+        'status' => '\ForgeDashboard\Generated\Model\CheckStatus',
+        'conclusion' => '\ForgeDashboard\Generated\Model\CheckConclusion',
         'url' => 'string',
         'job_id' => 'int',
         'run_id' => 'int',
@@ -82,7 +83,8 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $openAPIFormats = [
         'name' => null,
-        'state' => null,
+        'status' => null,
+        'conclusion' => null,
         'url' => null,
         'job_id' => null,
         'run_id' => null,
@@ -103,7 +105,8 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static array $openAPINullables = [
         'name' => false,
-        'state' => false,
+        'status' => false,
+        'conclusion' => false,
         'url' => false,
         'job_id' => false,
         'run_id' => false,
@@ -204,7 +207,8 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $attributeMap = [
         'name' => 'name',
-        'state' => 'state',
+        'status' => 'status',
+        'conclusion' => 'conclusion',
         'url' => 'url',
         'job_id' => 'jobId',
         'run_id' => 'runId',
@@ -225,7 +229,8 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $setters = [
         'name' => 'setName',
-        'state' => 'setState',
+        'status' => 'setStatus',
+        'conclusion' => 'setConclusion',
         'url' => 'setUrl',
         'job_id' => 'setJobId',
         'run_id' => 'setRunId',
@@ -246,7 +251,8 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $getters = [
         'name' => 'getName',
-        'state' => 'getState',
+        'status' => 'getStatus',
+        'conclusion' => 'getConclusion',
         'url' => 'getUrl',
         'job_id' => 'getJobId',
         'run_id' => 'getRunId',
@@ -318,7 +324,8 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     public function __construct(?array $data = null)
     {
         $this->setIfExists('name', $data ?? [], null);
-        $this->setIfExists('state', $data ?? [], null);
+        $this->setIfExists('status', $data ?? [], null);
+        $this->setIfExists('conclusion', $data ?? [], null);
         $this->setIfExists('url', $data ?? [], null);
         $this->setIfExists('job_id', $data ?? [], null);
         $this->setIfExists('run_id', $data ?? [], null);
@@ -362,8 +369,8 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['name'] === null) {
             $invalidProperties[] = "'name' can't be null";
         }
-        if ($this->container['state'] === null) {
-            $invalidProperties[] = "'state' can't be null";
+        if ($this->container['status'] === null) {
+            $invalidProperties[] = "'status' can't be null";
         }
         if ($this->container['url'] === null) {
             $invalidProperties[] = "'url' can't be null";
@@ -427,28 +434,55 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets state
+     * Gets status
      *
-     * @return \ForgeDashboard\Generated\Model\CheckState
+     * @return \ForgeDashboard\Generated\Model\CheckStatus
      */
-    public function getState()
+    public function getStatus()
     {
-        return $this->container['state'];
+        return $this->container['status'];
     }
 
     /**
-     * Sets state
+     * Sets status
      *
-     * @param \ForgeDashboard\Generated\Model\CheckState $state state
+     * @param \ForgeDashboard\Generated\Model\CheckStatus $status status
      *
      * @return self
      */
-    public function setState($state)
+    public function setStatus($status)
     {
-        if (is_null($state)) {
-            throw new \InvalidArgumentException('non-nullable state cannot be null');
+        if (is_null($status)) {
+            throw new \InvalidArgumentException('non-nullable status cannot be null');
         }
-        $this->container['state'] = $state;
+        $this->container['status'] = $status;
+
+        return $this;
+    }
+
+    /**
+     * Gets conclusion
+     *
+     * @return \ForgeDashboard\Generated\Model\CheckConclusion|null
+     */
+    public function getConclusion()
+    {
+        return $this->container['conclusion'];
+    }
+
+    /**
+     * Sets conclusion
+     *
+     * @param \ForgeDashboard\Generated\Model\CheckConclusion|null $conclusion conclusion
+     *
+     * @return self
+     */
+    public function setConclusion($conclusion)
+    {
+        if (is_null($conclusion)) {
+            throw new \InvalidArgumentException('non-nullable conclusion cannot be null');
+        }
+        $this->container['conclusion'] = $conclusion;
 
         return $this;
     }
@@ -524,7 +558,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets run_id
      *
-     * @param int|null $run_id The Actions workflow run this job belongs to, to pass to `POST /api/checks/cancel-run`. Present on every Actions job, finished or not; only a job that is queued or running has anything left to cancel, which a client reads from `state`. A third-party check and a legacy commit status have none.  A Forgejo run whose jobs couldn't be read is listed as one check named for the run, with a `runId` and no `jobId`. A client treats a check with a `runId` and no `jobId` as the run itself, not as a job of it, and doesn't list its name among the run's jobs.
+     * @param int|null $run_id The Actions workflow run this job belongs to, to pass to `POST /api/checks/cancel-run`. Present on every Actions job, finished or not; only a job that is queued or running has anything left to cancel, which a client reads from `status`. A third-party check and a legacy commit status have none.  A Forgejo run whose jobs couldn't be read is listed as one check named for the run, with a `runId` and no `jobId`. A client treats a check with a `runId` and no `jobId` as the run itself, not as a job of it, and doesn't list its name among the run's jobs.
      *
      * @return self
      */

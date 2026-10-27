@@ -1,6 +1,6 @@
 <?php
 /**
- * CheckState
+ * CheckConclusion
  *
  * PHP version 8.1
  *
@@ -30,23 +30,19 @@ namespace ForgeDashboard\Generated\Model;
 use \ForgeDashboard\Generated\ObjectSerializer;
 
 /**
- * CheckState Class Doc Comment
+ * CheckConclusion Class Doc Comment
  *
  * @category Class
- * @description One job/check&#39;s own status — the per-job detail CIStatus deliberately doesn&#39;t carry, since CIStatus is the combined result across every one of them.  \&quot;awaiting_approval\&quot; is a GitHub workflow run held until a maintainer approves it. It has no jobs yet, so it is not queued and not failed; its &#x60;url&#x60; is the run&#39;s page, where the approve button is.
+ * @description How a finished job ended. Sent only when &#x60;status&#x60; is \&quot;completed\&quot;. Both forges&#39; own results are folded onto these five.
  * @package  ForgeDashboard\Generated
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  */
-class CheckState
+class CheckConclusion
 {
     /**
      * Possible values of this enum
      */
-    public const QUEUED = 'queued';
-
-    public const RUNNING = 'running';
-
     public const SUCCESS = 'success';
 
     public const FAILURE = 'failure';
@@ -57,8 +53,6 @@ class CheckState
 
     public const TIMED_OUT = 'timed_out';
 
-    public const AWAITING_APPROVAL = 'awaiting_approval';
-
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -66,14 +60,11 @@ class CheckState
     public static function getAllowableEnumValues()
     {
         return [
-            self::QUEUED,
-            self::RUNNING,
             self::SUCCESS,
             self::FAILURE,
             self::CANCELLED,
             self::SKIPPED,
-            self::TIMED_OUT,
-            self::AWAITING_APPROVAL
+            self::TIMED_OUT
         ];
     }
 }
