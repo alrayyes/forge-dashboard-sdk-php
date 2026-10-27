@@ -76,7 +76,12 @@ class StreamDashboard200Response implements ModelInterface, ArrayAccess, \JsonSe
         'forge' => 'string',
         'full_name' => 'string',
         'number' => 'int',
+        'key' => 'string',
+        'run_id' => 'int',
+        'run_attempt' => 'int',
         'checks' => '\ForgeDashboard\Generated\Model\Check[]',
+        'gone' => 'bool',
+        'final' => 'bool',
         'error' => 'string'
     ];
 
@@ -107,7 +112,12 @@ class StreamDashboard200Response implements ModelInterface, ArrayAccess, \JsonSe
         'forge' => null,
         'full_name' => null,
         'number' => null,
+        'key' => null,
+        'run_id' => 'int64',
+        'run_attempt' => 'int64',
         'checks' => null,
+        'gone' => null,
+        'final' => null,
         'error' => null
     ];
 
@@ -136,7 +146,12 @@ class StreamDashboard200Response implements ModelInterface, ArrayAccess, \JsonSe
         'forge' => false,
         'full_name' => false,
         'number' => false,
+        'key' => false,
+        'run_id' => false,
+        'run_attempt' => false,
         'checks' => false,
+        'gone' => false,
+        'final' => false,
         'error' => false
     ];
 
@@ -245,7 +260,12 @@ class StreamDashboard200Response implements ModelInterface, ArrayAccess, \JsonSe
         'forge' => 'forge',
         'full_name' => 'fullName',
         'number' => 'number',
+        'key' => 'key',
+        'run_id' => 'runId',
+        'run_attempt' => 'runAttempt',
         'checks' => 'checks',
+        'gone' => 'gone',
+        'final' => 'final',
         'error' => 'error'
     ];
 
@@ -274,7 +294,12 @@ class StreamDashboard200Response implements ModelInterface, ArrayAccess, \JsonSe
         'forge' => 'setForge',
         'full_name' => 'setFullName',
         'number' => 'setNumber',
+        'key' => 'setKey',
+        'run_id' => 'setRunId',
+        'run_attempt' => 'setRunAttempt',
         'checks' => 'setChecks',
+        'gone' => 'setGone',
+        'final' => 'setFinal',
         'error' => 'setError'
     ];
 
@@ -303,7 +328,12 @@ class StreamDashboard200Response implements ModelInterface, ArrayAccess, \JsonSe
         'forge' => 'getForge',
         'full_name' => 'getFullName',
         'number' => 'getNumber',
+        'key' => 'getKey',
+        'run_id' => 'getRunId',
+        'run_attempt' => 'getRunAttempt',
         'checks' => 'getChecks',
+        'gone' => 'getGone',
+        'final' => 'getFinal',
         'error' => 'getError'
     ];
 
@@ -398,7 +428,12 @@ class StreamDashboard200Response implements ModelInterface, ArrayAccess, \JsonSe
         $this->setIfExists('forge', $data ?? [], null);
         $this->setIfExists('full_name', $data ?? [], null);
         $this->setIfExists('number', $data ?? [], null);
+        $this->setIfExists('key', $data ?? [], null);
+        $this->setIfExists('run_id', $data ?? [], null);
+        $this->setIfExists('run_attempt', $data ?? [], null);
         $this->setIfExists('checks', $data ?? [], null);
+        $this->setIfExists('gone', $data ?? [], null);
+        $this->setIfExists('final', $data ?? [], null);
         $this->setIfExists('error', $data ?? [], null);
     }
 
@@ -518,9 +553,6 @@ class StreamDashboard200Response implements ModelInterface, ArrayAccess, \JsonSe
             $invalidProperties[] = "invalid value for 'number', must be smaller than or equal to 2147483647.";
         }
 
-        if ($this->container['checks'] === null) {
-            $invalidProperties[] = "'checks' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -1092,9 +1124,90 @@ class StreamDashboard200Response implements ModelInterface, ArrayAccess, \JsonSe
     }
 
     /**
+     * Gets key
+     *
+     * @return string|null
+     */
+    public function getKey()
+    {
+        return $this->container['key'];
+    }
+
+    /**
+     * Sets key
+     *
+     * @param string|null $key Names the unit this event replaces: `run/<runId>/<attempt>` for a run attempt, `job/<url>|<name>` for a check with no run. Absent when the subject has no checks or on an error.
+     *
+     * @return self
+     */
+    public function setKey($key)
+    {
+        if (is_null($key)) {
+            throw new \InvalidArgumentException('non-nullable key cannot be null');
+        }
+        $this->container['key'] = $key;
+
+        return $this;
+    }
+
+    /**
+     * Gets run_id
+     *
+     * @return int|null
+     */
+    public function getRunId()
+    {
+        return $this->container['run_id'];
+    }
+
+    /**
+     * Sets run_id
+     *
+     * @param int|null $run_id Absent for a check with no run.
+     *
+     * @return self
+     */
+    public function setRunId($run_id)
+    {
+        if (is_null($run_id)) {
+            throw new \InvalidArgumentException('non-nullable run_id cannot be null');
+        }
+        $this->container['run_id'] = $run_id;
+
+        return $this;
+    }
+
+    /**
+     * Gets run_attempt
+     *
+     * @return int|null
+     */
+    public function getRunAttempt()
+    {
+        return $this->container['run_attempt'];
+    }
+
+    /**
+     * Sets run_attempt
+     *
+     * @param int|null $run_attempt Absent when the check has no run or the forge doesn't number attempts.
+     *
+     * @return self
+     */
+    public function setRunAttempt($run_attempt)
+    {
+        if (is_null($run_attempt)) {
+            throw new \InvalidArgumentException('non-nullable run_attempt cannot be null');
+        }
+        $this->container['run_attempt'] = $run_attempt;
+
+        return $this;
+    }
+
+    /**
      * Gets checks
      *
-     * @return \ForgeDashboard\Generated\Model\Check[]
+     * @return \ForgeDashboard\Generated\Model\Check[]|null
      */
     public function getChecks()
     {
@@ -1104,7 +1217,7 @@ class StreamDashboard200Response implements ModelInterface, ArrayAccess, \JsonSe
     /**
      * Sets checks
      *
-     * @param \ForgeDashboard\Generated\Model\Check[] $checks Null when `error` is set.
+     * @param \ForgeDashboard\Generated\Model\Check[]|null $checks Absent when `gone` or `error` is set.
      *
      * @return self
      */
@@ -1114,6 +1227,60 @@ class StreamDashboard200Response implements ModelInterface, ArrayAccess, \JsonSe
             throw new \InvalidArgumentException('non-nullable checks cannot be null');
         }
         $this->container['checks'] = $checks;
+
+        return $this;
+    }
+
+    /**
+     * Gets gone
+     *
+     * @return bool|null
+     */
+    public function getGone()
+    {
+        return $this->container['gone'];
+    }
+
+    /**
+     * Sets gone
+     *
+     * @param bool|null $gone The unit named by `key` is no longer listed; drop it.
+     *
+     * @return self
+     */
+    public function setGone($gone)
+    {
+        if (is_null($gone)) {
+            throw new \InvalidArgumentException('non-nullable gone cannot be null');
+        }
+        $this->container['gone'] = $gone;
+
+        return $this;
+    }
+
+    /**
+     * Gets final
+     *
+     * @return bool|null
+     */
+    public function getFinal()
+    {
+        return $this->container['final'];
+    }
+
+    /**
+     * Sets final
+     *
+     * @param bool|null $final Set on the last event of a listing, so a client can draw once the whole listing has arrived.
+     *
+     * @return self
+     */
+    public function setFinal($final)
+    {
+        if (is_null($final)) {
+            throw new \InvalidArgumentException('non-nullable final cannot be null');
+        }
+        $this->container['final'] = $final;
 
         return $this;
     }
