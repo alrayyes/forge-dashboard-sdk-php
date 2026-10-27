@@ -105,7 +105,6 @@ Class | Method | HTTP request | Description
 *DashboardApi* | [**getDashboard**](docs/Api/DashboardApi.md#getdashboard) | **GET** /api/dashboard | The aggregated view
 *DashboardApi* | [**getForgeApiStats**](docs/Api/DashboardApi.md#getforgeapistats) | **GET** /api/stats/forge-api | How many forge API calls the dashboard has spent, and on what
 *DashboardApi* | [**getIssueDetails**](docs/Api/DashboardApi.md#getissuedetails) | **GET** /api/issues/details | Read an issue&#39;s description, comments and reactions, on demand
-*DashboardApi* | [**getMainBranchChecks**](docs/Api/DashboardApi.md#getmainbranchchecks) | **GET** /api/main-branches/checks | List every job/check of a repository&#39;s default-branch pipeline, on demand
 *DashboardApi* | [**getMainBranches**](docs/Api/DashboardApi.md#getmainbranches) | **GET** /api/main-branches | The CI status of every tracked repository&#39;s default branch
 *DashboardApi* | [**getReleaseDetails**](docs/Api/DashboardApi.md#getreleasedetails) | **GET** /api/releases/details | Read a published release&#39;s title and notes, on demand
 *DashboardApi* | [**ignoreRepo**](docs/Api/DashboardApi.md#ignorerepo) | **POST** /api/repos/ignore | Hide one tracked repo&#39;s pull requests, issues, or both from the dashboard and Insights
@@ -127,7 +126,6 @@ Class | Method | HTTP request | Description
 *PullRequestsApi* | [**cancelWorkflowRun**](docs/Api/PullRequestsApi.md#cancelworkflowrun) | **POST** /api/checks/cancel-run | Cancel one running or queued Actions workflow run, on the signed-in user&#39;s behalf
 *PullRequestsApi* | [**closePullRequest**](docs/Api/PullRequestsApi.md#closepullrequest) | **POST** /api/pull-requests/close | Close one pull request without merging it, on the signed-in user&#39;s behalf
 *PullRequestsApi* | [**enablePullRequestAutoMerge**](docs/Api/PullRequestsApi.md#enablepullrequestautomerge) | **POST** /api/pull-requests/auto-merge | Arm auto-merge on a pull request, on the signed-in user&#39;s behalf
-*PullRequestsApi* | [**getPullRequestChecks**](docs/Api/PullRequestsApi.md#getpullrequestchecks) | **GET** /api/pull-requests/checks | List every job/check run against a pull request&#39;s head commit, on demand
 *PullRequestsApi* | [**getPullRequestDetails**](docs/Api/PullRequestsApi.md#getpullrequestdetails) | **GET** /api/pull-requests/details | Read a pull request&#39;s description, comments and reactions, on demand
 *PullRequestsApi* | [**hidePullRequest**](docs/Api/PullRequestsApi.md#hidepullrequest) | **POST** /api/pull-requests/hide | Hide one pull request from the signed-in user&#39;s dashboard
 *PullRequestsApi* | [**mergePullRequest**](docs/Api/PullRequestsApi.md#mergepullrequest) | **POST** /api/pull-requests/merge | Merge one pull request, on the signed-in user&#39;s behalf
@@ -224,7 +222,6 @@ Class | Method | HTTP request | Description
 - [PullRequest](docs/Model/PullRequest.md)
 - [PullRequestActionRequest](docs/Model/PullRequestActionRequest.md)
 - [PullRequestAutoUpdateRequest](docs/Model/PullRequestAutoUpdateRequest.md)
-- [PullRequestChecksResponse](docs/Model/PullRequestChecksResponse.md)
 - [PullRequestDependabotActionRequest](docs/Model/PullRequestDependabotActionRequest.md)
 - [PullRequestDetails](docs/Model/PullRequestDetails.md)
 - [PullRequestHideRequest](docs/Model/PullRequestHideRequest.md)

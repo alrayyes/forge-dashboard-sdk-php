@@ -85,7 +85,6 @@ src/Model/PresenceReport.php
 src/Model/PullRequest.php
 src/Model/PullRequestActionRequest.php
 src/Model/PullRequestAutoUpdateRequest.php
-src/Model/PullRequestChecksResponse.php
 src/Model/PullRequestDependabotActionRequest.php
 src/Model/PullRequestDetails.php
 src/Model/PullRequestHideRequest.php
