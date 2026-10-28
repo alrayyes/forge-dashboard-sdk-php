@@ -466,7 +466,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets stale_since
      *
-     * @param \DateTime|null $stale_since Present when the last refresh against this forge failed, or the forge has not been asked yet since the app started (see starting), and the pull requests, issues and repos in the response are the last good ones, fetched at this time, instead of none. Absent when the data is current, and for a forge that has never fetched successfully, which has nothing to show. A client can say \"unreachable, showing data from 3 minutes ago\".
+     * @param \DateTime|null $stale_since Present when the last refresh against this forge failed, or the forge has not been asked yet since the app started (see starting), and the pull requests, issues and repos in the response are the last good ones, fetched at this time, instead of none. Absent when the data is current, and for a forge that has never fetched successfully, which has nothing to show. A forge that has not answered within three minutes counts as failed, so a hung forge does not hold back the others. A client can say \"unreachable, showing data from 3 minutes ago\".
      *
      * @return self
      */
