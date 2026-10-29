@@ -69,6 +69,7 @@ class MainBranch implements ModelInterface, ArrayAccess, \JsonSerializable
         'duration_seconds' => 'int',
         'run_url' => 'string',
         'checks' => '\ForgeDashboard\Generated\Model\CheckCounts',
+        'runs' => '\ForgeDashboard\Generated\Model\MainBranchRun[]',
         'latest_release' => '\ForgeDashboard\Generated\Model\MainBranchRelease',
         'stale_since' => '\DateTime',
         'advisories' => '\ForgeDashboard\Generated\Model\Advisories'
@@ -93,6 +94,7 @@ class MainBranch implements ModelInterface, ArrayAccess, \JsonSerializable
         'duration_seconds' => null,
         'run_url' => null,
         'checks' => null,
+        'runs' => null,
         'latest_release' => null,
         'stale_since' => 'date-time',
         'advisories' => null
@@ -115,6 +117,7 @@ class MainBranch implements ModelInterface, ArrayAccess, \JsonSerializable
         'duration_seconds' => true,
         'run_url' => false,
         'checks' => false,
+        'runs' => false,
         'latest_release' => true,
         'stale_since' => true,
         'advisories' => false
@@ -217,6 +220,7 @@ class MainBranch implements ModelInterface, ArrayAccess, \JsonSerializable
         'duration_seconds' => 'durationSeconds',
         'run_url' => 'runUrl',
         'checks' => 'checks',
+        'runs' => 'runs',
         'latest_release' => 'latestRelease',
         'stale_since' => 'staleSince',
         'advisories' => 'advisories'
@@ -239,6 +243,7 @@ class MainBranch implements ModelInterface, ArrayAccess, \JsonSerializable
         'duration_seconds' => 'setDurationSeconds',
         'run_url' => 'setRunUrl',
         'checks' => 'setChecks',
+        'runs' => 'setRuns',
         'latest_release' => 'setLatestRelease',
         'stale_since' => 'setStaleSince',
         'advisories' => 'setAdvisories'
@@ -261,6 +266,7 @@ class MainBranch implements ModelInterface, ArrayAccess, \JsonSerializable
         'duration_seconds' => 'getDurationSeconds',
         'run_url' => 'getRunUrl',
         'checks' => 'getChecks',
+        'runs' => 'getRuns',
         'latest_release' => 'getLatestRelease',
         'stale_since' => 'getStaleSince',
         'advisories' => 'getAdvisories'
@@ -334,6 +340,7 @@ class MainBranch implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('duration_seconds', $data ?? [], null);
         $this->setIfExists('run_url', $data ?? [], null);
         $this->setIfExists('checks', $data ?? [], null);
+        $this->setIfExists('runs', $data ?? [], null);
         $this->setIfExists('latest_release', $data ?? [], null);
         $this->setIfExists('stale_since', $data ?? [], null);
         $this->setIfExists('advisories', $data ?? [], null);
@@ -742,6 +749,33 @@ class MainBranch implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable checks cannot be null');
         }
         $this->container['checks'] = $checks;
+
+        return $this;
+    }
+
+    /**
+     * Gets runs
+     *
+     * @return \ForgeDashboard\Generated\Model\MainBranchRun[]|null
+     */
+    public function getRuns()
+    {
+        return $this->container['runs'];
+    }
+
+    /**
+     * Sets runs
+     *
+     * @param \ForgeDashboard\Generated\Model\MainBranchRun[]|null $runs What each workflow run attempt on the newest commit did, the facts `status`, `failingJobs` and `checks` were worked out from, in the order the forge listed them. A client can fold them into its own pill. They are the jobs `GET /api/main-branches/checks` lists, grouped as the stream's `run` events group them. Present for a Forgejo repository with at least one run; absent for a GitHub repository, whose refresh reads counts rather than runs, and for a repository with no run.
+     *
+     * @return self
+     */
+    public function setRuns($runs)
+    {
+        if (is_null($runs)) {
+            throw new \InvalidArgumentException('non-nullable runs cannot be null');
+        }
+        $this->container['runs'] = $runs;
 
         return $this;
     }
