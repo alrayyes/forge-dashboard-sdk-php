@@ -33,7 +33,7 @@ use \ForgeDashboard\Generated\ObjectSerializer;
  * CIStatus Class Doc Comment
  *
  * @category Class
- * @description The combined result across every check reported against the pull request&#39;s head commit. \&quot;none\&quot; means neither forge reported any check at all, not that one failed.
+ * @description The combined result across every check reported against the pull request&#39;s head commit. \&quot;none\&quot; means neither forge reported any check at all, not that one failed.  This is the server&#39;s answer, and the server&#39;s rules read it: what a pull request may do, auto-merge, the quick filters, the navigation counts and the CI poll. The page draws it for a row it has no job facts for. For a row it has them for (the rows in view on the live stream), the page folds the jobs itself, so the pill it draws can differ from this field until the next refresh. A run that was only cancelled reads as cancelled in that fold; GitHub&#39;s rollup says &#x60;failure&#x60; and Forgejo&#39;s says &#x60;none&#x60; or &#x60;success&#x60; here.
  * @package  ForgeDashboard\Generated
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
