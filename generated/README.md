@@ -208,6 +208,7 @@ Class | Method | HTTP request | Description
 - [MainBranchCommit](docs/Model/MainBranchCommit.md)
 - [MainBranchRelease](docs/Model/MainBranchRelease.md)
 - [MainBranchRerunRequest](docs/Model/MainBranchRerunRequest.md)
+- [MainBranchRun](docs/Model/MainBranchRun.md)
 - [MainBranchStatus](docs/Model/MainBranchStatus.md)
 - [MainBranches](docs/Model/MainBranches.md)
 - [MentionedIssue](docs/Model/MentionedIssue.md)
