@@ -64,6 +64,7 @@ class MainBranchRun implements ModelInterface, ArrayAccess, \JsonSerializable
         'conclusion' => 'string',
         'started_at' => '\DateTime',
         'completed_at' => '\DateTime',
+        'jobs_truncated' => 'bool',
         'checks' => '\ForgeDashboard\Generated\Model\Check[]'
     ];
 
@@ -81,6 +82,7 @@ class MainBranchRun implements ModelInterface, ArrayAccess, \JsonSerializable
         'conclusion' => null,
         'started_at' => 'date-time',
         'completed_at' => 'date-time',
+        'jobs_truncated' => null,
         'checks' => null
     ];
 
@@ -96,6 +98,7 @@ class MainBranchRun implements ModelInterface, ArrayAccess, \JsonSerializable
         'conclusion' => false,
         'started_at' => false,
         'completed_at' => false,
+        'jobs_truncated' => false,
         'checks' => false
     ];
 
@@ -191,6 +194,7 @@ class MainBranchRun implements ModelInterface, ArrayAccess, \JsonSerializable
         'conclusion' => 'conclusion',
         'started_at' => 'startedAt',
         'completed_at' => 'completedAt',
+        'jobs_truncated' => 'jobsTruncated',
         'checks' => 'checks'
     ];
 
@@ -206,6 +210,7 @@ class MainBranchRun implements ModelInterface, ArrayAccess, \JsonSerializable
         'conclusion' => 'setConclusion',
         'started_at' => 'setStartedAt',
         'completed_at' => 'setCompletedAt',
+        'jobs_truncated' => 'setJobsTruncated',
         'checks' => 'setChecks'
     ];
 
@@ -221,6 +226,7 @@ class MainBranchRun implements ModelInterface, ArrayAccess, \JsonSerializable
         'conclusion' => 'getConclusion',
         'started_at' => 'getStartedAt',
         'completed_at' => 'getCompletedAt',
+        'jobs_truncated' => 'getJobsTruncated',
         'checks' => 'getChecks'
     ];
 
@@ -287,6 +293,7 @@ class MainBranchRun implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('conclusion', $data ?? [], null);
         $this->setIfExists('started_at', $data ?? [], null);
         $this->setIfExists('completed_at', $data ?? [], null);
+        $this->setIfExists('jobs_truncated', $data ?? [], null);
         $this->setIfExists('checks', $data ?? [], null);
     }
 
@@ -493,6 +500,33 @@ class MainBranchRun implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable completed_at cannot be null');
         }
         $this->container['completed_at'] = $completed_at;
+
+        return $this;
+    }
+
+    /**
+     * Gets jobs_truncated
+     *
+     * @return bool|null
+     */
+    public function getJobsTruncated()
+    {
+        return $this->container['jobs_truncated'];
+    }
+
+    /**
+     * Sets jobs_truncated
+     *
+     * @param bool|null $jobs_truncated True when the forge has more jobs for this run attempt than `checks` lists, because the job list was cut short. Absent when the list is whole. A page that folds jobs can't tell a cut list from a whole one, so it keeps the row's own `status` and `checks` while any run says this.
+     *
+     * @return self
+     */
+    public function setJobsTruncated($jobs_truncated)
+    {
+        if (is_null($jobs_truncated)) {
+            throw new \InvalidArgumentException('non-nullable jobs_truncated cannot be null');
+        }
+        $this->container['jobs_truncated'] = $jobs_truncated;
 
         return $this;
     }
