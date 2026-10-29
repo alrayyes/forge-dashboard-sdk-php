@@ -766,7 +766,7 @@ class MainBranch implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets runs
      *
-     * @param \ForgeDashboard\Generated\Model\MainBranchRun[]|null $runs What each workflow run attempt on the newest commit did, the facts `status`, `failingJobs` and `checks` were worked out from, in the order the forge listed them. A client can fold them into its own pill. They are the jobs `GET /api/main-branches/checks` lists, grouped as the stream's `run` events group them. Present for a Forgejo repository with at least one run; absent for a GitHub repository, whose refresh reads counts rather than runs, and for a repository with no run.
+     * @param \ForgeDashboard\Generated\Model\MainBranchRun[]|null $runs What each workflow run attempt on the newest commit did, the facts `status`, `failingJobs` and `checks` were worked out from, in the order the forge listed them. A client can fold them into its own pill. They are the jobs `GET /api/main-branches/checks` lists, grouped as the stream's `run` events group them. Present for a repository with at least one check. On GitHub they are the first 50 checks of the newest commit, grouped by the workflow run each belongs to, so every run says `jobsTruncated` when the commit has more checks than that. Absent for a repository with no check.
      *
      * @return self
      */
