@@ -26,12 +26,6 @@ forges' webhook routes under `/api/webhooks/` (each forge keeps the URL
 it was registered with), and `GET /api/version`, which says which major
 versions the running server speaks.
 
-Until the next release the old unversioned address of each operation
-(`/api/dashboard`) answers `308 Permanent Redirect` to its `/api/v1`
-path, with a `Deprecation` header (RFC 9745). The `308` keeps the
-method and body, so a stale browser tab keeps working through a deploy.
-Move to the `/api/v1` path; the redirects are removed after one release.
-
 
 For more information, please visit [https://github.com/alrayyes/forge-dashboard](https://github.com/alrayyes/forge-dashboard).
 
