@@ -1,5 +1,14 @@
 # Changelog
 
+## [16.0.2](https://github.com/alrayyes/forge-dashboard-sdk-php/compare/v16.0.1...v16.0.2) (2026-11-01)
+
+
+### Bug Fixes
+
+* bump guzzlehttp/guzzle from 8.3.0 to 8.3.1 ([#432](https://github.com/alrayyes/forge-dashboard-sdk-php/issues/432)) ([ebbe93c](https://github.com/alrayyes/forge-dashboard-sdk-php/commit/ebbe93c9aeb635d40cc6ec4d764a14db75e9c3e9))
+* bump phpstan/phpstan from 2.3.1 to 2.3.3 ([#433](https://github.com/alrayyes/forge-dashboard-sdk-php/issues/433)) ([c8ff00b](https://github.com/alrayyes/forge-dashboard-sdk-php/commit/c8ff00b0d6c297f985dba8456453871a6cc7d4e3))
+* regenerate client from forge-dashboard openapi.yaml ([#434](https://github.com/alrayyes/forge-dashboard-sdk-php/issues/434)) ([bade666](https://github.com/alrayyes/forge-dashboard-sdk-php/commit/bade66602c0f0c53ffa30c0affdec2e9fdd478a0))
+
 ## [16.0.1](https://github.com/alrayyes/forge-dashboard-sdk-php/compare/v16.0.0...v16.0.1) (2026-10-30)
 
 
