@@ -257,6 +257,7 @@ Class | Method | HTTP request | Description
 - [ReviewState](docs/Model/ReviewState.md)
 - [RunEvent](docs/Model/RunEvent.md)
 - [SessionUser](docs/Model/SessionUser.md)
+- [SetFilterState200Response](docs/Model/SetFilterState200Response.md)
 - [SettingsRequest](docs/Model/SettingsRequest.md)
 - [SettingsResponse](docs/Model/SettingsResponse.md)
 - [SettingsSummary](docs/Model/SettingsSummary.md)

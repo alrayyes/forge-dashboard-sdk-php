@@ -105,6 +105,7 @@ src/Model/RepoStatus.php
 src/Model/ReviewState.php
 src/Model/RunEvent.php
 src/Model/SessionUser.php
+src/Model/SetFilterState200Response.php
 src/Model/SettingsRequest.php
 src/Model/SettingsResponse.php
 src/Model/SettingsSummary.php
