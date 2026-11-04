@@ -74,13 +74,19 @@ jobs:
     runs-on: ubuntu-24.04
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deployment_retry.outputs.page_url || steps.deployment.outputs.page_url }}
     steps:
+      # The Pages API now and then answers 500 ("please re-run"). Retry once
+      # so that blip doesn't turn main red; a repeated failure still fails.
       - id: deployment
+        continue-on-error: true
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
+      - id: deployment_retry
+        if: steps.deployment.outcome == 'failure'
         uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
       - name: Live coverage.xml is served and is Cobertura
         env:
-          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+          PAGE_URL: ${{ steps.deployment_retry.outputs.page_url || steps.deployment.outputs.page_url }}
         run: |
           curl --fail --silent --show-error --location \
             --retry 6 --retry-delay 10 --retry-all-errors \
