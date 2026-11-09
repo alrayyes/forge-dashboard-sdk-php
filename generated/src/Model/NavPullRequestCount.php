@@ -35,7 +35,7 @@ use \ForgeDashboard\Generated\ObjectSerializer;
  * NavPullRequestCount Class Doc Comment
  *
  * @category Class
- * @description A pull request page&#39;s numbers. &#x60;running&#x60;, &#x60;failed&#x60; and &#x60;passed&#x60; count the pull requests whose CI is pending, failing and succeeded. A pull request with no checks counts in &#x60;total&#x60; only, so the four numbers need not add up. All four are always present.
+ * @description A pull request page&#39;s numbers. &#x60;running&#x60;, &#x60;failed&#x60; and &#x60;passed&#x60; count the pull requests whose CI is pending, failing and succeeded, and &#x60;noChecks&#x60; those with no checks at all. One held for workflow approval is in &#x60;total&#x60; only, so the numbers need not add up. All five are always present.
  * @package  ForgeDashboard\Generated
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -61,7 +61,8 @@ class NavPullRequestCount implements ModelInterface, ArrayAccess, \JsonSerializa
         'total' => 'int',
         'running' => 'int',
         'failed' => 'int',
-        'passed' => 'int'
+        'passed' => 'int',
+        'no_checks' => 'int'
     ];
 
     /**
@@ -75,7 +76,8 @@ class NavPullRequestCount implements ModelInterface, ArrayAccess, \JsonSerializa
         'total' => null,
         'running' => null,
         'failed' => null,
-        'passed' => null
+        'passed' => null,
+        'no_checks' => null
     ];
 
     /**
@@ -87,7 +89,8 @@ class NavPullRequestCount implements ModelInterface, ArrayAccess, \JsonSerializa
         'total' => false,
         'running' => false,
         'failed' => false,
-        'passed' => false
+        'passed' => false,
+        'no_checks' => false
     ];
 
     /**
@@ -179,7 +182,8 @@ class NavPullRequestCount implements ModelInterface, ArrayAccess, \JsonSerializa
         'total' => 'total',
         'running' => 'running',
         'failed' => 'failed',
-        'passed' => 'passed'
+        'passed' => 'passed',
+        'no_checks' => 'noChecks'
     ];
 
     /**
@@ -191,7 +195,8 @@ class NavPullRequestCount implements ModelInterface, ArrayAccess, \JsonSerializa
         'total' => 'setTotal',
         'running' => 'setRunning',
         'failed' => 'setFailed',
-        'passed' => 'setPassed'
+        'passed' => 'setPassed',
+        'no_checks' => 'setNoChecks'
     ];
 
     /**
@@ -203,7 +208,8 @@ class NavPullRequestCount implements ModelInterface, ArrayAccess, \JsonSerializa
         'total' => 'getTotal',
         'running' => 'getRunning',
         'failed' => 'getFailed',
-        'passed' => 'getPassed'
+        'passed' => 'getPassed',
+        'no_checks' => 'getNoChecks'
     ];
 
     /**
@@ -267,6 +273,7 @@ class NavPullRequestCount implements ModelInterface, ArrayAccess, \JsonSerializa
         $this->setIfExists('running', $data ?? [], null);
         $this->setIfExists('failed', $data ?? [], null);
         $this->setIfExists('passed', $data ?? [], null);
+        $this->setIfExists('no_checks', $data ?? [], null);
     }
 
     /**
@@ -322,6 +329,13 @@ class NavPullRequestCount implements ModelInterface, ArrayAccess, \JsonSerializa
         }
         if (($this->container['passed'] < 0)) {
             $invalidProperties[] = "invalid value for 'passed', must be bigger than or equal to 0.";
+        }
+
+        if ($this->container['no_checks'] === null) {
+            $invalidProperties[] = "'no_checks' can't be null";
+        }
+        if (($this->container['no_checks'] < 0)) {
+            $invalidProperties[] = "invalid value for 'no_checks', must be bigger than or equal to 0.";
         }
 
         return $invalidProperties;
@@ -459,6 +473,37 @@ class NavPullRequestCount implements ModelInterface, ArrayAccess, \JsonSerializa
         }
 
         $this->container['passed'] = $passed;
+
+        return $this;
+    }
+
+    /**
+     * Gets no_checks
+     *
+     * @return int
+     */
+    public function getNoChecks()
+    {
+        return $this->container['no_checks'];
+    }
+
+    /**
+     * Sets no_checks
+     *
+     * @param int $no_checks How many of them have no checks (CI `none`). Not counted as running: nothing is pending, so there is nothing to wait for that the pull request itself can show.
+     *
+     * @return self
+     */
+    public function setNoChecks($no_checks)
+    {
+        if (is_null($no_checks)) {
+            throw new \InvalidArgumentException('non-nullable no_checks cannot be null');
+        }
+        if (($no_checks < 0)) {
+            throw new \InvalidArgumentException('invalid value for $no_checks when calling NavPullRequestCount., must be bigger than or equal to 0.');
+        }
+
+        $this->container['no_checks'] = $no_checks;
 
         return $this;
     }
