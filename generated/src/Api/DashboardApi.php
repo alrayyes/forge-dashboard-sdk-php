@@ -95,6 +95,9 @@ class DashboardApi
         'getForgeApiStats' => [
             'application/json',
         ],
+        'getImage' => [
+            'application/json',
+        ],
         'getIssueDetails' => [
             'application/json',
         ],
@@ -2112,6 +2115,402 @@ class DashboardApi
 
         $headers = $this->headerSelector->selectHeaders(
             ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                try {
+                    $httpBody = json_encode($formParams, JSON_THROW_ON_ERROR);
+                } catch (\JsonException $e) {
+                    throw new \InvalidArgumentException('json_encode error: ' . $e->getMessage(), 0, $e);
+                }
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getImage
+     *
+     * Read an image embedded in a forge&#39;s Markdown, through the server
+     *
+     * @param  string $forge forge (required)
+     * @param  string $url The absolute address of the image, as written in the Markdown. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getImage'] to see the possible values for this operation
+     *
+     * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \SplFileObject|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error
+     */
+    public function getImage($forge, $url, string $contentType = self::contentTypes['getImage'][0])
+    {
+        list($response) = $this->getImageWithHttpInfo($forge, $url, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getImageWithHttpInfo
+     *
+     * Read an image embedded in a forge&#39;s Markdown, through the server
+     *
+     * @param  string $forge (required)
+     * @param  string $url The absolute address of the image, as written in the Markdown. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getImage'] to see the possible values for this operation
+     *
+     * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \SplFileObject|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getImageWithHttpInfo($forge, $url, string $contentType = self::contentTypes['getImage'][0])
+    {
+        $request = $this->getImageRequest($forge, $url, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\SplFileObject',
+                        $request,
+                        $response,
+                    );
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $request,
+                        $response,
+                    );
+                case 403:
+                    return $this->handleResponseWithDataType(
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $request,
+                        $response,
+                    );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $request,
+                        $response,
+                    );
+                case 413:
+                    return $this->handleResponseWithDataType(
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $request,
+                        $response,
+                    );
+                case 415:
+                    return $this->handleResponseWithDataType(
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $request,
+                        $response,
+                    );
+                case 502:
+                    return $this->handleResponseWithDataType(
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\SplFileObject',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\SplFileObject',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 413:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 415:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 502:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getImageAsync
+     *
+     * Read an image embedded in a forge&#39;s Markdown, through the server
+     *
+     * @param  string $forge (required)
+     * @param  string $url The absolute address of the image, as written in the Markdown. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getImage'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getImageAsync($forge, $url, string $contentType = self::contentTypes['getImage'][0])
+    {
+        return $this->getImageAsyncWithHttpInfo($forge, $url, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getImageAsyncWithHttpInfo
+     *
+     * Read an image embedded in a forge&#39;s Markdown, through the server
+     *
+     * @param  string $forge (required)
+     * @param  string $url The absolute address of the image, as written in the Markdown. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getImage'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getImageAsyncWithHttpInfo($forge, $url, string $contentType = self::contentTypes['getImage'][0])
+    {
+        $returnType = '\SplFileObject';
+        $request = $this->getImageRequest($forge, $url, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getImage'
+     *
+     * @param  string $forge (required)
+     * @param  string $url The absolute address of the image, as written in the Markdown. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getImage'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getImageRequest($forge, $url, string $contentType = self::contentTypes['getImage'][0])
+    {
+
+        // verify the required parameter 'forge' is set
+        if ($forge === null || (is_array($forge) && count($forge) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $forge when calling getImage'
+            );
+        }
+
+        // verify the required parameter 'url' is set
+        if ($url === null || (is_array($url) && count($url) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $url when calling getImage'
+            );
+        }
+
+
+        $resourcePath = '/api/v1/images';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $forge,
+            'forge', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            true // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $url,
+            'url', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            true // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['image/png', 'image/jpeg', 'image/gif', 'image/webp', 'application/json', ],
             $contentType,
             $multipart
         );
