@@ -143,6 +143,7 @@ Class | Method | HTTP request | Description
 *PullRequestsApi* | [**closePullRequest**](docs/Api/PullRequestsApi.md#closepullrequest) | **POST** /api/v1/pull-requests/close | Close one pull request without merging it, on the signed-in user&#39;s behalf
 *PullRequestsApi* | [**enablePullRequestAutoMerge**](docs/Api/PullRequestsApi.md#enablepullrequestautomerge) | **POST** /api/v1/pull-requests/auto-merge | Arm auto-merge on a pull request, on the signed-in user&#39;s behalf
 *PullRequestsApi* | [**getPullRequestDetails**](docs/Api/PullRequestsApi.md#getpullrequestdetails) | **GET** /api/v1/pull-requests/details | Read a pull request&#39;s description, comments and reactions, on demand
+*PullRequestsApi* | [**getPullRequestRerunnable**](docs/Api/PullRequestsApi.md#getpullrequestrerunnable) | **GET** /api/v1/pull-requests/rerunnable | Say whether Rerun failed checks would find a job on one pull request, without rerunning anything
 *PullRequestsApi* | [**hidePullRequest**](docs/Api/PullRequestsApi.md#hidepullrequest) | **POST** /api/v1/pull-requests/hide | Hide one pull request from the signed-in user&#39;s dashboard
 *PullRequestsApi* | [**mergePullRequest**](docs/Api/PullRequestsApi.md#mergepullrequest) | **POST** /api/v1/pull-requests/merge | Merge one pull request, on the signed-in user&#39;s behalf
 *PullRequestsApi* | [**postPullRequestDependabotAction**](docs/Api/PullRequestsApi.md#postpullrequestdependabotaction) | **POST** /api/v1/pull-requests/dependabot-action | Post one of Dependabot&#39;s own documented PR-comment commands on a pull request, on the signed-in user&#39;s behalf
@@ -213,6 +214,7 @@ Class | Method | HTTP request | Description
 - [ForgeApiStats](docs/Model/ForgeApiStats.md)
 - [ForgeErrorKind](docs/Model/ForgeErrorKind.md)
 - [ForgeHealth](docs/Model/ForgeHealth.md)
+- [GetPullRequestRerunnable200Response](docs/Model/GetPullRequestRerunnable200Response.md)
 - [Health](docs/Model/Health.md)
 - [Issue](docs/Model/Issue.md)
 - [IssueActionRequest](docs/Model/IssueActionRequest.md)
