@@ -33,7 +33,7 @@ use \ForgeDashboard\Generated\ObjectSerializer;
  * ForgeErrorKind Class Doc Comment
  *
  * @category Class
- * @description Why a forge is unreachable, or why a write to it was rejected, as coarse as every forge this service talks to can agree on. \&quot;unauthorized\&quot; covers both a bad token and a forbidden request; \&quot;not_found\&quot; usually means a wrong instance URL. \&quot;conflict\&quot; is only ever returned from a pull-request write — the forge reports the PR itself isn&#39;t currently mergeable. \&quot;unknown\&quot; covers a signal this service doesn&#39;t recognize, rather than a guessed-at specific cause.
+ * @description Why a forge is unreachable, or why a write to it was rejected, as coarse as every forge this service talks to can agree on. \&quot;unreachable\&quot; is a request that got no response; \&quot;upstream_error\&quot; is the forge answering with a 5xx (a gateway timeout, say), and the status is in ForgeHealth.upstreamStatus. \&quot;unauthorized\&quot; covers both a bad token and a forbidden request; \&quot;not_found\&quot; usually means a wrong instance URL. \&quot;conflict\&quot; is only ever returned from a pull-request write — the forge reports the PR itself isn&#39;t currently mergeable. \&quot;unknown\&quot; covers a signal this service doesn&#39;t recognize, rather than a guessed-at specific cause.
  * @package  ForgeDashboard\Generated
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -44,6 +44,8 @@ class ForgeErrorKind
      * Possible values of this enum
      */
     public const UNREACHABLE = 'unreachable';
+
+    public const UPSTREAM_ERROR = 'upstream_error';
 
     public const UNAUTHORIZED = 'unauthorized';
 
@@ -63,6 +65,7 @@ class ForgeErrorKind
     {
         return [
             self::UNREACHABLE,
+            self::UPSTREAM_ERROR,
             self::UNAUTHORIZED,
             self::NOT_FOUND,
             self::RATE_LIMITED,

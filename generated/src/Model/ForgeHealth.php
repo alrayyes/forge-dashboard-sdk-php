@@ -63,6 +63,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'stale_since' => '\DateTime',
         'error' => 'string',
         'error_kind' => '\ForgeDashboard\Generated\Model\ForgeErrorKind',
+        'upstream_status' => 'int',
         'repo_count' => 'int',
         'rate_limit_graph_ql' => '\ForgeDashboard\Generated\Model\RateLimit',
         'rate_limit_rest' => '\ForgeDashboard\Generated\Model\RateLimit',
@@ -84,6 +85,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'stale_since' => 'date-time',
         'error' => null,
         'error_kind' => null,
+        'upstream_status' => null,
         'repo_count' => null,
         'rate_limit_graph_ql' => null,
         'rate_limit_rest' => null,
@@ -103,6 +105,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'stale_since' => false,
         'error' => false,
         'error_kind' => false,
+        'upstream_status' => false,
         'repo_count' => false,
         'rate_limit_graph_ql' => false,
         'rate_limit_rest' => false,
@@ -202,6 +205,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'stale_since' => 'staleSince',
         'error' => 'error',
         'error_kind' => 'errorKind',
+        'upstream_status' => 'upstreamStatus',
         'repo_count' => 'repoCount',
         'rate_limit_graph_ql' => 'rateLimitGraphQL',
         'rate_limit_rest' => 'rateLimitREST',
@@ -221,6 +225,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'stale_since' => 'setStaleSince',
         'error' => 'setError',
         'error_kind' => 'setErrorKind',
+        'upstream_status' => 'setUpstreamStatus',
         'repo_count' => 'setRepoCount',
         'rate_limit_graph_ql' => 'setRateLimitGraphQl',
         'rate_limit_rest' => 'setRateLimitRest',
@@ -240,6 +245,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'stale_since' => 'getStaleSince',
         'error' => 'getError',
         'error_kind' => 'getErrorKind',
+        'upstream_status' => 'getUpstreamStatus',
         'repo_count' => 'getRepoCount',
         'rate_limit_graph_ql' => 'getRateLimitGraphQl',
         'rate_limit_rest' => 'getRateLimitRest',
@@ -310,6 +316,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('stale_since', $data ?? [], null);
         $this->setIfExists('error', $data ?? [], null);
         $this->setIfExists('error_kind', $data ?? [], null);
+        $this->setIfExists('upstream_status', $data ?? [], null);
         $this->setIfExists('repo_count', $data ?? [], null);
         $this->setIfExists('rate_limit_graph_ql', $data ?? [], null);
         $this->setIfExists('rate_limit_rest', $data ?? [], null);
@@ -350,6 +357,14 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['reachable'] === null) {
             $invalidProperties[] = "'reachable' can't be null";
         }
+        if (!is_null($this->container['upstream_status']) && ($this->container['upstream_status'] > 599)) {
+            $invalidProperties[] = "invalid value for 'upstream_status', must be smaller than or equal to 599.";
+        }
+
+        if (!is_null($this->container['upstream_status']) && ($this->container['upstream_status'] < 500)) {
+            $invalidProperties[] = "invalid value for 'upstream_status', must be bigger than or equal to 500.";
+        }
+
         if ($this->container['repo_count'] === null) {
             $invalidProperties[] = "'repo_count' can't be null";
         }
@@ -530,6 +545,40 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable error_kind cannot be null');
         }
         $this->container['error_kind'] = $error_kind;
+
+        return $this;
+    }
+
+    /**
+     * Gets upstream_status
+     *
+     * @return int|null
+     */
+    public function getUpstreamStatus()
+    {
+        return $this->container['upstream_status'];
+    }
+
+    /**
+     * Sets upstream_status
+     *
+     * @param int|null $upstream_status The 5xx status the forge answered with, set only when errorKind is upstream_error. The forge is not shown as down until three fetches in a row have failed, whatever the cause, with the latest a 5xx; one failure among healthy ones changes nothing.
+     *
+     * @return self
+     */
+    public function setUpstreamStatus($upstream_status)
+    {
+        if (is_null($upstream_status)) {
+            throw new \InvalidArgumentException('non-nullable upstream_status cannot be null');
+        }
+        if (($upstream_status > 599)) {
+            throw new \InvalidArgumentException('invalid value for $upstream_status when calling ForgeHealth., must be smaller than or equal to 599.');
+        }
+        if (($upstream_status < 500)) {
+            throw new \InvalidArgumentException('invalid value for $upstream_status when calling ForgeHealth., must be bigger than or equal to 500.');
+        }
+
+        $this->container['upstream_status'] = $upstream_status;
 
         return $this;
     }
