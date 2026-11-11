@@ -119,6 +119,7 @@ Class | Method | HTTP request | Description
 *DashboardApi* | [**getCheckLog**](docs/Api/DashboardApi.md#getchecklog) | **GET** /api/v1/checks/log | Read the output of one CI job, on demand
 *DashboardApi* | [**getDashboard**](docs/Api/DashboardApi.md#getdashboard) | **GET** /api/v1/dashboard | The aggregated view
 *DashboardApi* | [**getForgeApiStats**](docs/Api/DashboardApi.md#getforgeapistats) | **GET** /api/v1/stats/forge-api | How many forge API calls the dashboard has spent, and on what
+*DashboardApi* | [**getImage**](docs/Api/DashboardApi.md#getimage) | **GET** /api/v1/images | Read an image embedded in a forge&#39;s Markdown, through the server
 *DashboardApi* | [**getIssueDetails**](docs/Api/DashboardApi.md#getissuedetails) | **GET** /api/v1/issues/details | Read an issue&#39;s description, comments and reactions, on demand
 *DashboardApi* | [**getMainBranches**](docs/Api/DashboardApi.md#getmainbranches) | **GET** /api/v1/main-branches | The CI status of every tracked repository&#39;s default branch
 *DashboardApi* | [**getReleaseDetails**](docs/Api/DashboardApi.md#getreleasedetails) | **GET** /api/v1/releases/details | Read a published release&#39;s title and notes, on demand
