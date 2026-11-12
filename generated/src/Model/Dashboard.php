@@ -65,6 +65,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'nav_counts' => '\ForgeDashboard\Generated\Model\NavCounts',
         'main_branch_page' => '\ForgeDashboard\Generated\Model\MainBranches',
         'generated_at' => '\DateTime',
+        'recently_started' => 'bool',
         'read_interval_seconds' => 'int',
         'hidden_drafts' => 'int',
         'hidden_pull_requests' => 'int',
@@ -90,6 +91,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'nav_counts' => null,
         'main_branch_page' => null,
         'generated_at' => 'date-time',
+        'recently_started' => null,
         'read_interval_seconds' => null,
         'hidden_drafts' => null,
         'hidden_pull_requests' => null,
@@ -113,6 +115,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'nav_counts' => false,
         'main_branch_page' => false,
         'generated_at' => false,
+        'recently_started' => false,
         'read_interval_seconds' => false,
         'hidden_drafts' => false,
         'hidden_pull_requests' => false,
@@ -216,6 +219,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'nav_counts' => 'navCounts',
         'main_branch_page' => 'mainBranchPage',
         'generated_at' => 'generatedAt',
+        'recently_started' => 'recentlyStarted',
         'read_interval_seconds' => 'readIntervalSeconds',
         'hidden_drafts' => 'hiddenDrafts',
         'hidden_pull_requests' => 'hiddenPullRequests',
@@ -239,6 +243,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'nav_counts' => 'setNavCounts',
         'main_branch_page' => 'setMainBranchPage',
         'generated_at' => 'setGeneratedAt',
+        'recently_started' => 'setRecentlyStarted',
         'read_interval_seconds' => 'setReadIntervalSeconds',
         'hidden_drafts' => 'setHiddenDrafts',
         'hidden_pull_requests' => 'setHiddenPullRequests',
@@ -262,6 +267,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'nav_counts' => 'getNavCounts',
         'main_branch_page' => 'getMainBranchPage',
         'generated_at' => 'getGeneratedAt',
+        'recently_started' => 'getRecentlyStarted',
         'read_interval_seconds' => 'getReadIntervalSeconds',
         'hidden_drafts' => 'getHiddenDrafts',
         'hidden_pull_requests' => 'getHiddenPullRequests',
@@ -336,6 +342,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('nav_counts', $data ?? [], null);
         $this->setIfExists('main_branch_page', $data ?? [], null);
         $this->setIfExists('generated_at', $data ?? [], null);
+        $this->setIfExists('recently_started', $data ?? [], null);
         $this->setIfExists('read_interval_seconds', $data ?? [], null);
         $this->setIfExists('hidden_drafts', $data ?? [], null);
         $this->setIfExists('hidden_pull_requests', $data ?? [], null);
@@ -396,6 +403,9 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if ($this->container['generated_at'] === null) {
             $invalidProperties[] = "'generated_at' can't be null";
+        }
+        if ($this->container['recently_started'] === null) {
+            $invalidProperties[] = "'recently_started' can't be null";
         }
         if ($this->container['read_interval_seconds'] === null) {
             $invalidProperties[] = "'read_interval_seconds' can't be null";
@@ -658,6 +668,33 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable generated_at cannot be null');
         }
         $this->container['generated_at'] = $generated_at;
+
+        return $this;
+    }
+
+    /**
+     * Gets recently_started
+     *
+     * @return bool
+     */
+    public function getRecentlyStarted()
+    {
+        return $this->container['recently_started'];
+    }
+
+    /**
+     * Sets recently_started
+     *
+     * @param bool $recently_started True for the first five minutes after the server process started. A restart empties the in-memory state and the first full refresh is the heaviest moment, so a forge that has not answered yet is starting up, not down. A client words its unreachable banner as starting up while this is true. Always present.
+     *
+     * @return self
+     */
+    public function setRecentlyStarted($recently_started)
+    {
+        if (is_null($recently_started)) {
+            throw new \InvalidArgumentException('non-nullable recently_started cannot be null');
+        }
+        $this->container['recently_started'] = $recently_started;
 
         return $this;
     }
