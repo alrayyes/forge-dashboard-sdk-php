@@ -216,6 +216,7 @@ Class | Method | HTTP request | Description
 - [ForgeHealth](docs/Model/ForgeHealth.md)
 - [GetPullRequestRerunnable200Response](docs/Model/GetPullRequestRerunnable200Response.md)
 - [Health](docs/Model/Health.md)
+- [HiddenDraftCounts](docs/Model/HiddenDraftCounts.md)
 - [Issue](docs/Model/Issue.md)
 - [IssueActionRequest](docs/Model/IssueActionRequest.md)
 - [IssueCommentRequest](docs/Model/IssueCommentRequest.md)
