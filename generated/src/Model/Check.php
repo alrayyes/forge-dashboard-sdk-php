@@ -71,7 +71,8 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'completed_at' => '\DateTime',
         'run_attempt' => 'int',
         'failed_step' => 'string',
-        'excerpt' => 'string'
+        'excerpt' => 'string',
+        'not_reported' => 'bool'
     ];
 
     /**
@@ -95,7 +96,8 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'completed_at' => 'date-time',
         'run_attempt' => null,
         'failed_step' => null,
-        'excerpt' => null
+        'excerpt' => null,
+        'not_reported' => null
     ];
 
     /**
@@ -117,7 +119,8 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'completed_at' => false,
         'run_attempt' => false,
         'failed_step' => false,
-        'excerpt' => false
+        'excerpt' => false,
+        'not_reported' => false
     ];
 
     /**
@@ -219,7 +222,8 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'completed_at' => 'completedAt',
         'run_attempt' => 'runAttempt',
         'failed_step' => 'failedStep',
-        'excerpt' => 'excerpt'
+        'excerpt' => 'excerpt',
+        'not_reported' => 'notReported'
     ];
 
     /**
@@ -241,7 +245,8 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'completed_at' => 'setCompletedAt',
         'run_attempt' => 'setRunAttempt',
         'failed_step' => 'setFailedStep',
-        'excerpt' => 'setExcerpt'
+        'excerpt' => 'setExcerpt',
+        'not_reported' => 'setNotReported'
     ];
 
     /**
@@ -263,7 +268,8 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'completed_at' => 'getCompletedAt',
         'run_attempt' => 'getRunAttempt',
         'failed_step' => 'getFailedStep',
-        'excerpt' => 'getExcerpt'
+        'excerpt' => 'getExcerpt',
+        'not_reported' => 'getNotReported'
     ];
 
     /**
@@ -337,6 +343,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('run_attempt', $data ?? [], null);
         $this->setIfExists('failed_step', $data ?? [], null);
         $this->setIfExists('excerpt', $data ?? [], null);
+        $this->setIfExists('not_reported', $data ?? [], null);
     }
 
     /**
@@ -473,7 +480,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets conclusion
      *
-     * @param string|null $conclusion How a finished job ended, in the forge's own word. Sent only when `status` is \"completed\". It is not folded onto a fixed set: GitHub sends its check run conclusion as it is (`success`, `failure`, `neutral`, `cancelled`, `skipped`, `timed_out`, `action_required`, `stale`, `startup_failure`) and Forgejo sends the terminal status of the job (`success`, `failure`, `cancelled`, `skipped`). A legacy commit status, which has no conclusion, is sent as `success` or `failure`. A client decides what each word means and what to do with one it doesn't know.  `action_required` means the job needs someone's approval, and `url` is where to give it. The page shows it as waiting for approval, the same as a held run whose `status` is \"waiting\".
+     * @param string|null $conclusion How a finished job ended, in the forge's own word. Sent only when `status` is \"completed\". It is not folded onto a fixed set: GitHub sends its check run conclusion as it is (`success`, `failure`, `neutral`, `cancelled`, `skipped`, `timed_out`, `action_required`, `stale`, `startup_failure`) and Forgejo sends the terminal status of the job (`success`, `failure`, `cancelled`, `skipped`). A legacy commit status, which has no conclusion, is sent as `success` or `failure`. A client decides what each word means and what to do with one it doesn't know.  `startup_failure` is a workflow run that never started. It has no jobs, so the check carries the workflow's name, `url` is the run's page, and there is no `jobId`.  `action_required` means the job needs someone's approval, and `url` is where to give it. The page shows it as waiting for approval, the same as a held run whose `status` is \"waiting\".
      *
      * @return self
      */
@@ -796,6 +803,33 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable excerpt cannot be null');
         }
         $this->container['excerpt'] = $excerpt;
+
+        return $this;
+    }
+
+    /**
+     * Gets not_reported
+     *
+     * @return bool|null
+     */
+    public function getNotReported()
+    {
+        return $this->container['not_reported'];
+    }
+
+    /**
+     * Sets not_reported
+     *
+     * @param bool|null $not_reported Set on a required check the base branch names that nothing on the head commit has reported: no job, no status. It is not a job. Its `status` is \"queued\", `url` is empty, `required` is true, and it is in none of a pull request's counts. Absent otherwise. GitHub only.
+     *
+     * @return self
+     */
+    public function setNotReported($not_reported)
+    {
+        if (is_null($not_reported)) {
+            throw new \InvalidArgumentException('non-nullable not_reported cannot be null');
+        }
+        $this->container['not_reported'] = $not_reported;
 
         return $this;
     }
