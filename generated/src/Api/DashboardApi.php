@@ -2181,15 +2181,18 @@ class DashboardApi
      *
      * @param  string $forge forge (required)
      * @param  string $url The absolute address of the image, as written in the Markdown. (required)
+     * @param  string|null $full_name GitHub only. \&quot;owner/repo\&quot; of the issue, pull request or release the image is embedded in. Used with &#x60;number&#x60; or &#x60;tag&#x60; to find a private attachment&#39;s signed address. (optional)
+     * @param  int|null $number GitHub only. The issue or pull request the image is embedded in. (optional)
+     * @param  string|null $tag GitHub only. The release the image is embedded in; wins over &#x60;number&#x60;. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getImage'] to see the possible values for this operation
      *
      * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \SplFileObject|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error
      */
-    public function getImage($forge, $url, string $contentType = self::contentTypes['getImage'][0])
+    public function getImage($forge, $url, $full_name = null, $number = null, $tag = null, string $contentType = self::contentTypes['getImage'][0])
     {
-        list($response) = $this->getImageWithHttpInfo($forge, $url, $contentType);
+        list($response) = $this->getImageWithHttpInfo($forge, $url, $full_name, $number, $tag, $contentType);
         return $response;
     }
 
@@ -2200,15 +2203,18 @@ class DashboardApi
      *
      * @param  string $forge (required)
      * @param  string $url The absolute address of the image, as written in the Markdown. (required)
+     * @param  string|null $full_name GitHub only. \&quot;owner/repo\&quot; of the issue, pull request or release the image is embedded in. Used with &#x60;number&#x60; or &#x60;tag&#x60; to find a private attachment&#39;s signed address. (optional)
+     * @param  int|null $number GitHub only. The issue or pull request the image is embedded in. (optional)
+     * @param  string|null $tag GitHub only. The release the image is embedded in; wins over &#x60;number&#x60;. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getImage'] to see the possible values for this operation
      *
      * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \SplFileObject|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getImageWithHttpInfo($forge, $url, string $contentType = self::contentTypes['getImage'][0])
+    public function getImageWithHttpInfo($forge, $url, $full_name = null, $number = null, $tag = null, string $contentType = self::contentTypes['getImage'][0])
     {
-        $request = $this->getImageRequest($forge, $url, $contentType);
+        $request = $this->getImageRequest($forge, $url, $full_name, $number, $tag, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2384,14 +2390,17 @@ class DashboardApi
      *
      * @param  string $forge (required)
      * @param  string $url The absolute address of the image, as written in the Markdown. (required)
+     * @param  string|null $full_name GitHub only. \&quot;owner/repo\&quot; of the issue, pull request or release the image is embedded in. Used with &#x60;number&#x60; or &#x60;tag&#x60; to find a private attachment&#39;s signed address. (optional)
+     * @param  int|null $number GitHub only. The issue or pull request the image is embedded in. (optional)
+     * @param  string|null $tag GitHub only. The release the image is embedded in; wins over &#x60;number&#x60;. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getImage'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getImageAsync($forge, $url, string $contentType = self::contentTypes['getImage'][0])
+    public function getImageAsync($forge, $url, $full_name = null, $number = null, $tag = null, string $contentType = self::contentTypes['getImage'][0])
     {
-        return $this->getImageAsyncWithHttpInfo($forge, $url, $contentType)
+        return $this->getImageAsyncWithHttpInfo($forge, $url, $full_name, $number, $tag, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2406,15 +2415,18 @@ class DashboardApi
      *
      * @param  string $forge (required)
      * @param  string $url The absolute address of the image, as written in the Markdown. (required)
+     * @param  string|null $full_name GitHub only. \&quot;owner/repo\&quot; of the issue, pull request or release the image is embedded in. Used with &#x60;number&#x60; or &#x60;tag&#x60; to find a private attachment&#39;s signed address. (optional)
+     * @param  int|null $number GitHub only. The issue or pull request the image is embedded in. (optional)
+     * @param  string|null $tag GitHub only. The release the image is embedded in; wins over &#x60;number&#x60;. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getImage'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getImageAsyncWithHttpInfo($forge, $url, string $contentType = self::contentTypes['getImage'][0])
+    public function getImageAsyncWithHttpInfo($forge, $url, $full_name = null, $number = null, $tag = null, string $contentType = self::contentTypes['getImage'][0])
     {
         $returnType = '\SplFileObject';
-        $request = $this->getImageRequest($forge, $url, $contentType);
+        $request = $this->getImageRequest($forge, $url, $full_name, $number, $tag, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2457,12 +2469,15 @@ class DashboardApi
      *
      * @param  string $forge (required)
      * @param  string $url The absolute address of the image, as written in the Markdown. (required)
+     * @param  string|null $full_name GitHub only. \&quot;owner/repo\&quot; of the issue, pull request or release the image is embedded in. Used with &#x60;number&#x60; or &#x60;tag&#x60; to find a private attachment&#39;s signed address. (optional)
+     * @param  int|null $number GitHub only. The issue or pull request the image is embedded in. (optional)
+     * @param  string|null $tag GitHub only. The release the image is embedded in; wins over &#x60;number&#x60;. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getImage'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getImageRequest($forge, $url, string $contentType = self::contentTypes['getImage'][0])
+    public function getImageRequest($forge, $url, $full_name = null, $number = null, $tag = null, string $contentType = self::contentTypes['getImage'][0])
     {
 
         // verify the required parameter 'forge' is set
@@ -2478,6 +2493,9 @@ class DashboardApi
                 'Missing the required parameter $url when calling getImage'
             );
         }
+
+
+
 
 
         $resourcePath = '/api/v1/images';
@@ -2504,6 +2522,33 @@ class DashboardApi
             'form', // style
             true, // explode
             true // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $full_name,
+            'fullName', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $number,
+            'number', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $tag,
+            'tag', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
         ) ?? []);
 
 
