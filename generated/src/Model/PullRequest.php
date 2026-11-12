@@ -95,6 +95,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'empty' => 'bool',
         'auto_merge_enabled' => 'bool',
         'auto_merge_held_by' => 'string',
+        'base_requires_up_to_date' => 'bool',
         'auto_merge_allowed' => 'bool',
         'review' => '\ForgeDashboard\Generated\Model\ReviewState',
         'allowed_actions' => '\ForgeDashboard\Generated\Model\AllowedAction[]',
@@ -154,6 +155,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'empty' => null,
         'auto_merge_enabled' => null,
         'auto_merge_held_by' => null,
+        'base_requires_up_to_date' => null,
         'auto_merge_allowed' => null,
         'review' => null,
         'allowed_actions' => null,
@@ -211,6 +213,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'empty' => false,
         'auto_merge_enabled' => false,
         'auto_merge_held_by' => false,
+        'base_requires_up_to_date' => false,
         'auto_merge_allowed' => false,
         'review' => false,
         'allowed_actions' => false,
@@ -348,6 +351,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'empty' => 'empty',
         'auto_merge_enabled' => 'autoMergeEnabled',
         'auto_merge_held_by' => 'autoMergeHeldBy',
+        'base_requires_up_to_date' => 'baseRequiresUpToDate',
         'auto_merge_allowed' => 'autoMergeAllowed',
         'review' => 'review',
         'allowed_actions' => 'allowedActions',
@@ -405,6 +409,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'empty' => 'setEmpty',
         'auto_merge_enabled' => 'setAutoMergeEnabled',
         'auto_merge_held_by' => 'setAutoMergeHeldBy',
+        'base_requires_up_to_date' => 'setBaseRequiresUpToDate',
         'auto_merge_allowed' => 'setAutoMergeAllowed',
         'review' => 'setReview',
         'allowed_actions' => 'setAllowedActions',
@@ -462,6 +467,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'empty' => 'getEmpty',
         'auto_merge_enabled' => 'getAutoMergeEnabled',
         'auto_merge_held_by' => 'getAutoMergeHeldBy',
+        'base_requires_up_to_date' => 'getBaseRequiresUpToDate',
         'auto_merge_allowed' => 'getAutoMergeAllowed',
         'review' => 'getReview',
         'allowed_actions' => 'getAllowedActions',
@@ -587,6 +593,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('empty', $data ?? [], null);
         $this->setIfExists('auto_merge_enabled', $data ?? [], null);
         $this->setIfExists('auto_merge_held_by', $data ?? [], null);
+        $this->setIfExists('base_requires_up_to_date', $data ?? [], null);
         $this->setIfExists('auto_merge_allowed', $data ?? [], null);
         $this->setIfExists('review', $data ?? [], null);
         $this->setIfExists('allowed_actions', $data ?? [], null);
@@ -1880,6 +1887,33 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable auto_merge_held_by cannot be null');
         }
         $this->container['auto_merge_held_by'] = $auto_merge_held_by;
+
+        return $this;
+    }
+
+    /**
+     * Gets base_requires_up_to_date
+     *
+     * @return bool|null
+     */
+    public function getBaseRequiresUpToDate()
+    {
+        return $this->container['base_requires_up_to_date'];
+    }
+
+    /**
+     * Sets base_requires_up_to_date
+     *
+     * @param bool|null $base_requires_up_to_date Whether the base branch's protection requires a pull request to be up to date before it merges: GitHub's branch protection \"Require branches to be up to date before merging\" (`strict`), Forgejo's \"Block merge if the pull request is outdated\" (`block_on_outdated_branch`). A fact about the branch, read once per repository and cached, and only for a pull request that is `behind`, since that is the only one it matters for. Omitted when unknown (the protection can't be read with this token, GitHub's branch has no classic rule so a ruleset may require it instead, or the pull request isn't behind). A client must not guess it, and must not blame being behind for a hold unless this is true.
+     *
+     * @return self
+     */
+    public function setBaseRequiresUpToDate($base_requires_up_to_date)
+    {
+        if (is_null($base_requires_up_to_date)) {
+            throw new \InvalidArgumentException('non-nullable base_requires_up_to_date cannot be null');
+        }
+        $this->container['base_requires_up_to_date'] = $base_requires_up_to_date;
 
         return $this;
     }
