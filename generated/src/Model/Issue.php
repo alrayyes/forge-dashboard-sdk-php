@@ -715,7 +715,7 @@ class Issue implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets author_avatar_url
      *
-     * @param string $author_avatar_url The forge's own avatar URL for whoever filed the issue, passed through unchanged and never proxied. Empty when the forge supplies none, such as a deleted account.
+     * @param string $author_avatar_url The forge's own avatar URL for whoever filed the issue, passed through unchanged. The page loads it through GET /api/v1/images. Empty when the forge supplies none, such as a deleted account.
      *
      * @return self
      */
