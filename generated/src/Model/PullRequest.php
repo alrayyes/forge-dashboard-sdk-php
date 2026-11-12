@@ -72,6 +72,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'ci' => '\ForgeDashboard\Generated\Model\CIStatus',
         'checks' => '\ForgeDashboard\Generated\Model\CheckCounts',
         'merge_status' => '\ForgeDashboard\Generated\Model\MergeStatus',
+        'conflict_confirmed' => 'bool',
+        'conflict_files' => 'string[]',
         'behind' => 'bool',
         'head_sha' => 'string',
         'kind' => 'string',
@@ -132,6 +134,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'ci' => null,
         'checks' => null,
         'merge_status' => null,
+        'conflict_confirmed' => null,
+        'conflict_files' => null,
         'behind' => null,
         'head_sha' => null,
         'kind' => null,
@@ -190,6 +194,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'ci' => false,
         'checks' => false,
         'merge_status' => false,
+        'conflict_confirmed' => false,
+        'conflict_files' => false,
         'behind' => false,
         'head_sha' => false,
         'kind' => false,
@@ -328,6 +334,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'ci' => 'ci',
         'checks' => 'checks',
         'merge_status' => 'mergeStatus',
+        'conflict_confirmed' => 'conflictConfirmed',
+        'conflict_files' => 'conflictFiles',
         'behind' => 'behind',
         'head_sha' => 'headSha',
         'kind' => 'kind',
@@ -386,6 +394,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'ci' => 'setCi',
         'checks' => 'setChecks',
         'merge_status' => 'setMergeStatus',
+        'conflict_confirmed' => 'setConflictConfirmed',
+        'conflict_files' => 'setConflictFiles',
         'behind' => 'setBehind',
         'head_sha' => 'setHeadSha',
         'kind' => 'setKind',
@@ -444,6 +454,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'ci' => 'getCi',
         'checks' => 'getChecks',
         'merge_status' => 'getMergeStatus',
+        'conflict_confirmed' => 'getConflictConfirmed',
+        'conflict_files' => 'getConflictFiles',
         'behind' => 'getBehind',
         'head_sha' => 'getHeadSha',
         'kind' => 'getKind',
@@ -570,6 +582,8 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('ci', $data ?? [], null);
         $this->setIfExists('checks', $data ?? [], null);
         $this->setIfExists('merge_status', $data ?? [], null);
+        $this->setIfExists('conflict_confirmed', $data ?? [], null);
+        $this->setIfExists('conflict_files', $data ?? [], null);
         $this->setIfExists('behind', $data ?? [], null);
         $this->setIfExists('head_sha', $data ?? [], null);
         $this->setIfExists('kind', $data ?? [], null);
@@ -1196,6 +1210,60 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable merge_status cannot be null');
         }
         $this->container['merge_status'] = $merge_status;
+
+        return $this;
+    }
+
+    /**
+     * Gets conflict_confirmed
+     *
+     * @return bool|null
+     */
+    public function getConflictConfirmed()
+    {
+        return $this->container['conflict_confirmed'];
+    }
+
+    /**
+     * Sets conflict_confirmed
+     *
+     * @param bool|null $conflict_confirmed Forgejo only, and only with mergeStatus \"conflicting\". True when a merge or update of this pull request was refused naming a conflict. False when no refusal has, and the status is only the forge's mergeable flag staying false for about 90 seconds on the same head and base. Left out on GitHub, which reports conflicts itself, and on every other status. It is dropped when the pull request gets a new head or its base moves.
+     *
+     * @return self
+     */
+    public function setConflictConfirmed($conflict_confirmed)
+    {
+        if (is_null($conflict_confirmed)) {
+            throw new \InvalidArgumentException('non-nullable conflict_confirmed cannot be null');
+        }
+        $this->container['conflict_confirmed'] = $conflict_confirmed;
+
+        return $this;
+    }
+
+    /**
+     * Gets conflict_files
+     *
+     * @return string[]|null
+     */
+    public function getConflictFiles()
+    {
+        return $this->container['conflict_files'];
+    }
+
+    /**
+     * Sets conflict_files
+     *
+     * @param string[]|null $conflict_files The files the refusal named, when it named any. Left out unless conflictConfirmed is true.
+     *
+     * @return self
+     */
+    public function setConflictFiles($conflict_files)
+    {
+        if (is_null($conflict_files)) {
+            throw new \InvalidArgumentException('non-nullable conflict_files cannot be null');
+        }
+        $this->container['conflict_files'] = $conflict_files;
 
         return $this;
     }
