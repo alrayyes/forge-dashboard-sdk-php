@@ -220,6 +220,7 @@ Class | Method | HTTP request | Description
 - [IssueActionRequest](docs/Model/IssueActionRequest.md)
 - [IssueCommentRequest](docs/Model/IssueCommentRequest.md)
 - [IssueDetails](docs/Model/IssueDetails.md)
+- [IssueRelation](docs/Model/IssueRelation.md)
 - [Label](docs/Model/Label.md)
 - [LinkedPullRequest](docs/Model/LinkedPullRequest.md)
 - [MainBranch](docs/Model/MainBranch.md)

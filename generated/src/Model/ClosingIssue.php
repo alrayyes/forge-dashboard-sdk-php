@@ -58,6 +58,7 @@ class ClosingIssue implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $openAPITypes = [
+        'relation' => '\ForgeDashboard\Generated\Model\IssueRelation',
         'repo' => 'string',
         'number' => 'int',
         'url' => 'string',
@@ -72,6 +73,7 @@ class ClosingIssue implements ModelInterface, ArrayAccess, \JsonSerializable
      * @psalm-var array<string, string|null>
      */
     protected static $openAPIFormats = [
+        'relation' => null,
         'repo' => null,
         'number' => null,
         'url' => 'uri',
@@ -84,6 +86,7 @@ class ClosingIssue implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var boolean[]
      */
     protected static array $openAPINullables = [
+        'relation' => false,
         'repo' => false,
         'number' => false,
         'url' => false,
@@ -176,6 +179,7 @@ class ClosingIssue implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
+        'relation' => 'relation',
         'repo' => 'repo',
         'number' => 'number',
         'url' => 'url',
@@ -188,6 +192,7 @@ class ClosingIssue implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
+        'relation' => 'setRelation',
         'repo' => 'setRepo',
         'number' => 'setNumber',
         'url' => 'setUrl',
@@ -200,6 +205,7 @@ class ClosingIssue implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
+        'relation' => 'getRelation',
         'repo' => 'getRepo',
         'number' => 'getNumber',
         'url' => 'getUrl',
@@ -263,6 +269,7 @@ class ClosingIssue implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
+        $this->setIfExists('relation', $data ?? [], null);
         $this->setIfExists('repo', $data ?? [], null);
         $this->setIfExists('number', $data ?? [], null);
         $this->setIfExists('url', $data ?? [], null);
@@ -296,6 +303,9 @@ class ClosingIssue implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if ($this->container['relation'] === null) {
+            $invalidProperties[] = "'relation' can't be null";
+        }
         if ($this->container['repo'] === null) {
             $invalidProperties[] = "'repo' can't be null";
         }
@@ -326,6 +336,33 @@ class ClosingIssue implements ModelInterface, ArrayAccess, \JsonSerializable
         return count($this->listInvalidProperties()) === 0;
     }
 
+
+    /**
+     * Gets relation
+     *
+     * @return \ForgeDashboard\Generated\Model\IssueRelation
+     */
+    public function getRelation()
+    {
+        return $this->container['relation'];
+    }
+
+    /**
+     * Sets relation
+     *
+     * @param \ForgeDashboard\Generated\Model\IssueRelation $relation relation
+     *
+     * @return self
+     */
+    public function setRelation($relation)
+    {
+        if (is_null($relation)) {
+            throw new \InvalidArgumentException('non-nullable relation cannot be null');
+        }
+        $this->container['relation'] = $relation;
+
+        return $this;
+    }
 
     /**
      * Gets repo
