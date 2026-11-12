@@ -68,6 +68,7 @@ class StreamDashboard200Response implements ModelInterface, ArrayAccess, \JsonSe
         'recently_started' => 'bool',
         'read_interval_seconds' => 'int',
         'hidden_drafts' => 'int',
+        'hidden_drafts_by_page' => '\ForgeDashboard\Generated\Model\HiddenDraftCounts',
         'hidden_pull_requests' => 'int',
         'forges' => '\ForgeDashboard\Generated\Model\ForgeHealth[]',
         'pull_requests' => '\ForgeDashboard\Generated\Model\PullRequest[]',
@@ -109,6 +110,7 @@ class StreamDashboard200Response implements ModelInterface, ArrayAccess, \JsonSe
         'recently_started' => null,
         'read_interval_seconds' => null,
         'hidden_drafts' => null,
+        'hidden_drafts_by_page' => null,
         'hidden_pull_requests' => null,
         'forges' => null,
         'pull_requests' => null,
@@ -148,6 +150,7 @@ class StreamDashboard200Response implements ModelInterface, ArrayAccess, \JsonSe
         'recently_started' => false,
         'read_interval_seconds' => false,
         'hidden_drafts' => false,
+        'hidden_drafts_by_page' => false,
         'hidden_pull_requests' => false,
         'forges' => false,
         'pull_requests' => false,
@@ -267,6 +270,7 @@ class StreamDashboard200Response implements ModelInterface, ArrayAccess, \JsonSe
         'recently_started' => 'recentlyStarted',
         'read_interval_seconds' => 'readIntervalSeconds',
         'hidden_drafts' => 'hiddenDrafts',
+        'hidden_drafts_by_page' => 'hiddenDraftsByPage',
         'hidden_pull_requests' => 'hiddenPullRequests',
         'forges' => 'forges',
         'pull_requests' => 'pullRequests',
@@ -306,6 +310,7 @@ class StreamDashboard200Response implements ModelInterface, ArrayAccess, \JsonSe
         'recently_started' => 'setRecentlyStarted',
         'read_interval_seconds' => 'setReadIntervalSeconds',
         'hidden_drafts' => 'setHiddenDrafts',
+        'hidden_drafts_by_page' => 'setHiddenDraftsByPage',
         'hidden_pull_requests' => 'setHiddenPullRequests',
         'forges' => 'setForges',
         'pull_requests' => 'setPullRequests',
@@ -345,6 +350,7 @@ class StreamDashboard200Response implements ModelInterface, ArrayAccess, \JsonSe
         'recently_started' => 'getRecentlyStarted',
         'read_interval_seconds' => 'getReadIntervalSeconds',
         'hidden_drafts' => 'getHiddenDrafts',
+        'hidden_drafts_by_page' => 'getHiddenDraftsByPage',
         'hidden_pull_requests' => 'getHiddenPullRequests',
         'forges' => 'getForges',
         'pull_requests' => 'getPullRequests',
@@ -450,6 +456,7 @@ class StreamDashboard200Response implements ModelInterface, ArrayAccess, \JsonSe
         $this->setIfExists('recently_started', $data ?? [], null);
         $this->setIfExists('read_interval_seconds', $data ?? [], null);
         $this->setIfExists('hidden_drafts', $data ?? [], null);
+        $this->setIfExists('hidden_drafts_by_page', $data ?? [], null);
         $this->setIfExists('hidden_pull_requests', $data ?? [], null);
         $this->setIfExists('forges', $data ?? [], null);
         $this->setIfExists('pull_requests', $data ?? [], null);
@@ -541,6 +548,9 @@ class StreamDashboard200Response implements ModelInterface, ArrayAccess, \JsonSe
             $invalidProperties[] = "invalid value for 'hidden_drafts', must be bigger than or equal to 0.";
         }
 
+        if ($this->container['hidden_drafts_by_page'] === null) {
+            $invalidProperties[] = "'hidden_drafts_by_page' can't be null";
+        }
         if (!is_null($this->container['hidden_pull_requests']) && ($this->container['hidden_pull_requests'] < 0)) {
             $invalidProperties[] = "invalid value for 'hidden_pull_requests', must be bigger than or equal to 0.";
         }
@@ -897,7 +907,7 @@ class StreamDashboard200Response implements ModelInterface, ArrayAccess, \JsonSe
     /**
      * Sets hidden_drafts
      *
-     * @param int $hidden_drafts How many draft pull requests `pullRequests` leaves out. Always present, and `0` when the request set `includeDrafts=true`, so a client can render \"N hidden\" without a special case. Drafts in a repo the account ignores aren't counted, since none of that repo's pull requests show.
+     * @param int $hidden_drafts How many draft pull requests `pullRequests` leaves out. Always present, and `0` when the request set `includeDrafts=true`, so a client can render \"N hidden\" without a special case. Drafts in a repo the account ignores aren't counted, since none of that repo's pull requests show. The sum of `hiddenDraftsByPage`.
      *
      * @return self
      */
@@ -911,6 +921,33 @@ class StreamDashboard200Response implements ModelInterface, ArrayAccess, \JsonSe
         }
 
         $this->container['hidden_drafts'] = $hidden_drafts;
+
+        return $this;
+    }
+
+    /**
+     * Gets hidden_drafts_by_page
+     *
+     * @return \ForgeDashboard\Generated\Model\HiddenDraftCounts
+     */
+    public function getHiddenDraftsByPage()
+    {
+        return $this->container['hidden_drafts_by_page'];
+    }
+
+    /**
+     * Sets hidden_drafts_by_page
+     *
+     * @param \ForgeDashboard\Generated\Model\HiddenDraftCounts $hidden_drafts_by_page `hiddenDrafts` split by the page that lists each draft, so a page reads its own number and never shows a Show drafts button for drafts that belong on another page.
+     *
+     * @return self
+     */
+    public function setHiddenDraftsByPage($hidden_drafts_by_page)
+    {
+        if (is_null($hidden_drafts_by_page)) {
+            throw new \InvalidArgumentException('non-nullable hidden_drafts_by_page cannot be null');
+        }
+        $this->container['hidden_drafts_by_page'] = $hidden_drafts_by_page;
 
         return $this;
     }

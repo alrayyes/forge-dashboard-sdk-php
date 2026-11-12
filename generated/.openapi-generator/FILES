@@ -61,6 +61,7 @@ src/Model/ForgeErrorKind.php
 src/Model/ForgeHealth.php
 src/Model/GetPullRequestRerunnable200Response.php
 src/Model/Health.php
+src/Model/HiddenDraftCounts.php
 src/Model/Issue.php
 src/Model/IssueActionRequest.php
 src/Model/IssueCommentRequest.php
