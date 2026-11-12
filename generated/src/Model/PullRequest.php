@@ -91,6 +91,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'review_comments' => 'int',
         'conversation_comments' => 'int',
         'closes_issues' => '\ForgeDashboard\Generated\Model\ClosingIssue[]',
+        'refs_issues' => '\ForgeDashboard\Generated\Model\MentionedIssue[]',
         'mentions_issues' => '\ForgeDashboard\Generated\Model\MentionedIssue[]',
         'unresolved_threads' => 'int',
         'review_requested_from_me' => 'bool',
@@ -153,6 +154,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'review_comments' => null,
         'conversation_comments' => null,
         'closes_issues' => null,
+        'refs_issues' => null,
         'mentions_issues' => null,
         'unresolved_threads' => null,
         'review_requested_from_me' => null,
@@ -213,6 +215,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'review_comments' => false,
         'conversation_comments' => false,
         'closes_issues' => false,
+        'refs_issues' => false,
         'mentions_issues' => false,
         'unresolved_threads' => true,
         'review_requested_from_me' => false,
@@ -353,6 +356,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'review_comments' => 'reviewComments',
         'conversation_comments' => 'conversationComments',
         'closes_issues' => 'closesIssues',
+        'refs_issues' => 'refsIssues',
         'mentions_issues' => 'mentionsIssues',
         'unresolved_threads' => 'unresolvedThreads',
         'review_requested_from_me' => 'reviewRequestedFromMe',
@@ -413,6 +417,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'review_comments' => 'setReviewComments',
         'conversation_comments' => 'setConversationComments',
         'closes_issues' => 'setClosesIssues',
+        'refs_issues' => 'setRefsIssues',
         'mentions_issues' => 'setMentionsIssues',
         'unresolved_threads' => 'setUnresolvedThreads',
         'review_requested_from_me' => 'setReviewRequestedFromMe',
@@ -473,6 +478,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'review_comments' => 'getReviewComments',
         'conversation_comments' => 'getConversationComments',
         'closes_issues' => 'getClosesIssues',
+        'refs_issues' => 'getRefsIssues',
         'mentions_issues' => 'getMentionsIssues',
         'unresolved_threads' => 'getUnresolvedThreads',
         'review_requested_from_me' => 'getReviewRequestedFromMe',
@@ -601,6 +607,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('review_comments', $data ?? [], null);
         $this->setIfExists('conversation_comments', $data ?? [], null);
         $this->setIfExists('closes_issues', $data ?? [], null);
+        $this->setIfExists('refs_issues', $data ?? [], null);
         $this->setIfExists('mentions_issues', $data ?? [], null);
         $this->setIfExists('unresolved_threads', $data ?? [], null);
         $this->setIfExists('review_requested_from_me', $data ?? [], null);
@@ -754,6 +761,13 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if ((count($this->container['closes_issues']) > 20)) {
             $invalidProperties[] = "invalid value for 'closes_issues', number of items must be less than or equal to 20.";
+        }
+
+        if ($this->container['refs_issues'] === null) {
+            $invalidProperties[] = "'refs_issues' can't be null";
+        }
+        if ((count($this->container['refs_issues']) > 20)) {
+            $invalidProperties[] = "invalid value for 'refs_issues', number of items must be less than or equal to 20.";
         }
 
         if ($this->container['mentions_issues'] === null) {
@@ -1779,6 +1793,36 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('invalid value for $closes_issues when calling PullRequest., number of items must be less than or equal to 20.');
         }
         $this->container['closes_issues'] = $closes_issues;
+
+        return $this;
+    }
+
+    /**
+     * Gets refs_issues
+     *
+     * @return \ForgeDashboard\Generated\Model\MentionedIssue[]
+     */
+    public function getRefsIssues()
+    {
+        return $this->container['refs_issues'];
+    }
+
+    /**
+     * Sets refs_issues
+     *
+     * @param \ForgeDashboard\Generated\Model\MentionedIssue[] $refs_issues The issues the title or description references with a keyword, work on a ticket that stays open: `Refs`, `Ref`, `Related to` or `See`, with an optional colon, then `#NUMBER` or `owner/repo#NUMBER` (several may follow one keyword, as in `Refs #3, #4 and #5`), at most 20, in order of first appearance and without repeats. Each entry has `relation` `refs`. A ticket the pull request also closes is only in `closesIssues`. Read from the title and description on both forges, with the same rules as `mentionsIssues` for code, comments and link text. Always present, and empty when there are none.
+     *
+     * @return self
+     */
+    public function setRefsIssues($refs_issues)
+    {
+        if (is_null($refs_issues)) {
+            throw new \InvalidArgumentException('non-nullable refs_issues cannot be null');
+        }
+        if ((count($refs_issues) > 20)) {
+            throw new \InvalidArgumentException('invalid value for $refs_issues when calling PullRequest., number of items must be less than or equal to 20.');
+        }
+        $this->container['refs_issues'] = $refs_issues;
 
         return $this;
     }

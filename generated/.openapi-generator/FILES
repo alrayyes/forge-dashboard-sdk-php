@@ -65,6 +65,7 @@ src/Model/Issue.php
 src/Model/IssueActionRequest.php
 src/Model/IssueCommentRequest.php
 src/Model/IssueDetails.php
+src/Model/IssueRelation.php
 src/Model/Label.php
 src/Model/LinkedPullRequest.php
 src/Model/MainBranch.php
