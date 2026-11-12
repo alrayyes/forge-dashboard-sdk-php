@@ -512,7 +512,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets logo_url
      *
-     * @param string|null $logo_url The repository's own logo, only when it has one: a GitHub repository's custom social preview image, or a Forgejo repository's own avatar. Absent otherwise, and never the generated social card GitHub shows for a repository with none, nor the owner's avatar. Always an https URL, passed through unchanged and never proxied: on GitHub exactly repository-images.githubusercontent.com, on Forgejo the instance's own host. A GitHub custom image is a wide banner, not a square logo. Absent for a repository reached through an unauthenticated, username-only listing, since that listing carries no image.
+     * @param string|null $logo_url The repository's own logo, only when it has one: a GitHub repository's custom social preview image, or a Forgejo repository's own avatar. Absent otherwise, and never the generated social card GitHub shows for a repository with none, nor the owner's avatar. Always an https URL, passed through unchanged; the page loads it through GET /api/v1/images. On GitHub exactly repository-images.githubusercontent.com, on Forgejo the instance's own host. A GitHub custom image is a wide banner, not a square logo. Absent for a repository reached through an unauthenticated, username-only listing, since that listing carries no image.
      *
      * @return self
      */

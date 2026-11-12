@@ -353,7 +353,7 @@ class Person implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets avatar_url
      *
-     * @param string $avatar_url The forge's own avatar URL, passed through unchanged and never proxied.
+     * @param string $avatar_url The forge's own avatar URL, passed through unchanged. The page loads it through GET /api/v1/images.
      *
      * @return self
      */
