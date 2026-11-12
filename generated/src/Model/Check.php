@@ -61,6 +61,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'name' => 'string',
         'status' => '\ForgeDashboard\Generated\Model\CheckStatus',
         'conclusion' => 'string',
+        'waiting_for' => 'string',
         'url' => 'string',
         'job_id' => 'int',
         'run_id' => 'int',
@@ -86,6 +87,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'name' => null,
         'status' => null,
         'conclusion' => null,
+        'waiting_for' => null,
         'url' => null,
         'job_id' => null,
         'run_id' => null,
@@ -109,6 +111,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'name' => false,
         'status' => false,
         'conclusion' => false,
+        'waiting_for' => false,
         'url' => false,
         'job_id' => false,
         'run_id' => false,
@@ -212,6 +215,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'name' => 'name',
         'status' => 'status',
         'conclusion' => 'conclusion',
+        'waiting_for' => 'waitingFor',
         'url' => 'url',
         'job_id' => 'jobId',
         'run_id' => 'runId',
@@ -235,6 +239,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'name' => 'setName',
         'status' => 'setStatus',
         'conclusion' => 'setConclusion',
+        'waiting_for' => 'setWaitingFor',
         'url' => 'setUrl',
         'job_id' => 'setJobId',
         'run_id' => 'setRunId',
@@ -258,6 +263,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'name' => 'getName',
         'status' => 'getStatus',
         'conclusion' => 'getConclusion',
+        'waiting_for' => 'getWaitingFor',
         'url' => 'getUrl',
         'job_id' => 'getJobId',
         'run_id' => 'getRunId',
@@ -313,6 +319,21 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         return self::$openAPIModelName;
     }
 
+    public const WAITING_FOR_JOBS = 'jobs';
+    public const WAITING_FOR_RUNNER = 'runner';
+
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getWaitingForAllowableValues()
+    {
+        return [
+            self::WAITING_FOR_JOBS,
+            self::WAITING_FOR_RUNNER,
+        ];
+    }
 
     /**
      * Associative array for storing property values
@@ -332,6 +353,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('name', $data ?? [], null);
         $this->setIfExists('status', $data ?? [], null);
         $this->setIfExists('conclusion', $data ?? [], null);
+        $this->setIfExists('waiting_for', $data ?? [], null);
         $this->setIfExists('url', $data ?? [], null);
         $this->setIfExists('job_id', $data ?? [], null);
         $this->setIfExists('run_id', $data ?? [], null);
@@ -379,6 +401,15 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['status'] === null) {
             $invalidProperties[] = "'status' can't be null";
         }
+        $allowedValues = $this->getWaitingForAllowableValues();
+        if (!is_null($this->container['waiting_for']) && !in_array($this->container['waiting_for'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value '%s' for 'waiting_for', must be one of '%s'",
+                $this->container['waiting_for'],
+                implode("', '", $allowedValues)
+            );
+        }
+
         if ($this->container['url'] === null) {
             $invalidProperties[] = "'url' can't be null";
         }
@@ -490,6 +521,43 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable conclusion cannot be null');
         }
         $this->container['conclusion'] = $conclusion;
+
+        return $this;
+    }
+
+    /**
+     * Gets waiting_for
+     *
+     * @return string|null
+     */
+    public function getWaitingFor()
+    {
+        return $this->container['waiting_for'];
+    }
+
+    /**
+     * Sets waiting_for
+     *
+     * @param string|null $waiting_for Why a queued Forgejo job has not started: `jobs` when it waits on earlier jobs it needs (Forgejo's `blocked`), `runner` when it is ready and waits for a runner to pick it up (`waiting`). The page words it. Absent for GitHub, for a job that is not queued, and for a blocked job in a run that has failed, which will never start.
+     *
+     * @return self
+     */
+    public function setWaitingFor($waiting_for)
+    {
+        if (is_null($waiting_for)) {
+            throw new \InvalidArgumentException('non-nullable waiting_for cannot be null');
+        }
+        $allowedValues = $this->getWaitingForAllowableValues();
+        if (!in_array($waiting_for, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value '%s' for 'waiting_for', must be one of '%s'",
+                    $waiting_for,
+                    implode("', '", $allowedValues)
+                )
+            );
+        }
+        $this->container['waiting_for'] = $waiting_for;
 
         return $this;
     }
