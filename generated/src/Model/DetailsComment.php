@@ -408,7 +408,7 @@ class DetailsComment implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param string $id The forge's own identifier for the comment.
+     * @param string $id The forge's own identifier for the comment. On GitHub, the number its REST comments route takes.
      *
      * @return self
      */

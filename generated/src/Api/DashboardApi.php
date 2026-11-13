@@ -2184,6 +2184,7 @@ class DashboardApi
      * @param  string|null $full_name GitHub only. \&quot;owner/repo\&quot; of the issue, pull request or release the image is embedded in. Used with &#x60;number&#x60; or &#x60;tag&#x60; to find a private attachment&#39;s signed address. (optional)
      * @param  int|null $number GitHub only. The issue or pull request the image is embedded in. (optional)
      * @param  string|null $tag GitHub only. The release the image is embedded in; wins over &#x60;number&#x60;. (optional)
+     * @param  int|null $comment GitHub only. The number of the issue or pull request comment the image is embedded in (a &#x60;DetailsComment.id&#x60;); wins over &#x60;tag&#x60; and &#x60;number&#x60;. A comment&#39;s body is a different object from the item&#39;s, so the server reads that comment&#39;s rendered HTML for the signed address. A value that isn&#39;t a positive whole number looks nothing up. (optional)
      * @param  string|null $kind Set to &#x60;avatar&#x60; for an avatar or repository logo, which has a 512 KiB size cap instead of 8 MiB. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getImage'] to see the possible values for this operation
      *
@@ -2191,9 +2192,9 @@ class DashboardApi
      * @throws \InvalidArgumentException
      * @return \SplFileObject|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error
      */
-    public function getImage($forge, $url, $full_name = null, $number = null, $tag = null, $kind = null, string $contentType = self::contentTypes['getImage'][0])
+    public function getImage($forge, $url, $full_name = null, $number = null, $tag = null, $comment = null, $kind = null, string $contentType = self::contentTypes['getImage'][0])
     {
-        list($response) = $this->getImageWithHttpInfo($forge, $url, $full_name, $number, $tag, $kind, $contentType);
+        list($response) = $this->getImageWithHttpInfo($forge, $url, $full_name, $number, $tag, $comment, $kind, $contentType);
         return $response;
     }
 
@@ -2207,6 +2208,7 @@ class DashboardApi
      * @param  string|null $full_name GitHub only. \&quot;owner/repo\&quot; of the issue, pull request or release the image is embedded in. Used with &#x60;number&#x60; or &#x60;tag&#x60; to find a private attachment&#39;s signed address. (optional)
      * @param  int|null $number GitHub only. The issue or pull request the image is embedded in. (optional)
      * @param  string|null $tag GitHub only. The release the image is embedded in; wins over &#x60;number&#x60;. (optional)
+     * @param  int|null $comment GitHub only. The number of the issue or pull request comment the image is embedded in (a &#x60;DetailsComment.id&#x60;); wins over &#x60;tag&#x60; and &#x60;number&#x60;. A comment&#39;s body is a different object from the item&#39;s, so the server reads that comment&#39;s rendered HTML for the signed address. A value that isn&#39;t a positive whole number looks nothing up. (optional)
      * @param  string|null $kind Set to &#x60;avatar&#x60; for an avatar or repository logo, which has a 512 KiB size cap instead of 8 MiB. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getImage'] to see the possible values for this operation
      *
@@ -2214,9 +2216,9 @@ class DashboardApi
      * @throws \InvalidArgumentException
      * @return array of \SplFileObject|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getImageWithHttpInfo($forge, $url, $full_name = null, $number = null, $tag = null, $kind = null, string $contentType = self::contentTypes['getImage'][0])
+    public function getImageWithHttpInfo($forge, $url, $full_name = null, $number = null, $tag = null, $comment = null, $kind = null, string $contentType = self::contentTypes['getImage'][0])
     {
-        $request = $this->getImageRequest($forge, $url, $full_name, $number, $tag, $kind, $contentType);
+        $request = $this->getImageRequest($forge, $url, $full_name, $number, $tag, $comment, $kind, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2409,15 +2411,16 @@ class DashboardApi
      * @param  string|null $full_name GitHub only. \&quot;owner/repo\&quot; of the issue, pull request or release the image is embedded in. Used with &#x60;number&#x60; or &#x60;tag&#x60; to find a private attachment&#39;s signed address. (optional)
      * @param  int|null $number GitHub only. The issue or pull request the image is embedded in. (optional)
      * @param  string|null $tag GitHub only. The release the image is embedded in; wins over &#x60;number&#x60;. (optional)
+     * @param  int|null $comment GitHub only. The number of the issue or pull request comment the image is embedded in (a &#x60;DetailsComment.id&#x60;); wins over &#x60;tag&#x60; and &#x60;number&#x60;. A comment&#39;s body is a different object from the item&#39;s, so the server reads that comment&#39;s rendered HTML for the signed address. A value that isn&#39;t a positive whole number looks nothing up. (optional)
      * @param  string|null $kind Set to &#x60;avatar&#x60; for an avatar or repository logo, which has a 512 KiB size cap instead of 8 MiB. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getImage'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getImageAsync($forge, $url, $full_name = null, $number = null, $tag = null, $kind = null, string $contentType = self::contentTypes['getImage'][0])
+    public function getImageAsync($forge, $url, $full_name = null, $number = null, $tag = null, $comment = null, $kind = null, string $contentType = self::contentTypes['getImage'][0])
     {
-        return $this->getImageAsyncWithHttpInfo($forge, $url, $full_name, $number, $tag, $kind, $contentType)
+        return $this->getImageAsyncWithHttpInfo($forge, $url, $full_name, $number, $tag, $comment, $kind, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2435,16 +2438,17 @@ class DashboardApi
      * @param  string|null $full_name GitHub only. \&quot;owner/repo\&quot; of the issue, pull request or release the image is embedded in. Used with &#x60;number&#x60; or &#x60;tag&#x60; to find a private attachment&#39;s signed address. (optional)
      * @param  int|null $number GitHub only. The issue or pull request the image is embedded in. (optional)
      * @param  string|null $tag GitHub only. The release the image is embedded in; wins over &#x60;number&#x60;. (optional)
+     * @param  int|null $comment GitHub only. The number of the issue or pull request comment the image is embedded in (a &#x60;DetailsComment.id&#x60;); wins over &#x60;tag&#x60; and &#x60;number&#x60;. A comment&#39;s body is a different object from the item&#39;s, so the server reads that comment&#39;s rendered HTML for the signed address. A value that isn&#39;t a positive whole number looks nothing up. (optional)
      * @param  string|null $kind Set to &#x60;avatar&#x60; for an avatar or repository logo, which has a 512 KiB size cap instead of 8 MiB. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getImage'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getImageAsyncWithHttpInfo($forge, $url, $full_name = null, $number = null, $tag = null, $kind = null, string $contentType = self::contentTypes['getImage'][0])
+    public function getImageAsyncWithHttpInfo($forge, $url, $full_name = null, $number = null, $tag = null, $comment = null, $kind = null, string $contentType = self::contentTypes['getImage'][0])
     {
         $returnType = '\SplFileObject';
-        $request = $this->getImageRequest($forge, $url, $full_name, $number, $tag, $kind, $contentType);
+        $request = $this->getImageRequest($forge, $url, $full_name, $number, $tag, $comment, $kind, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2490,13 +2494,14 @@ class DashboardApi
      * @param  string|null $full_name GitHub only. \&quot;owner/repo\&quot; of the issue, pull request or release the image is embedded in. Used with &#x60;number&#x60; or &#x60;tag&#x60; to find a private attachment&#39;s signed address. (optional)
      * @param  int|null $number GitHub only. The issue or pull request the image is embedded in. (optional)
      * @param  string|null $tag GitHub only. The release the image is embedded in; wins over &#x60;number&#x60;. (optional)
+     * @param  int|null $comment GitHub only. The number of the issue or pull request comment the image is embedded in (a &#x60;DetailsComment.id&#x60;); wins over &#x60;tag&#x60; and &#x60;number&#x60;. A comment&#39;s body is a different object from the item&#39;s, so the server reads that comment&#39;s rendered HTML for the signed address. A value that isn&#39;t a positive whole number looks nothing up. (optional)
      * @param  string|null $kind Set to &#x60;avatar&#x60; for an avatar or repository logo, which has a 512 KiB size cap instead of 8 MiB. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getImage'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getImageRequest($forge, $url, $full_name = null, $number = null, $tag = null, $kind = null, string $contentType = self::contentTypes['getImage'][0])
+    public function getImageRequest($forge, $url, $full_name = null, $number = null, $tag = null, $comment = null, $kind = null, string $contentType = self::contentTypes['getImage'][0])
     {
 
         // verify the required parameter 'forge' is set
@@ -2516,6 +2521,10 @@ class DashboardApi
 
 
 
+        if ($comment !== null && $comment < 1) {
+            throw new \InvalidArgumentException('invalid value for "$comment" when calling DashboardApi.getImage, must be bigger than or equal to 1.');
+        }
+        
 
 
         $resourcePath = '/api/v1/images';
@@ -2566,6 +2575,15 @@ class DashboardApi
             $tag,
             'tag', // param base name
             'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $comment,
+            'comment', // param base name
+            'integer', // openApiType
             'form', // style
             true, // explode
             false // required
