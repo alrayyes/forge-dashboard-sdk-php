@@ -68,7 +68,8 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'rate_limit_graph_ql' => '\ForgeDashboard\Generated\Model\RateLimit',
         'rate_limit_rest' => '\ForgeDashboard\Generated\Model\RateLimit',
         'dependabot_commands_blocked' => 'string',
-        'rerun_checks_blocked' => 'string'
+        'rerun_checks_blocked' => 'string',
+        'provider_status' => '\ForgeDashboard\Generated\Model\ProviderStatus'
     ];
 
     /**
@@ -90,7 +91,8 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'rate_limit_graph_ql' => null,
         'rate_limit_rest' => null,
         'dependabot_commands_blocked' => null,
-        'rerun_checks_blocked' => null
+        'rerun_checks_blocked' => null,
+        'provider_status' => null
     ];
 
     /**
@@ -110,7 +112,8 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'rate_limit_graph_ql' => false,
         'rate_limit_rest' => false,
         'dependabot_commands_blocked' => false,
-        'rerun_checks_blocked' => false
+        'rerun_checks_blocked' => false,
+        'provider_status' => false
     ];
 
     /**
@@ -210,7 +213,8 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'rate_limit_graph_ql' => 'rateLimitGraphQL',
         'rate_limit_rest' => 'rateLimitREST',
         'dependabot_commands_blocked' => 'dependabotCommandsBlocked',
-        'rerun_checks_blocked' => 'rerunChecksBlocked'
+        'rerun_checks_blocked' => 'rerunChecksBlocked',
+        'provider_status' => 'providerStatus'
     ];
 
     /**
@@ -230,7 +234,8 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'rate_limit_graph_ql' => 'setRateLimitGraphQl',
         'rate_limit_rest' => 'setRateLimitRest',
         'dependabot_commands_blocked' => 'setDependabotCommandsBlocked',
-        'rerun_checks_blocked' => 'setRerunChecksBlocked'
+        'rerun_checks_blocked' => 'setRerunChecksBlocked',
+        'provider_status' => 'setProviderStatus'
     ];
 
     /**
@@ -250,7 +255,8 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'rate_limit_graph_ql' => 'getRateLimitGraphQl',
         'rate_limit_rest' => 'getRateLimitRest',
         'dependabot_commands_blocked' => 'getDependabotCommandsBlocked',
-        'rerun_checks_blocked' => 'getRerunChecksBlocked'
+        'rerun_checks_blocked' => 'getRerunChecksBlocked',
+        'provider_status' => 'getProviderStatus'
     ];
 
     /**
@@ -322,6 +328,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('rate_limit_rest', $data ?? [], null);
         $this->setIfExists('dependabot_commands_blocked', $data ?? [], null);
         $this->setIfExists('rerun_checks_blocked', $data ?? [], null);
+        $this->setIfExists('provider_status', $data ?? [], null);
     }
 
     /**
@@ -718,6 +725,33 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable rerun_checks_blocked cannot be null');
         }
         $this->container['rerun_checks_blocked'] = $rerun_checks_blocked;
+
+        return $this;
+    }
+
+    /**
+     * Gets provider_status
+     *
+     * @return \ForgeDashboard\Generated\Model\ProviderStatus|null
+     */
+    public function getProviderStatus()
+    {
+        return $this->container['provider_status'];
+    }
+
+    /**
+     * Sets provider_status
+     *
+     * @param \ForgeDashboard\Generated\Model\ProviderStatus|null $provider_status What the forge's own status page reports, set only for GitHub, only while it is unreachable (reachable is false, errorKind unreachable, upstream_error or unknown), and only when the page names an incident or a degraded component the dashboard uses (API Requests, Pull Requests, Actions or Webhooks). The page is read only after a failed call, at most once a minute, with a request that carries nothing about the user. Omitted when the page reports nothing there, when it can't be read, and for Forgejo, which has no such page. A client says \"GitHub reports an incident\" and leaves the cause of a failure with no incident to the forge's own error.
+     *
+     * @return self
+     */
+    public function setProviderStatus($provider_status)
+    {
+        if (is_null($provider_status)) {
+            throw new \InvalidArgumentException('non-nullable provider_status cannot be null');
+        }
+        $this->container['provider_status'] = $provider_status;
 
         return $this;
     }
