@@ -69,6 +69,7 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'webhook_secret' => 'string',
         'renovate_rebase_label' => 'string',
         'renovate_authors' => 'string[]',
+        'forgejo_skipped_avatar_hosts' => 'string[]',
         'theme' => 'string',
         'timezone' => 'string',
         'hide_dependency_dashboard' => 'bool',
@@ -95,6 +96,7 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'webhook_secret' => null,
         'renovate_rebase_label' => null,
         'renovate_authors' => null,
+        'forgejo_skipped_avatar_hosts' => null,
         'theme' => null,
         'timezone' => null,
         'hide_dependency_dashboard' => null,
@@ -119,6 +121,7 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'webhook_secret' => false,
         'renovate_rebase_label' => false,
         'renovate_authors' => false,
+        'forgejo_skipped_avatar_hosts' => false,
         'theme' => false,
         'timezone' => false,
         'hide_dependency_dashboard' => false,
@@ -223,6 +226,7 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'webhook_secret' => 'webhookSecret',
         'renovate_rebase_label' => 'renovateRebaseLabel',
         'renovate_authors' => 'renovateAuthors',
+        'forgejo_skipped_avatar_hosts' => 'forgejoSkippedAvatarHosts',
         'theme' => 'theme',
         'timezone' => 'timezone',
         'hide_dependency_dashboard' => 'hideDependencyDashboard',
@@ -247,6 +251,7 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'webhook_secret' => 'setWebhookSecret',
         'renovate_rebase_label' => 'setRenovateRebaseLabel',
         'renovate_authors' => 'setRenovateAuthors',
+        'forgejo_skipped_avatar_hosts' => 'setForgejoSkippedAvatarHosts',
         'theme' => 'setTheme',
         'timezone' => 'setTimezone',
         'hide_dependency_dashboard' => 'setHideDependencyDashboard',
@@ -271,6 +276,7 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'webhook_secret' => 'getWebhookSecret',
         'renovate_rebase_label' => 'getRenovateRebaseLabel',
         'renovate_authors' => 'getRenovateAuthors',
+        'forgejo_skipped_avatar_hosts' => 'getForgejoSkippedAvatarHosts',
         'theme' => 'getTheme',
         'timezone' => 'getTimezone',
         'hide_dependency_dashboard' => 'getHideDependencyDashboard',
@@ -363,6 +369,7 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('webhook_secret', $data ?? [], null);
         $this->setIfExists('renovate_rebase_label', $data ?? [], null);
         $this->setIfExists('renovate_authors', $data ?? [], null);
+        $this->setIfExists('forgejo_skipped_avatar_hosts', $data ?? [], null);
         $this->setIfExists('theme', $data ?? [], null);
         $this->setIfExists('timezone', $data ?? [], null);
         $this->setIfExists('hide_dependency_dashboard', $data ?? [], null);
@@ -429,6 +436,9 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if ($this->container['renovate_authors'] === null) {
             $invalidProperties[] = "'renovate_authors' can't be null";
+        }
+        if ($this->container['forgejo_skipped_avatar_hosts'] === null) {
+            $invalidProperties[] = "'forgejo_skipped_avatar_hosts' can't be null";
         }
         if ($this->container['theme'] === null) {
             $invalidProperties[] = "'theme' can't be null";
@@ -757,6 +767,33 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable renovate_authors cannot be null');
         }
         $this->container['renovate_authors'] = $renovate_authors;
+
+        return $this;
+    }
+
+    /**
+     * Gets forgejo_skipped_avatar_hosts
+     *
+     * @return string[]
+     */
+    public function getForgejoSkippedAvatarHosts()
+    {
+        return $this->container['forgejo_skipped_avatar_hosts'];
+    }
+
+    /**
+     * Sets forgejo_skipped_avatar_hosts
+     *
+     * @param string[] $forgejo_skipped_avatar_hosts Other hosts a Forgejo avatar was refused for lately: the image proxy only fetches from the saved instance, so an avatar on Gravatar or Libravatar is skipped and the page shows an initial. Lowercase, sorted, at most eight, and never the instance's own host. A host is listed while its avatars keep being asked for and drops off after about ten minutes without one, so the list is empty when nothing is skipped. Held in memory: a restart empties it.
+     *
+     * @return self
+     */
+    public function setForgejoSkippedAvatarHosts($forgejo_skipped_avatar_hosts)
+    {
+        if (is_null($forgejo_skipped_avatar_hosts)) {
+            throw new \InvalidArgumentException('non-nullable forgejo_skipped_avatar_hosts cannot be null');
+        }
+        $this->container['forgejo_skipped_avatar_hosts'] = $forgejo_skipped_avatar_hosts;
 
         return $this;
     }
