@@ -71,6 +71,7 @@ class SettingsSummary implements ModelInterface, ArrayAccess, \JsonSerializable
         'hide_dependency_dashboard' => 'bool',
         'ignored_titles' => 'string[]',
         'ignored_title_counts' => 'int[]',
+        'forgejo_skipped_avatar_hosts' => 'string[]',
         'theme' => 'string',
         'timezone' => 'string'
     ];
@@ -96,6 +97,7 @@ class SettingsSummary implements ModelInterface, ArrayAccess, \JsonSerializable
         'hide_dependency_dashboard' => null,
         'ignored_titles' => null,
         'ignored_title_counts' => null,
+        'forgejo_skipped_avatar_hosts' => null,
         'theme' => null,
         'timezone' => null
     ];
@@ -119,6 +121,7 @@ class SettingsSummary implements ModelInterface, ArrayAccess, \JsonSerializable
         'hide_dependency_dashboard' => false,
         'ignored_titles' => false,
         'ignored_title_counts' => false,
+        'forgejo_skipped_avatar_hosts' => false,
         'theme' => false,
         'timezone' => false
     ];
@@ -222,6 +225,7 @@ class SettingsSummary implements ModelInterface, ArrayAccess, \JsonSerializable
         'hide_dependency_dashboard' => 'hideDependencyDashboard',
         'ignored_titles' => 'ignoredTitles',
         'ignored_title_counts' => 'ignoredTitleCounts',
+        'forgejo_skipped_avatar_hosts' => 'forgejoSkippedAvatarHosts',
         'theme' => 'theme',
         'timezone' => 'timezone'
     ];
@@ -245,6 +249,7 @@ class SettingsSummary implements ModelInterface, ArrayAccess, \JsonSerializable
         'hide_dependency_dashboard' => 'setHideDependencyDashboard',
         'ignored_titles' => 'setIgnoredTitles',
         'ignored_title_counts' => 'setIgnoredTitleCounts',
+        'forgejo_skipped_avatar_hosts' => 'setForgejoSkippedAvatarHosts',
         'theme' => 'setTheme',
         'timezone' => 'setTimezone'
     ];
@@ -268,6 +273,7 @@ class SettingsSummary implements ModelInterface, ArrayAccess, \JsonSerializable
         'hide_dependency_dashboard' => 'getHideDependencyDashboard',
         'ignored_titles' => 'getIgnoredTitles',
         'ignored_title_counts' => 'getIgnoredTitleCounts',
+        'forgejo_skipped_avatar_hosts' => 'getForgejoSkippedAvatarHosts',
         'theme' => 'getTheme',
         'timezone' => 'getTimezone'
     ];
@@ -359,6 +365,7 @@ class SettingsSummary implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('hide_dependency_dashboard', $data ?? [], null);
         $this->setIfExists('ignored_titles', $data ?? [], null);
         $this->setIfExists('ignored_title_counts', $data ?? [], null);
+        $this->setIfExists('forgejo_skipped_avatar_hosts', $data ?? [], null);
         $this->setIfExists('theme', $data ?? [], null);
         $this->setIfExists('timezone', $data ?? [], null);
     }
@@ -428,6 +435,9 @@ class SettingsSummary implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if ($this->container['ignored_title_counts'] === null) {
             $invalidProperties[] = "'ignored_title_counts' can't be null";
+        }
+        if ($this->container['forgejo_skipped_avatar_hosts'] === null) {
+            $invalidProperties[] = "'forgejo_skipped_avatar_hosts' can't be null";
         }
         if ($this->container['theme'] === null) {
             $invalidProperties[] = "'theme' can't be null";
@@ -806,6 +816,33 @@ class SettingsSummary implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable ignored_title_counts cannot be null');
         }
         $this->container['ignored_title_counts'] = $ignored_title_counts;
+
+        return $this;
+    }
+
+    /**
+     * Gets forgejo_skipped_avatar_hosts
+     *
+     * @return string[]
+     */
+    public function getForgejoSkippedAvatarHosts()
+    {
+        return $this->container['forgejo_skipped_avatar_hosts'];
+    }
+
+    /**
+     * Sets forgejo_skipped_avatar_hosts
+     *
+     * @param string[] $forgejo_skipped_avatar_hosts Other hosts a Forgejo avatar was refused for lately: the image proxy only fetches from the saved instance, so an avatar on Gravatar or Libravatar is skipped and the page shows an initial. Lowercase, sorted, at most eight, and never the instance's own host. A host is listed while its avatars keep being asked for and drops off after about ten minutes without one, so the list is empty when nothing is skipped. Held in memory: a restart empties it.
+     *
+     * @return self
+     */
+    public function setForgejoSkippedAvatarHosts($forgejo_skipped_avatar_hosts)
+    {
+        if (is_null($forgejo_skipped_avatar_hosts)) {
+            throw new \InvalidArgumentException('non-nullable forgejo_skipped_avatar_hosts cannot be null');
+        }
+        $this->container['forgejo_skipped_avatar_hosts'] = $forgejo_skipped_avatar_hosts;
 
         return $this;
     }
