@@ -85,6 +85,7 @@ src/Model/NavPullRequestCount.php
 src/Model/Person.php
 src/Model/PresenceAnswer.php
 src/Model/PresenceReport.php
+src/Model/ProviderStatus.php
 src/Model/PullRequest.php
 src/Model/PullRequestActionRequest.php
 src/Model/PullRequestAutoUpdateRequest.php

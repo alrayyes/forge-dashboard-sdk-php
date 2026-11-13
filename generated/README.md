@@ -239,6 +239,7 @@ Class | Method | HTTP request | Description
 - [Person](docs/Model/Person.md)
 - [PresenceAnswer](docs/Model/PresenceAnswer.md)
 - [PresenceReport](docs/Model/PresenceReport.md)
+- [ProviderStatus](docs/Model/ProviderStatus.md)
 - [PullRequest](docs/Model/PullRequest.md)
 - [PullRequestActionRequest](docs/Model/PullRequestActionRequest.md)
 - [PullRequestAutoUpdateRequest](docs/Model/PullRequestAutoUpdateRequest.md)
