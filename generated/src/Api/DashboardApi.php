@@ -2186,15 +2186,16 @@ class DashboardApi
      * @param  string|null $tag GitHub only. The release the image is embedded in; wins over &#x60;number&#x60;. (optional)
      * @param  int|null $comment GitHub only. The number of the issue or pull request comment the image is embedded in (a &#x60;DetailsComment.id&#x60;); wins over &#x60;tag&#x60; and &#x60;number&#x60;. A comment&#39;s body is a different object from the item&#39;s, so the server reads that comment&#39;s rendered HTML for the signed address. A value that isn&#39;t a positive whole number looks nothing up. (optional)
      * @param  string|null $kind Set to &#x60;avatar&#x60; for an avatar or repository logo, which has a 512 KiB size cap instead of 8 MiB. (optional)
+     * @param  int|null $width Scale the image down to this many pixels wide, keeping its aspect ratio, for a thumbnail slot. Absent, the original bytes are returned, so a viewer can show the full image. Any other value, or one not written plainly (&#x60;0320&#x60;, &#x60;+320&#x60;), answers 400; it is refused, not snapped. The original is returned unchanged when it is no wider, when it is a GIF (which may be animated), when it cannot be decoded (an animated WebP, say), when it is a JPEG with an EXIF orientation other than upright (orientation in a PNG or WebP is not read), or when scaling would not make it smaller. A JPEG stays a JPEG; a PNG or WebP comes back as a PNG. A source over 16 million pixels, judged from its header before anything is decoded, answers 413. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getImage'] to see the possible values for this operation
      *
      * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \SplFileObject|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error
      */
-    public function getImage($forge, $url, $full_name = null, $number = null, $tag = null, $comment = null, $kind = null, string $contentType = self::contentTypes['getImage'][0])
+    public function getImage($forge, $url, $full_name = null, $number = null, $tag = null, $comment = null, $kind = null, $width = null, string $contentType = self::contentTypes['getImage'][0])
     {
-        list($response) = $this->getImageWithHttpInfo($forge, $url, $full_name, $number, $tag, $comment, $kind, $contentType);
+        list($response) = $this->getImageWithHttpInfo($forge, $url, $full_name, $number, $tag, $comment, $kind, $width, $contentType);
         return $response;
     }
 
@@ -2210,15 +2211,16 @@ class DashboardApi
      * @param  string|null $tag GitHub only. The release the image is embedded in; wins over &#x60;number&#x60;. (optional)
      * @param  int|null $comment GitHub only. The number of the issue or pull request comment the image is embedded in (a &#x60;DetailsComment.id&#x60;); wins over &#x60;tag&#x60; and &#x60;number&#x60;. A comment&#39;s body is a different object from the item&#39;s, so the server reads that comment&#39;s rendered HTML for the signed address. A value that isn&#39;t a positive whole number looks nothing up. (optional)
      * @param  string|null $kind Set to &#x60;avatar&#x60; for an avatar or repository logo, which has a 512 KiB size cap instead of 8 MiB. (optional)
+     * @param  int|null $width Scale the image down to this many pixels wide, keeping its aspect ratio, for a thumbnail slot. Absent, the original bytes are returned, so a viewer can show the full image. Any other value, or one not written plainly (&#x60;0320&#x60;, &#x60;+320&#x60;), answers 400; it is refused, not snapped. The original is returned unchanged when it is no wider, when it is a GIF (which may be animated), when it cannot be decoded (an animated WebP, say), when it is a JPEG with an EXIF orientation other than upright (orientation in a PNG or WebP is not read), or when scaling would not make it smaller. A JPEG stays a JPEG; a PNG or WebP comes back as a PNG. A source over 16 million pixels, judged from its header before anything is decoded, answers 413. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getImage'] to see the possible values for this operation
      *
      * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \SplFileObject|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getImageWithHttpInfo($forge, $url, $full_name = null, $number = null, $tag = null, $comment = null, $kind = null, string $contentType = self::contentTypes['getImage'][0])
+    public function getImageWithHttpInfo($forge, $url, $full_name = null, $number = null, $tag = null, $comment = null, $kind = null, $width = null, string $contentType = self::contentTypes['getImage'][0])
     {
-        $request = $this->getImageRequest($forge, $url, $full_name, $number, $tag, $comment, $kind, $contentType);
+        $request = $this->getImageRequest($forge, $url, $full_name, $number, $tag, $comment, $kind, $width, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2413,14 +2415,15 @@ class DashboardApi
      * @param  string|null $tag GitHub only. The release the image is embedded in; wins over &#x60;number&#x60;. (optional)
      * @param  int|null $comment GitHub only. The number of the issue or pull request comment the image is embedded in (a &#x60;DetailsComment.id&#x60;); wins over &#x60;tag&#x60; and &#x60;number&#x60;. A comment&#39;s body is a different object from the item&#39;s, so the server reads that comment&#39;s rendered HTML for the signed address. A value that isn&#39;t a positive whole number looks nothing up. (optional)
      * @param  string|null $kind Set to &#x60;avatar&#x60; for an avatar or repository logo, which has a 512 KiB size cap instead of 8 MiB. (optional)
+     * @param  int|null $width Scale the image down to this many pixels wide, keeping its aspect ratio, for a thumbnail slot. Absent, the original bytes are returned, so a viewer can show the full image. Any other value, or one not written plainly (&#x60;0320&#x60;, &#x60;+320&#x60;), answers 400; it is refused, not snapped. The original is returned unchanged when it is no wider, when it is a GIF (which may be animated), when it cannot be decoded (an animated WebP, say), when it is a JPEG with an EXIF orientation other than upright (orientation in a PNG or WebP is not read), or when scaling would not make it smaller. A JPEG stays a JPEG; a PNG or WebP comes back as a PNG. A source over 16 million pixels, judged from its header before anything is decoded, answers 413. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getImage'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getImageAsync($forge, $url, $full_name = null, $number = null, $tag = null, $comment = null, $kind = null, string $contentType = self::contentTypes['getImage'][0])
+    public function getImageAsync($forge, $url, $full_name = null, $number = null, $tag = null, $comment = null, $kind = null, $width = null, string $contentType = self::contentTypes['getImage'][0])
     {
-        return $this->getImageAsyncWithHttpInfo($forge, $url, $full_name, $number, $tag, $comment, $kind, $contentType)
+        return $this->getImageAsyncWithHttpInfo($forge, $url, $full_name, $number, $tag, $comment, $kind, $width, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2440,15 +2443,16 @@ class DashboardApi
      * @param  string|null $tag GitHub only. The release the image is embedded in; wins over &#x60;number&#x60;. (optional)
      * @param  int|null $comment GitHub only. The number of the issue or pull request comment the image is embedded in (a &#x60;DetailsComment.id&#x60;); wins over &#x60;tag&#x60; and &#x60;number&#x60;. A comment&#39;s body is a different object from the item&#39;s, so the server reads that comment&#39;s rendered HTML for the signed address. A value that isn&#39;t a positive whole number looks nothing up. (optional)
      * @param  string|null $kind Set to &#x60;avatar&#x60; for an avatar or repository logo, which has a 512 KiB size cap instead of 8 MiB. (optional)
+     * @param  int|null $width Scale the image down to this many pixels wide, keeping its aspect ratio, for a thumbnail slot. Absent, the original bytes are returned, so a viewer can show the full image. Any other value, or one not written plainly (&#x60;0320&#x60;, &#x60;+320&#x60;), answers 400; it is refused, not snapped. The original is returned unchanged when it is no wider, when it is a GIF (which may be animated), when it cannot be decoded (an animated WebP, say), when it is a JPEG with an EXIF orientation other than upright (orientation in a PNG or WebP is not read), or when scaling would not make it smaller. A JPEG stays a JPEG; a PNG or WebP comes back as a PNG. A source over 16 million pixels, judged from its header before anything is decoded, answers 413. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getImage'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getImageAsyncWithHttpInfo($forge, $url, $full_name = null, $number = null, $tag = null, $comment = null, $kind = null, string $contentType = self::contentTypes['getImage'][0])
+    public function getImageAsyncWithHttpInfo($forge, $url, $full_name = null, $number = null, $tag = null, $comment = null, $kind = null, $width = null, string $contentType = self::contentTypes['getImage'][0])
     {
         $returnType = '\SplFileObject';
-        $request = $this->getImageRequest($forge, $url, $full_name, $number, $tag, $comment, $kind, $contentType);
+        $request = $this->getImageRequest($forge, $url, $full_name, $number, $tag, $comment, $kind, $width, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2496,12 +2500,13 @@ class DashboardApi
      * @param  string|null $tag GitHub only. The release the image is embedded in; wins over &#x60;number&#x60;. (optional)
      * @param  int|null $comment GitHub only. The number of the issue or pull request comment the image is embedded in (a &#x60;DetailsComment.id&#x60;); wins over &#x60;tag&#x60; and &#x60;number&#x60;. A comment&#39;s body is a different object from the item&#39;s, so the server reads that comment&#39;s rendered HTML for the signed address. A value that isn&#39;t a positive whole number looks nothing up. (optional)
      * @param  string|null $kind Set to &#x60;avatar&#x60; for an avatar or repository logo, which has a 512 KiB size cap instead of 8 MiB. (optional)
+     * @param  int|null $width Scale the image down to this many pixels wide, keeping its aspect ratio, for a thumbnail slot. Absent, the original bytes are returned, so a viewer can show the full image. Any other value, or one not written plainly (&#x60;0320&#x60;, &#x60;+320&#x60;), answers 400; it is refused, not snapped. The original is returned unchanged when it is no wider, when it is a GIF (which may be animated), when it cannot be decoded (an animated WebP, say), when it is a JPEG with an EXIF orientation other than upright (orientation in a PNG or WebP is not read), or when scaling would not make it smaller. A JPEG stays a JPEG; a PNG or WebP comes back as a PNG. A source over 16 million pixels, judged from its header before anything is decoded, answers 413. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getImage'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getImageRequest($forge, $url, $full_name = null, $number = null, $tag = null, $comment = null, $kind = null, string $contentType = self::contentTypes['getImage'][0])
+    public function getImageRequest($forge, $url, $full_name = null, $number = null, $tag = null, $comment = null, $kind = null, $width = null, string $contentType = self::contentTypes['getImage'][0])
     {
 
         // verify the required parameter 'forge' is set
@@ -2525,6 +2530,7 @@ class DashboardApi
             throw new \InvalidArgumentException('invalid value for "$comment" when calling DashboardApi.getImage, must be bigger than or equal to 1.');
         }
         
+
 
 
         $resourcePath = '/api/v1/images';
@@ -2593,6 +2599,15 @@ class DashboardApi
             $kind,
             'kind', // param base name
             'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $width,
+            'width', // param base name
+            'integer', // openApiType
             'form', // style
             true, // explode
             false // required
