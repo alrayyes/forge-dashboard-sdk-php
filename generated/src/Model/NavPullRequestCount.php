@@ -35,7 +35,7 @@ use \ForgeDashboard\Generated\ObjectSerializer;
  * NavPullRequestCount Class Doc Comment
  *
  * @category Class
- * @description A pull request page&#39;s numbers. &#x60;running&#x60;, &#x60;failed&#x60; and &#x60;passed&#x60; count the pull requests whose CI is pending, failing and succeeded, and &#x60;noChecks&#x60; those with no checks at all. One held for workflow approval is in &#x60;total&#x60; only, so the numbers need not add up. All five are always present.
+ * @description A pull request page&#39;s numbers. &#x60;running&#x60;, &#x60;failed&#x60;, &#x60;passed&#x60; and &#x60;cancelled&#x60; count the pull requests whose CI is pending, failing, succeeded and cancelled, and &#x60;noChecks&#x60; those with no checks at all. One held for workflow approval is in &#x60;total&#x60; only, so the numbers need not add up. All six are always present.
  * @package  ForgeDashboard\Generated
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -62,6 +62,7 @@ class NavPullRequestCount implements ModelInterface, ArrayAccess, \JsonSerializa
         'running' => 'int',
         'failed' => 'int',
         'passed' => 'int',
+        'cancelled' => 'int',
         'no_checks' => 'int'
     ];
 
@@ -77,6 +78,7 @@ class NavPullRequestCount implements ModelInterface, ArrayAccess, \JsonSerializa
         'running' => null,
         'failed' => null,
         'passed' => null,
+        'cancelled' => null,
         'no_checks' => null
     ];
 
@@ -90,6 +92,7 @@ class NavPullRequestCount implements ModelInterface, ArrayAccess, \JsonSerializa
         'running' => false,
         'failed' => false,
         'passed' => false,
+        'cancelled' => false,
         'no_checks' => false
     ];
 
@@ -183,6 +186,7 @@ class NavPullRequestCount implements ModelInterface, ArrayAccess, \JsonSerializa
         'running' => 'running',
         'failed' => 'failed',
         'passed' => 'passed',
+        'cancelled' => 'cancelled',
         'no_checks' => 'noChecks'
     ];
 
@@ -196,6 +200,7 @@ class NavPullRequestCount implements ModelInterface, ArrayAccess, \JsonSerializa
         'running' => 'setRunning',
         'failed' => 'setFailed',
         'passed' => 'setPassed',
+        'cancelled' => 'setCancelled',
         'no_checks' => 'setNoChecks'
     ];
 
@@ -209,6 +214,7 @@ class NavPullRequestCount implements ModelInterface, ArrayAccess, \JsonSerializa
         'running' => 'getRunning',
         'failed' => 'getFailed',
         'passed' => 'getPassed',
+        'cancelled' => 'getCancelled',
         'no_checks' => 'getNoChecks'
     ];
 
@@ -273,6 +279,7 @@ class NavPullRequestCount implements ModelInterface, ArrayAccess, \JsonSerializa
         $this->setIfExists('running', $data ?? [], null);
         $this->setIfExists('failed', $data ?? [], null);
         $this->setIfExists('passed', $data ?? [], null);
+        $this->setIfExists('cancelled', $data ?? [], null);
         $this->setIfExists('no_checks', $data ?? [], null);
     }
 
@@ -329,6 +336,13 @@ class NavPullRequestCount implements ModelInterface, ArrayAccess, \JsonSerializa
         }
         if (($this->container['passed'] < 0)) {
             $invalidProperties[] = "invalid value for 'passed', must be bigger than or equal to 0.";
+        }
+
+        if ($this->container['cancelled'] === null) {
+            $invalidProperties[] = "'cancelled' can't be null";
+        }
+        if (($this->container['cancelled'] < 0)) {
+            $invalidProperties[] = "invalid value for 'cancelled', must be bigger than or equal to 0.";
         }
 
         if ($this->container['no_checks'] === null) {
@@ -473,6 +487,37 @@ class NavPullRequestCount implements ModelInterface, ArrayAccess, \JsonSerializa
         }
 
         $this->container['passed'] = $passed;
+
+        return $this;
+    }
+
+    /**
+     * Gets cancelled
+     *
+     * @return int
+     */
+    public function getCancelled()
+    {
+        return $this->container['cancelled'];
+    }
+
+    /**
+     * Sets cancelled
+     *
+     * @param int $cancelled How many of them have CI whose only non-passing runs were cancelled. Not counted as `failed`: nothing broke.
+     *
+     * @return self
+     */
+    public function setCancelled($cancelled)
+    {
+        if (is_null($cancelled)) {
+            throw new \InvalidArgumentException('non-nullable cancelled cannot be null');
+        }
+        if (($cancelled < 0)) {
+            throw new \InvalidArgumentException('invalid value for $cancelled when calling NavPullRequestCount., must be bigger than or equal to 0.');
+        }
+
+        $this->container['cancelled'] = $cancelled;
 
         return $this;
     }
