@@ -1,5 +1,13 @@
 # Changelog
 
+## [16.0.26](https://github.com/alrayyes/forge-dashboard-sdk-php/compare/v16.0.25...v16.0.26) (2026-11-14)
+
+
+### Bug Fixes
+
+* bump laravel/pint from 1.32.1 to 1.32.2 ([#488](https://github.com/alrayyes/forge-dashboard-sdk-php/issues/488)) ([3375019](https://github.com/alrayyes/forge-dashboard-sdk-php/commit/337501995b6a09085a4ad9e7400eb598c64ccb49))
+* regenerate client from forge-dashboard openapi.yaml ([#489](https://github.com/alrayyes/forge-dashboard-sdk-php/issues/489)) ([129e209](https://github.com/alrayyes/forge-dashboard-sdk-php/commit/129e20969646d5b4815a85b574dcd1bc4ecec0cf))
+
 ## [16.0.25](https://github.com/alrayyes/forge-dashboard-sdk-php/compare/v16.0.24...v16.0.25) (2026-11-13)
 
 
