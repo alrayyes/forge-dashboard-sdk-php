@@ -69,7 +69,8 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'rate_limit_rest' => '\ForgeDashboard\Generated\Model\RateLimit',
         'dependabot_commands_blocked' => 'string',
         'rerun_checks_blocked' => 'string',
-        'provider_status' => '\ForgeDashboard\Generated\Model\ProviderStatus'
+        'provider_status' => '\ForgeDashboard\Generated\Model\ProviderStatus',
+        'capabilities' => '\ForgeDashboard\Generated\Model\ForgeCapabilities'
     ];
 
     /**
@@ -92,7 +93,8 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'rate_limit_rest' => null,
         'dependabot_commands_blocked' => null,
         'rerun_checks_blocked' => null,
-        'provider_status' => null
+        'provider_status' => null,
+        'capabilities' => null
     ];
 
     /**
@@ -113,7 +115,8 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'rate_limit_rest' => false,
         'dependabot_commands_blocked' => false,
         'rerun_checks_blocked' => false,
-        'provider_status' => false
+        'provider_status' => false,
+        'capabilities' => false
     ];
 
     /**
@@ -214,7 +217,8 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'rate_limit_rest' => 'rateLimitREST',
         'dependabot_commands_blocked' => 'dependabotCommandsBlocked',
         'rerun_checks_blocked' => 'rerunChecksBlocked',
-        'provider_status' => 'providerStatus'
+        'provider_status' => 'providerStatus',
+        'capabilities' => 'capabilities'
     ];
 
     /**
@@ -235,7 +239,8 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'rate_limit_rest' => 'setRateLimitRest',
         'dependabot_commands_blocked' => 'setDependabotCommandsBlocked',
         'rerun_checks_blocked' => 'setRerunChecksBlocked',
-        'provider_status' => 'setProviderStatus'
+        'provider_status' => 'setProviderStatus',
+        'capabilities' => 'setCapabilities'
     ];
 
     /**
@@ -256,7 +261,8 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'rate_limit_rest' => 'getRateLimitRest',
         'dependabot_commands_blocked' => 'getDependabotCommandsBlocked',
         'rerun_checks_blocked' => 'getRerunChecksBlocked',
-        'provider_status' => 'getProviderStatus'
+        'provider_status' => 'getProviderStatus',
+        'capabilities' => 'getCapabilities'
     ];
 
     /**
@@ -329,6 +335,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('dependabot_commands_blocked', $data ?? [], null);
         $this->setIfExists('rerun_checks_blocked', $data ?? [], null);
         $this->setIfExists('provider_status', $data ?? [], null);
+        $this->setIfExists('capabilities', $data ?? [], null);
     }
 
     /**
@@ -379,6 +386,9 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
             $invalidProperties[] = "invalid value for 'repo_count', must be bigger than or equal to 0.";
         }
 
+        if ($this->container['capabilities'] === null) {
+            $invalidProperties[] = "'capabilities' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -752,6 +762,33 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable provider_status cannot be null');
         }
         $this->container['provider_status'] = $provider_status;
+
+        return $this;
+    }
+
+    /**
+     * Gets capabilities
+     *
+     * @return \ForgeDashboard\Generated\Model\ForgeCapabilities
+     */
+    public function getCapabilities()
+    {
+        return $this->container['capabilities'];
+    }
+
+    /**
+     * Sets capabilities
+     *
+     * @param \ForgeDashboard\Generated\Model\ForgeCapabilities $capabilities capabilities
+     *
+     * @return self
+     */
+    public function setCapabilities($capabilities)
+    {
+        if (is_null($capabilities)) {
+            throw new \InvalidArgumentException('non-nullable capabilities cannot be null');
+        }
+        $this->container['capabilities'] = $capabilities;
 
         return $this;
     }

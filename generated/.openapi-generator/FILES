@@ -57,6 +57,7 @@ src/Model/Forge.php
 src/Model/ForgeApiBucket.php
 src/Model/ForgeApiBudget.php
 src/Model/ForgeApiStats.php
+src/Model/ForgeCapabilities.php
 src/Model/ForgeErrorKind.php
 src/Model/ForgeHealth.php
 src/Model/GetPullRequestRerunnable200Response.php

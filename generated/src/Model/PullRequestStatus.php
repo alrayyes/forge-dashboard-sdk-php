@@ -60,6 +60,7 @@ class PullRequestStatus implements ModelInterface, ArrayAccess, \JsonSerializabl
     protected static $openAPITypes = [
         'code' => 'string',
         'message' => 'string',
+        'since' => '\DateTime',
         'next' => 'string',
         'action' => 'string'
     ];
@@ -74,6 +75,7 @@ class PullRequestStatus implements ModelInterface, ArrayAccess, \JsonSerializabl
     protected static $openAPIFormats = [
         'code' => null,
         'message' => null,
+        'since' => 'date-time',
         'next' => null,
         'action' => null
     ];
@@ -86,6 +88,7 @@ class PullRequestStatus implements ModelInterface, ArrayAccess, \JsonSerializabl
     protected static array $openAPINullables = [
         'code' => false,
         'message' => false,
+        'since' => false,
         'next' => false,
         'action' => false
     ];
@@ -178,6 +181,7 @@ class PullRequestStatus implements ModelInterface, ArrayAccess, \JsonSerializabl
     protected static $attributeMap = [
         'code' => 'code',
         'message' => 'message',
+        'since' => 'since',
         'next' => 'next',
         'action' => 'action'
     ];
@@ -190,6 +194,7 @@ class PullRequestStatus implements ModelInterface, ArrayAccess, \JsonSerializabl
     protected static $setters = [
         'code' => 'setCode',
         'message' => 'setMessage',
+        'since' => 'setSince',
         'next' => 'setNext',
         'action' => 'setAction'
     ];
@@ -202,6 +207,7 @@ class PullRequestStatus implements ModelInterface, ArrayAccess, \JsonSerializabl
     protected static $getters = [
         'code' => 'getCode',
         'message' => 'getMessage',
+        'since' => 'getSince',
         'next' => 'getNext',
         'action' => 'getAction'
     ];
@@ -265,6 +271,7 @@ class PullRequestStatus implements ModelInterface, ArrayAccess, \JsonSerializabl
     {
         $this->setIfExists('code', $data ?? [], null);
         $this->setIfExists('message', $data ?? [], null);
+        $this->setIfExists('since', $data ?? [], null);
         $this->setIfExists('next', $data ?? [], null);
         $this->setIfExists('action', $data ?? [], null);
     }
@@ -367,6 +374,33 @@ class PullRequestStatus implements ModelInterface, ArrayAccess, \JsonSerializabl
             throw new \InvalidArgumentException('non-nullable message cannot be null');
         }
         $this->container['message'] = $message;
+
+        return $this;
+    }
+
+    /**
+     * Gets since
+     *
+     * @return \DateTime|null
+     */
+    public function getSince()
+    {
+        return $this->container['since'];
+    }
+
+    /**
+     * Sets since
+     *
+     * @param \DateTime|null $since Set only with `forge_unreachable`, and says when the rows on show were read.
+     *
+     * @return self
+     */
+    public function setSince($since)
+    {
+        if (is_null($since)) {
+            throw new \InvalidArgumentException('non-nullable since cannot be null');
+        }
+        $this->container['since'] = $since;
 
         return $this;
     }
