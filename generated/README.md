@@ -212,6 +212,7 @@ Class | Method | HTTP request | Description
 - [ForgeApiBucket](docs/Model/ForgeApiBucket.md)
 - [ForgeApiBudget](docs/Model/ForgeApiBudget.md)
 - [ForgeApiStats](docs/Model/ForgeApiStats.md)
+- [ForgeCapabilities](docs/Model/ForgeCapabilities.md)
 - [ForgeErrorKind](docs/Model/ForgeErrorKind.md)
 - [ForgeHealth](docs/Model/ForgeHealth.md)
 - [GetPullRequestRerunnable200Response](docs/Model/GetPullRequestRerunnable200Response.md)

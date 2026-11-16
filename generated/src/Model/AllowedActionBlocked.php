@@ -60,7 +60,8 @@ class AllowedActionBlocked implements ModelInterface, ArrayAccess, \JsonSerializ
     protected static $openAPITypes = [
         'code' => 'string',
         'message' => 'string',
-        'next' => 'string'
+        'next' => 'string',
+        'since' => '\DateTime'
     ];
 
     /**
@@ -73,7 +74,8 @@ class AllowedActionBlocked implements ModelInterface, ArrayAccess, \JsonSerializ
     protected static $openAPIFormats = [
         'code' => null,
         'message' => null,
-        'next' => null
+        'next' => null,
+        'since' => 'date-time'
     ];
 
     /**
@@ -84,7 +86,8 @@ class AllowedActionBlocked implements ModelInterface, ArrayAccess, \JsonSerializ
     protected static array $openAPINullables = [
         'code' => false,
         'message' => false,
-        'next' => false
+        'next' => false,
+        'since' => false
     ];
 
     /**
@@ -175,7 +178,8 @@ class AllowedActionBlocked implements ModelInterface, ArrayAccess, \JsonSerializ
     protected static $attributeMap = [
         'code' => 'code',
         'message' => 'message',
-        'next' => 'next'
+        'next' => 'next',
+        'since' => 'since'
     ];
 
     /**
@@ -186,7 +190,8 @@ class AllowedActionBlocked implements ModelInterface, ArrayAccess, \JsonSerializ
     protected static $setters = [
         'code' => 'setCode',
         'message' => 'setMessage',
-        'next' => 'setNext'
+        'next' => 'setNext',
+        'since' => 'setSince'
     ];
 
     /**
@@ -197,7 +202,8 @@ class AllowedActionBlocked implements ModelInterface, ArrayAccess, \JsonSerializ
     protected static $getters = [
         'code' => 'getCode',
         'message' => 'getMessage',
-        'next' => 'getNext'
+        'next' => 'getNext',
+        'since' => 'getSince'
     ];
 
     /**
@@ -260,6 +266,7 @@ class AllowedActionBlocked implements ModelInterface, ArrayAccess, \JsonSerializ
         $this->setIfExists('code', $data ?? [], null);
         $this->setIfExists('message', $data ?? [], null);
         $this->setIfExists('next', $data ?? [], null);
+        $this->setIfExists('since', $data ?? [], null);
     }
 
     /**
@@ -387,6 +394,33 @@ class AllowedActionBlocked implements ModelInterface, ArrayAccess, \JsonSerializ
             throw new \InvalidArgumentException('non-nullable next cannot be null');
         }
         $this->container['next'] = $next;
+
+        return $this;
+    }
+
+    /**
+     * Gets since
+     *
+     * @return \DateTime|null
+     */
+    public function getSince()
+    {
+        return $this->container['since'];
+    }
+
+    /**
+     * Sets since
+     *
+     * @param \DateTime|null $since Only with `forge_unreachable`: when the rows on show were read. While the forge can't be asked every action is listed blocked with this code, whatever reason the earlier answer gave, and `message` is the same sentence a row's pills use.
+     *
+     * @return self
+     */
+    public function setSince($since)
+    {
+        if (is_null($since)) {
+            throw new \InvalidArgumentException('non-nullable since cannot be null');
+        }
+        $this->container['since'] = $since;
 
         return $this;
     }
