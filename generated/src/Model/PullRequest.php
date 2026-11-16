@@ -75,6 +75,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'conflict_confirmed' => 'bool',
         'conflict_files' => 'string[]',
         'behind' => 'bool',
+        'edited_by_others' => 'bool',
         'head_sha' => 'string',
         'kind' => 'string',
         'base_branch' => 'string',
@@ -138,6 +139,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'conflict_confirmed' => null,
         'conflict_files' => null,
         'behind' => null,
+        'edited_by_others' => null,
         'head_sha' => null,
         'kind' => null,
         'base_branch' => null,
@@ -199,6 +201,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'conflict_confirmed' => false,
         'conflict_files' => false,
         'behind' => false,
+        'edited_by_others' => false,
         'head_sha' => false,
         'kind' => false,
         'base_branch' => false,
@@ -340,6 +343,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'conflict_confirmed' => 'conflictConfirmed',
         'conflict_files' => 'conflictFiles',
         'behind' => 'behind',
+        'edited_by_others' => 'editedByOthers',
         'head_sha' => 'headSha',
         'kind' => 'kind',
         'base_branch' => 'baseBranch',
@@ -401,6 +405,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'conflict_confirmed' => 'setConflictConfirmed',
         'conflict_files' => 'setConflictFiles',
         'behind' => 'setBehind',
+        'edited_by_others' => 'setEditedByOthers',
         'head_sha' => 'setHeadSha',
         'kind' => 'setKind',
         'base_branch' => 'setBaseBranch',
@@ -462,6 +467,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'conflict_confirmed' => 'getConflictConfirmed',
         'conflict_files' => 'getConflictFiles',
         'behind' => 'getBehind',
+        'edited_by_others' => 'getEditedByOthers',
         'head_sha' => 'getHeadSha',
         'kind' => 'getKind',
         'base_branch' => 'getBaseBranch',
@@ -591,6 +597,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('conflict_confirmed', $data ?? [], null);
         $this->setIfExists('conflict_files', $data ?? [], null);
         $this->setIfExists('behind', $data ?? [], null);
+        $this->setIfExists('edited_by_others', $data ?? [], null);
         $this->setIfExists('head_sha', $data ?? [], null);
         $this->setIfExists('kind', $data ?? [], null);
         $this->setIfExists('base_branch', $data ?? [], null);
@@ -702,6 +709,9 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if ($this->container['behind'] === null) {
             $invalidProperties[] = "'behind' can't be null";
+        }
+        if ($this->container['edited_by_others'] === null) {
+            $invalidProperties[] = "'edited_by_others' can't be null";
         }
         if ($this->container['head_sha'] === null) {
             $invalidProperties[] = "'head_sha' can't be null";
@@ -1305,6 +1315,33 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable behind cannot be null');
         }
         $this->container['behind'] = $behind;
+
+        return $this;
+    }
+
+    /**
+     * Gets edited_by_others
+     *
+     * @return bool
+     */
+    public function getEditedByOthers()
+    {
+        return $this->container['edited_by_others'];
+    }
+
+    /**
+     * Sets edited_by_others
+     *
+     * @param bool $edited_by_others Whether a Dependabot pull request's head branch holds a commit Dependabot didn't write, such as a bot refreshing a lockfile on it. Dependabot refuses to rebase such a branch, so the pull request offers Update branch instead of Dependabot's Rebase. Always false for any other author. Always present.
+     *
+     * @return self
+     */
+    public function setEditedByOthers($edited_by_others)
+    {
+        if (is_null($edited_by_others)) {
+            throw new \InvalidArgumentException('non-nullable edited_by_others cannot be null');
+        }
+        $this->container['edited_by_others'] = $edited_by_others;
 
         return $this;
     }
