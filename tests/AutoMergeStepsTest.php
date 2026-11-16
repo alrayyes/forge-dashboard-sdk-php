@@ -25,8 +25,10 @@ function mergeStepScript(string $workflow): string
     $indent = null;
     foreach ($lines as $line) {
         if ($indent === null) {
-            if (preg_match('/^(\s*)(?:- )?run: \|\s*$/', $line, $m) === 1) {
-                $indent = strlen($m[1]) + 2;
+            if (preg_match('/^(\s*)((?:- )?)run: \|\s*$/', $line, $m) === 1) {
+                // The script sits two columns past the `run` key, which is itself
+                // two columns in when the step opens with `- run:`.
+                $indent = strlen($m[1]) + ($m[2] === '' ? 0 : 2) + 2;
                 $script = [];
             }
 

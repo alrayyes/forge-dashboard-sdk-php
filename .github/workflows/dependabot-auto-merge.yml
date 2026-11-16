@@ -13,12 +13,7 @@ jobs:
     if: github.actor == 'dependabot[bot]'
     runs-on: ubuntu-latest
     steps:
-      - uses: dependabot/fetch-metadata@25dd0e34f4fe68f24cc83900b1fe3fe149efef98 # v3.1.0
-        id: metadata
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-      - if: ${{ contains(fromJSON('["version-update:semver-patch", "version-update:semver-minor"]'), steps.metadata.outputs.update-type) }}
-        run: |
+      - run: |
           # Arming auto-merge is refused while GitHub calls the pull request
           # unstable (a non-required check still running) or clean (nothing left to
           # wait for). Merge directly then, but only once the required checks pass:
