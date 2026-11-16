@@ -65,6 +65,7 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
         'approval_gated_runs' => 'bool',
         'dependabot_commands' => 'bool',
         'advisory_source' => 'string',
+        'advisory_unknown_needs_reason' => 'bool',
         'status_page_url' => 'string',
         'rate_limit_model' => 'string',
         'issue_ref_syntax' => 'string',
@@ -86,6 +87,7 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
         'approval_gated_runs' => null,
         'dependabot_commands' => null,
         'advisory_source' => null,
+        'advisory_unknown_needs_reason' => null,
         'status_page_url' => null,
         'rate_limit_model' => null,
         'issue_ref_syntax' => null,
@@ -105,6 +107,7 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
         'approval_gated_runs' => false,
         'dependabot_commands' => false,
         'advisory_source' => false,
+        'advisory_unknown_needs_reason' => false,
         'status_page_url' => false,
         'rate_limit_model' => false,
         'issue_ref_syntax' => false,
@@ -204,6 +207,7 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
         'approval_gated_runs' => 'approvalGatedRuns',
         'dependabot_commands' => 'dependabotCommands',
         'advisory_source' => 'advisorySource',
+        'advisory_unknown_needs_reason' => 'advisoryUnknownNeedsReason',
         'status_page_url' => 'statusPageUrl',
         'rate_limit_model' => 'rateLimitModel',
         'issue_ref_syntax' => 'issueRefSyntax',
@@ -223,6 +227,7 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
         'approval_gated_runs' => 'setApprovalGatedRuns',
         'dependabot_commands' => 'setDependabotCommands',
         'advisory_source' => 'setAdvisorySource',
+        'advisory_unknown_needs_reason' => 'setAdvisoryUnknownNeedsReason',
         'status_page_url' => 'setStatusPageUrl',
         'rate_limit_model' => 'setRateLimitModel',
         'issue_ref_syntax' => 'setIssueRefSyntax',
@@ -242,6 +247,7 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
         'approval_gated_runs' => 'getApprovalGatedRuns',
         'dependabot_commands' => 'getDependabotCommands',
         'advisory_source' => 'getAdvisorySource',
+        'advisory_unknown_needs_reason' => 'getAdvisoryUnknownNeedsReason',
         'status_page_url' => 'getStatusPageUrl',
         'rate_limit_model' => 'getRateLimitModel',
         'issue_ref_syntax' => 'getIssueRefSyntax',
@@ -312,6 +318,7 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
         $this->setIfExists('approval_gated_runs', $data ?? [], null);
         $this->setIfExists('dependabot_commands', $data ?? [], null);
         $this->setIfExists('advisory_source', $data ?? [], null);
+        $this->setIfExists('advisory_unknown_needs_reason', $data ?? [], null);
         $this->setIfExists('status_page_url', $data ?? [], null);
         $this->setIfExists('rate_limit_model', $data ?? [], null);
         $this->setIfExists('issue_ref_syntax', $data ?? [], null);
@@ -365,6 +372,9 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
         }
         if ($this->container['advisory_source'] === null) {
             $invalidProperties[] = "'advisory_source' can't be null";
+        }
+        if ($this->container['advisory_unknown_needs_reason'] === null) {
+            $invalidProperties[] = "'advisory_unknown_needs_reason' can't be null";
         }
         if ($this->container['status_page_url'] === null) {
             $invalidProperties[] = "'status_page_url' can't be null";
@@ -578,6 +588,33 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
             throw new \InvalidArgumentException('non-nullable advisory_source cannot be null');
         }
         $this->container['advisory_source'] = $advisory_source;
+
+        return $this;
+    }
+
+    /**
+     * Gets advisory_unknown_needs_reason
+     *
+     * @return bool
+     */
+    public function getAdvisoryUnknownNeedsReason()
+    {
+        return $this->container['advisory_unknown_needs_reason'];
+    }
+
+    /**
+     * Sets advisory_unknown_needs_reason
+     *
+     * @param bool $advisory_unknown_needs_reason True when an `unknown` advisory answer is worth showing only if the row names a reason. Without one it usually means a repository with nothing to check. False when every `unknown` answer is a failure to read.
+     *
+     * @return self
+     */
+    public function setAdvisoryUnknownNeedsReason($advisory_unknown_needs_reason)
+    {
+        if (is_null($advisory_unknown_needs_reason)) {
+            throw new \InvalidArgumentException('non-nullable advisory_unknown_needs_reason cannot be null');
+        }
+        $this->container['advisory_unknown_needs_reason'] = $advisory_unknown_needs_reason;
 
         return $this;
     }
