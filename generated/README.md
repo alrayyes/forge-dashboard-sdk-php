@@ -226,6 +226,7 @@ Class | Method | HTTP request | Description
 - [IssueActionRequest](docs/Model/IssueActionRequest.md)
 - [IssueCommentRequest](docs/Model/IssueCommentRequest.md)
 - [IssueDetails](docs/Model/IssueDetails.md)
+- [IssuePullRequest](docs/Model/IssuePullRequest.md)
 - [IssueRelation](docs/Model/IssueRelation.md)
 - [Label](docs/Model/Label.md)
 - [LinkedPullRequest](docs/Model/LinkedPullRequest.md)
