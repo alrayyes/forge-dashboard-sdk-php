@@ -58,6 +58,7 @@ class IssueDetails implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $openAPITypes = [
+        'kind' => 'string',
         'state' => 'string',
         'description' => '\ForgeDashboard\Generated\Model\DetailsBody',
         'comments' => '\ForgeDashboard\Generated\Model\DetailsComment[]',
@@ -73,6 +74,7 @@ class IssueDetails implements ModelInterface, ArrayAccess, \JsonSerializable
      * @psalm-var array<string, string|null>
      */
     protected static $openAPIFormats = [
+        'kind' => null,
         'state' => null,
         'description' => null,
         'comments' => null,
@@ -86,6 +88,7 @@ class IssueDetails implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var boolean[]
      */
     protected static array $openAPINullables = [
+        'kind' => false,
         'state' => false,
         'description' => false,
         'comments' => false,
@@ -179,6 +182,7 @@ class IssueDetails implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
+        'kind' => 'kind',
         'state' => 'state',
         'description' => 'description',
         'comments' => 'comments',
@@ -192,6 +196,7 @@ class IssueDetails implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
+        'kind' => 'setKind',
         'state' => 'setState',
         'description' => 'setDescription',
         'comments' => 'setComments',
@@ -205,6 +210,7 @@ class IssueDetails implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
+        'kind' => 'getKind',
         'state' => 'getState',
         'description' => 'getDescription',
         'comments' => 'getComments',
@@ -253,8 +259,23 @@ class IssueDetails implements ModelInterface, ArrayAccess, \JsonSerializable
         return self::$openAPIModelName;
     }
 
+    public const KIND_ISSUE = 'issue';
+    public const KIND_PULL_REQUEST = 'pullRequest';
     public const STATE_OPEN = 'open';
     public const STATE_CLOSED = 'closed';
+
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getKindAllowableValues()
+    {
+        return [
+            self::KIND_ISSUE,
+            self::KIND_PULL_REQUEST,
+        ];
+    }
 
     /**
      * Gets allowable values of the enum
@@ -284,6 +305,7 @@ class IssueDetails implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
+        $this->setIfExists('kind', $data ?? [], null);
         $this->setIfExists('state', $data ?? [], null);
         $this->setIfExists('description', $data ?? [], null);
         $this->setIfExists('comments', $data ?? [], null);
@@ -317,6 +339,18 @@ class IssueDetails implements ModelInterface, ArrayAccess, \JsonSerializable
     public function listInvalidProperties()
     {
         $invalidProperties = [];
+
+        if ($this->container['kind'] === null) {
+            $invalidProperties[] = "'kind' can't be null";
+        }
+        $allowedValues = $this->getKindAllowableValues();
+        if (!is_null($this->container['kind']) && !in_array($this->container['kind'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value '%s' for 'kind', must be one of '%s'",
+                $this->container['kind'],
+                implode("', '", $allowedValues)
+            );
+        }
 
         if ($this->container['state'] === null) {
             $invalidProperties[] = "'state' can't be null";
@@ -364,6 +398,43 @@ class IssueDetails implements ModelInterface, ArrayAccess, \JsonSerializable
         return count($this->listInvalidProperties()) === 0;
     }
 
+
+    /**
+     * Gets kind
+     *
+     * @return string
+     */
+    public function getKind()
+    {
+        return $this->container['kind'];
+    }
+
+    /**
+     * Sets kind
+     *
+     * @param string $kind What the number turned out to be. A forge shares one number space between issues and pull requests, so a bare number in a description can name either, and this endpoint answers for both. The client decides which dialog to open; a pull request's `state` is `closed` once it is merged as well as when it is closed unmerged.
+     *
+     * @return self
+     */
+    public function setKind($kind)
+    {
+        if (is_null($kind)) {
+            throw new \InvalidArgumentException('non-nullable kind cannot be null');
+        }
+        $allowedValues = $this->getKindAllowableValues();
+        if (!in_array($kind, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value '%s' for 'kind', must be one of '%s'",
+                    $kind,
+                    implode("', '", $allowedValues)
+                )
+            );
+        }
+        $this->container['kind'] = $kind;
+
+        return $this;
+    }
 
     /**
      * Gets state
