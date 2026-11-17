@@ -156,6 +156,8 @@ Class | Method | HTTP request | Description
 *QueuedActionsApi* | [**cancelQueuedAction**](docs/Api/QueuedActionsApi.md#cancelqueuedaction) | **DELETE** /api/v1/queued-actions/{id} | Cancel a queued action, or clear a finished one from the list
 *QueuedActionsApi* | [**listQueuedActions**](docs/Api/QueuedActionsApi.md#listqueuedactions) | **GET** /api/v1/queued-actions | List the signed-in user&#39;s queued actions, waiting and recently finished
 *QueuedActionsApi* | [**queueAction**](docs/Api/QueuedActionsApi.md#queueaction) | **POST** /api/v1/queued-actions | Queue a safe action to run when a rate-limited forge resets
+*SettingsApi* | [**disconnectForgejo**](docs/Api/SettingsApi.md#disconnectforgejo) | **DELETE** /api/v1/connections/forgejo | Unlink the Forgejo account
+*SettingsApi* | [**finishForgejoConnection**](docs/Api/SettingsApi.md#finishforgejoconnection) | **GET** /api/v1/connections/forgejo/callback | Forgejo&#39;s redirect back after consent
 *SettingsApi* | [**getFilterState**](docs/Api/SettingsApi.md#getfilterstate) | **GET** /api/v1/settings/filter-state | The signed-in user&#39;s own saved dashboard/Insights filter state
 *SettingsApi* | [**getSettings**](docs/Api/SettingsApi.md#getsettings) | **GET** /api/v1/settings | The signed-in user&#39;s own forge configuration
 *SettingsApi* | [**getSettingsSummary**](docs/Api/SettingsApi.md#getsettingssummary) | **GET** /api/v1/settings/summary | The signed-in user&#39;s settings, read without side effects
@@ -165,6 +167,7 @@ Class | Method | HTTP request | Description
 *SettingsApi* | [**setFilterState**](docs/Api/SettingsApi.md#setfilterstate) | **PUT** /api/v1/settings/filter-state | Save the signed-in user&#39;s own dashboard/Insights filter state
 *SettingsApi* | [**setTheme**](docs/Api/SettingsApi.md#settheme) | **PUT** /api/v1/settings/theme | Save the signed-in user&#39;s own theme preference
 *SettingsApi* | [**setTimezone**](docs/Api/SettingsApi.md#settimezone) | **PUT** /api/v1/settings/timezone | Save the signed-in user&#39;s own time zone
+*SettingsApi* | [**startForgejoConnection**](docs/Api/SettingsApi.md#startforgejoconnection) | **POST** /api/v1/connections/forgejo | Start linking a Forgejo account with OAuth
 *TokensApi* | [**createAPIToken**](docs/Api/TokensApi.md#createapitoken) | **POST** /api/v1/tokens | Generate a new personal API token
 *TokensApi* | [**deleteAPIToken**](docs/Api/TokensApi.md#deleteapitoken) | **DELETE** /api/v1/tokens/{id} | Revoke a personal API token
 *TokensApi* | [**listAPITokens**](docs/Api/TokensApi.md#listapitokens) | **GET** /api/v1/tokens | List the signed-in user&#39;s own personal API tokens
@@ -203,6 +206,7 @@ Class | Method | HTTP request | Description
 - [CheckStatus](docs/Model/CheckStatus.md)
 - [CheckSubject](docs/Model/CheckSubject.md)
 - [ClosingIssue](docs/Model/ClosingIssue.md)
+- [ConnectionAuthorizeResponse](docs/Model/ConnectionAuthorizeResponse.md)
 - [Credential](docs/Model/Credential.md)
 - [Dashboard](docs/Model/Dashboard.md)
 - [DetailsBody](docs/Model/DetailsBody.md)
@@ -270,6 +274,7 @@ Class | Method | HTTP request | Description
 - [SettingsSummary](docs/Model/SettingsSummary.md)
 - [StackPosition](docs/Model/StackPosition.md)
 - [StackRef](docs/Model/StackRef.md)
+- [StartForgejoConnectionRequest](docs/Model/StartForgejoConnectionRequest.md)
 - [StreamDashboard200Response](docs/Model/StreamDashboard200Response.md)
 - [StreamWatchRequest](docs/Model/StreamWatchRequest.md)
 - [ThemeRequest](docs/Model/ThemeRequest.md)

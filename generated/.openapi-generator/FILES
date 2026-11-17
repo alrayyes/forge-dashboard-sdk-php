@@ -48,6 +48,7 @@ src/Model/CheckLog.php
 src/Model/CheckStatus.php
 src/Model/CheckSubject.php
 src/Model/ClosingIssue.php
+src/Model/ConnectionAuthorizeResponse.php
 src/Model/Credential.php
 src/Model/Dashboard.php
 src/Model/DetailsBody.php
@@ -116,6 +117,7 @@ src/Model/SettingsResponse.php
 src/Model/SettingsSummary.php
 src/Model/StackPosition.php
 src/Model/StackRef.php
+src/Model/StartForgejoConnectionRequest.php
 src/Model/StreamDashboard200Response.php
 src/Model/StreamWatchRequest.php
 src/Model/ThemeRequest.php
