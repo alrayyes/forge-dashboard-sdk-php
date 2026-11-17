@@ -74,6 +74,12 @@ class SettingsApi
 
     /** @var string[] $contentTypes **/
     public const contentTypes = [
+        'disconnectForgejo' => [
+            'application/json',
+        ],
+        'finishForgejoConnection' => [
+            'application/json',
+        ],
         'getFilterState' => [
             'application/json',
         ],
@@ -99,6 +105,9 @@ class SettingsApi
             'application/json',
         ],
         'setTimezone' => [
+            'application/json',
+        ],
+        'startForgejoConnection' => [
             'application/json',
         ],
     ];
@@ -147,6 +156,495 @@ class SettingsApi
     public function getConfig()
     {
         return $this->config;
+    }
+
+    /**
+     * Operation disconnectForgejo
+     *
+     * Unlink the Forgejo account
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['disconnectForgejo'] to see the possible values for this operation
+     *
+     * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function disconnectForgejo(string $contentType = self::contentTypes['disconnectForgejo'][0])
+    {
+        $this->disconnectForgejoWithHttpInfo($contentType);
+    }
+
+    /**
+     * Operation disconnectForgejoWithHttpInfo
+     *
+     * Unlink the Forgejo account
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['disconnectForgejo'] to see the possible values for this operation
+     *
+     * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function disconnectForgejoWithHttpInfo(string $contentType = self::contentTypes['disconnectForgejo'][0])
+    {
+        $request = $this->disconnectForgejoRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation disconnectForgejoAsync
+     *
+     * Unlink the Forgejo account
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['disconnectForgejo'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function disconnectForgejoAsync(string $contentType = self::contentTypes['disconnectForgejo'][0])
+    {
+        return $this->disconnectForgejoAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation disconnectForgejoAsyncWithHttpInfo
+     *
+     * Unlink the Forgejo account
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['disconnectForgejo'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function disconnectForgejoAsyncWithHttpInfo(string $contentType = self::contentTypes['disconnectForgejo'][0])
+    {
+        $returnType = '';
+        $request = $this->disconnectForgejoRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'disconnectForgejo'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['disconnectForgejo'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function disconnectForgejoRequest(string $contentType = self::contentTypes['disconnectForgejo'][0])
+    {
+
+
+        $resourcePath = '/api/v1/connections/forgejo';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                try {
+                    $httpBody = json_encode($formParams, JSON_THROW_ON_ERROR);
+                } catch (\JsonException $e) {
+                    throw new \InvalidArgumentException('json_encode error: ' . $e->getMessage(), 0, $e);
+                }
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'DELETE',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation finishForgejoConnection
+     *
+     * Forgejo&#39;s redirect back after consent
+     *
+     * @param  string|null $code code (optional)
+     * @param  string|null $state state (optional)
+     * @param  string|null $error error (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['finishForgejoConnection'] to see the possible values for this operation
+     *
+     * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function finishForgejoConnection($code = null, $state = null, $error = null, string $contentType = self::contentTypes['finishForgejoConnection'][0])
+    {
+        $this->finishForgejoConnectionWithHttpInfo($code, $state, $error, $contentType);
+    }
+
+    /**
+     * Operation finishForgejoConnectionWithHttpInfo
+     *
+     * Forgejo&#39;s redirect back after consent
+     *
+     * @param  string|null $code (optional)
+     * @param  string|null $state (optional)
+     * @param  string|null $error (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['finishForgejoConnection'] to see the possible values for this operation
+     *
+     * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function finishForgejoConnectionWithHttpInfo($code = null, $state = null, $error = null, string $contentType = self::contentTypes['finishForgejoConnection'][0])
+    {
+        $request = $this->finishForgejoConnectionRequest($code, $state, $error, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 502:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation finishForgejoConnectionAsync
+     *
+     * Forgejo&#39;s redirect back after consent
+     *
+     * @param  string|null $code (optional)
+     * @param  string|null $state (optional)
+     * @param  string|null $error (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['finishForgejoConnection'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function finishForgejoConnectionAsync($code = null, $state = null, $error = null, string $contentType = self::contentTypes['finishForgejoConnection'][0])
+    {
+        return $this->finishForgejoConnectionAsyncWithHttpInfo($code, $state, $error, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation finishForgejoConnectionAsyncWithHttpInfo
+     *
+     * Forgejo&#39;s redirect back after consent
+     *
+     * @param  string|null $code (optional)
+     * @param  string|null $state (optional)
+     * @param  string|null $error (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['finishForgejoConnection'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function finishForgejoConnectionAsyncWithHttpInfo($code = null, $state = null, $error = null, string $contentType = self::contentTypes['finishForgejoConnection'][0])
+    {
+        $returnType = '';
+        $request = $this->finishForgejoConnectionRequest($code, $state, $error, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'finishForgejoConnection'
+     *
+     * @param  string|null $code (optional)
+     * @param  string|null $state (optional)
+     * @param  string|null $error (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['finishForgejoConnection'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function finishForgejoConnectionRequest($code = null, $state = null, $error = null, string $contentType = self::contentTypes['finishForgejoConnection'][0])
+    {
+
+
+
+
+
+        $resourcePath = '/api/v1/connections/forgejo/callback';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $code,
+            'code', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $state,
+            'state', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $error,
+            'error', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                try {
+                    $httpBody = json_encode($formParams, JSON_THROW_ON_ERROR);
+                } catch (\JsonException $e) {
+                    throw new \InvalidArgumentException('json_encode error: ' . $e->getMessage(), 0, $e);
+                }
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
     }
 
     /**
@@ -2741,6 +3239,327 @@ class SettingsApi
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
             'PUT',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation startForgejoConnection
+     *
+     * Start linking a Forgejo account with OAuth
+     *
+     * @param  \ForgeDashboard\Generated\Model\StartForgejoConnectionRequest $start_forgejo_connection_request start_forgejo_connection_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['startForgejoConnection'] to see the possible values for this operation
+     *
+     * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \ForgeDashboard\Generated\Model\ConnectionAuthorizeResponse|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error
+     */
+    public function startForgejoConnection($start_forgejo_connection_request, string $contentType = self::contentTypes['startForgejoConnection'][0])
+    {
+        list($response) = $this->startForgejoConnectionWithHttpInfo($start_forgejo_connection_request, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation startForgejoConnectionWithHttpInfo
+     *
+     * Start linking a Forgejo account with OAuth
+     *
+     * @param  \ForgeDashboard\Generated\Model\StartForgejoConnectionRequest $start_forgejo_connection_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['startForgejoConnection'] to see the possible values for this operation
+     *
+     * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \ForgeDashboard\Generated\Model\ConnectionAuthorizeResponse|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function startForgejoConnectionWithHttpInfo($start_forgejo_connection_request, string $contentType = self::contentTypes['startForgejoConnection'][0])
+    {
+        $request = $this->startForgejoConnectionRequest($start_forgejo_connection_request, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\ForgeDashboard\Generated\Model\ConnectionAuthorizeResponse',
+                        $request,
+                        $response,
+                    );
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $request,
+                        $response,
+                    );
+                case 409:
+                    return $this->handleResponseWithDataType(
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\ForgeDashboard\Generated\Model\ConnectionAuthorizeResponse',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\ConnectionAuthorizeResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 409:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation startForgejoConnectionAsync
+     *
+     * Start linking a Forgejo account with OAuth
+     *
+     * @param  \ForgeDashboard\Generated\Model\StartForgejoConnectionRequest $start_forgejo_connection_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['startForgejoConnection'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function startForgejoConnectionAsync($start_forgejo_connection_request, string $contentType = self::contentTypes['startForgejoConnection'][0])
+    {
+        return $this->startForgejoConnectionAsyncWithHttpInfo($start_forgejo_connection_request, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation startForgejoConnectionAsyncWithHttpInfo
+     *
+     * Start linking a Forgejo account with OAuth
+     *
+     * @param  \ForgeDashboard\Generated\Model\StartForgejoConnectionRequest $start_forgejo_connection_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['startForgejoConnection'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function startForgejoConnectionAsyncWithHttpInfo($start_forgejo_connection_request, string $contentType = self::contentTypes['startForgejoConnection'][0])
+    {
+        $returnType = '\ForgeDashboard\Generated\Model\ConnectionAuthorizeResponse';
+        $request = $this->startForgejoConnectionRequest($start_forgejo_connection_request, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'startForgejoConnection'
+     *
+     * @param  \ForgeDashboard\Generated\Model\StartForgejoConnectionRequest $start_forgejo_connection_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['startForgejoConnection'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function startForgejoConnectionRequest($start_forgejo_connection_request, string $contentType = self::contentTypes['startForgejoConnection'][0])
+    {
+
+        // verify the required parameter 'start_forgejo_connection_request' is set
+        if ($start_forgejo_connection_request === null || (is_array($start_forgejo_connection_request) && count($start_forgejo_connection_request) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $start_forgejo_connection_request when calling startForgejoConnection'
+            );
+        }
+
+
+        $resourcePath = '/api/v1/connections/forgejo';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($start_forgejo_connection_request)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                try {
+                    $httpBody = json_encode(ObjectSerializer::sanitizeForSerialization($start_forgejo_connection_request), JSON_THROW_ON_ERROR);
+                } catch (\JsonException $e) {
+                    throw new \InvalidArgumentException('json_encode error: ' . $e->getMessage(), 0, $e);
+                }
+            } else {
+                $httpBody = $start_forgejo_connection_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                try {
+                    $httpBody = json_encode($formParams, JSON_THROW_ON_ERROR);
+                } catch (\JsonException $e) {
+                    throw new \InvalidArgumentException('json_encode error: ' . $e->getMessage(), 0, $e);
+                }
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
             $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody
