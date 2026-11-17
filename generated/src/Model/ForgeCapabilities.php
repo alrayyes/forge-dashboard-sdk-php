@@ -66,6 +66,7 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
         'dependabot_commands' => 'bool',
         'advisory_source' => 'string',
         'advisory_unknown_needs_reason' => 'bool',
+        'reports_repo_permissions' => 'bool',
         'status_page_url' => 'string',
         'rate_limit_model' => 'string',
         'issue_ref_syntax' => 'string',
@@ -88,6 +89,7 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
         'dependabot_commands' => null,
         'advisory_source' => null,
         'advisory_unknown_needs_reason' => null,
+        'reports_repo_permissions' => null,
         'status_page_url' => null,
         'rate_limit_model' => null,
         'issue_ref_syntax' => null,
@@ -108,6 +110,7 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
         'dependabot_commands' => false,
         'advisory_source' => false,
         'advisory_unknown_needs_reason' => false,
+        'reports_repo_permissions' => false,
         'status_page_url' => false,
         'rate_limit_model' => false,
         'issue_ref_syntax' => false,
@@ -208,6 +211,7 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
         'dependabot_commands' => 'dependabotCommands',
         'advisory_source' => 'advisorySource',
         'advisory_unknown_needs_reason' => 'advisoryUnknownNeedsReason',
+        'reports_repo_permissions' => 'reportsRepoPermissions',
         'status_page_url' => 'statusPageUrl',
         'rate_limit_model' => 'rateLimitModel',
         'issue_ref_syntax' => 'issueRefSyntax',
@@ -228,6 +232,7 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
         'dependabot_commands' => 'setDependabotCommands',
         'advisory_source' => 'setAdvisorySource',
         'advisory_unknown_needs_reason' => 'setAdvisoryUnknownNeedsReason',
+        'reports_repo_permissions' => 'setReportsRepoPermissions',
         'status_page_url' => 'setStatusPageUrl',
         'rate_limit_model' => 'setRateLimitModel',
         'issue_ref_syntax' => 'setIssueRefSyntax',
@@ -248,6 +253,7 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
         'dependabot_commands' => 'getDependabotCommands',
         'advisory_source' => 'getAdvisorySource',
         'advisory_unknown_needs_reason' => 'getAdvisoryUnknownNeedsReason',
+        'reports_repo_permissions' => 'getReportsRepoPermissions',
         'status_page_url' => 'getStatusPageUrl',
         'rate_limit_model' => 'getRateLimitModel',
         'issue_ref_syntax' => 'getIssueRefSyntax',
@@ -319,6 +325,7 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
         $this->setIfExists('dependabot_commands', $data ?? [], null);
         $this->setIfExists('advisory_source', $data ?? [], null);
         $this->setIfExists('advisory_unknown_needs_reason', $data ?? [], null);
+        $this->setIfExists('reports_repo_permissions', $data ?? [], null);
         $this->setIfExists('status_page_url', $data ?? [], null);
         $this->setIfExists('rate_limit_model', $data ?? [], null);
         $this->setIfExists('issue_ref_syntax', $data ?? [], null);
@@ -375,6 +382,9 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
         }
         if ($this->container['advisory_unknown_needs_reason'] === null) {
             $invalidProperties[] = "'advisory_unknown_needs_reason' can't be null";
+        }
+        if ($this->container['reports_repo_permissions'] === null) {
+            $invalidProperties[] = "'reports_repo_permissions' can't be null";
         }
         if ($this->container['status_page_url'] === null) {
             $invalidProperties[] = "'status_page_url' can't be null";
@@ -615,6 +625,33 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
             throw new \InvalidArgumentException('non-nullable advisory_unknown_needs_reason cannot be null');
         }
         $this->container['advisory_unknown_needs_reason'] = $advisory_unknown_needs_reason;
+
+        return $this;
+    }
+
+    /**
+     * Gets reports_repo_permissions
+     *
+     * @return bool
+     */
+    public function getReportsRepoPermissions()
+    {
+        return $this->container['reports_repo_permissions'];
+    }
+
+    /**
+     * Sets reports_repo_permissions
+     *
+     * @param bool $reports_repo_permissions True when the forge sends the signed-in user's permissions with each repo it lists, so a repo that arrives without them is the forge's omission and says nothing about the user's role. False when the dashboard finds out by trying the endpoint instead.
+     *
+     * @return self
+     */
+    public function setReportsRepoPermissions($reports_repo_permissions)
+    {
+        if (is_null($reports_repo_permissions)) {
+            throw new \InvalidArgumentException('non-nullable reports_repo_permissions cannot be null');
+        }
+        $this->container['reports_repo_permissions'] = $reports_repo_permissions;
 
         return $this;
     }
