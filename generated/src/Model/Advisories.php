@@ -63,7 +63,8 @@ class Advisories implements ModelInterface, ArrayAccess, \JsonSerializable
         'highest' => '\ForgeDashboard\Generated\Model\AdvisorySeverity',
         'url' => 'string',
         'reason' => '\ForgeDashboard\Generated\Model\AdvisoryReason',
-        'partial' => 'bool'
+        'partial' => 'bool',
+        'list_read_at' => '\DateTime'
     ];
 
     /**
@@ -79,7 +80,8 @@ class Advisories implements ModelInterface, ArrayAccess, \JsonSerializable
         'highest' => null,
         'url' => null,
         'reason' => null,
-        'partial' => null
+        'partial' => null,
+        'list_read_at' => 'date-time'
     ];
 
     /**
@@ -93,7 +95,8 @@ class Advisories implements ModelInterface, ArrayAccess, \JsonSerializable
         'highest' => false,
         'url' => false,
         'reason' => false,
-        'partial' => false
+        'partial' => false,
+        'list_read_at' => false
     ];
 
     /**
@@ -187,7 +190,8 @@ class Advisories implements ModelInterface, ArrayAccess, \JsonSerializable
         'highest' => 'highest',
         'url' => 'url',
         'reason' => 'reason',
-        'partial' => 'partial'
+        'partial' => 'partial',
+        'list_read_at' => 'listReadAt'
     ];
 
     /**
@@ -201,7 +205,8 @@ class Advisories implements ModelInterface, ArrayAccess, \JsonSerializable
         'highest' => 'setHighest',
         'url' => 'setUrl',
         'reason' => 'setReason',
-        'partial' => 'setPartial'
+        'partial' => 'setPartial',
+        'list_read_at' => 'setListReadAt'
     ];
 
     /**
@@ -215,7 +220,8 @@ class Advisories implements ModelInterface, ArrayAccess, \JsonSerializable
         'highest' => 'getHighest',
         'url' => 'getUrl',
         'reason' => 'getReason',
-        'partial' => 'getPartial'
+        'partial' => 'getPartial',
+        'list_read_at' => 'getListReadAt'
     ];
 
     /**
@@ -281,6 +287,7 @@ class Advisories implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('url', $data ?? [], null);
         $this->setIfExists('reason', $data ?? [], null);
         $this->setIfExists('partial', $data ?? [], null);
+        $this->setIfExists('list_read_at', $data ?? [], null);
     }
 
     /**
@@ -497,6 +504,33 @@ class Advisories implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable partial cannot be null');
         }
         $this->container['partial'] = $partial;
+
+        return $this;
+    }
+
+    /**
+     * Gets list_read_at
+     *
+     * @return \DateTime|null
+     */
+    public function getListReadAt()
+    {
+        return $this->container['list_read_at'];
+    }
+
+    /**
+     * Sets list_read_at
+     *
+     * @param \DateTime|null $list_read_at Set when the read that produced this count also kept the full list behind it, so opening the advisories dialog needs no call to the forge: GET /api/v1/main-branches/advisories answers from that list. It is when the forge was read. Absent when no list is kept, and the dashboard then reads one when the dialog opens. The advisory text itself is never part of the stream.
+     *
+     * @return self
+     */
+    public function setListReadAt($list_read_at)
+    {
+        if (is_null($list_read_at)) {
+            throw new \InvalidArgumentException('non-nullable list_read_at cannot be null');
+        }
+        $this->container['list_read_at'] = $list_read_at;
 
         return $this;
     }
