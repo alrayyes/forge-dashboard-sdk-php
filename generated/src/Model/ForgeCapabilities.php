@@ -578,7 +578,7 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets advisory_source
      *
-     * @param string $advisory_source Where the repository advisories come from. Open-ended, so a new source is not a breaking change; today `dependabot` and `osv`.
+     * @param string $advisory_source Where the repository advisories come from. Open-ended, so a new source is not a breaking change; today `dependabot` and `osv`. A client keys its advisory wording (notice text, unreadable reasons) by this value, not by the forge's name, and says something neutral for a source it has no words for.
      *
      * @return self
      */
