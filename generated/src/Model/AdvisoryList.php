@@ -62,7 +62,9 @@ class AdvisoryList implements ModelInterface, ArrayAccess, \JsonSerializable
         'reason' => '\ForgeDashboard\Generated\Model\AdvisoryReason',
         'partial' => 'bool',
         'url' => 'string',
-        'advisories' => '\ForgeDashboard\Generated\Model\AdvisoryItem[]'
+        'advisories' => '\ForgeDashboard\Generated\Model\AdvisoryItem[]',
+        'read_at' => '\DateTime',
+        'refresh_failed' => 'string'
     ];
 
     /**
@@ -77,7 +79,9 @@ class AdvisoryList implements ModelInterface, ArrayAccess, \JsonSerializable
         'reason' => null,
         'partial' => null,
         'url' => null,
-        'advisories' => null
+        'advisories' => null,
+        'read_at' => 'date-time',
+        'refresh_failed' => null
     ];
 
     /**
@@ -90,7 +94,9 @@ class AdvisoryList implements ModelInterface, ArrayAccess, \JsonSerializable
         'reason' => false,
         'partial' => false,
         'url' => false,
-        'advisories' => false
+        'advisories' => false,
+        'read_at' => false,
+        'refresh_failed' => false
     ];
 
     /**
@@ -183,7 +189,9 @@ class AdvisoryList implements ModelInterface, ArrayAccess, \JsonSerializable
         'reason' => 'reason',
         'partial' => 'partial',
         'url' => 'url',
-        'advisories' => 'advisories'
+        'advisories' => 'advisories',
+        'read_at' => 'readAt',
+        'refresh_failed' => 'refreshFailed'
     ];
 
     /**
@@ -196,7 +204,9 @@ class AdvisoryList implements ModelInterface, ArrayAccess, \JsonSerializable
         'reason' => 'setReason',
         'partial' => 'setPartial',
         'url' => 'setUrl',
-        'advisories' => 'setAdvisories'
+        'advisories' => 'setAdvisories',
+        'read_at' => 'setReadAt',
+        'refresh_failed' => 'setRefreshFailed'
     ];
 
     /**
@@ -209,7 +219,9 @@ class AdvisoryList implements ModelInterface, ArrayAccess, \JsonSerializable
         'reason' => 'getReason',
         'partial' => 'getPartial',
         'url' => 'getUrl',
-        'advisories' => 'getAdvisories'
+        'advisories' => 'getAdvisories',
+        'read_at' => 'getReadAt',
+        'refresh_failed' => 'getRefreshFailed'
     ];
 
     /**
@@ -253,6 +265,21 @@ class AdvisoryList implements ModelInterface, ArrayAccess, \JsonSerializable
         return self::$openAPIModelName;
     }
 
+    public const REFRESH_FAILED_FAILED = 'failed';
+    public const REFRESH_FAILED_THROTTLED = 'throttled';
+
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getRefreshFailedAllowableValues()
+    {
+        return [
+            self::REFRESH_FAILED_FAILED,
+            self::REFRESH_FAILED_THROTTLED,
+        ];
+    }
 
     /**
      * Associative array for storing property values
@@ -274,6 +301,8 @@ class AdvisoryList implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('partial', $data ?? [], null);
         $this->setIfExists('url', $data ?? [], null);
         $this->setIfExists('advisories', $data ?? [], null);
+        $this->setIfExists('read_at', $data ?? [], null);
+        $this->setIfExists('refresh_failed', $data ?? [], null);
     }
 
     /**
@@ -309,6 +338,15 @@ class AdvisoryList implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['advisories'] === null) {
             $invalidProperties[] = "'advisories' can't be null";
         }
+        $allowedValues = $this->getRefreshFailedAllowableValues();
+        if (!is_null($this->container['refresh_failed']) && !in_array($this->container['refresh_failed'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value '%s' for 'refresh_failed', must be one of '%s'",
+                $this->container['refresh_failed'],
+                implode("', '", $allowedValues)
+            );
+        }
+
         return $invalidProperties;
     }
 
@@ -455,6 +493,70 @@ class AdvisoryList implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable advisories cannot be null');
         }
         $this->container['advisories'] = $advisories;
+
+        return $this;
+    }
+
+    /**
+     * Gets read_at
+     *
+     * @return \DateTime|null
+     */
+    public function getReadAt()
+    {
+        return $this->container['read_at'];
+    }
+
+    /**
+     * Sets read_at
+     *
+     * @param \DateTime|null $read_at When the forge was read for this list. The same value on every answer served from the dashboard's own copy, so a client can tell a changed list from a repeated one.
+     *
+     * @return self
+     */
+    public function setReadAt($read_at)
+    {
+        if (is_null($read_at)) {
+            throw new \InvalidArgumentException('non-nullable read_at cannot be null');
+        }
+        $this->container['read_at'] = $read_at;
+
+        return $this;
+    }
+
+    /**
+     * Gets refresh_failed
+     *
+     * @return string|null
+     */
+    public function getRefreshFailed()
+    {
+        return $this->container['refresh_failed'];
+    }
+
+    /**
+     * Sets refresh_failed
+     *
+     * @param string|null $refresh_failed Set when the read failed or was rate limited (a refresh, or an open after the kept list had aged out) and `advisories` is the last good list instead, never an empty one. `readAt` then says how old that list is. Absent when the read succeeded.
+     *
+     * @return self
+     */
+    public function setRefreshFailed($refresh_failed)
+    {
+        if (is_null($refresh_failed)) {
+            throw new \InvalidArgumentException('non-nullable refresh_failed cannot be null');
+        }
+        $allowedValues = $this->getRefreshFailedAllowableValues();
+        if (!in_array($refresh_failed, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value '%s' for 'refresh_failed', must be one of '%s'",
+                    $refresh_failed,
+                    implode("', '", $allowedValues)
+                )
+            );
+        }
+        $this->container['refresh_failed'] = $refresh_failed;
 
         return $this;
     }

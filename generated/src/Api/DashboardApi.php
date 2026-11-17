@@ -4041,15 +4041,16 @@ class DashboardApi
      *
      * @param  \ForgeDashboard\Generated\Model\Forge $forge forge (required)
      * @param  string $full_name \&quot;owner/repo\&quot;, matching a MainBranch.fullName from GET /api/v1/main-branches. (required)
+     * @param  bool|null $refresh Read the forge again instead of answering from the list the dashboard kept. (optional, default to false)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listAdvisories'] to see the possible values for this operation
      *
      * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \ForgeDashboard\Generated\Model\AdvisoryList|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error
      */
-    public function listAdvisories($forge, $full_name, string $contentType = self::contentTypes['listAdvisories'][0])
+    public function listAdvisories($forge, $full_name, $refresh = false, string $contentType = self::contentTypes['listAdvisories'][0])
     {
-        list($response) = $this->listAdvisoriesWithHttpInfo($forge, $full_name, $contentType);
+        list($response) = $this->listAdvisoriesWithHttpInfo($forge, $full_name, $refresh, $contentType);
         return $response;
     }
 
@@ -4060,15 +4061,16 @@ class DashboardApi
      *
      * @param  \ForgeDashboard\Generated\Model\Forge $forge (required)
      * @param  string $full_name \&quot;owner/repo\&quot;, matching a MainBranch.fullName from GET /api/v1/main-branches. (required)
+     * @param  bool|null $refresh Read the forge again instead of answering from the list the dashboard kept. (optional, default to false)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listAdvisories'] to see the possible values for this operation
      *
      * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \ForgeDashboard\Generated\Model\AdvisoryList|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error, HTTP status code, HTTP response headers (array of strings)
      */
-    public function listAdvisoriesWithHttpInfo($forge, $full_name, string $contentType = self::contentTypes['listAdvisories'][0])
+    public function listAdvisoriesWithHttpInfo($forge, $full_name, $refresh = false, string $contentType = self::contentTypes['listAdvisories'][0])
     {
-        $request = $this->listAdvisoriesRequest($forge, $full_name, $contentType);
+        $request = $this->listAdvisoriesRequest($forge, $full_name, $refresh, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4230,14 +4232,15 @@ class DashboardApi
      *
      * @param  \ForgeDashboard\Generated\Model\Forge $forge (required)
      * @param  string $full_name \&quot;owner/repo\&quot;, matching a MainBranch.fullName from GET /api/v1/main-branches. (required)
+     * @param  bool|null $refresh Read the forge again instead of answering from the list the dashboard kept. (optional, default to false)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listAdvisories'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function listAdvisoriesAsync($forge, $full_name, string $contentType = self::contentTypes['listAdvisories'][0])
+    public function listAdvisoriesAsync($forge, $full_name, $refresh = false, string $contentType = self::contentTypes['listAdvisories'][0])
     {
-        return $this->listAdvisoriesAsyncWithHttpInfo($forge, $full_name, $contentType)
+        return $this->listAdvisoriesAsyncWithHttpInfo($forge, $full_name, $refresh, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4252,15 +4255,16 @@ class DashboardApi
      *
      * @param  \ForgeDashboard\Generated\Model\Forge $forge (required)
      * @param  string $full_name \&quot;owner/repo\&quot;, matching a MainBranch.fullName from GET /api/v1/main-branches. (required)
+     * @param  bool|null $refresh Read the forge again instead of answering from the list the dashboard kept. (optional, default to false)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listAdvisories'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function listAdvisoriesAsyncWithHttpInfo($forge, $full_name, string $contentType = self::contentTypes['listAdvisories'][0])
+    public function listAdvisoriesAsyncWithHttpInfo($forge, $full_name, $refresh = false, string $contentType = self::contentTypes['listAdvisories'][0])
     {
         $returnType = '\ForgeDashboard\Generated\Model\AdvisoryList';
-        $request = $this->listAdvisoriesRequest($forge, $full_name, $contentType);
+        $request = $this->listAdvisoriesRequest($forge, $full_name, $refresh, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4303,12 +4307,13 @@ class DashboardApi
      *
      * @param  \ForgeDashboard\Generated\Model\Forge $forge (required)
      * @param  string $full_name \&quot;owner/repo\&quot;, matching a MainBranch.fullName from GET /api/v1/main-branches. (required)
+     * @param  bool|null $refresh Read the forge again instead of answering from the list the dashboard kept. (optional, default to false)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listAdvisories'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function listAdvisoriesRequest($forge, $full_name, string $contentType = self::contentTypes['listAdvisories'][0])
+    public function listAdvisoriesRequest($forge, $full_name, $refresh = false, string $contentType = self::contentTypes['listAdvisories'][0])
     {
 
         // verify the required parameter 'forge' is set
@@ -4324,6 +4329,7 @@ class DashboardApi
                 'Missing the required parameter $full_name when calling listAdvisories'
             );
         }
+
 
 
         $resourcePath = '/api/v1/main-branches/advisories';
@@ -4350,6 +4356,15 @@ class DashboardApi
             'form', // style
             true, // explode
             true // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $refresh,
+            'refresh', // param base name
+            'boolean', // openApiType
+            'form', // style
+            true, // explode
+            false // required
         ) ?? []);
 
 
