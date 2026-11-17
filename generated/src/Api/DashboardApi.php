@@ -1167,6 +1167,8 @@ class DashboardApi
      * @param  \ForgeDashboard\Generated\Model\Forge $forge forge (required)
      * @param  string $full_name \&quot;owner/repo\&quot; of the repository the check ran in. (required)
      * @param  int $job_id Matching a Check.jobId. (required)
+     * @param  \DateTime|null $finished_at Matching a Check.completedAt. Send it for a job that has finished and the server keeps its full output in memory once the job has been finished for 30 seconds, so the next open of the same job costs no forge request. The server takes this time on trust: it has no per-job record of its own to check it against, so a caller who sends an old time for a running job gets that partial output kept under that key. The key includes the time, so nobody else&#39;s open reads it. Leave it out for a job that is running: its output is never kept. A finish time in the future is not kept either. The response is still &#x60;Cache-Control: no-store&#x60;, so a browser asks again. (optional)
+     * @param  int|null $attempt Matching a Check.runAttempt, 0 or left out where the forge doesn&#39;t number attempts. With &#x60;finishedAt&#x60; it names the run the kept output belongs to, so a rerun reads afresh. (optional)
      * @param  bool|null $excerpt True to answer the job&#39;s excerpt (the last lines, at most 2,000 characters) instead of its output. Forgejo only; any other forge answers 400. (optional, default to false)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCheckLog'] to see the possible values for this operation
      *
@@ -1174,9 +1176,9 @@ class DashboardApi
      * @throws \InvalidArgumentException
      * @return \ForgeDashboard\Generated\Model\CheckLog|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error
      */
-    public function getCheckLog($forge, $full_name, $job_id, $excerpt = false, string $contentType = self::contentTypes['getCheckLog'][0])
+    public function getCheckLog($forge, $full_name, $job_id, $finished_at = null, $attempt = null, $excerpt = false, string $contentType = self::contentTypes['getCheckLog'][0])
     {
-        list($response) = $this->getCheckLogWithHttpInfo($forge, $full_name, $job_id, $excerpt, $contentType);
+        list($response) = $this->getCheckLogWithHttpInfo($forge, $full_name, $job_id, $finished_at, $attempt, $excerpt, $contentType);
         return $response;
     }
 
@@ -1188,6 +1190,8 @@ class DashboardApi
      * @param  \ForgeDashboard\Generated\Model\Forge $forge (required)
      * @param  string $full_name \&quot;owner/repo\&quot; of the repository the check ran in. (required)
      * @param  int $job_id Matching a Check.jobId. (required)
+     * @param  \DateTime|null $finished_at Matching a Check.completedAt. Send it for a job that has finished and the server keeps its full output in memory once the job has been finished for 30 seconds, so the next open of the same job costs no forge request. The server takes this time on trust: it has no per-job record of its own to check it against, so a caller who sends an old time for a running job gets that partial output kept under that key. The key includes the time, so nobody else&#39;s open reads it. Leave it out for a job that is running: its output is never kept. A finish time in the future is not kept either. The response is still &#x60;Cache-Control: no-store&#x60;, so a browser asks again. (optional)
+     * @param  int|null $attempt Matching a Check.runAttempt, 0 or left out where the forge doesn&#39;t number attempts. With &#x60;finishedAt&#x60; it names the run the kept output belongs to, so a rerun reads afresh. (optional)
      * @param  bool|null $excerpt True to answer the job&#39;s excerpt (the last lines, at most 2,000 characters) instead of its output. Forgejo only; any other forge answers 400. (optional, default to false)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCheckLog'] to see the possible values for this operation
      *
@@ -1195,9 +1199,9 @@ class DashboardApi
      * @throws \InvalidArgumentException
      * @return array of \ForgeDashboard\Generated\Model\CheckLog|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getCheckLogWithHttpInfo($forge, $full_name, $job_id, $excerpt = false, string $contentType = self::contentTypes['getCheckLog'][0])
+    public function getCheckLogWithHttpInfo($forge, $full_name, $job_id, $finished_at = null, $attempt = null, $excerpt = false, string $contentType = self::contentTypes['getCheckLog'][0])
     {
-        $request = $this->getCheckLogRequest($forge, $full_name, $job_id, $excerpt, $contentType);
+        $request = $this->getCheckLogRequest($forge, $full_name, $job_id, $finished_at, $attempt, $excerpt, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1374,15 +1378,17 @@ class DashboardApi
      * @param  \ForgeDashboard\Generated\Model\Forge $forge (required)
      * @param  string $full_name \&quot;owner/repo\&quot; of the repository the check ran in. (required)
      * @param  int $job_id Matching a Check.jobId. (required)
+     * @param  \DateTime|null $finished_at Matching a Check.completedAt. Send it for a job that has finished and the server keeps its full output in memory once the job has been finished for 30 seconds, so the next open of the same job costs no forge request. The server takes this time on trust: it has no per-job record of its own to check it against, so a caller who sends an old time for a running job gets that partial output kept under that key. The key includes the time, so nobody else&#39;s open reads it. Leave it out for a job that is running: its output is never kept. A finish time in the future is not kept either. The response is still &#x60;Cache-Control: no-store&#x60;, so a browser asks again. (optional)
+     * @param  int|null $attempt Matching a Check.runAttempt, 0 or left out where the forge doesn&#39;t number attempts. With &#x60;finishedAt&#x60; it names the run the kept output belongs to, so a rerun reads afresh. (optional)
      * @param  bool|null $excerpt True to answer the job&#39;s excerpt (the last lines, at most 2,000 characters) instead of its output. Forgejo only; any other forge answers 400. (optional, default to false)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCheckLog'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getCheckLogAsync($forge, $full_name, $job_id, $excerpt = false, string $contentType = self::contentTypes['getCheckLog'][0])
+    public function getCheckLogAsync($forge, $full_name, $job_id, $finished_at = null, $attempt = null, $excerpt = false, string $contentType = self::contentTypes['getCheckLog'][0])
     {
-        return $this->getCheckLogAsyncWithHttpInfo($forge, $full_name, $job_id, $excerpt, $contentType)
+        return $this->getCheckLogAsyncWithHttpInfo($forge, $full_name, $job_id, $finished_at, $attempt, $excerpt, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1398,16 +1404,18 @@ class DashboardApi
      * @param  \ForgeDashboard\Generated\Model\Forge $forge (required)
      * @param  string $full_name \&quot;owner/repo\&quot; of the repository the check ran in. (required)
      * @param  int $job_id Matching a Check.jobId. (required)
+     * @param  \DateTime|null $finished_at Matching a Check.completedAt. Send it for a job that has finished and the server keeps its full output in memory once the job has been finished for 30 seconds, so the next open of the same job costs no forge request. The server takes this time on trust: it has no per-job record of its own to check it against, so a caller who sends an old time for a running job gets that partial output kept under that key. The key includes the time, so nobody else&#39;s open reads it. Leave it out for a job that is running: its output is never kept. A finish time in the future is not kept either. The response is still &#x60;Cache-Control: no-store&#x60;, so a browser asks again. (optional)
+     * @param  int|null $attempt Matching a Check.runAttempt, 0 or left out where the forge doesn&#39;t number attempts. With &#x60;finishedAt&#x60; it names the run the kept output belongs to, so a rerun reads afresh. (optional)
      * @param  bool|null $excerpt True to answer the job&#39;s excerpt (the last lines, at most 2,000 characters) instead of its output. Forgejo only; any other forge answers 400. (optional, default to false)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCheckLog'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getCheckLogAsyncWithHttpInfo($forge, $full_name, $job_id, $excerpt = false, string $contentType = self::contentTypes['getCheckLog'][0])
+    public function getCheckLogAsyncWithHttpInfo($forge, $full_name, $job_id, $finished_at = null, $attempt = null, $excerpt = false, string $contentType = self::contentTypes['getCheckLog'][0])
     {
         $returnType = '\ForgeDashboard\Generated\Model\CheckLog';
-        $request = $this->getCheckLogRequest($forge, $full_name, $job_id, $excerpt, $contentType);
+        $request = $this->getCheckLogRequest($forge, $full_name, $job_id, $finished_at, $attempt, $excerpt, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1451,13 +1459,15 @@ class DashboardApi
      * @param  \ForgeDashboard\Generated\Model\Forge $forge (required)
      * @param  string $full_name \&quot;owner/repo\&quot; of the repository the check ran in. (required)
      * @param  int $job_id Matching a Check.jobId. (required)
+     * @param  \DateTime|null $finished_at Matching a Check.completedAt. Send it for a job that has finished and the server keeps its full output in memory once the job has been finished for 30 seconds, so the next open of the same job costs no forge request. The server takes this time on trust: it has no per-job record of its own to check it against, so a caller who sends an old time for a running job gets that partial output kept under that key. The key includes the time, so nobody else&#39;s open reads it. Leave it out for a job that is running: its output is never kept. A finish time in the future is not kept either. The response is still &#x60;Cache-Control: no-store&#x60;, so a browser asks again. (optional)
+     * @param  int|null $attempt Matching a Check.runAttempt, 0 or left out where the forge doesn&#39;t number attempts. With &#x60;finishedAt&#x60; it names the run the kept output belongs to, so a rerun reads afresh. (optional)
      * @param  bool|null $excerpt True to answer the job&#39;s excerpt (the last lines, at most 2,000 characters) instead of its output. Forgejo only; any other forge answers 400. (optional, default to false)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCheckLog'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getCheckLogRequest($forge, $full_name, $job_id, $excerpt = false, string $contentType = self::contentTypes['getCheckLog'][0])
+    public function getCheckLogRequest($forge, $full_name, $job_id, $finished_at = null, $attempt = null, $excerpt = false, string $contentType = self::contentTypes['getCheckLog'][0])
     {
 
         // verify the required parameter 'forge' is set
@@ -1482,6 +1492,11 @@ class DashboardApi
         }
         if ($job_id < 1) {
             throw new \InvalidArgumentException('invalid value for "$job_id" when calling DashboardApi.getCheckLog, must be bigger than or equal to 1.');
+        }
+        
+
+        if ($attempt !== null && $attempt < 0) {
+            throw new \InvalidArgumentException('invalid value for "$attempt" when calling DashboardApi.getCheckLog, must be bigger than or equal to 0.');
         }
         
 
@@ -1519,6 +1534,24 @@ class DashboardApi
             'form', // style
             true, // explode
             true // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $finished_at,
+            'finishedAt', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $attempt,
+            'attempt', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
         ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
