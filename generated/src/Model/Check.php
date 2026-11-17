@@ -61,6 +61,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'name' => 'string',
         'status' => '\ForgeDashboard\Generated\Model\CheckStatus',
         'conclusion' => 'string',
+        'reported_status' => 'string',
         'waiting_for' => 'string',
         'url' => 'string',
         'job_id' => 'int',
@@ -87,6 +88,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'name' => null,
         'status' => null,
         'conclusion' => null,
+        'reported_status' => null,
         'waiting_for' => null,
         'url' => null,
         'job_id' => null,
@@ -111,6 +113,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'name' => false,
         'status' => false,
         'conclusion' => false,
+        'reported_status' => false,
         'waiting_for' => false,
         'url' => false,
         'job_id' => false,
@@ -215,6 +218,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'name' => 'name',
         'status' => 'status',
         'conclusion' => 'conclusion',
+        'reported_status' => 'reportedStatus',
         'waiting_for' => 'waitingFor',
         'url' => 'url',
         'job_id' => 'jobId',
@@ -239,6 +243,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'name' => 'setName',
         'status' => 'setStatus',
         'conclusion' => 'setConclusion',
+        'reported_status' => 'setReportedStatus',
         'waiting_for' => 'setWaitingFor',
         'url' => 'setUrl',
         'job_id' => 'setJobId',
@@ -263,6 +268,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'name' => 'getName',
         'status' => 'getStatus',
         'conclusion' => 'getConclusion',
+        'reported_status' => 'getReportedStatus',
         'waiting_for' => 'getWaitingFor',
         'url' => 'getUrl',
         'job_id' => 'getJobId',
@@ -353,6 +359,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('name', $data ?? [], null);
         $this->setIfExists('status', $data ?? [], null);
         $this->setIfExists('conclusion', $data ?? [], null);
+        $this->setIfExists('reported_status', $data ?? [], null);
         $this->setIfExists('waiting_for', $data ?? [], null);
         $this->setIfExists('url', $data ?? [], null);
         $this->setIfExists('job_id', $data ?? [], null);
@@ -521,6 +528,33 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable conclusion cannot be null');
         }
         $this->container['conclusion'] = $conclusion;
+
+        return $this;
+    }
+
+    /**
+     * Gets reported_status
+     *
+     * @return string|null
+     */
+    public function getReportedStatus()
+    {
+        return $this->container['reported_status'];
+    }
+
+    /**
+     * Sets reported_status
+     *
+     * @param string|null $reported_status The forge's own word for the job's status, sent only when `status` is \"unknown\", so a client can name what it cannot grade. Absent for every other status. A finished job's own word is its `conclusion`.
+     *
+     * @return self
+     */
+    public function setReportedStatus($reported_status)
+    {
+        if (is_null($reported_status)) {
+            throw new \InvalidArgumentException('non-nullable reported_status cannot be null');
+        }
+        $this->container['reported_status'] = $reported_status;
 
         return $this;
     }
