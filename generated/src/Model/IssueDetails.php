@@ -60,6 +60,7 @@ class IssueDetails implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPITypes = [
         'kind' => 'string',
         'state' => 'string',
+        'pull_request' => '\ForgeDashboard\Generated\Model\IssuePullRequest',
         'description' => '\ForgeDashboard\Generated\Model\DetailsBody',
         'comments' => '\ForgeDashboard\Generated\Model\DetailsComment[]',
         'comment_count' => 'int',
@@ -76,6 +77,7 @@ class IssueDetails implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'kind' => null,
         'state' => null,
+        'pull_request' => null,
         'description' => null,
         'comments' => null,
         'comment_count' => null,
@@ -90,6 +92,7 @@ class IssueDetails implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static array $openAPINullables = [
         'kind' => false,
         'state' => false,
+        'pull_request' => false,
         'description' => false,
         'comments' => false,
         'comment_count' => false,
@@ -184,6 +187,7 @@ class IssueDetails implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $attributeMap = [
         'kind' => 'kind',
         'state' => 'state',
+        'pull_request' => 'pullRequest',
         'description' => 'description',
         'comments' => 'comments',
         'comment_count' => 'commentCount',
@@ -198,6 +202,7 @@ class IssueDetails implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $setters = [
         'kind' => 'setKind',
         'state' => 'setState',
+        'pull_request' => 'setPullRequest',
         'description' => 'setDescription',
         'comments' => 'setComments',
         'comment_count' => 'setCommentCount',
@@ -212,6 +217,7 @@ class IssueDetails implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $getters = [
         'kind' => 'getKind',
         'state' => 'getState',
+        'pull_request' => 'getPullRequest',
         'description' => 'getDescription',
         'comments' => 'getComments',
         'comment_count' => 'getCommentCount',
@@ -307,6 +313,7 @@ class IssueDetails implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $this->setIfExists('kind', $data ?? [], null);
         $this->setIfExists('state', $data ?? [], null);
+        $this->setIfExists('pull_request', $data ?? [], null);
         $this->setIfExists('description', $data ?? [], null);
         $this->setIfExists('comments', $data ?? [], null);
         $this->setIfExists('comment_count', $data ?? [], null);
@@ -469,6 +476,33 @@ class IssueDetails implements ModelInterface, ArrayAccess, \JsonSerializable
             );
         }
         $this->container['state'] = $state;
+
+        return $this;
+    }
+
+    /**
+     * Gets pull_request
+     *
+     * @return \ForgeDashboard\Generated\Model\IssuePullRequest|null
+     */
+    public function getPullRequest()
+    {
+        return $this->container['pull_request'];
+    }
+
+    /**
+     * Sets pull_request
+     *
+     * @param \ForgeDashboard\Generated\Model\IssuePullRequest|null $pull_request pull_request
+     *
+     * @return self
+     */
+    public function setPullRequest($pull_request)
+    {
+        if (is_null($pull_request)) {
+            throw new \InvalidArgumentException('non-nullable pull_request cannot be null');
+        }
+        $this->container['pull_request'] = $pull_request;
 
         return $this;
     }
