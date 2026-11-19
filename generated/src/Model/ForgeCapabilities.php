@@ -69,6 +69,7 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
         'reports_repo_permissions' => 'bool',
         'status_page_url' => 'string',
         'rate_limit_model' => 'string',
+        'rate_limit_docs_url' => 'string',
         'issue_ref_syntax' => 'string',
         'label' => 'string'
     ];
@@ -92,6 +93,7 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
         'reports_repo_permissions' => null,
         'status_page_url' => null,
         'rate_limit_model' => null,
+        'rate_limit_docs_url' => null,
         'issue_ref_syntax' => null,
         'label' => null
     ];
@@ -113,6 +115,7 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
         'reports_repo_permissions' => false,
         'status_page_url' => false,
         'rate_limit_model' => false,
+        'rate_limit_docs_url' => false,
         'issue_ref_syntax' => false,
         'label' => false
     ];
@@ -214,6 +217,7 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
         'reports_repo_permissions' => 'reportsRepoPermissions',
         'status_page_url' => 'statusPageUrl',
         'rate_limit_model' => 'rateLimitModel',
+        'rate_limit_docs_url' => 'rateLimitDocsUrl',
         'issue_ref_syntax' => 'issueRefSyntax',
         'label' => 'label'
     ];
@@ -235,6 +239,7 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
         'reports_repo_permissions' => 'setReportsRepoPermissions',
         'status_page_url' => 'setStatusPageUrl',
         'rate_limit_model' => 'setRateLimitModel',
+        'rate_limit_docs_url' => 'setRateLimitDocsUrl',
         'issue_ref_syntax' => 'setIssueRefSyntax',
         'label' => 'setLabel'
     ];
@@ -256,6 +261,7 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
         'reports_repo_permissions' => 'getReportsRepoPermissions',
         'status_page_url' => 'getStatusPageUrl',
         'rate_limit_model' => 'getRateLimitModel',
+        'rate_limit_docs_url' => 'getRateLimitDocsUrl',
         'issue_ref_syntax' => 'getIssueRefSyntax',
         'label' => 'getLabel'
     ];
@@ -328,6 +334,7 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
         $this->setIfExists('reports_repo_permissions', $data ?? [], null);
         $this->setIfExists('status_page_url', $data ?? [], null);
         $this->setIfExists('rate_limit_model', $data ?? [], null);
+        $this->setIfExists('rate_limit_docs_url', $data ?? [], null);
         $this->setIfExists('issue_ref_syntax', $data ?? [], null);
         $this->setIfExists('label', $data ?? [], null);
     }
@@ -391,6 +398,9 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
         }
         if ($this->container['rate_limit_model'] === null) {
             $invalidProperties[] = "'rate_limit_model' can't be null";
+        }
+        if ($this->container['rate_limit_docs_url'] === null) {
+            $invalidProperties[] = "'rate_limit_docs_url' can't be null";
         }
         if ($this->container['issue_ref_syntax'] === null) {
             $invalidProperties[] = "'issue_ref_syntax' can't be null";
@@ -706,6 +716,33 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
             throw new \InvalidArgumentException('non-nullable rate_limit_model cannot be null');
         }
         $this->container['rate_limit_model'] = $rate_limit_model;
+
+        return $this;
+    }
+
+    /**
+     * Gets rate_limit_docs_url
+     *
+     * @return string
+     */
+    public function getRateLimitDocsUrl()
+    {
+        return $this->container['rate_limit_docs_url'];
+    }
+
+    /**
+     * Sets rate_limit_docs_url
+     *
+     * @param string $rate_limit_docs_url The forge's published rules for its request budget, or an empty string when it has none. A client links to it from the rate limit explanation and shows no link when it is empty.
+     *
+     * @return self
+     */
+    public function setRateLimitDocsUrl($rate_limit_docs_url)
+    {
+        if (is_null($rate_limit_docs_url)) {
+            throw new \InvalidArgumentException('non-nullable rate_limit_docs_url cannot be null');
+        }
+        $this->container['rate_limit_docs_url'] = $rate_limit_docs_url;
 
         return $this;
     }
