@@ -64,7 +64,8 @@ class IssueDetails implements ModelInterface, ArrayAccess, \JsonSerializable
         'description' => '\ForgeDashboard\Generated\Model\DetailsBody',
         'comments' => '\ForgeDashboard\Generated\Model\DetailsComment[]',
         'comment_count' => 'int',
-        'comments_truncated' => 'bool'
+        'comments_truncated' => 'bool',
+        'references' => '\ForgeDashboard\Generated\Model\ItemReference[]'
     ];
 
     /**
@@ -81,7 +82,8 @@ class IssueDetails implements ModelInterface, ArrayAccess, \JsonSerializable
         'description' => null,
         'comments' => null,
         'comment_count' => null,
-        'comments_truncated' => null
+        'comments_truncated' => null,
+        'references' => null
     ];
 
     /**
@@ -96,7 +98,8 @@ class IssueDetails implements ModelInterface, ArrayAccess, \JsonSerializable
         'description' => false,
         'comments' => false,
         'comment_count' => false,
-        'comments_truncated' => false
+        'comments_truncated' => false,
+        'references' => false
     ];
 
     /**
@@ -191,7 +194,8 @@ class IssueDetails implements ModelInterface, ArrayAccess, \JsonSerializable
         'description' => 'description',
         'comments' => 'comments',
         'comment_count' => 'commentCount',
-        'comments_truncated' => 'commentsTruncated'
+        'comments_truncated' => 'commentsTruncated',
+        'references' => 'references'
     ];
 
     /**
@@ -206,7 +210,8 @@ class IssueDetails implements ModelInterface, ArrayAccess, \JsonSerializable
         'description' => 'setDescription',
         'comments' => 'setComments',
         'comment_count' => 'setCommentCount',
-        'comments_truncated' => 'setCommentsTruncated'
+        'comments_truncated' => 'setCommentsTruncated',
+        'references' => 'setReferences'
     ];
 
     /**
@@ -221,7 +226,8 @@ class IssueDetails implements ModelInterface, ArrayAccess, \JsonSerializable
         'description' => 'getDescription',
         'comments' => 'getComments',
         'comment_count' => 'getCommentCount',
-        'comments_truncated' => 'getCommentsTruncated'
+        'comments_truncated' => 'getCommentsTruncated',
+        'references' => 'getReferences'
     ];
 
     /**
@@ -318,6 +324,7 @@ class IssueDetails implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('comments', $data ?? [], null);
         $this->setIfExists('comment_count', $data ?? [], null);
         $this->setIfExists('comments_truncated', $data ?? [], null);
+        $this->setIfExists('references', $data ?? [], null);
     }
 
     /**
@@ -391,6 +398,13 @@ class IssueDetails implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['comments_truncated'] === null) {
             $invalidProperties[] = "'comments_truncated' can't be null";
         }
+        if ($this->container['references'] === null) {
+            $invalidProperties[] = "'references' can't be null";
+        }
+        if ((count($this->container['references']) > 70)) {
+            $invalidProperties[] = "invalid value for 'references', number of items must be less than or equal to 70.";
+        }
+
         return $invalidProperties;
     }
 
@@ -618,6 +632,36 @@ class IssueDetails implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable comments_truncated cannot be null');
         }
         $this->container['comments_truncated'] = $comments_truncated;
+
+        return $this;
+    }
+
+    /**
+     * Gets references
+     *
+     * @return \ForgeDashboard\Generated\Model\ItemReference[]
+     */
+    public function getReferences()
+    {
+        return $this->container['references'];
+    }
+
+    /**
+     * Sets references
+     *
+     * @param \ForgeDashboard\Generated\Model\ItemReference[] $references The items related to this one, incoming first and then outgoing. An empty array means nothing is related. A closed or merged item has them as well as an open one: the board's own pills list open pull requests only.  The `incoming` entries are the items that refer to this one, as the forge's own timeline records them, newest first, at most the first 50.  The `outgoing` entries are the items this one's own title and description refer to, in the order the text names them (closing ones first, then references, then mentions), at most 20. The forge records only what refers to an item, so the text is read the way the board reads a pull request's and each named item is looked up for its title and state. An item that can't be read (missing, no access) is left out, and a lookup that fails leaves the outgoing entries out without failing the read. A closing keyword counts as `closes` only in a pull request, and the base branch isn't checked; in an issue it is a `mentions`.
+     *
+     * @return self
+     */
+    public function setReferences($references)
+    {
+        if (is_null($references)) {
+            throw new \InvalidArgumentException('non-nullable references cannot be null');
+        }
+        if ((count($references) > 70)) {
+            throw new \InvalidArgumentException('invalid value for $references when calling IssueDetails., number of items must be less than or equal to 70.');
+        }
+        $this->container['references'] = $references;
 
         return $this;
     }
