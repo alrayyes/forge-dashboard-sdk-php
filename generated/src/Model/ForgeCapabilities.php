@@ -71,7 +71,10 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
         'rate_limit_model' => 'string',
         'rate_limit_docs_url' => 'string',
         'issue_ref_syntax' => 'string',
-        'label' => 'string'
+        'label' => 'string',
+        'image_hosts' => 'string[]',
+        'avatar_hosts' => 'string[]',
+        'signed_attachment_prefix' => 'string'
     ];
 
     /**
@@ -95,7 +98,10 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
         'rate_limit_model' => null,
         'rate_limit_docs_url' => null,
         'issue_ref_syntax' => null,
-        'label' => null
+        'label' => null,
+        'image_hosts' => null,
+        'avatar_hosts' => null,
+        'signed_attachment_prefix' => null
     ];
 
     /**
@@ -117,7 +123,10 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
         'rate_limit_model' => false,
         'rate_limit_docs_url' => false,
         'issue_ref_syntax' => false,
-        'label' => false
+        'label' => false,
+        'image_hosts' => false,
+        'avatar_hosts' => false,
+        'signed_attachment_prefix' => false
     ];
 
     /**
@@ -219,7 +228,10 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
         'rate_limit_model' => 'rateLimitModel',
         'rate_limit_docs_url' => 'rateLimitDocsUrl',
         'issue_ref_syntax' => 'issueRefSyntax',
-        'label' => 'label'
+        'label' => 'label',
+        'image_hosts' => 'imageHosts',
+        'avatar_hosts' => 'avatarHosts',
+        'signed_attachment_prefix' => 'signedAttachmentPrefix'
     ];
 
     /**
@@ -241,7 +253,10 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
         'rate_limit_model' => 'setRateLimitModel',
         'rate_limit_docs_url' => 'setRateLimitDocsUrl',
         'issue_ref_syntax' => 'setIssueRefSyntax',
-        'label' => 'setLabel'
+        'label' => 'setLabel',
+        'image_hosts' => 'setImageHosts',
+        'avatar_hosts' => 'setAvatarHosts',
+        'signed_attachment_prefix' => 'setSignedAttachmentPrefix'
     ];
 
     /**
@@ -263,7 +278,10 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
         'rate_limit_model' => 'getRateLimitModel',
         'rate_limit_docs_url' => 'getRateLimitDocsUrl',
         'issue_ref_syntax' => 'getIssueRefSyntax',
-        'label' => 'getLabel'
+        'label' => 'getLabel',
+        'image_hosts' => 'getImageHosts',
+        'avatar_hosts' => 'getAvatarHosts',
+        'signed_attachment_prefix' => 'getSignedAttachmentPrefix'
     ];
 
     /**
@@ -337,6 +355,9 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
         $this->setIfExists('rate_limit_docs_url', $data ?? [], null);
         $this->setIfExists('issue_ref_syntax', $data ?? [], null);
         $this->setIfExists('label', $data ?? [], null);
+        $this->setIfExists('image_hosts', $data ?? [], null);
+        $this->setIfExists('avatar_hosts', $data ?? [], null);
+        $this->setIfExists('signed_attachment_prefix', $data ?? [], null);
     }
 
     /**
@@ -407,6 +428,15 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
         }
         if ($this->container['label'] === null) {
             $invalidProperties[] = "'label' can't be null";
+        }
+        if ($this->container['image_hosts'] === null) {
+            $invalidProperties[] = "'image_hosts' can't be null";
+        }
+        if ($this->container['avatar_hosts'] === null) {
+            $invalidProperties[] = "'avatar_hosts' can't be null";
+        }
+        if ($this->container['signed_attachment_prefix'] === null) {
+            $invalidProperties[] = "'signed_attachment_prefix' can't be null";
         }
         return $invalidProperties;
     }
@@ -797,6 +827,87 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
             throw new \InvalidArgumentException('non-nullable label cannot be null');
         }
         $this->container['label'] = $label;
+
+        return $this;
+    }
+
+    /**
+     * Gets image_hosts
+     *
+     * @return string[]
+     */
+    public function getImageHosts()
+    {
+        return $this->container['image_hosts'];
+    }
+
+    /**
+     * Sets image_hosts
+     *
+     * @param string[] $image_hosts The fixed public hosts an image embedded in the forge's text may come from, each matched by its exact name, over https on the default port. Empty means the forge's own saved instance. See `GET /api/v1/images`.
+     *
+     * @return self
+     */
+    public function setImageHosts($image_hosts)
+    {
+        if (is_null($image_hosts)) {
+            throw new \InvalidArgumentException('non-nullable image_hosts cannot be null');
+        }
+        $this->container['image_hosts'] = $image_hosts;
+
+        return $this;
+    }
+
+    /**
+     * Gets avatar_hosts
+     *
+     * @return string[]
+     */
+    public function getAvatarHosts()
+    {
+        return $this->container['avatar_hosts'];
+    }
+
+    /**
+     * Sets avatar_hosts
+     *
+     * @param string[] $avatar_hosts Further fixed hosts that only avatars and repository logos load from. Empty when they live on the forge's own instance.
+     *
+     * @return self
+     */
+    public function setAvatarHosts($avatar_hosts)
+    {
+        if (is_null($avatar_hosts)) {
+            throw new \InvalidArgumentException('non-nullable avatar_hosts cannot be null');
+        }
+        $this->container['avatar_hosts'] = $avatar_hosts;
+
+        return $this;
+    }
+
+    /**
+     * Gets signed_attachment_prefix
+     *
+     * @return string
+     */
+    public function getSignedAttachmentPrefix()
+    {
+        return $this->container['signed_attachment_prefix'];
+    }
+
+    /**
+     * Sets signed_attachment_prefix
+     *
+     * @param string $signed_attachment_prefix The address prefix of an attachment the forge serves only at a signed link found in the item's rendered body, such as `https://github.com/user-attachments/`. Empty when the forge has no such links. Passing `fullName` with the item then lets the server find the signed link.
+     *
+     * @return self
+     */
+    public function setSignedAttachmentPrefix($signed_attachment_prefix)
+    {
+        if (is_null($signed_attachment_prefix)) {
+            throw new \InvalidArgumentException('non-nullable signed_attachment_prefix cannot be null');
+        }
+        $this->container['signed_attachment_prefix'] = $signed_attachment_prefix;
 
         return $this;
     }
