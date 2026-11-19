@@ -89,6 +89,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'queued' => '\ForgeDashboard\Generated\Model\QueuedAction',
         'requested_reviewer_logins' => 'string[]',
         'awaiting_workflow_approval' => 'bool',
+        'checks_incomplete' => 'bool',
         'review_comments' => 'int',
         'conversation_comments' => 'int',
         'closes_issues' => '\ForgeDashboard\Generated\Model\ClosingIssue[]',
@@ -153,6 +154,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'queued' => null,
         'requested_reviewer_logins' => null,
         'awaiting_workflow_approval' => null,
+        'checks_incomplete' => null,
         'review_comments' => null,
         'conversation_comments' => null,
         'closes_issues' => null,
@@ -215,6 +217,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'queued' => true,
         'requested_reviewer_logins' => false,
         'awaiting_workflow_approval' => false,
+        'checks_incomplete' => false,
         'review_comments' => false,
         'conversation_comments' => false,
         'closes_issues' => false,
@@ -357,6 +360,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'queued' => 'queued',
         'requested_reviewer_logins' => 'requestedReviewerLogins',
         'awaiting_workflow_approval' => 'awaitingWorkflowApproval',
+        'checks_incomplete' => 'checksIncomplete',
         'review_comments' => 'reviewComments',
         'conversation_comments' => 'conversationComments',
         'closes_issues' => 'closesIssues',
@@ -419,6 +423,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'queued' => 'setQueued',
         'requested_reviewer_logins' => 'setRequestedReviewerLogins',
         'awaiting_workflow_approval' => 'setAwaitingWorkflowApproval',
+        'checks_incomplete' => 'setChecksIncomplete',
         'review_comments' => 'setReviewComments',
         'conversation_comments' => 'setConversationComments',
         'closes_issues' => 'setClosesIssues',
@@ -481,6 +486,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'queued' => 'getQueued',
         'requested_reviewer_logins' => 'getRequestedReviewerLogins',
         'awaiting_workflow_approval' => 'getAwaitingWorkflowApproval',
+        'checks_incomplete' => 'getChecksIncomplete',
         'review_comments' => 'getReviewComments',
         'conversation_comments' => 'getConversationComments',
         'closes_issues' => 'getClosesIssues',
@@ -611,6 +617,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('queued', $data ?? [], null);
         $this->setIfExists('requested_reviewer_logins', $data ?? [], null);
         $this->setIfExists('awaiting_workflow_approval', $data ?? [], null);
+        $this->setIfExists('checks_incomplete', $data ?? [], null);
         $this->setIfExists('review_comments', $data ?? [], null);
         $this->setIfExists('conversation_comments', $data ?? [], null);
         $this->setIfExists('closes_issues', $data ?? [], null);
@@ -751,6 +758,9 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if ($this->container['awaiting_workflow_approval'] === null) {
             $invalidProperties[] = "'awaiting_workflow_approval' can't be null";
+        }
+        if ($this->container['checks_incomplete'] === null) {
+            $invalidProperties[] = "'checks_incomplete' can't be null";
         }
         if ($this->container['review_comments'] === null) {
             $invalidProperties[] = "'review_comments' can't be null";
@@ -1738,6 +1748,33 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable awaiting_workflow_approval cannot be null');
         }
         $this->container['awaiting_workflow_approval'] = $awaiting_workflow_approval;
+
+        return $this;
+    }
+
+    /**
+     * Gets checks_incomplete
+     *
+     * @return bool
+     */
+    public function getChecksIncomplete()
+    {
+        return $this->container['checks_incomplete'];
+    }
+
+    /**
+     * Sets checks_incomplete
+     *
+     * @param bool $checks_incomplete True while the forge has not yet listed every check of the head commit, so `checks` counts some of them and the rest will arrive: a client shouldn't present the counts as final. A fact only; the client decides how to say it. Always present, and false when the list is complete or the forge can't tell. On Forgejo it is true when a run that is still running has jobs the counts leave out, or has no job yet. On GitHub it is always false: the rollup reports its checks by state and says nothing about checks still to be created.
+     *
+     * @return self
+     */
+    public function setChecksIncomplete($checks_incomplete)
+    {
+        if (is_null($checks_incomplete)) {
+            throw new \InvalidArgumentException('non-nullable checks_incomplete cannot be null');
+        }
+        $this->container['checks_incomplete'] = $checks_incomplete;
 
         return $this;
     }
