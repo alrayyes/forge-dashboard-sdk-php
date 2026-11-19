@@ -228,6 +228,7 @@ Class | Method | HTTP request | Description
 - [IssueDetails](docs/Model/IssueDetails.md)
 - [IssuePullRequest](docs/Model/IssuePullRequest.md)
 - [IssueRelation](docs/Model/IssueRelation.md)
+- [ItemReference](docs/Model/ItemReference.md)
 - [Label](docs/Model/Label.md)
 - [LinkedPullRequest](docs/Model/LinkedPullRequest.md)
 - [MainBranch](docs/Model/MainBranch.md)
