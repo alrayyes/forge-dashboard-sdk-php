@@ -6,6 +6,7 @@ namespace ForgeDashboard\Tests\Contract;
 
 use ForgeDashboard\Client;
 use ForgeDashboard\Generated\Model\Dashboard;
+use ForgeDashboard\Generated\Model\Version;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
@@ -44,7 +45,10 @@ final class ClientTest extends TestCase
         // Prism fills the mock response with -- a deterministic value to
         // assert on rather than just a type check PHPStan already knows
         // is always true.
-        self::assertSame('0.12.1', $this->client->health->getVersion()->getVersion());
+        $version = $this->client->health->getVersion();
+        // /version needs a session now, so the call may also return Error.
+        self::assertInstanceOf(Version::class, $version);
+        self::assertSame('0.12.1', $version->getVersion());
     }
 
     #[Test]
