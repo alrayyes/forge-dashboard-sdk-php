@@ -140,7 +140,7 @@ class HealthApi
      *
      * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \ForgeDashboard\Generated\Model\Version
+     * @return \ForgeDashboard\Generated\Model\Version|\ForgeDashboard\Generated\Model\Error
      */
     public function getVersion(string $contentType = self::contentTypes['getVersion'][0])
     {
@@ -157,7 +157,7 @@ class HealthApi
      *
      * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \ForgeDashboard\Generated\Model\Version, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \ForgeDashboard\Generated\Model\Version|\ForgeDashboard\Generated\Model\Error, HTTP status code, HTTP response headers (array of strings)
      */
     public function getVersionWithHttpInfo(string $contentType = self::contentTypes['getVersion'][0])
     {
@@ -193,6 +193,12 @@ class HealthApi
                         $request,
                         $response,
                     );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -221,6 +227,14 @@ class HealthApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\ForgeDashboard\Generated\Model\Version',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\Error',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -361,6 +375,10 @@ class HealthApi
             }
         }
 
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
 
         $defaultHeaders = [];
         if ($this->config->getUserAgent()) {
