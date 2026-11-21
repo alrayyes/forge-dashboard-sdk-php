@@ -1,5 +1,17 @@
 # Changelog
 
+## [16.0.54](https://github.com/alrayyes/forge-dashboard-sdk-php/compare/v16.0.53...v16.0.54) (2026-11-21)
+
+
+### Bug Fixes
+
+* bump ergebnis/composer-normalize from 2.56.0 to 2.57.0 ([#548](https://github.com/alrayyes/forge-dashboard-sdk-php/issues/548)) ([9155065](https://github.com/alrayyes/forge-dashboard-sdk-php/commit/9155065c2391a4d0884e08629041b7f4527929b2))
+* bump guzzlehttp/guzzle from 8.3.1 to 8.5.2 ([#547](https://github.com/alrayyes/forge-dashboard-sdk-php/issues/547)) ([c053aa2](https://github.com/alrayyes/forge-dashboard-sdk-php/commit/c053aa207a7bd646ec0ea0da88bf50316cd53e21))
+* bump laravel/pint from 1.32.2 to 1.32.3 ([#549](https://github.com/alrayyes/forge-dashboard-sdk-php/issues/549)) ([60a83d5](https://github.com/alrayyes/forge-dashboard-sdk-php/commit/60a83d55480a1856fc10158f36e8a36ecd0432ce))
+* bump phpstan/phpstan from 2.3.5 to 2.3.6 ([#550](https://github.com/alrayyes/forge-dashboard-sdk-php/issues/550)) ([916ffaf](https://github.com/alrayyes/forge-dashboard-sdk-php/commit/916ffaf32d9dd8cbf71c3f399dc341af5ab1aa46))
+* bump rector/rector from 2.8.4 to 2.8.5 ([#551](https://github.com/alrayyes/forge-dashboard-sdk-php/issues/551)) ([b44b5ef](https://github.com/alrayyes/forge-dashboard-sdk-php/commit/b44b5ef627d61215df1ce8ef8ace633b02a8d06a))
+* regenerate client from forge-dashboard openapi.yaml ([#552](https://github.com/alrayyes/forge-dashboard-sdk-php/issues/552)) ([44a8379](https://github.com/alrayyes/forge-dashboard-sdk-php/commit/44a83799192827768258ac8b11966cfddc3e01b8))
+
 ## [16.0.53](https://github.com/alrayyes/forge-dashboard-sdk-php/compare/v16.0.52...v16.0.53) (2026-11-20)
 
 
