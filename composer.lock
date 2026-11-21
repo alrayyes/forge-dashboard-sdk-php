@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c5cd7164cef838481d97d44fa40694e8",
+    "content-hash": "fb4494f3c3579d94d3b0aeeb8408c7b4",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -1791,16 +1791,16 @@
         },
         {
             "name": "laravel/pint",
-            "version": "v1.32.2",
+            "version": "v1.32.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/pint.git",
-                "reference": "35f43b86c3aa960b3167ad147ff8308fb30766c4"
+                "reference": "1cf8e0320bed4b3c6e51df92039a5636c3887728"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/pint/zipball/35f43b86c3aa960b3167ad147ff8308fb30766c4",
-                "reference": "35f43b86c3aa960b3167ad147ff8308fb30766c4",
+                "url": "https://api.github.com/repos/laravel/pint/zipball/1cf8e0320bed4b3c6e51df92039a5636c3887728",
+                "reference": "1cf8e0320bed4b3c6e51df92039a5636c3887728",
                 "shasum": ""
             },
             "require": {
@@ -1814,7 +1814,7 @@
                 "composer/semver": "^3.6.0",
                 "friendsofphp/php-cs-fixer": "^3.95.30",
                 "illuminate/view": "^13.42.0",
-                "larastan/larastan": "^3.14.0",
+                "larastan/larastan": "^3.15.0",
                 "laravel-zero/framework": "^13.0.0",
                 "laravel/agent-detector": "^2.0.5",
                 "laravel/prompts": "^0.3.27",
@@ -1857,7 +1857,7 @@
                 "issues": "https://github.com/laravel/pint/issues",
                 "source": "https://github.com/laravel/pint"
             },
-            "time": "2026-11-10T16:21:10+00:00"
+            "time": "2026-11-11T16:45:13+00:00"
         },
         {
             "name": "localheinz/diff",
