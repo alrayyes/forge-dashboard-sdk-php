@@ -63,7 +63,8 @@ class MentionedIssue implements ModelInterface, ArrayAccess, \JsonSerializable
         'number' => 'int',
         'url' => 'string',
         'page_url' => 'string',
-        'tracked' => 'bool'
+        'tracked' => 'bool',
+        'title' => 'string'
     ];
 
     /**
@@ -79,7 +80,8 @@ class MentionedIssue implements ModelInterface, ArrayAccess, \JsonSerializable
         'number' => null,
         'url' => 'uri',
         'page_url' => null,
-        'tracked' => null
+        'tracked' => null,
+        'title' => null
     ];
 
     /**
@@ -93,7 +95,8 @@ class MentionedIssue implements ModelInterface, ArrayAccess, \JsonSerializable
         'number' => false,
         'url' => false,
         'page_url' => false,
-        'tracked' => false
+        'tracked' => false,
+        'title' => false
     ];
 
     /**
@@ -187,7 +190,8 @@ class MentionedIssue implements ModelInterface, ArrayAccess, \JsonSerializable
         'number' => 'number',
         'url' => 'url',
         'page_url' => 'pageUrl',
-        'tracked' => 'tracked'
+        'tracked' => 'tracked',
+        'title' => 'title'
     ];
 
     /**
@@ -201,7 +205,8 @@ class MentionedIssue implements ModelInterface, ArrayAccess, \JsonSerializable
         'number' => 'setNumber',
         'url' => 'setUrl',
         'page_url' => 'setPageUrl',
-        'tracked' => 'setTracked'
+        'tracked' => 'setTracked',
+        'title' => 'setTitle'
     ];
 
     /**
@@ -215,7 +220,8 @@ class MentionedIssue implements ModelInterface, ArrayAccess, \JsonSerializable
         'number' => 'getNumber',
         'url' => 'getUrl',
         'page_url' => 'getPageUrl',
-        'tracked' => 'getTracked'
+        'tracked' => 'getTracked',
+        'title' => 'getTitle'
     ];
 
     /**
@@ -281,6 +287,7 @@ class MentionedIssue implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('url', $data ?? [], null);
         $this->setIfExists('page_url', $data ?? [], null);
         $this->setIfExists('tracked', $data ?? [], null);
+        $this->setIfExists('title', $data ?? [], null);
     }
 
     /**
@@ -509,6 +516,33 @@ class MentionedIssue implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable tracked cannot be null');
         }
         $this->container['tracked'] = $tracked;
+
+        return $this;
+    }
+
+    /**
+     * Gets title
+     *
+     * @return string|null
+     */
+    public function getTitle()
+    {
+        return $this->container['title'];
+    }
+
+    /**
+     * Sets title
+     *
+     * @param string|null $title The title of the issue or pull request as the board holds it, so a client can show it on hover. Left out when the dashboard does not hold it, and a client then words the pill without it. Text, never markup.
+     *
+     * @return self
+     */
+    public function setTitle($title)
+    {
+        if (is_null($title)) {
+            throw new \InvalidArgumentException('non-nullable title cannot be null');
+        }
+        $this->container['title'] = $title;
 
         return $this;
     }

@@ -62,7 +62,8 @@ class ClosingIssue implements ModelInterface, ArrayAccess, \JsonSerializable
         'repo' => 'string',
         'number' => 'int',
         'url' => 'string',
-        'page_url' => 'string'
+        'page_url' => 'string',
+        'title' => 'string'
     ];
 
     /**
@@ -77,7 +78,8 @@ class ClosingIssue implements ModelInterface, ArrayAccess, \JsonSerializable
         'repo' => null,
         'number' => null,
         'url' => 'uri',
-        'page_url' => null
+        'page_url' => null,
+        'title' => null
     ];
 
     /**
@@ -90,7 +92,8 @@ class ClosingIssue implements ModelInterface, ArrayAccess, \JsonSerializable
         'repo' => false,
         'number' => false,
         'url' => false,
-        'page_url' => false
+        'page_url' => false,
+        'title' => false
     ];
 
     /**
@@ -183,7 +186,8 @@ class ClosingIssue implements ModelInterface, ArrayAccess, \JsonSerializable
         'repo' => 'repo',
         'number' => 'number',
         'url' => 'url',
-        'page_url' => 'pageUrl'
+        'page_url' => 'pageUrl',
+        'title' => 'title'
     ];
 
     /**
@@ -196,7 +200,8 @@ class ClosingIssue implements ModelInterface, ArrayAccess, \JsonSerializable
         'repo' => 'setRepo',
         'number' => 'setNumber',
         'url' => 'setUrl',
-        'page_url' => 'setPageUrl'
+        'page_url' => 'setPageUrl',
+        'title' => 'setTitle'
     ];
 
     /**
@@ -209,7 +214,8 @@ class ClosingIssue implements ModelInterface, ArrayAccess, \JsonSerializable
         'repo' => 'getRepo',
         'number' => 'getNumber',
         'url' => 'getUrl',
-        'page_url' => 'getPageUrl'
+        'page_url' => 'getPageUrl',
+        'title' => 'getTitle'
     ];
 
     /**
@@ -274,6 +280,7 @@ class ClosingIssue implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('number', $data ?? [], null);
         $this->setIfExists('url', $data ?? [], null);
         $this->setIfExists('page_url', $data ?? [], null);
+        $this->setIfExists('title', $data ?? [], null);
     }
 
     /**
@@ -472,6 +479,33 @@ class ClosingIssue implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable page_url cannot be null');
         }
         $this->container['page_url'] = $page_url;
+
+        return $this;
+    }
+
+    /**
+     * Gets title
+     *
+     * @return string|null
+     */
+    public function getTitle()
+    {
+        return $this->container['title'];
+    }
+
+    /**
+     * Sets title
+     *
+     * @param string|null $title The issue's title as the board holds it, so a client can show it on hover. Left out when the dashboard does not hold the issue (closed, in a repo it does not track), and a client then words the pill without it. Text, never markup.
+     *
+     * @return self
+     */
+    public function setTitle($title)
+    {
+        if (is_null($title)) {
+            throw new \InvalidArgumentException('non-nullable title cannot be null');
+        }
+        $this->container['title'] = $title;
 
         return $this;
     }

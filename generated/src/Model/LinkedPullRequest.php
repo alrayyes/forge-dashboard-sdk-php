@@ -62,6 +62,7 @@ class LinkedPullRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
         'repo' => 'string',
         'number' => 'int',
         'draft' => 'bool',
+        'title' => 'string',
         'page_url' => 'string',
         'ci' => '\ForgeDashboard\Generated\Model\CIStatus',
         'checks' => '\ForgeDashboard\Generated\Model\CheckCounts',
@@ -80,6 +81,7 @@ class LinkedPullRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
         'repo' => null,
         'number' => null,
         'draft' => null,
+        'title' => null,
         'page_url' => null,
         'ci' => null,
         'checks' => null,
@@ -96,6 +98,7 @@ class LinkedPullRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
         'repo' => false,
         'number' => false,
         'draft' => false,
+        'title' => false,
         'page_url' => false,
         'ci' => false,
         'checks' => false,
@@ -192,6 +195,7 @@ class LinkedPullRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
         'repo' => 'repo',
         'number' => 'number',
         'draft' => 'draft',
+        'title' => 'title',
         'page_url' => 'pageUrl',
         'ci' => 'ci',
         'checks' => 'checks',
@@ -208,6 +212,7 @@ class LinkedPullRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
         'repo' => 'setRepo',
         'number' => 'setNumber',
         'draft' => 'setDraft',
+        'title' => 'setTitle',
         'page_url' => 'setPageUrl',
         'ci' => 'setCi',
         'checks' => 'setChecks',
@@ -224,6 +229,7 @@ class LinkedPullRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
         'repo' => 'getRepo',
         'number' => 'getNumber',
         'draft' => 'getDraft',
+        'title' => 'getTitle',
         'page_url' => 'getPageUrl',
         'ci' => 'getCi',
         'checks' => 'getChecks',
@@ -291,6 +297,7 @@ class LinkedPullRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
         $this->setIfExists('repo', $data ?? [], null);
         $this->setIfExists('number', $data ?? [], null);
         $this->setIfExists('draft', $data ?? [], null);
+        $this->setIfExists('title', $data ?? [], null);
         $this->setIfExists('page_url', $data ?? [], null);
         $this->setIfExists('ci', $data ?? [], null);
         $this->setIfExists('checks', $data ?? [], null);
@@ -475,6 +482,33 @@ class LinkedPullRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
             throw new \InvalidArgumentException('non-nullable draft cannot be null');
         }
         $this->container['draft'] = $draft;
+
+        return $this;
+    }
+
+    /**
+     * Gets title
+     *
+     * @return string|null
+     */
+    public function getTitle()
+    {
+        return $this->container['title'];
+    }
+
+    /**
+     * Sets title
+     *
+     * @param string|null $title The pull request's title, so a client can show it on hover. Text, never markup. Left out when empty.
+     *
+     * @return self
+     */
+    public function setTitle($title)
+    {
+        if (is_null($title)) {
+            throw new \InvalidArgumentException('non-nullable title cannot be null');
+        }
+        $this->container['title'] = $title;
 
         return $this;
     }
