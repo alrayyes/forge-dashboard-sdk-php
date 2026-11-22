@@ -157,7 +157,9 @@ Class | Method | HTTP request | Description
 *QueuedActionsApi* | [**listQueuedActions**](docs/Api/QueuedActionsApi.md#listqueuedactions) | **GET** /api/v1/queued-actions | List the signed-in user&#39;s queued actions, waiting and recently finished
 *QueuedActionsApi* | [**queueAction**](docs/Api/QueuedActionsApi.md#queueaction) | **POST** /api/v1/queued-actions | Queue a safe action to run when a rate-limited forge resets
 *SettingsApi* | [**disconnectForgejo**](docs/Api/SettingsApi.md#disconnectforgejo) | **DELETE** /api/v1/connections/forgejo | Unlink the Forgejo account
+*SettingsApi* | [**disconnectGitHub**](docs/Api/SettingsApi.md#disconnectgithub) | **DELETE** /api/v1/connections/github | Unlink the GitHub account
 *SettingsApi* | [**finishForgejoConnection**](docs/Api/SettingsApi.md#finishforgejoconnection) | **GET** /api/v1/connections/forgejo/callback | Forgejo&#39;s redirect back after consent
+*SettingsApi* | [**finishGitHubConnection**](docs/Api/SettingsApi.md#finishgithubconnection) | **GET** /api/v1/connections/github/callback | GitHub&#39;s redirect back after consent
 *SettingsApi* | [**getFilterState**](docs/Api/SettingsApi.md#getfilterstate) | **GET** /api/v1/settings/filter-state | The signed-in user&#39;s own saved dashboard/Insights filter state
 *SettingsApi* | [**getSettings**](docs/Api/SettingsApi.md#getsettings) | **GET** /api/v1/settings | The signed-in user&#39;s own forge configuration
 *SettingsApi* | [**getSettingsSummary**](docs/Api/SettingsApi.md#getsettingssummary) | **GET** /api/v1/settings/summary | The signed-in user&#39;s settings, read without side effects
@@ -168,6 +170,7 @@ Class | Method | HTTP request | Description
 *SettingsApi* | [**setTheme**](docs/Api/SettingsApi.md#settheme) | **PUT** /api/v1/settings/theme | Save the signed-in user&#39;s own theme preference
 *SettingsApi* | [**setTimezone**](docs/Api/SettingsApi.md#settimezone) | **PUT** /api/v1/settings/timezone | Save the signed-in user&#39;s own time zone
 *SettingsApi* | [**startForgejoConnection**](docs/Api/SettingsApi.md#startforgejoconnection) | **POST** /api/v1/connections/forgejo | Start linking a Forgejo account with OAuth
+*SettingsApi* | [**startGitHubConnection**](docs/Api/SettingsApi.md#startgithubconnection) | **POST** /api/v1/connections/github | Start linking a GitHub account through the GitHub App
 *TokensApi* | [**createAPIToken**](docs/Api/TokensApi.md#createapitoken) | **POST** /api/v1/tokens | Generate a new personal API token
 *TokensApi* | [**deleteAPIToken**](docs/Api/TokensApi.md#deleteapitoken) | **DELETE** /api/v1/tokens/{id} | Revoke a personal API token
 *TokensApi* | [**listAPITokens**](docs/Api/TokensApi.md#listapitokens) | **GET** /api/v1/tokens | List the signed-in user&#39;s own personal API tokens
