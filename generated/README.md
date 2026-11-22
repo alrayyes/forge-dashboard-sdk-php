@@ -160,6 +160,7 @@ Class | Method | HTTP request | Description
 *SettingsApi* | [**disconnectGitHub**](docs/Api/SettingsApi.md#disconnectgithub) | **DELETE** /api/v1/connections/github | Unlink the GitHub account
 *SettingsApi* | [**finishForgejoConnection**](docs/Api/SettingsApi.md#finishforgejoconnection) | **GET** /api/v1/connections/forgejo/callback | Forgejo&#39;s redirect back after consent
 *SettingsApi* | [**finishGitHubConnection**](docs/Api/SettingsApi.md#finishgithubconnection) | **GET** /api/v1/connections/github/callback | GitHub&#39;s redirect back after consent
+*SettingsApi* | [**finishGitHubInstallation**](docs/Api/SettingsApi.md#finishgithubinstallation) | **GET** /api/v1/connections/github/installed | GitHub&#39;s redirect back after the App is installed or changed
 *SettingsApi* | [**getFilterState**](docs/Api/SettingsApi.md#getfilterstate) | **GET** /api/v1/settings/filter-state | The signed-in user&#39;s own saved dashboard/Insights filter state
 *SettingsApi* | [**getSettings**](docs/Api/SettingsApi.md#getsettings) | **GET** /api/v1/settings | The signed-in user&#39;s own forge configuration
 *SettingsApi* | [**getSettingsSummary**](docs/Api/SettingsApi.md#getsettingssummary) | **GET** /api/v1/settings/summary | The signed-in user&#39;s settings, read without side effects
