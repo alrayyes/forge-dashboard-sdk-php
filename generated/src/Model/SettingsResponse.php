@@ -67,6 +67,8 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'forgejo_token_set' => 'bool',
         'forgejo_o_auth_configured' => 'bool',
         'forgejo_o_auth_connected' => 'bool',
+        'github_o_auth_configured' => 'bool',
+        'github_o_auth_connected' => 'bool',
         'webhook_token' => 'string',
         'webhook_secret' => 'string',
         'renovate_rebase_label' => 'string',
@@ -96,6 +98,8 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'forgejo_token_set' => null,
         'forgejo_o_auth_configured' => null,
         'forgejo_o_auth_connected' => null,
+        'github_o_auth_configured' => null,
+        'github_o_auth_connected' => null,
         'webhook_token' => null,
         'webhook_secret' => null,
         'renovate_rebase_label' => null,
@@ -123,6 +127,8 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'forgejo_token_set' => false,
         'forgejo_o_auth_configured' => false,
         'forgejo_o_auth_connected' => false,
+        'github_o_auth_configured' => false,
+        'github_o_auth_connected' => false,
         'webhook_token' => false,
         'webhook_secret' => false,
         'renovate_rebase_label' => false,
@@ -230,6 +236,8 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'forgejo_token_set' => 'forgejoTokenSet',
         'forgejo_o_auth_configured' => 'forgejoOAuthConfigured',
         'forgejo_o_auth_connected' => 'forgejoOAuthConnected',
+        'github_o_auth_configured' => 'githubOAuthConfigured',
+        'github_o_auth_connected' => 'githubOAuthConnected',
         'webhook_token' => 'webhookToken',
         'webhook_secret' => 'webhookSecret',
         'renovate_rebase_label' => 'renovateRebaseLabel',
@@ -257,6 +265,8 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'forgejo_token_set' => 'setForgejoTokenSet',
         'forgejo_o_auth_configured' => 'setForgejoOAuthConfigured',
         'forgejo_o_auth_connected' => 'setForgejoOAuthConnected',
+        'github_o_auth_configured' => 'setGithubOAuthConfigured',
+        'github_o_auth_connected' => 'setGithubOAuthConnected',
         'webhook_token' => 'setWebhookToken',
         'webhook_secret' => 'setWebhookSecret',
         'renovate_rebase_label' => 'setRenovateRebaseLabel',
@@ -284,6 +294,8 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'forgejo_token_set' => 'getForgejoTokenSet',
         'forgejo_o_auth_configured' => 'getForgejoOAuthConfigured',
         'forgejo_o_auth_connected' => 'getForgejoOAuthConnected',
+        'github_o_auth_configured' => 'getGithubOAuthConfigured',
+        'github_o_auth_connected' => 'getGithubOAuthConnected',
         'webhook_token' => 'getWebhookToken',
         'webhook_secret' => 'getWebhookSecret',
         'renovate_rebase_label' => 'getRenovateRebaseLabel',
@@ -379,6 +391,8 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('forgejo_token_set', $data ?? [], null);
         $this->setIfExists('forgejo_o_auth_configured', $data ?? [], null);
         $this->setIfExists('forgejo_o_auth_connected', $data ?? [], null);
+        $this->setIfExists('github_o_auth_configured', $data ?? [], null);
+        $this->setIfExists('github_o_auth_connected', $data ?? [], null);
         $this->setIfExists('webhook_token', $data ?? [], null);
         $this->setIfExists('webhook_secret', $data ?? [], null);
         $this->setIfExists('renovate_rebase_label', $data ?? [], null);
@@ -444,6 +458,12 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if ($this->container['forgejo_o_auth_connected'] === null) {
             $invalidProperties[] = "'forgejo_o_auth_connected' can't be null";
+        }
+        if ($this->container['github_o_auth_configured'] === null) {
+            $invalidProperties[] = "'github_o_auth_configured' can't be null";
+        }
+        if ($this->container['github_o_auth_connected'] === null) {
+            $invalidProperties[] = "'github_o_auth_connected' can't be null";
         }
         if ($this->container['webhook_token'] === null) {
             $invalidProperties[] = "'webhook_token' can't be null";
@@ -733,6 +753,60 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable forgejo_o_auth_connected cannot be null');
         }
         $this->container['forgejo_o_auth_connected'] = $forgejo_o_auth_connected;
+
+        return $this;
+    }
+
+    /**
+     * Gets github_o_auth_configured
+     *
+     * @return bool
+     */
+    public function getGithubOAuthConfigured()
+    {
+        return $this->container['github_o_auth_configured'];
+    }
+
+    /**
+     * Sets github_o_auth_configured
+     *
+     * @param bool $github_o_auth_configured Whether this server has the GitHub App's OAuth client (`GITHUB_APP_CLIENT_ID` and `GITHUB_APP_CLIENT_SECRET`), so `POST /api/v1/connections/github` can work at all.
+     *
+     * @return self
+     */
+    public function setGithubOAuthConfigured($github_o_auth_configured)
+    {
+        if (is_null($github_o_auth_configured)) {
+            throw new \InvalidArgumentException('non-nullable github_o_auth_configured cannot be null');
+        }
+        $this->container['github_o_auth_configured'] = $github_o_auth_configured;
+
+        return $this;
+    }
+
+    /**
+     * Gets github_o_auth_connected
+     *
+     * @return bool
+     */
+    public function getGithubOAuthConnected()
+    {
+        return $this->container['github_o_auth_connected'];
+    }
+
+    /**
+     * Sets github_o_auth_connected
+     *
+     * @param bool $github_o_auth_connected Whether a GitHub account is linked through the GitHub App's user sign-in. The access and refresh tokens are never returned.
+     *
+     * @return self
+     */
+    public function setGithubOAuthConnected($github_o_auth_connected)
+    {
+        if (is_null($github_o_auth_connected)) {
+            throw new \InvalidArgumentException('non-nullable github_o_auth_connected cannot be null');
+        }
+        $this->container['github_o_auth_connected'] = $github_o_auth_connected;
 
         return $this;
     }
