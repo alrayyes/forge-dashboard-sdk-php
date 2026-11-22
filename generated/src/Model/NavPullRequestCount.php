@@ -35,7 +35,7 @@ use \ForgeDashboard\Generated\ObjectSerializer;
  * NavPullRequestCount Class Doc Comment
  *
  * @category Class
- * @description A pull request page&#39;s numbers. &#x60;running&#x60;, &#x60;failed&#x60;, &#x60;passed&#x60; and &#x60;cancelled&#x60; count the pull requests whose CI is pending, failing, succeeded and cancelled, and &#x60;noChecks&#x60; those with no checks at all. One held for workflow approval is in &#x60;total&#x60; only, so the numbers need not add up. All six are always present.
+ * @description A pull request page&#39;s numbers. &#x60;running&#x60;, &#x60;failed&#x60;, &#x60;passed&#x60; and &#x60;cancelled&#x60; count the pull requests whose CI is pending, failing, succeeded and cancelled, and &#x60;noChecks&#x60; those with no checks at all. One held for workflow approval is in &#x60;total&#x60; only, so the numbers need not add up. &#x60;behind&#x60; is not a part of &#x60;total&#x60; at all: it is a note on &#x60;passed&#x60;. All seven are always present.
  * @package  ForgeDashboard\Generated
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -63,7 +63,8 @@ class NavPullRequestCount implements ModelInterface, ArrayAccess, \JsonSerializa
         'failed' => 'int',
         'passed' => 'int',
         'cancelled' => 'int',
-        'no_checks' => 'int'
+        'no_checks' => 'int',
+        'behind' => 'int'
     ];
 
     /**
@@ -79,7 +80,8 @@ class NavPullRequestCount implements ModelInterface, ArrayAccess, \JsonSerializa
         'failed' => null,
         'passed' => null,
         'cancelled' => null,
-        'no_checks' => null
+        'no_checks' => null,
+        'behind' => null
     ];
 
     /**
@@ -93,7 +95,8 @@ class NavPullRequestCount implements ModelInterface, ArrayAccess, \JsonSerializa
         'failed' => false,
         'passed' => false,
         'cancelled' => false,
-        'no_checks' => false
+        'no_checks' => false,
+        'behind' => false
     ];
 
     /**
@@ -187,7 +190,8 @@ class NavPullRequestCount implements ModelInterface, ArrayAccess, \JsonSerializa
         'failed' => 'failed',
         'passed' => 'passed',
         'cancelled' => 'cancelled',
-        'no_checks' => 'noChecks'
+        'no_checks' => 'noChecks',
+        'behind' => 'behind'
     ];
 
     /**
@@ -201,7 +205,8 @@ class NavPullRequestCount implements ModelInterface, ArrayAccess, \JsonSerializa
         'failed' => 'setFailed',
         'passed' => 'setPassed',
         'cancelled' => 'setCancelled',
-        'no_checks' => 'setNoChecks'
+        'no_checks' => 'setNoChecks',
+        'behind' => 'setBehind'
     ];
 
     /**
@@ -215,7 +220,8 @@ class NavPullRequestCount implements ModelInterface, ArrayAccess, \JsonSerializa
         'failed' => 'getFailed',
         'passed' => 'getPassed',
         'cancelled' => 'getCancelled',
-        'no_checks' => 'getNoChecks'
+        'no_checks' => 'getNoChecks',
+        'behind' => 'getBehind'
     ];
 
     /**
@@ -281,6 +287,7 @@ class NavPullRequestCount implements ModelInterface, ArrayAccess, \JsonSerializa
         $this->setIfExists('passed', $data ?? [], null);
         $this->setIfExists('cancelled', $data ?? [], null);
         $this->setIfExists('no_checks', $data ?? [], null);
+        $this->setIfExists('behind', $data ?? [], null);
     }
 
     /**
@@ -350,6 +357,13 @@ class NavPullRequestCount implements ModelInterface, ArrayAccess, \JsonSerializa
         }
         if (($this->container['no_checks'] < 0)) {
             $invalidProperties[] = "invalid value for 'no_checks', must be bigger than or equal to 0.";
+        }
+
+        if ($this->container['behind'] === null) {
+            $invalidProperties[] = "'behind' can't be null";
+        }
+        if (($this->container['behind'] < 0)) {
+            $invalidProperties[] = "invalid value for 'behind', must be bigger than or equal to 0.";
         }
 
         return $invalidProperties;
@@ -549,6 +563,37 @@ class NavPullRequestCount implements ModelInterface, ArrayAccess, \JsonSerializa
         }
 
         $this->container['no_checks'] = $no_checks;
+
+        return $this;
+    }
+
+    /**
+     * Gets behind
+     *
+     * @return int
+     */
+    public function getBehind()
+    {
+        return $this->container['behind'];
+    }
+
+    /**
+     * Sets behind
+     *
+     * @param int $behind How many of the `passed` ones are behind their base branch, with something left to merge. Counted on the Bots page only, so `0` on the others. Beside `passed`, not part of the sum.
+     *
+     * @return self
+     */
+    public function setBehind($behind)
+    {
+        if (is_null($behind)) {
+            throw new \InvalidArgumentException('non-nullable behind cannot be null');
+        }
+        if (($behind < 0)) {
+            throw new \InvalidArgumentException('invalid value for $behind when calling NavPullRequestCount., must be bigger than or equal to 0.');
+        }
+
+        $this->container['behind'] = $behind;
 
         return $this;
     }
