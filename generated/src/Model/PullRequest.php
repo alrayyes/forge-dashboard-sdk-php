@@ -92,6 +92,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'checks_incomplete' => 'bool',
         'review_comments' => 'int',
         'conversation_comments' => 'int',
+        'last_comment_at' => '\DateTime',
         'closes_issues' => '\ForgeDashboard\Generated\Model\ClosingIssue[]',
         'refs_issues' => '\ForgeDashboard\Generated\Model\MentionedIssue[]',
         'mentions_issues' => '\ForgeDashboard\Generated\Model\MentionedIssue[]',
@@ -157,6 +158,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'checks_incomplete' => null,
         'review_comments' => null,
         'conversation_comments' => null,
+        'last_comment_at' => 'date-time',
         'closes_issues' => null,
         'refs_issues' => null,
         'mentions_issues' => null,
@@ -220,6 +222,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'checks_incomplete' => false,
         'review_comments' => false,
         'conversation_comments' => false,
+        'last_comment_at' => false,
         'closes_issues' => false,
         'refs_issues' => false,
         'mentions_issues' => false,
@@ -363,6 +366,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'checks_incomplete' => 'checksIncomplete',
         'review_comments' => 'reviewComments',
         'conversation_comments' => 'conversationComments',
+        'last_comment_at' => 'lastCommentAt',
         'closes_issues' => 'closesIssues',
         'refs_issues' => 'refsIssues',
         'mentions_issues' => 'mentionsIssues',
@@ -426,6 +430,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'checks_incomplete' => 'setChecksIncomplete',
         'review_comments' => 'setReviewComments',
         'conversation_comments' => 'setConversationComments',
+        'last_comment_at' => 'setLastCommentAt',
         'closes_issues' => 'setClosesIssues',
         'refs_issues' => 'setRefsIssues',
         'mentions_issues' => 'setMentionsIssues',
@@ -489,6 +494,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'checks_incomplete' => 'getChecksIncomplete',
         'review_comments' => 'getReviewComments',
         'conversation_comments' => 'getConversationComments',
+        'last_comment_at' => 'getLastCommentAt',
         'closes_issues' => 'getClosesIssues',
         'refs_issues' => 'getRefsIssues',
         'mentions_issues' => 'getMentionsIssues',
@@ -620,6 +626,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('checks_incomplete', $data ?? [], null);
         $this->setIfExists('review_comments', $data ?? [], null);
         $this->setIfExists('conversation_comments', $data ?? [], null);
+        $this->setIfExists('last_comment_at', $data ?? [], null);
         $this->setIfExists('closes_issues', $data ?? [], null);
         $this->setIfExists('refs_issues', $data ?? [], null);
         $this->setIfExists('mentions_issues', $data ?? [], null);
@@ -1837,6 +1844,33 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         }
 
         $this->container['conversation_comments'] = $conversation_comments;
+
+        return $this;
+    }
+
+    /**
+     * Gets last_comment_at
+     *
+     * @return \DateTime|null
+     */
+    public function getLastCommentAt()
+    {
+        return $this->container['last_comment_at'];
+    }
+
+    /**
+     * Sets last_comment_at
+     *
+     * @param \DateTime|null $last_comment_at When the newest comment on the pull request was written (RFC 3339), its creation time: an edit is not new activity. It covers conversation comments and review comments alike. Absent when there are no comments or the forge can't say. A client decides how to word it; the dashboard shows it, as \"last comment 2 hours ago\", in the comment pill's tip. On GitHub it comes from the pull request query, the newest conversation comment and the newest comment of each of the first 30 review threads, so it costs no request. Forgejo's pull request payload carries only a count, and a timestamp would take a request per pull request, so Forgejo leaves the field out. GitHub's unauthenticated fallback has no comment data and leaves it out too. GitHub returns the oldest 30 review threads, so on a pull request with more than 30 a newer comment in a later thread is missed and the time can read older than the truth.
+     *
+     * @return self
+     */
+    public function setLastCommentAt($last_comment_at)
+    {
+        if (is_null($last_comment_at)) {
+            throw new \InvalidArgumentException('non-nullable last_comment_at cannot be null');
+        }
+        $this->container['last_comment_at'] = $last_comment_at;
 
         return $this;
     }
