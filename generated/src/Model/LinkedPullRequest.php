@@ -66,7 +66,8 @@ class LinkedPullRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
         'page_url' => 'string',
         'ci' => '\ForgeDashboard\Generated\Model\CIStatus',
         'checks' => '\ForgeDashboard\Generated\Model\CheckCounts',
-        'awaiting_workflow_approval' => 'bool'
+        'awaiting_workflow_approval' => 'bool',
+        'checks_incomplete' => 'bool'
     ];
 
     /**
@@ -85,7 +86,8 @@ class LinkedPullRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
         'page_url' => null,
         'ci' => null,
         'checks' => null,
-        'awaiting_workflow_approval' => null
+        'awaiting_workflow_approval' => null,
+        'checks_incomplete' => null
     ];
 
     /**
@@ -102,7 +104,8 @@ class LinkedPullRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
         'page_url' => false,
         'ci' => false,
         'checks' => false,
-        'awaiting_workflow_approval' => false
+        'awaiting_workflow_approval' => false,
+        'checks_incomplete' => false
     ];
 
     /**
@@ -199,7 +202,8 @@ class LinkedPullRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
         'page_url' => 'pageUrl',
         'ci' => 'ci',
         'checks' => 'checks',
-        'awaiting_workflow_approval' => 'awaitingWorkflowApproval'
+        'awaiting_workflow_approval' => 'awaitingWorkflowApproval',
+        'checks_incomplete' => 'checksIncomplete'
     ];
 
     /**
@@ -216,7 +220,8 @@ class LinkedPullRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
         'page_url' => 'setPageUrl',
         'ci' => 'setCi',
         'checks' => 'setChecks',
-        'awaiting_workflow_approval' => 'setAwaitingWorkflowApproval'
+        'awaiting_workflow_approval' => 'setAwaitingWorkflowApproval',
+        'checks_incomplete' => 'setChecksIncomplete'
     ];
 
     /**
@@ -233,7 +238,8 @@ class LinkedPullRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
         'page_url' => 'getPageUrl',
         'ci' => 'getCi',
         'checks' => 'getChecks',
-        'awaiting_workflow_approval' => 'getAwaitingWorkflowApproval'
+        'awaiting_workflow_approval' => 'getAwaitingWorkflowApproval',
+        'checks_incomplete' => 'getChecksIncomplete'
     ];
 
     /**
@@ -302,6 +308,7 @@ class LinkedPullRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
         $this->setIfExists('ci', $data ?? [], null);
         $this->setIfExists('checks', $data ?? [], null);
         $this->setIfExists('awaiting_workflow_approval', $data ?? [], null);
+        $this->setIfExists('checks_incomplete', $data ?? [], null);
     }
 
     /**
@@ -358,6 +365,9 @@ class LinkedPullRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
         }
         if ($this->container['awaiting_workflow_approval'] === null) {
             $invalidProperties[] = "'awaiting_workflow_approval' can't be null";
+        }
+        if ($this->container['checks_incomplete'] === null) {
+            $invalidProperties[] = "'checks_incomplete' can't be null";
         }
         return $invalidProperties;
     }
@@ -617,6 +627,33 @@ class LinkedPullRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
             throw new \InvalidArgumentException('non-nullable awaiting_workflow_approval cannot be null');
         }
         $this->container['awaiting_workflow_approval'] = $awaiting_workflow_approval;
+
+        return $this;
+    }
+
+    /**
+     * Gets checks_incomplete
+     *
+     * @return bool
+     */
+    public function getChecksIncomplete()
+    {
+        return $this->container['checks_incomplete'];
+    }
+
+    /**
+     * Sets checks_incomplete
+     *
+     * @param bool $checks_incomplete The same flag as on the pull request itself: true while the forge has not yet listed every check of the head commit, so `checks` counts some of them. A fact only; the client decides how to say it. Always present, and false when the list is complete or the forge can't tell.
+     *
+     * @return self
+     */
+    public function setChecksIncomplete($checks_incomplete)
+    {
+        if (is_null($checks_incomplete)) {
+            throw new \InvalidArgumentException('non-nullable checks_incomplete cannot be null');
+        }
+        $this->container['checks_incomplete'] = $checks_incomplete;
 
         return $this;
     }
