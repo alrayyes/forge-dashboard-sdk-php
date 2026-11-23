@@ -74,6 +74,7 @@ class StreamDashboard200Response implements ModelInterface, ArrayAccess, \JsonSe
         'pull_requests' => '\ForgeDashboard\Generated\Model\PullRequest[]',
         'issues' => '\ForgeDashboard\Generated\Model\Issue[]',
         'repos' => '\ForgeDashboard\Generated\Model\RepoStatus[]',
+        'webhook_origin_problem' => 'string',
         'kind' => 'string',
         'forge' => 'string',
         'full_name' => 'string',
@@ -116,6 +117,7 @@ class StreamDashboard200Response implements ModelInterface, ArrayAccess, \JsonSe
         'pull_requests' => null,
         'issues' => null,
         'repos' => null,
+        'webhook_origin_problem' => null,
         'kind' => null,
         'forge' => null,
         'full_name' => null,
@@ -156,6 +158,7 @@ class StreamDashboard200Response implements ModelInterface, ArrayAccess, \JsonSe
         'pull_requests' => false,
         'issues' => false,
         'repos' => false,
+        'webhook_origin_problem' => false,
         'kind' => false,
         'forge' => false,
         'full_name' => false,
@@ -276,6 +279,7 @@ class StreamDashboard200Response implements ModelInterface, ArrayAccess, \JsonSe
         'pull_requests' => 'pullRequests',
         'issues' => 'issues',
         'repos' => 'repos',
+        'webhook_origin_problem' => 'webhookOriginProblem',
         'kind' => 'kind',
         'forge' => 'forge',
         'full_name' => 'fullName',
@@ -316,6 +320,7 @@ class StreamDashboard200Response implements ModelInterface, ArrayAccess, \JsonSe
         'pull_requests' => 'setPullRequests',
         'issues' => 'setIssues',
         'repos' => 'setRepos',
+        'webhook_origin_problem' => 'setWebhookOriginProblem',
         'kind' => 'setKind',
         'forge' => 'setForge',
         'full_name' => 'setFullName',
@@ -356,6 +361,7 @@ class StreamDashboard200Response implements ModelInterface, ArrayAccess, \JsonSe
         'pull_requests' => 'getPullRequests',
         'issues' => 'getIssues',
         'repos' => 'getRepos',
+        'webhook_origin_problem' => 'getWebhookOriginProblem',
         'kind' => 'getKind',
         'forge' => 'getForge',
         'full_name' => 'getFullName',
@@ -462,6 +468,7 @@ class StreamDashboard200Response implements ModelInterface, ArrayAccess, \JsonSe
         $this->setIfExists('pull_requests', $data ?? [], null);
         $this->setIfExists('issues', $data ?? [], null);
         $this->setIfExists('repos', $data ?? [], null);
+        $this->setIfExists('webhook_origin_problem', $data ?? [], null);
         $this->setIfExists('kind', $data ?? [], null);
         $this->setIfExists('forge', $data ?? [], null);
         $this->setIfExists('full_name', $data ?? [], null);
@@ -1087,6 +1094,33 @@ class StreamDashboard200Response implements ModelInterface, ArrayAccess, \JsonSe
             throw new \InvalidArgumentException('non-nullable repos cannot be null');
         }
         $this->container['repos'] = $repos;
+
+        return $this;
+    }
+
+    /**
+     * Gets webhook_origin_problem
+     *
+     * @return string|null
+     */
+    public function getWebhookOriginProblem()
+    {
+        return $this->container['webhook_origin_problem'];
+    }
+
+    /**
+     * Sets webhook_origin_problem
+     *
+     * @param string|null $webhook_origin_problem Why the automatic webhook pass creates no hook on any repo: the dashboard's public origin (RP_ORIGIN) is not a full URL, is plain HTTP, or points at localhost or a private address a forge can't reach. One sentence, the same for every repo, so a client shows it once and not on each row. Present only while at least one repo has no hook and the credential could create one; absent when the origin is fine or there is nothing to create.
+     *
+     * @return self
+     */
+    public function setWebhookOriginProblem($webhook_origin_problem)
+    {
+        if (is_null($webhook_origin_problem)) {
+            throw new \InvalidArgumentException('non-nullable webhook_origin_problem cannot be null');
+        }
+        $this->container['webhook_origin_problem'] = $webhook_origin_problem;
 
         return $this;
     }

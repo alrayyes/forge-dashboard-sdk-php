@@ -73,7 +73,8 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'forges' => '\ForgeDashboard\Generated\Model\ForgeHealth[]',
         'pull_requests' => '\ForgeDashboard\Generated\Model\PullRequest[]',
         'issues' => '\ForgeDashboard\Generated\Model\Issue[]',
-        'repos' => '\ForgeDashboard\Generated\Model\RepoStatus[]'
+        'repos' => '\ForgeDashboard\Generated\Model\RepoStatus[]',
+        'webhook_origin_problem' => 'string'
     ];
 
     /**
@@ -100,7 +101,8 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'forges' => null,
         'pull_requests' => null,
         'issues' => null,
-        'repos' => null
+        'repos' => null,
+        'webhook_origin_problem' => null
     ];
 
     /**
@@ -125,7 +127,8 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'forges' => false,
         'pull_requests' => false,
         'issues' => false,
-        'repos' => false
+        'repos' => false,
+        'webhook_origin_problem' => false
     ];
 
     /**
@@ -230,7 +233,8 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'forges' => 'forges',
         'pull_requests' => 'pullRequests',
         'issues' => 'issues',
-        'repos' => 'repos'
+        'repos' => 'repos',
+        'webhook_origin_problem' => 'webhookOriginProblem'
     ];
 
     /**
@@ -255,7 +259,8 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'forges' => 'setForges',
         'pull_requests' => 'setPullRequests',
         'issues' => 'setIssues',
-        'repos' => 'setRepos'
+        'repos' => 'setRepos',
+        'webhook_origin_problem' => 'setWebhookOriginProblem'
     ];
 
     /**
@@ -280,7 +285,8 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         'forges' => 'getForges',
         'pull_requests' => 'getPullRequests',
         'issues' => 'getIssues',
-        'repos' => 'getRepos'
+        'repos' => 'getRepos',
+        'webhook_origin_problem' => 'getWebhookOriginProblem'
     ];
 
     /**
@@ -357,6 +363,7 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('pull_requests', $data ?? [], null);
         $this->setIfExists('issues', $data ?? [], null);
         $this->setIfExists('repos', $data ?? [], null);
+        $this->setIfExists('webhook_origin_problem', $data ?? [], null);
     }
 
     /**
@@ -933,6 +940,33 @@ class Dashboard implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable repos cannot be null');
         }
         $this->container['repos'] = $repos;
+
+        return $this;
+    }
+
+    /**
+     * Gets webhook_origin_problem
+     *
+     * @return string|null
+     */
+    public function getWebhookOriginProblem()
+    {
+        return $this->container['webhook_origin_problem'];
+    }
+
+    /**
+     * Sets webhook_origin_problem
+     *
+     * @param string|null $webhook_origin_problem Why the automatic webhook pass creates no hook on any repo: the dashboard's public origin (RP_ORIGIN) is not a full URL, is plain HTTP, or points at localhost or a private address a forge can't reach. One sentence, the same for every repo, so a client shows it once and not on each row. Present only while at least one repo has no hook and the credential could create one; absent when the origin is fine or there is nothing to create.
+     *
+     * @return self
+     */
+    public function setWebhookOriginProblem($webhook_origin_problem)
+    {
+        if (is_null($webhook_origin_problem)) {
+            throw new \InvalidArgumentException('non-nullable webhook_origin_problem cannot be null');
+        }
+        $this->container['webhook_origin_problem'] = $webhook_origin_problem;
 
         return $this;
     }
