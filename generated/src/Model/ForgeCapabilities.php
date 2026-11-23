@@ -71,6 +71,7 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
         'rate_limit_model' => 'string',
         'rate_limit_docs_url' => 'string',
         'issue_ref_syntax' => 'string',
+        'pull_request_path_segment' => 'string',
         'label' => 'string',
         'image_hosts' => 'string[]',
         'avatar_hosts' => 'string[]',
@@ -98,6 +99,7 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
         'rate_limit_model' => null,
         'rate_limit_docs_url' => null,
         'issue_ref_syntax' => null,
+        'pull_request_path_segment' => null,
         'label' => null,
         'image_hosts' => null,
         'avatar_hosts' => null,
@@ -123,6 +125,7 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
         'rate_limit_model' => false,
         'rate_limit_docs_url' => false,
         'issue_ref_syntax' => false,
+        'pull_request_path_segment' => false,
         'label' => false,
         'image_hosts' => false,
         'avatar_hosts' => false,
@@ -228,6 +231,7 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
         'rate_limit_model' => 'rateLimitModel',
         'rate_limit_docs_url' => 'rateLimitDocsUrl',
         'issue_ref_syntax' => 'issueRefSyntax',
+        'pull_request_path_segment' => 'pullRequestPathSegment',
         'label' => 'label',
         'image_hosts' => 'imageHosts',
         'avatar_hosts' => 'avatarHosts',
@@ -253,6 +257,7 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
         'rate_limit_model' => 'setRateLimitModel',
         'rate_limit_docs_url' => 'setRateLimitDocsUrl',
         'issue_ref_syntax' => 'setIssueRefSyntax',
+        'pull_request_path_segment' => 'setPullRequestPathSegment',
         'label' => 'setLabel',
         'image_hosts' => 'setImageHosts',
         'avatar_hosts' => 'setAvatarHosts',
@@ -278,6 +283,7 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
         'rate_limit_model' => 'getRateLimitModel',
         'rate_limit_docs_url' => 'getRateLimitDocsUrl',
         'issue_ref_syntax' => 'getIssueRefSyntax',
+        'pull_request_path_segment' => 'getPullRequestPathSegment',
         'label' => 'getLabel',
         'image_hosts' => 'getImageHosts',
         'avatar_hosts' => 'getAvatarHosts',
@@ -354,6 +360,7 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
         $this->setIfExists('rate_limit_model', $data ?? [], null);
         $this->setIfExists('rate_limit_docs_url', $data ?? [], null);
         $this->setIfExists('issue_ref_syntax', $data ?? [], null);
+        $this->setIfExists('pull_request_path_segment', $data ?? [], null);
         $this->setIfExists('label', $data ?? [], null);
         $this->setIfExists('image_hosts', $data ?? [], null);
         $this->setIfExists('avatar_hosts', $data ?? [], null);
@@ -425,6 +432,9 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
         }
         if ($this->container['issue_ref_syntax'] === null) {
             $invalidProperties[] = "'issue_ref_syntax' can't be null";
+        }
+        if ($this->container['pull_request_path_segment'] === null) {
+            $invalidProperties[] = "'pull_request_path_segment' can't be null";
         }
         if ($this->container['label'] === null) {
             $invalidProperties[] = "'label' can't be null";
@@ -800,6 +810,33 @@ class ForgeCapabilities implements ModelInterface, ArrayAccess, \JsonSerializabl
             throw new \InvalidArgumentException('non-nullable issue_ref_syntax cannot be null');
         }
         $this->container['issue_ref_syntax'] = $issue_ref_syntax;
+
+        return $this;
+    }
+
+    /**
+     * Gets pull_request_path_segment
+     *
+     * @return string
+     */
+    public function getPullRequestPathSegment()
+    {
+        return $this->container['pull_request_path_segment'];
+    }
+
+    /**
+     * Sets pull_request_path_segment
+     *
+     * @param string $pull_request_path_segment The path segment the forge's web address puts between a repository and a pull request's number, such as `pull` on GitHub and `pulls` on Forgejo. A client swaps it for an issue's `issues` segment to reach the pull request behind a reference.
+     *
+     * @return self
+     */
+    public function setPullRequestPathSegment($pull_request_path_segment)
+    {
+        if (is_null($pull_request_path_segment)) {
+            throw new \InvalidArgumentException('non-nullable pull_request_path_segment cannot be null');
+        }
+        $this->container['pull_request_path_segment'] = $pull_request_path_segment;
 
         return $this;
     }
