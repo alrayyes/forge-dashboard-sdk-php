@@ -69,6 +69,9 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         'can_manage_webhooks' => 'bool',
         'webhook_locked_by_connection' => 'bool',
         'webhook_needs_token' => 'bool',
+        'webhook_reason' => 'string',
+        'webhook_reason_detail' => 'string',
+        'webhook_next_attempt_at' => '\DateTime',
         'failing_since' => '\DateTime',
         'failing_for_good' => 'bool',
         'rebase_bots' => 'bool',
@@ -94,6 +97,9 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         'can_manage_webhooks' => null,
         'webhook_locked_by_connection' => null,
         'webhook_needs_token' => null,
+        'webhook_reason' => null,
+        'webhook_reason_detail' => null,
+        'webhook_next_attempt_at' => 'date-time',
         'failing_since' => 'date-time',
         'failing_for_good' => null,
         'rebase_bots' => null,
@@ -117,6 +123,9 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         'can_manage_webhooks' => false,
         'webhook_locked_by_connection' => false,
         'webhook_needs_token' => false,
+        'webhook_reason' => false,
+        'webhook_reason_detail' => false,
+        'webhook_next_attempt_at' => false,
         'failing_since' => false,
         'failing_for_good' => false,
         'rebase_bots' => false,
@@ -220,6 +229,9 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         'can_manage_webhooks' => 'canManageWebhooks',
         'webhook_locked_by_connection' => 'webhookLockedByConnection',
         'webhook_needs_token' => 'webhookNeedsToken',
+        'webhook_reason' => 'webhookReason',
+        'webhook_reason_detail' => 'webhookReasonDetail',
+        'webhook_next_attempt_at' => 'webhookNextAttemptAt',
         'failing_since' => 'failingSince',
         'failing_for_good' => 'failingForGood',
         'rebase_bots' => 'rebaseBots',
@@ -243,6 +255,9 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         'can_manage_webhooks' => 'setCanManageWebhooks',
         'webhook_locked_by_connection' => 'setWebhookLockedByConnection',
         'webhook_needs_token' => 'setWebhookNeedsToken',
+        'webhook_reason' => 'setWebhookReason',
+        'webhook_reason_detail' => 'setWebhookReasonDetail',
+        'webhook_next_attempt_at' => 'setWebhookNextAttemptAt',
         'failing_since' => 'setFailingSince',
         'failing_for_good' => 'setFailingForGood',
         'rebase_bots' => 'setRebaseBots',
@@ -266,6 +281,9 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         'can_manage_webhooks' => 'getCanManageWebhooks',
         'webhook_locked_by_connection' => 'getWebhookLockedByConnection',
         'webhook_needs_token' => 'getWebhookNeedsToken',
+        'webhook_reason' => 'getWebhookReason',
+        'webhook_reason_detail' => 'getWebhookReasonDetail',
+        'webhook_next_attempt_at' => 'getWebhookNextAttemptAt',
         'failing_since' => 'getFailingSince',
         'failing_for_good' => 'getFailingForGood',
         'rebase_bots' => 'getRebaseBots',
@@ -340,6 +358,9 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('can_manage_webhooks', $data ?? [], null);
         $this->setIfExists('webhook_locked_by_connection', $data ?? [], null);
         $this->setIfExists('webhook_needs_token', $data ?? [], null);
+        $this->setIfExists('webhook_reason', $data ?? [], null);
+        $this->setIfExists('webhook_reason_detail', $data ?? [], null);
+        $this->setIfExists('webhook_next_attempt_at', $data ?? [], null);
         $this->setIfExists('failing_since', $data ?? [], null);
         $this->setIfExists('failing_for_good', $data ?? [], null);
         $this->setIfExists('rebase_bots', $data ?? [], null);
@@ -711,6 +732,87 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable webhook_needs_token cannot be null');
         }
         $this->container['webhook_needs_token'] = $webhook_needs_token;
+
+        return $this;
+    }
+
+    /**
+     * Gets webhook_reason
+     *
+     * @return string|null
+     */
+    public function getWebhookReason()
+    {
+        return $this->container['webhook_reason'];
+    }
+
+    /**
+     * Sets webhook_reason
+     *
+     * @param string|null $webhook_reason Why this repo has no live webhook, when the dashboard knows. Present only while hasWebhook is false, and absent when nothing has been tried or learned yet. A client shows it on the repo's row and decides the wording; new values are additive.  - `no_permission`: the credential can't administer the repo   (canManageWebhooks is false), so no hook is attempted.   webhookNeedsToken and webhookLockedByConnection say which   fix applies. - `forge_unavailable`: the forge was rate limited, unreachable   or answered with a server error, so the automatic pass left   the repo for a later refresh. Nothing is broken; the   dashboard asks again by itself. - `forge_refused`: the forge refused to create the hook.   webhookReasonDetail has its reason, and webhookNextAttemptAt   says when the dashboard asks again.  A public origin that makes no hook possible is not a per-repo reason: see `webhookOriginProblem` on the dashboard.
+     *
+     * @return self
+     */
+    public function setWebhookReason($webhook_reason)
+    {
+        if (is_null($webhook_reason)) {
+            throw new \InvalidArgumentException('non-nullable webhook_reason cannot be null');
+        }
+        $this->container['webhook_reason'] = $webhook_reason;
+
+        return $this;
+    }
+
+    /**
+     * Gets webhook_reason_detail
+     *
+     * @return string|null
+     */
+    public function getWebhookReasonDetail()
+    {
+        return $this->container['webhook_reason_detail'];
+    }
+
+    /**
+     * Sets webhook_reason_detail
+     *
+     * @param string|null $webhook_reason_detail What the forge itself said about the refusal, in one plain line. Present only when `webhookReason` is `forge_refused` and the forge gave a sentence; absent when it gave none, so a client never shows a dashboard sentence as the forge's.
+     *
+     * @return self
+     */
+    public function setWebhookReasonDetail($webhook_reason_detail)
+    {
+        if (is_null($webhook_reason_detail)) {
+            throw new \InvalidArgumentException('non-nullable webhook_reason_detail cannot be null');
+        }
+        $this->container['webhook_reason_detail'] = $webhook_reason_detail;
+
+        return $this;
+    }
+
+    /**
+     * Gets webhook_next_attempt_at
+     *
+     * @return \DateTime|null
+     */
+    public function getWebhookNextAttemptAt()
+    {
+        return $this->container['webhook_next_attempt_at'];
+    }
+
+    /**
+     * Sets webhook_next_attempt_at
+     *
+     * @param \DateTime|null $webhook_next_attempt_at When the automatic pass next tries to create this repo's hook, present with webhookReason `forge_refused`. A refresh that runs after this time makes the attempt. It is not saved, so after a restart the pass tries again at once.
+     *
+     * @return self
+     */
+    public function setWebhookNextAttemptAt($webhook_next_attempt_at)
+    {
+        if (is_null($webhook_next_attempt_at)) {
+            throw new \InvalidArgumentException('non-nullable webhook_next_attempt_at cannot be null');
+        }
+        $this->container['webhook_next_attempt_at'] = $webhook_next_attempt_at;
 
         return $this;
     }
