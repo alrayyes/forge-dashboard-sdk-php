@@ -90,6 +90,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'requested_reviewer_logins' => 'string[]',
         'awaiting_workflow_approval' => 'bool',
         'checks_incomplete' => 'bool',
+        'pending_checks' => 'string[]',
         'review_comments' => 'int',
         'conversation_comments' => 'int',
         'last_comment_at' => '\DateTime',
@@ -156,6 +157,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'requested_reviewer_logins' => null,
         'awaiting_workflow_approval' => null,
         'checks_incomplete' => null,
+        'pending_checks' => null,
         'review_comments' => null,
         'conversation_comments' => null,
         'last_comment_at' => 'date-time',
@@ -220,6 +222,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'requested_reviewer_logins' => false,
         'awaiting_workflow_approval' => false,
         'checks_incomplete' => false,
+        'pending_checks' => false,
         'review_comments' => false,
         'conversation_comments' => false,
         'last_comment_at' => false,
@@ -364,6 +367,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'requested_reviewer_logins' => 'requestedReviewerLogins',
         'awaiting_workflow_approval' => 'awaitingWorkflowApproval',
         'checks_incomplete' => 'checksIncomplete',
+        'pending_checks' => 'pendingChecks',
         'review_comments' => 'reviewComments',
         'conversation_comments' => 'conversationComments',
         'last_comment_at' => 'lastCommentAt',
@@ -428,6 +432,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'requested_reviewer_logins' => 'setRequestedReviewerLogins',
         'awaiting_workflow_approval' => 'setAwaitingWorkflowApproval',
         'checks_incomplete' => 'setChecksIncomplete',
+        'pending_checks' => 'setPendingChecks',
         'review_comments' => 'setReviewComments',
         'conversation_comments' => 'setConversationComments',
         'last_comment_at' => 'setLastCommentAt',
@@ -492,6 +497,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'requested_reviewer_logins' => 'getRequestedReviewerLogins',
         'awaiting_workflow_approval' => 'getAwaitingWorkflowApproval',
         'checks_incomplete' => 'getChecksIncomplete',
+        'pending_checks' => 'getPendingChecks',
         'review_comments' => 'getReviewComments',
         'conversation_comments' => 'getConversationComments',
         'last_comment_at' => 'getLastCommentAt',
@@ -624,6 +630,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('requested_reviewer_logins', $data ?? [], null);
         $this->setIfExists('awaiting_workflow_approval', $data ?? [], null);
         $this->setIfExists('checks_incomplete', $data ?? [], null);
+        $this->setIfExists('pending_checks', $data ?? [], null);
         $this->setIfExists('review_comments', $data ?? [], null);
         $this->setIfExists('conversation_comments', $data ?? [], null);
         $this->setIfExists('last_comment_at', $data ?? [], null);
@@ -1782,6 +1789,33 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable checks_incomplete cannot be null');
         }
         $this->container['checks_incomplete'] = $checks_incomplete;
+
+        return $this;
+    }
+
+    /**
+     * Gets pending_checks
+     *
+     * @return string[]|null
+     */
+    public function getPendingChecks()
+    {
+        return $this->container['pending_checks'];
+    }
+
+    /**
+     * Sets pending_checks
+     *
+     * @param string[]|null $pending_checks The checks the pull request waits on that no job in its pipeline shows, by name: a pending commit status from an external CI, or a check the base branch requires that nothing has reported yet. A required check nothing has reported counts as `waiting` in `checks`, and `ci` reads `pending` for it. A client that says why Merge is locked can name them. A fact only; the client decides how to say it. Absent when there are none, or when the forge can't say (Forgejo needs admin on the repository to read its branch rules). On Forgejo these are the statuses that point at no Actions job, and the status-check patterns of the branch rule that no status matches, only for a pull request whose statuses all passed. On GitHub they are the required contexts the head commit hasn't reported, when the rollup says success while the pull request is blocked.
+     *
+     * @return self
+     */
+    public function setPendingChecks($pending_checks)
+    {
+        if (is_null($pending_checks)) {
+            throw new \InvalidArgumentException('non-nullable pending_checks cannot be null');
+        }
+        $this->container['pending_checks'] = $pending_checks;
 
         return $this;
     }
