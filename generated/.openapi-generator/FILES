@@ -54,6 +54,7 @@ src/Model/Dashboard.php
 src/Model/DetailsBody.php
 src/Model/DetailsComment.php
 src/Model/Error.php
+src/Model/FailedInstallation.php
 src/Model/Forge.php
 src/Model/ForgeApiBucket.php
 src/Model/ForgeApiBudget.php
