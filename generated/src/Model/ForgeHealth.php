@@ -70,6 +70,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'dependabot_commands_blocked' => 'string',
         'rerun_checks_blocked' => 'string',
         'provider_status' => '\ForgeDashboard\Generated\Model\ProviderStatus',
+        'failed_installations' => '\ForgeDashboard\Generated\Model\FailedInstallation[]',
         'capabilities' => '\ForgeDashboard\Generated\Model\ForgeCapabilities'
     ];
 
@@ -94,6 +95,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'dependabot_commands_blocked' => null,
         'rerun_checks_blocked' => null,
         'provider_status' => null,
+        'failed_installations' => null,
         'capabilities' => null
     ];
 
@@ -116,6 +118,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'dependabot_commands_blocked' => false,
         'rerun_checks_blocked' => false,
         'provider_status' => false,
+        'failed_installations' => false,
         'capabilities' => false
     ];
 
@@ -218,6 +221,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'dependabot_commands_blocked' => 'dependabotCommandsBlocked',
         'rerun_checks_blocked' => 'rerunChecksBlocked',
         'provider_status' => 'providerStatus',
+        'failed_installations' => 'failedInstallations',
         'capabilities' => 'capabilities'
     ];
 
@@ -240,6 +244,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'dependabot_commands_blocked' => 'setDependabotCommandsBlocked',
         'rerun_checks_blocked' => 'setRerunChecksBlocked',
         'provider_status' => 'setProviderStatus',
+        'failed_installations' => 'setFailedInstallations',
         'capabilities' => 'setCapabilities'
     ];
 
@@ -262,6 +267,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'dependabot_commands_blocked' => 'getDependabotCommandsBlocked',
         'rerun_checks_blocked' => 'getRerunChecksBlocked',
         'provider_status' => 'getProviderStatus',
+        'failed_installations' => 'getFailedInstallations',
         'capabilities' => 'getCapabilities'
     ];
 
@@ -335,6 +341,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('dependabot_commands_blocked', $data ?? [], null);
         $this->setIfExists('rerun_checks_blocked', $data ?? [], null);
         $this->setIfExists('provider_status', $data ?? [], null);
+        $this->setIfExists('failed_installations', $data ?? [], null);
         $this->setIfExists('capabilities', $data ?? [], null);
     }
 
@@ -762,6 +769,33 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable provider_status cannot be null');
         }
         $this->container['provider_status'] = $provider_status;
+
+        return $this;
+    }
+
+    /**
+     * Gets failed_installations
+     *
+     * @return \ForgeDashboard\Generated\Model\FailedInstallation[]|null
+     */
+    public function getFailedInstallations()
+    {
+        return $this->container['failed_installations'];
+    }
+
+    /**
+     * Sets failed_installations
+     *
+     * @param \ForgeDashboard\Generated\Model\FailedInstallation[]|null $failed_installations The GitHub App installations that did not answer this refresh while the forge itself did (reachable is true). Each one's pull requests and issues keep the last rows read, and the other installations load as usual. Set only for GitHub, and only when more than one installation is read. Omitted when every installation answered.
+     *
+     * @return self
+     */
+    public function setFailedInstallations($failed_installations)
+    {
+        if (is_null($failed_installations)) {
+            throw new \InvalidArgumentException('non-nullable failed_installations cannot be null');
+        }
+        $this->container['failed_installations'] = $failed_installations;
 
         return $this;
     }

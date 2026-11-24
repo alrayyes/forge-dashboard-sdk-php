@@ -216,6 +216,7 @@ Class | Method | HTTP request | Description
 - [DetailsBody](docs/Model/DetailsBody.md)
 - [DetailsComment](docs/Model/DetailsComment.md)
 - [Error](docs/Model/Error.md)
+- [FailedInstallation](docs/Model/FailedInstallation.md)
 - [Forge](docs/Model/Forge.md)
 - [ForgeApiBucket](docs/Model/ForgeApiBucket.md)
 - [ForgeApiBudget](docs/Model/ForgeApiBudget.md)
