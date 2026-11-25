@@ -274,6 +274,7 @@ class ActionError implements ModelInterface, ArrayAccess, \JsonSerializable
     public const CODE_RATE_LIMITED = 'rate_limited';
     public const CODE_FORGE_ERROR = 'forge_error';
     public const CODE_FORGE_UNREACHABLE = 'forge_unreachable';
+    public const CODE_STATUS_UNKNOWN = 'status_unknown';
     public const CODE_NOT_RATE_LIMITED = 'not_rate_limited';
     public const CODE_NOT_OPEN = 'not_open';
     public const CODE_NOT_REOPENABLE = 'not_reopenable';
@@ -302,6 +303,7 @@ class ActionError implements ModelInterface, ArrayAccess, \JsonSerializable
             self::CODE_RATE_LIMITED,
             self::CODE_FORGE_ERROR,
             self::CODE_FORGE_UNREACHABLE,
+            self::CODE_STATUS_UNKNOWN,
             self::CODE_NOT_RATE_LIMITED,
             self::CODE_NOT_OPEN,
             self::CODE_NOT_REOPENABLE,
