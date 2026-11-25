@@ -98,6 +98,9 @@ class SettingsApi
         'getSettingsSummary' => [
             'application/json',
         ],
+        'getSetup' => [
+            'application/json',
+        ],
         'getTheme' => [
             'application/json',
         ],
@@ -120,6 +123,9 @@ class SettingsApi
             'application/json',
         ],
         'startGitHubConnection' => [
+            'application/json',
+        ],
+        'verifyForgejoInstance' => [
             'application/json',
         ],
     ];
@@ -661,23 +667,7 @@ class SettingsApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\ForgeDashboard\Generated\Model\Error',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
                 case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\ForgeDashboard\Generated\Model\Error',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-                case 502:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\ForgeDashboard\Generated\Model\Error',
@@ -936,23 +926,7 @@ class SettingsApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\ForgeDashboard\Generated\Model\Error',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
                 case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\ForgeDashboard\Generated\Model\Error',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-                case 502:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\ForgeDashboard\Generated\Model\Error',
@@ -1153,7 +1127,7 @@ class SettingsApi
      *
      * GitHub&#39;s redirect back after the App is installed or changed
      *
-     * @param  int $installation_id installation_id (required)
+     * @param  int|null $installation_id installation_id (optional)
      * @param  string|null $setup_action setup_action (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['finishGitHubInstallation'] to see the possible values for this operation
      *
@@ -1161,7 +1135,7 @@ class SettingsApi
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function finishGitHubInstallation($installation_id, $setup_action = null, string $contentType = self::contentTypes['finishGitHubInstallation'][0])
+    public function finishGitHubInstallation($installation_id = null, $setup_action = null, string $contentType = self::contentTypes['finishGitHubInstallation'][0])
     {
         $this->finishGitHubInstallationWithHttpInfo($installation_id, $setup_action, $contentType);
     }
@@ -1171,7 +1145,7 @@ class SettingsApi
      *
      * GitHub&#39;s redirect back after the App is installed or changed
      *
-     * @param  int $installation_id (required)
+     * @param  int|null $installation_id (optional)
      * @param  string|null $setup_action (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['finishGitHubInstallation'] to see the possible values for this operation
      *
@@ -1179,7 +1153,7 @@ class SettingsApi
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function finishGitHubInstallationWithHttpInfo($installation_id, $setup_action = null, string $contentType = self::contentTypes['finishGitHubInstallation'][0])
+    public function finishGitHubInstallationWithHttpInfo($installation_id = null, $setup_action = null, string $contentType = self::contentTypes['finishGitHubInstallation'][0])
     {
         $request = $this->finishGitHubInstallationRequest($installation_id, $setup_action, $contentType);
 
@@ -1209,39 +1183,7 @@ class SettingsApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\ForgeDashboard\Generated\Model\Error',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
                 case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\ForgeDashboard\Generated\Model\Error',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-                case 403:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\ForgeDashboard\Generated\Model\Error',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-                case 409:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\ForgeDashboard\Generated\Model\Error',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-                case 502:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\ForgeDashboard\Generated\Model\Error',
@@ -1261,14 +1203,14 @@ class SettingsApi
      *
      * GitHub&#39;s redirect back after the App is installed or changed
      *
-     * @param  int $installation_id (required)
+     * @param  int|null $installation_id (optional)
      * @param  string|null $setup_action (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['finishGitHubInstallation'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function finishGitHubInstallationAsync($installation_id, $setup_action = null, string $contentType = self::contentTypes['finishGitHubInstallation'][0])
+    public function finishGitHubInstallationAsync($installation_id = null, $setup_action = null, string $contentType = self::contentTypes['finishGitHubInstallation'][0])
     {
         return $this->finishGitHubInstallationAsyncWithHttpInfo($installation_id, $setup_action, $contentType)
             ->then(
@@ -1283,14 +1225,14 @@ class SettingsApi
      *
      * GitHub&#39;s redirect back after the App is installed or changed
      *
-     * @param  int $installation_id (required)
+     * @param  int|null $installation_id (optional)
      * @param  string|null $setup_action (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['finishGitHubInstallation'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function finishGitHubInstallationAsyncWithHttpInfo($installation_id, $setup_action = null, string $contentType = self::contentTypes['finishGitHubInstallation'][0])
+    public function finishGitHubInstallationAsyncWithHttpInfo($installation_id = null, $setup_action = null, string $contentType = self::contentTypes['finishGitHubInstallation'][0])
     {
         $returnType = '';
         $request = $this->finishGitHubInstallationRequest($installation_id, $setup_action, $contentType);
@@ -1321,23 +1263,17 @@ class SettingsApi
     /**
      * Create request for operation 'finishGitHubInstallation'
      *
-     * @param  int $installation_id (required)
+     * @param  int|null $installation_id (optional)
      * @param  string|null $setup_action (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['finishGitHubInstallation'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function finishGitHubInstallationRequest($installation_id, $setup_action = null, string $contentType = self::contentTypes['finishGitHubInstallation'][0])
+    public function finishGitHubInstallationRequest($installation_id = null, $setup_action = null, string $contentType = self::contentTypes['finishGitHubInstallation'][0])
     {
 
-        // verify the required parameter 'installation_id' is set
-        if ($installation_id === null || (is_array($installation_id) && count($installation_id) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $installation_id when calling finishGitHubInstallation'
-            );
-        }
-        if ($installation_id < 1) {
+        if ($installation_id !== null && $installation_id < 1) {
             throw new \InvalidArgumentException('invalid value for "$installation_id" when calling SettingsApi.finishGitHubInstallation, must be bigger than or equal to 1.');
         }
         
@@ -1357,7 +1293,7 @@ class SettingsApi
             'integer', // openApiType
             'form', // style
             true, // explode
-            true // required
+            false // required
         ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
@@ -2182,6 +2118,276 @@ class SettingsApi
 
 
         $resourcePath = '/api/v1/settings/summary';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                try {
+                    $httpBody = json_encode($formParams, JSON_THROW_ON_ERROR);
+                } catch (\JsonException $e) {
+                    throw new \InvalidArgumentException('json_encode error: ' . $e->getMessage(), 0, $e);
+                }
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getSetup
+     *
+     * What the first-login setup page needs to draw itself
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSetup'] to see the possible values for this operation
+     *
+     * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \ForgeDashboard\Generated\Model\SetupResponse|\ForgeDashboard\Generated\Model\Error
+     */
+    public function getSetup(string $contentType = self::contentTypes['getSetup'][0])
+    {
+        list($response) = $this->getSetupWithHttpInfo($contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getSetupWithHttpInfo
+     *
+     * What the first-login setup page needs to draw itself
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSetup'] to see the possible values for this operation
+     *
+     * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \ForgeDashboard\Generated\Model\SetupResponse|\ForgeDashboard\Generated\Model\Error, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getSetupWithHttpInfo(string $contentType = self::contentTypes['getSetup'][0])
+    {
+        $request = $this->getSetupRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\ForgeDashboard\Generated\Model\SetupResponse',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\ForgeDashboard\Generated\Model\SetupResponse',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\SetupResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getSetupAsync
+     *
+     * What the first-login setup page needs to draw itself
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSetup'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getSetupAsync(string $contentType = self::contentTypes['getSetup'][0])
+    {
+        return $this->getSetupAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getSetupAsyncWithHttpInfo
+     *
+     * What the first-login setup page needs to draw itself
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSetup'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getSetupAsyncWithHttpInfo(string $contentType = self::contentTypes['getSetup'][0])
+    {
+        $returnType = '\ForgeDashboard\Generated\Model\SetupResponse';
+        $request = $this->getSetupRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getSetup'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSetup'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getSetupRequest(string $contentType = self::contentTypes['getSetup'][0])
+    {
+
+
+        $resourcePath = '/api/v1/setup';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -4597,6 +4803,313 @@ class SettingsApi
 
         // for model (json/xml)
         if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                try {
+                    $httpBody = json_encode($formParams, JSON_THROW_ON_ERROR);
+                } catch (\JsonException $e) {
+                    throw new \InvalidArgumentException('json_encode error: ' . $e->getMessage(), 0, $e);
+                }
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation verifyForgejoInstance
+     *
+     * Check that an address is a reachable Forgejo
+     *
+     * @param  \ForgeDashboard\Generated\Model\VerifyForgejoInstanceRequest $verify_forgejo_instance_request verify_forgejo_instance_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['verifyForgejoInstance'] to see the possible values for this operation
+     *
+     * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \ForgeDashboard\Generated\Model\VerifyForgejoInstanceResponse|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error
+     */
+    public function verifyForgejoInstance($verify_forgejo_instance_request, string $contentType = self::contentTypes['verifyForgejoInstance'][0])
+    {
+        list($response) = $this->verifyForgejoInstanceWithHttpInfo($verify_forgejo_instance_request, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation verifyForgejoInstanceWithHttpInfo
+     *
+     * Check that an address is a reachable Forgejo
+     *
+     * @param  \ForgeDashboard\Generated\Model\VerifyForgejoInstanceRequest $verify_forgejo_instance_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['verifyForgejoInstance'] to see the possible values for this operation
+     *
+     * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \ForgeDashboard\Generated\Model\VerifyForgejoInstanceResponse|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function verifyForgejoInstanceWithHttpInfo($verify_forgejo_instance_request, string $contentType = self::contentTypes['verifyForgejoInstance'][0])
+    {
+        $request = $this->verifyForgejoInstanceRequest($verify_forgejo_instance_request, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\ForgeDashboard\Generated\Model\VerifyForgejoInstanceResponse',
+                        $request,
+                        $response,
+                    );
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\ForgeDashboard\Generated\Model\VerifyForgejoInstanceResponse',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\VerifyForgejoInstanceResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ForgeDashboard\Generated\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation verifyForgejoInstanceAsync
+     *
+     * Check that an address is a reachable Forgejo
+     *
+     * @param  \ForgeDashboard\Generated\Model\VerifyForgejoInstanceRequest $verify_forgejo_instance_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['verifyForgejoInstance'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function verifyForgejoInstanceAsync($verify_forgejo_instance_request, string $contentType = self::contentTypes['verifyForgejoInstance'][0])
+    {
+        return $this->verifyForgejoInstanceAsyncWithHttpInfo($verify_forgejo_instance_request, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation verifyForgejoInstanceAsyncWithHttpInfo
+     *
+     * Check that an address is a reachable Forgejo
+     *
+     * @param  \ForgeDashboard\Generated\Model\VerifyForgejoInstanceRequest $verify_forgejo_instance_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['verifyForgejoInstance'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function verifyForgejoInstanceAsyncWithHttpInfo($verify_forgejo_instance_request, string $contentType = self::contentTypes['verifyForgejoInstance'][0])
+    {
+        $returnType = '\ForgeDashboard\Generated\Model\VerifyForgejoInstanceResponse';
+        $request = $this->verifyForgejoInstanceRequest($verify_forgejo_instance_request, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'verifyForgejoInstance'
+     *
+     * @param  \ForgeDashboard\Generated\Model\VerifyForgejoInstanceRequest $verify_forgejo_instance_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['verifyForgejoInstance'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function verifyForgejoInstanceRequest($verify_forgejo_instance_request, string $contentType = self::contentTypes['verifyForgejoInstance'][0])
+    {
+
+        // verify the required parameter 'verify_forgejo_instance_request' is set
+        if ($verify_forgejo_instance_request === null || (is_array($verify_forgejo_instance_request) && count($verify_forgejo_instance_request) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $verify_forgejo_instance_request when calling verifyForgejoInstance'
+            );
+        }
+
+
+        $resourcePath = '/api/v1/setup/forgejo-instance';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($verify_forgejo_instance_request)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                try {
+                    $httpBody = json_encode(ObjectSerializer::sanitizeForSerialization($verify_forgejo_instance_request), JSON_THROW_ON_ERROR);
+                } catch (\JsonException $e) {
+                    throw new \InvalidArgumentException('json_encode error: ' . $e->getMessage(), 0, $e);
+                }
+            } else {
+                $httpBody = $verify_forgejo_instance_request;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
