@@ -259,57 +259,6 @@ class ActionError implements ModelInterface, ArrayAccess, \JsonSerializable
         return self::$openAPIModelName;
     }
 
-    public const CODE_ALREADY_MERGED = 'already_merged';
-    public const CODE_ALREADY_CLOSED = 'already_closed';
-    public const CODE_NOT_MERGEABLE = 'not_mergeable';
-    public const CODE_CONFLICT = 'conflict';
-    public const CODE_BEHIND = 'behind';
-    public const CODE_CHECKS_PENDING = 'checks_pending';
-    public const CODE_CHECKS_FAILING = 'checks_failing';
-    public const CODE_BLOCKED_BY_PROTECTION = 'blocked_by_protection';
-    public const CODE_ALREADY_UP_TO_DATE = 'already_up_to_date';
-    public const CODE_AUTO_MERGE_NOT_ALLOWED = 'auto_merge_not_allowed';
-    public const CODE_READY_TO_MERGE = 'ready_to_merge';
-    public const CODE_PERMISSION = 'permission';
-    public const CODE_RATE_LIMITED = 'rate_limited';
-    public const CODE_FORGE_ERROR = 'forge_error';
-    public const CODE_FORGE_UNREACHABLE = 'forge_unreachable';
-    public const CODE_STATUS_UNKNOWN = 'status_unknown';
-    public const CODE_NOT_RATE_LIMITED = 'not_rate_limited';
-    public const CODE_NOT_OPEN = 'not_open';
-    public const CODE_NOT_REOPENABLE = 'not_reopenable';
-    public const CODE_UNKNOWN = 'unknown';
-
-    /**
-     * Gets allowable values of the enum
-     *
-     * @return string[]
-     */
-    public function getCodeAllowableValues()
-    {
-        return [
-            self::CODE_ALREADY_MERGED,
-            self::CODE_ALREADY_CLOSED,
-            self::CODE_NOT_MERGEABLE,
-            self::CODE_CONFLICT,
-            self::CODE_BEHIND,
-            self::CODE_CHECKS_PENDING,
-            self::CODE_CHECKS_FAILING,
-            self::CODE_BLOCKED_BY_PROTECTION,
-            self::CODE_ALREADY_UP_TO_DATE,
-            self::CODE_AUTO_MERGE_NOT_ALLOWED,
-            self::CODE_READY_TO_MERGE,
-            self::CODE_PERMISSION,
-            self::CODE_RATE_LIMITED,
-            self::CODE_FORGE_ERROR,
-            self::CODE_FORGE_UNREACHABLE,
-            self::CODE_STATUS_UNKNOWN,
-            self::CODE_NOT_RATE_LIMITED,
-            self::CODE_NOT_OPEN,
-            self::CODE_NOT_REOPENABLE,
-            self::CODE_UNKNOWN,
-        ];
-    }
 
     /**
      * Associative array for storing property values
@@ -367,15 +316,6 @@ class ActionError implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['code'] === null) {
             $invalidProperties[] = "'code' can't be null";
         }
-        $allowedValues = $this->getCodeAllowableValues();
-        if (!is_null($this->container['code']) && !in_array($this->container['code'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'code', must be one of '%s'",
-                $this->container['code'],
-                implode("', '", $allowedValues)
-            );
-        }
-
         if ($this->container['message'] === null) {
             $invalidProperties[] = "'message' can't be null";
         }
@@ -442,7 +382,7 @@ class ActionError implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets code
      *
-     * @param string $code Why the action was refused, from a re-read of the pull request's real state. `already_merged` and `already_closed` mean the dashboard's row was stale: the pull request has nothing left to merge.  `not_reopenable` belongs to Reopen: the pull request is still closed and the forge won't reopen it, usually because its branch was deleted or rewritten after the close.  `forge_error` means the forge failed on its own side (a 5xx): nothing is wrong with the request, so asking again may work. `upstreamStatus` and `requestId` then say what the forge answered with, for tracing a report. Update branch is tried a second time by the server before this is answered.  `not_rate_limited` belongs to queueing an action: the forge isn't rate limited, so act directly. `not_open` is only an outcome of a queued action: the pull request was gone from the board when the reset came, merged or closed.  Three codes belong to a few actions each: `already_up_to_date` (Update branch: nothing to bring in; Merge or Enable auto-merge on an empty pull request: nothing to merge), `auto_merge_not_allowed` (Enable auto-merge: the repo or pull request doesn't allow it) and `ready_to_merge` (Enable auto-merge: already clean, use Merge).
+     * @param string $code One of the values above today, and the server may learn more. A client should treat a code it doesn't know like `unknown` and show `message`, not fail to decode. Declared with `x-extensible-enum` so adding a value is a minor SDK release.  Why the action was refused, from a re-read of the pull request's real state. `already_merged` and `already_closed` mean the dashboard's row was stale: the pull request has nothing left to merge.  `not_reopenable` belongs to Reopen: the pull request is still closed and the forge won't reopen it, usually because its branch was deleted or rewritten after the close.  `forge_error` means the forge failed on its own side (a 5xx): nothing is wrong with the request, so asking again may work. `upstreamStatus` and `requestId` then say what the forge answered with, for tracing a report. Update branch is tried a second time by the server before this is answered.  `not_rate_limited` belongs to queueing an action: the forge isn't rate limited, so act directly. `not_open` is only an outcome of a queued action: the pull request was gone from the board when the reset came, merged or closed.  Three codes belong to a few actions each: `already_up_to_date` (Update branch: nothing to bring in; Merge or Enable auto-merge on an empty pull request: nothing to merge), `auto_merge_not_allowed` (Enable auto-merge: the repo or pull request doesn't allow it) and `ready_to_merge` (Enable auto-merge: already clean, use Merge).
      *
      * @return self
      */
@@ -450,16 +390,6 @@ class ActionError implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         if (is_null($code)) {
             throw new \InvalidArgumentException('non-nullable code cannot be null');
-        }
-        $allowedValues = $this->getCodeAllowableValues();
-        if (!in_array($code, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'code', must be one of '%s'",
-                    $code,
-                    implode("', '", $allowedValues)
-                )
-            );
         }
         $this->container['code'] = $code;
 
