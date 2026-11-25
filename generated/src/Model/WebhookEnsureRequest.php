@@ -35,7 +35,7 @@ use \ForgeDashboard\Generated\ObjectSerializer;
  * WebhookEnsureRequest Class Doc Comment
  *
  * @category Class
- * @description Which repo to create or fix up a webhook on.
+ * @description Which repo a repo-level action targets.
  * @package  ForgeDashboard\Generated
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech

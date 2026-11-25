@@ -175,7 +175,6 @@ Class | Method | HTTP request | Description
 *TokensApi* | [**createAPIToken**](docs/Api/TokensApi.md#createapitoken) | **POST** /api/v1/tokens | Generate a new personal API token
 *TokensApi* | [**deleteAPIToken**](docs/Api/TokensApi.md#deleteapitoken) | **DELETE** /api/v1/tokens/{id} | Revoke a personal API token
 *TokensApi* | [**listAPITokens**](docs/Api/TokensApi.md#listapitokens) | **GET** /api/v1/tokens | List the signed-in user&#39;s own personal API tokens
-*WebhooksApi* | [**ensureWebhook**](docs/Api/WebhooksApi.md#ensurewebhook) | **POST** /api/v1/webhooks/ensure | Create or fix up a webhook on one tracked repo, on the signed-in user&#39;s behalf
 *WebhooksApi* | [**receiveForgejoWebhook**](docs/Api/WebhooksApi.md#receiveforgejowebhook) | **POST** /api/webhooks/forgejo/{webhookToken} | Receive a Forgejo repository webhook delivery
 *WebhooksApi* | [**receiveGitHubWebhook**](docs/Api/WebhooksApi.md#receivegithubwebhook) | **POST** /api/webhooks/github/{webhookToken} | Receive a GitHub repository webhook delivery
 

@@ -668,7 +668,7 @@ class RepoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets can_manage_webhooks
      *
-     * @param bool $can_manage_webhooks Whether the signed-in user's own permission on this repo is enough to list/create its webhooks — GitHub requires admin specifically (write/maintain can push but still 404 on the hooks endpoint, by GitHub's own design); Forgejo's equivalent is its own admin permission flag. Always false for a repo reached through an unauthenticated, username-only listing. A point-in-time snapshot: a permission change since the last refresh can still make a following ensure-webhook call fail despite this having said true. For a GitHub App connection there is no user role to read, so this is true when listing the repo's webhooks worked on the last refresh.
+     * @param bool $can_manage_webhooks Whether the signed-in user's own permission on this repo is enough to list/create its webhooks — GitHub requires admin specifically (write/maintain can push but still 404 on the hooks endpoint, by GitHub's own design); Forgejo's equivalent is its own admin permission flag. Always false for a repo reached through an unauthenticated, username-only listing. A point-in-time snapshot: a permission change since the last refresh can still make a later hook write fail despite this having said true. For a GitHub App connection there is no user role to read, so this is true when listing the repo's webhooks worked on the last refresh.
      *
      * @return self
      */
