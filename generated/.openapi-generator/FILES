@@ -118,6 +118,10 @@ src/Model/SetFilterState200Response.php
 src/Model/SettingsRequest.php
 src/Model/SettingsResponse.php
 src/Model/SettingsSummary.php
+src/Model/SetupForgejo.php
+src/Model/SetupGitHub.php
+src/Model/SetupInstallation.php
+src/Model/SetupResponse.php
 src/Model/StackPosition.php
 src/Model/StackRef.php
 src/Model/StartForgejoConnectionRequest.php
@@ -128,6 +132,8 @@ src/Model/ThemeResponse.php
 src/Model/TimezoneRequest.php
 src/Model/TimezoneResponse.php
 src/Model/UpdateRequest.php
+src/Model/VerifyForgejoInstanceRequest.php
+src/Model/VerifyForgejoInstanceResponse.php
 src/Model/Version.php
 src/Model/WebhookEnsureRequest.php
 src/ObjectSerializer.php

@@ -164,6 +164,7 @@ Class | Method | HTTP request | Description
 *SettingsApi* | [**getFilterState**](docs/Api/SettingsApi.md#getfilterstate) | **GET** /api/v1/settings/filter-state | The signed-in user&#39;s own saved dashboard/Insights filter state
 *SettingsApi* | [**getSettings**](docs/Api/SettingsApi.md#getsettings) | **GET** /api/v1/settings | The signed-in user&#39;s own forge configuration
 *SettingsApi* | [**getSettingsSummary**](docs/Api/SettingsApi.md#getsettingssummary) | **GET** /api/v1/settings/summary | The signed-in user&#39;s settings, read without side effects
+*SettingsApi* | [**getSetup**](docs/Api/SettingsApi.md#getsetup) | **GET** /api/v1/setup | What the first-login setup page needs to draw itself
 *SettingsApi* | [**getTheme**](docs/Api/SettingsApi.md#gettheme) | **GET** /api/v1/settings/theme | The signed-in user&#39;s own saved theme preference
 *SettingsApi* | [**getTimezone**](docs/Api/SettingsApi.md#gettimezone) | **GET** /api/v1/settings/timezone | The signed-in user&#39;s own saved time zone
 *SettingsApi* | [**putSettings**](docs/Api/SettingsApi.md#putsettings) | **PUT** /api/v1/settings | Save the signed-in user&#39;s forge configuration
@@ -172,6 +173,7 @@ Class | Method | HTTP request | Description
 *SettingsApi* | [**setTimezone**](docs/Api/SettingsApi.md#settimezone) | **PUT** /api/v1/settings/timezone | Save the signed-in user&#39;s own time zone
 *SettingsApi* | [**startForgejoConnection**](docs/Api/SettingsApi.md#startforgejoconnection) | **POST** /api/v1/connections/forgejo | Start linking a Forgejo account with OAuth
 *SettingsApi* | [**startGitHubConnection**](docs/Api/SettingsApi.md#startgithubconnection) | **POST** /api/v1/connections/github | Start linking a GitHub account through the GitHub App
+*SettingsApi* | [**verifyForgejoInstance**](docs/Api/SettingsApi.md#verifyforgejoinstance) | **POST** /api/v1/setup/forgejo-instance | Check that an address is a reachable Forgejo
 *TokensApi* | [**createAPIToken**](docs/Api/TokensApi.md#createapitoken) | **POST** /api/v1/tokens | Generate a new personal API token
 *TokensApi* | [**deleteAPIToken**](docs/Api/TokensApi.md#deleteapitoken) | **DELETE** /api/v1/tokens/{id} | Revoke a personal API token
 *TokensApi* | [**listAPITokens**](docs/Api/TokensApi.md#listapitokens) | **GET** /api/v1/tokens | List the signed-in user&#39;s own personal API tokens
@@ -278,6 +280,10 @@ Class | Method | HTTP request | Description
 - [SettingsRequest](docs/Model/SettingsRequest.md)
 - [SettingsResponse](docs/Model/SettingsResponse.md)
 - [SettingsSummary](docs/Model/SettingsSummary.md)
+- [SetupForgejo](docs/Model/SetupForgejo.md)
+- [SetupGitHub](docs/Model/SetupGitHub.md)
+- [SetupInstallation](docs/Model/SetupInstallation.md)
+- [SetupResponse](docs/Model/SetupResponse.md)
 - [StackPosition](docs/Model/StackPosition.md)
 - [StackRef](docs/Model/StackRef.md)
 - [StartForgejoConnectionRequest](docs/Model/StartForgejoConnectionRequest.md)
@@ -288,6 +294,8 @@ Class | Method | HTTP request | Description
 - [TimezoneRequest](docs/Model/TimezoneRequest.md)
 - [TimezoneResponse](docs/Model/TimezoneResponse.md)
 - [UpdateRequest](docs/Model/UpdateRequest.md)
+- [VerifyForgejoInstanceRequest](docs/Model/VerifyForgejoInstanceRequest.md)
+- [VerifyForgejoInstanceResponse](docs/Model/VerifyForgejoInstanceResponse.md)
 - [Version](docs/Model/Version.md)
 - [WebhookEnsureRequest](docs/Model/WebhookEnsureRequest.md)
 

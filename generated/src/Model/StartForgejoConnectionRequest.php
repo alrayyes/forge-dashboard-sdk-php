@@ -57,7 +57,8 @@ class StartForgejoConnectionRequest implements ModelInterface, ArrayAccess, \Jso
      * @var string[]
      */
     protected static $openAPITypes = [
-        'instance_url' => 'string'
+        'instance_url' => 'string',
+        'client_id' => 'string'
     ];
 
     /**
@@ -68,7 +69,8 @@ class StartForgejoConnectionRequest implements ModelInterface, ArrayAccess, \Jso
      * @psalm-var array<string, string|null>
      */
     protected static $openAPIFormats = [
-        'instance_url' => 'uri'
+        'instance_url' => 'uri',
+        'client_id' => null
     ];
 
     /**
@@ -77,7 +79,8 @@ class StartForgejoConnectionRequest implements ModelInterface, ArrayAccess, \Jso
      * @var boolean[]
      */
     protected static array $openAPINullables = [
-        'instance_url' => false
+        'instance_url' => false,
+        'client_id' => false
     ];
 
     /**
@@ -166,7 +169,8 @@ class StartForgejoConnectionRequest implements ModelInterface, ArrayAccess, \Jso
      * @var string[]
      */
     protected static $attributeMap = [
-        'instance_url' => 'instanceUrl'
+        'instance_url' => 'instanceUrl',
+        'client_id' => 'clientId'
     ];
 
     /**
@@ -175,7 +179,8 @@ class StartForgejoConnectionRequest implements ModelInterface, ArrayAccess, \Jso
      * @var string[]
      */
     protected static $setters = [
-        'instance_url' => 'setInstanceUrl'
+        'instance_url' => 'setInstanceUrl',
+        'client_id' => 'setClientId'
     ];
 
     /**
@@ -184,7 +189,8 @@ class StartForgejoConnectionRequest implements ModelInterface, ArrayAccess, \Jso
      * @var string[]
      */
     protected static $getters = [
-        'instance_url' => 'getInstanceUrl'
+        'instance_url' => 'getInstanceUrl',
+        'client_id' => 'getClientId'
     ];
 
     /**
@@ -245,6 +251,7 @@ class StartForgejoConnectionRequest implements ModelInterface, ArrayAccess, \Jso
     public function __construct(?array $data = null)
     {
         $this->setIfExists('instance_url', $data ?? [], null);
+        $this->setIfExists('client_id', $data ?? [], null);
     }
 
     /**
@@ -279,6 +286,10 @@ class StartForgejoConnectionRequest implements ModelInterface, ArrayAccess, \Jso
         }
         if ((mb_strlen($this->container['instance_url']) > 2048)) {
             $invalidProperties[] = "invalid value for 'instance_url', the character length must be smaller than or equal to 2048.";
+        }
+
+        if (!is_null($this->container['client_id']) && (mb_strlen($this->container['client_id']) > 256)) {
+            $invalidProperties[] = "invalid value for 'client_id', the character length must be smaller than or equal to 256.";
         }
 
         return $invalidProperties;
@@ -323,6 +334,37 @@ class StartForgejoConnectionRequest implements ModelInterface, ArrayAccess, \Jso
         }
 
         $this->container['instance_url'] = $instance_url;
+
+        return $this;
+    }
+
+    /**
+     * Gets client_id
+     *
+     * @return string|null
+     */
+    public function getClientId()
+    {
+        return $this->container['client_id'];
+    }
+
+    /**
+     * Sets client_id
+     *
+     * @param string|null $client_id The Client ID of a public OAuth client (Confidential client unticked, PKCE, no secret) the owner created on their own Forgejo. Required when the server has no Forgejo OAuth client configured. The id is public, and is kept so refreshes can name it.
+     *
+     * @return self
+     */
+    public function setClientId($client_id)
+    {
+        if (is_null($client_id)) {
+            throw new \InvalidArgumentException('non-nullable client_id cannot be null');
+        }
+        if ((mb_strlen($client_id) > 256)) {
+            throw new \InvalidArgumentException('invalid length for $client_id when calling StartForgejoConnectionRequest., must be smaller than or equal to 256.');
+        }
+
+        $this->container['client_id'] = $client_id;
 
         return $this;
     }
