@@ -35,7 +35,7 @@ use \ForgeDashboard\Generated\ObjectSerializer;
  * SettingsSummary Class Doc Comment
  *
  * @category Class
- * @description The signed-in user&#39;s settings as &#x60;GET /api/v1/settings/summary&#x60; and the &#x60;get_settings&#x60; MCP tool return them: every field of SettingsResponse except &#x60;webhookToken&#x60; and &#x60;webhookSecret&#x60;, which are never part of it, plus &#x60;webhookConfigured&#x60;. No forge token appears, only whether one is set. Field meanings are those of the same-named SettingsResponse properties.
+ * @description The signed-in user&#39;s settings as &#x60;GET /api/v1/settings/summary&#x60; and the &#x60;get_settings&#x60; MCP tool return them: every field of SettingsResponse, plus &#x60;webhookConfigured&#x60;. No forge token appears, only whether one is set. Field meanings are those of the same-named SettingsResponse properties.
  * @package  ForgeDashboard\Generated
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
