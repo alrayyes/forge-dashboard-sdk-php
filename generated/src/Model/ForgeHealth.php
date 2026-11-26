@@ -60,6 +60,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'forge' => '\ForgeDashboard\Generated\Model\Forge',
         'reachable' => 'bool',
         'starting' => 'bool',
+        'cause' => 'string',
         'stale_since' => '\DateTime',
         'error' => 'string',
         'error_kind' => '\ForgeDashboard\Generated\Model\ForgeErrorKind',
@@ -85,6 +86,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'forge' => null,
         'reachable' => null,
         'starting' => null,
+        'cause' => null,
         'stale_since' => 'date-time',
         'error' => null,
         'error_kind' => null,
@@ -108,6 +110,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'forge' => false,
         'reachable' => false,
         'starting' => false,
+        'cause' => false,
         'stale_since' => false,
         'error' => false,
         'error_kind' => false,
@@ -211,6 +214,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'forge' => 'forge',
         'reachable' => 'reachable',
         'starting' => 'starting',
+        'cause' => 'cause',
         'stale_since' => 'staleSince',
         'error' => 'error',
         'error_kind' => 'errorKind',
@@ -234,6 +238,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'forge' => 'setForge',
         'reachable' => 'setReachable',
         'starting' => 'setStarting',
+        'cause' => 'setCause',
         'stale_since' => 'setStaleSince',
         'error' => 'setError',
         'error_kind' => 'setErrorKind',
@@ -257,6 +262,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'forge' => 'getForge',
         'reachable' => 'getReachable',
         'starting' => 'getStarting',
+        'cause' => 'getCause',
         'stale_since' => 'getStaleSince',
         'error' => 'getError',
         'error_kind' => 'getErrorKind',
@@ -312,6 +318,21 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         return self::$openAPIModelName;
     }
 
+    public const CAUSE_STARTING = 'starting';
+    public const CAUSE_SLOW = 'slow';
+
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getCauseAllowableValues()
+    {
+        return [
+            self::CAUSE_STARTING,
+            self::CAUSE_SLOW,
+        ];
+    }
 
     /**
      * Associative array for storing property values
@@ -331,6 +352,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('forge', $data ?? [], null);
         $this->setIfExists('reachable', $data ?? [], null);
         $this->setIfExists('starting', $data ?? [], null);
+        $this->setIfExists('cause', $data ?? [], null);
         $this->setIfExists('stale_since', $data ?? [], null);
         $this->setIfExists('error', $data ?? [], null);
         $this->setIfExists('error_kind', $data ?? [], null);
@@ -378,6 +400,15 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['reachable'] === null) {
             $invalidProperties[] = "'reachable' can't be null";
         }
+        $allowedValues = $this->getCauseAllowableValues();
+        if (!is_null($this->container['cause']) && !in_array($this->container['cause'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value '%s' for 'cause', must be one of '%s'",
+                $this->container['cause'],
+                implode("', '", $allowedValues)
+            );
+        }
+
         if (!is_null($this->container['upstream_status']) && ($this->container['upstream_status'] > 599)) {
             $invalidProperties[] = "invalid value for 'upstream_status', must be smaller than or equal to 599.";
         }
@@ -488,6 +519,43 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable starting cannot be null');
         }
         $this->container['starting'] = $starting;
+
+        return $this;
+    }
+
+    /**
+     * Gets cause
+     *
+     * @return string|null
+     */
+    public function getCause()
+    {
+        return $this->container['cause'];
+    }
+
+    /**
+     * Sets cause
+     *
+     * @param string|null $cause Why the rows shown for this forge are not from the latest read, while the forge is not down. \"starting\" is the same fact as the `starting` flag: the rows are the ones the last run saved and no refresh has asked the forge since the app started. \"slow\" means the latest pass gave no answer in time (it hit its deadline, or was skipped because the last fetch was still running) and the last good rows are held, with the forge still reachable, until three passes in a row have missed. A good read clears it. Absent when the rows are current, and when the forge is shown as down (see errorKind). A client words it, \"slow to answer\" or \"starting up\", and does not call the rows live.
+     *
+     * @return self
+     */
+    public function setCause($cause)
+    {
+        if (is_null($cause)) {
+            throw new \InvalidArgumentException('non-nullable cause cannot be null');
+        }
+        $allowedValues = $this->getCauseAllowableValues();
+        if (!in_array($cause, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value '%s' for 'cause', must be one of '%s'",
+                    $cause,
+                    implode("', '", $allowedValues)
+                )
+            );
+        }
+        $this->container['cause'] = $cause;
 
         return $this;
     }
