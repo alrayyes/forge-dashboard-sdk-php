@@ -69,6 +69,7 @@ class SettingsSummary implements ModelInterface, ArrayAccess, \JsonSerializable
         'forgejo_o_auth_connected' => 'bool',
         'github_o_auth_configured' => 'bool',
         'github_o_auth_connected' => 'bool',
+        'github_login' => 'string',
         'webhook_configured' => 'bool',
         'renovate_rebase_label' => 'string',
         'renovate_authors' => 'string[]',
@@ -99,6 +100,7 @@ class SettingsSummary implements ModelInterface, ArrayAccess, \JsonSerializable
         'forgejo_o_auth_connected' => null,
         'github_o_auth_configured' => null,
         'github_o_auth_connected' => null,
+        'github_login' => null,
         'webhook_configured' => null,
         'renovate_rebase_label' => null,
         'renovate_authors' => null,
@@ -127,6 +129,7 @@ class SettingsSummary implements ModelInterface, ArrayAccess, \JsonSerializable
         'forgejo_o_auth_connected' => false,
         'github_o_auth_configured' => false,
         'github_o_auth_connected' => false,
+        'github_login' => false,
         'webhook_configured' => false,
         'renovate_rebase_label' => false,
         'renovate_authors' => false,
@@ -235,6 +238,7 @@ class SettingsSummary implements ModelInterface, ArrayAccess, \JsonSerializable
         'forgejo_o_auth_connected' => 'forgejoOAuthConnected',
         'github_o_auth_configured' => 'githubOAuthConfigured',
         'github_o_auth_connected' => 'githubOAuthConnected',
+        'github_login' => 'githubLogin',
         'webhook_configured' => 'webhookConfigured',
         'renovate_rebase_label' => 'renovateRebaseLabel',
         'renovate_authors' => 'renovateAuthors',
@@ -263,6 +267,7 @@ class SettingsSummary implements ModelInterface, ArrayAccess, \JsonSerializable
         'forgejo_o_auth_connected' => 'setForgejoOAuthConnected',
         'github_o_auth_configured' => 'setGithubOAuthConfigured',
         'github_o_auth_connected' => 'setGithubOAuthConnected',
+        'github_login' => 'setGithubLogin',
         'webhook_configured' => 'setWebhookConfigured',
         'renovate_rebase_label' => 'setRenovateRebaseLabel',
         'renovate_authors' => 'setRenovateAuthors',
@@ -291,6 +296,7 @@ class SettingsSummary implements ModelInterface, ArrayAccess, \JsonSerializable
         'forgejo_o_auth_connected' => 'getForgejoOAuthConnected',
         'github_o_auth_configured' => 'getGithubOAuthConfigured',
         'github_o_auth_connected' => 'getGithubOAuthConnected',
+        'github_login' => 'getGithubLogin',
         'webhook_configured' => 'getWebhookConfigured',
         'renovate_rebase_label' => 'getRenovateRebaseLabel',
         'renovate_authors' => 'getRenovateAuthors',
@@ -387,6 +393,7 @@ class SettingsSummary implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('forgejo_o_auth_connected', $data ?? [], null);
         $this->setIfExists('github_o_auth_configured', $data ?? [], null);
         $this->setIfExists('github_o_auth_connected', $data ?? [], null);
+        $this->setIfExists('github_login', $data ?? [], null);
         $this->setIfExists('webhook_configured', $data ?? [], null);
         $this->setIfExists('renovate_rebase_label', $data ?? [], null);
         $this->setIfExists('renovate_authors', $data ?? [], null);
@@ -457,6 +464,9 @@ class SettingsSummary implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if ($this->container['github_o_auth_connected'] === null) {
             $invalidProperties[] = "'github_o_auth_connected' can't be null";
+        }
+        if ($this->container['github_login'] === null) {
+            $invalidProperties[] = "'github_login' can't be null";
         }
         if ($this->container['webhook_configured'] === null) {
             $invalidProperties[] = "'webhook_configured' can't be null";
@@ -802,6 +812,33 @@ class SettingsSummary implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable github_o_auth_connected cannot be null');
         }
         $this->container['github_o_auth_connected'] = $github_o_auth_connected;
+
+        return $this;
+    }
+
+    /**
+     * Gets github_login
+     *
+     * @return string
+     */
+    public function getGithubLogin()
+    {
+        return $this->container['github_login'];
+    }
+
+    /**
+     * Sets github_login
+     *
+     * @param string $github_login github_login
+     *
+     * @return self
+     */
+    public function setGithubLogin($github_login)
+    {
+        if (is_null($github_login)) {
+            throw new \InvalidArgumentException('non-nullable github_login cannot be null');
+        }
+        $this->container['github_login'] = $github_login;
 
         return $this;
     }
