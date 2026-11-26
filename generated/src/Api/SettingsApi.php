@@ -4866,7 +4866,7 @@ class SettingsApi
      *
      * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \ForgeDashboard\Generated\Model\VerifyForgejoInstanceResponse|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error
+     * @return \ForgeDashboard\Generated\Model\ForgejoInstanceCheck|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error
      */
     public function verifyForgejoInstance($verify_forgejo_instance_request, string $contentType = self::contentTypes['verifyForgejoInstance'][0])
     {
@@ -4884,7 +4884,7 @@ class SettingsApi
      *
      * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \ForgeDashboard\Generated\Model\VerifyForgejoInstanceResponse|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \ForgeDashboard\Generated\Model\ForgejoInstanceCheck|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error, HTTP status code, HTTP response headers (array of strings)
      */
     public function verifyForgejoInstanceWithHttpInfo($verify_forgejo_instance_request, string $contentType = self::contentTypes['verifyForgejoInstance'][0])
     {
@@ -4916,7 +4916,7 @@ class SettingsApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\ForgeDashboard\Generated\Model\VerifyForgejoInstanceResponse',
+                        '\ForgeDashboard\Generated\Model\ForgejoInstanceCheck',
                         $request,
                         $response,
                     );
@@ -4950,7 +4950,7 @@ class SettingsApi
             }
 
             return $this->handleResponseWithDataType(
-                '\ForgeDashboard\Generated\Model\VerifyForgejoInstanceResponse',
+                '\ForgeDashboard\Generated\Model\ForgejoInstanceCheck',
                 $request,
                 $response,
             );
@@ -4959,7 +4959,7 @@ class SettingsApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\ForgeDashboard\Generated\Model\VerifyForgejoInstanceResponse',
+                        '\ForgeDashboard\Generated\Model\ForgejoInstanceCheck',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5021,7 +5021,7 @@ class SettingsApi
      */
     public function verifyForgejoInstanceAsyncWithHttpInfo($verify_forgejo_instance_request, string $contentType = self::contentTypes['verifyForgejoInstance'][0])
     {
-        $returnType = '\ForgeDashboard\Generated\Model\VerifyForgejoInstanceResponse';
+        $returnType = '\ForgeDashboard\Generated\Model\ForgejoInstanceCheck';
         $request = $this->verifyForgejoInstanceRequest($verify_forgejo_instance_request, $contentType);
 
         return $this->client

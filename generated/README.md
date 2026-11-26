@@ -225,6 +225,7 @@ Class | Method | HTTP request | Description
 - [ForgeCapabilities](docs/Model/ForgeCapabilities.md)
 - [ForgeErrorKind](docs/Model/ForgeErrorKind.md)
 - [ForgeHealth](docs/Model/ForgeHealth.md)
+- [ForgejoInstanceCheck](docs/Model/ForgejoInstanceCheck.md)
 - [GetPullRequestRerunnable200Response](docs/Model/GetPullRequestRerunnable200Response.md)
 - [Health](docs/Model/Health.md)
 - [HiddenDraftCounts](docs/Model/HiddenDraftCounts.md)
@@ -295,7 +296,6 @@ Class | Method | HTTP request | Description
 - [TimezoneResponse](docs/Model/TimezoneResponse.md)
 - [UpdateRequest](docs/Model/UpdateRequest.md)
 - [VerifyForgejoInstanceRequest](docs/Model/VerifyForgejoInstanceRequest.md)
-- [VerifyForgejoInstanceResponse](docs/Model/VerifyForgejoInstanceResponse.md)
 - [Version](docs/Model/Version.md)
 - [WebhookEnsureRequest](docs/Model/WebhookEnsureRequest.md)
 

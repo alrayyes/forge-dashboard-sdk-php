@@ -1,6 +1,6 @@
 <?php
 /**
- * VerifyForgejoInstanceResponse
+ * ForgejoInstanceCheck
  *
  * PHP version 8.1
  *
@@ -32,7 +32,7 @@ use \ArrayAccess;
 use \ForgeDashboard\Generated\ObjectSerializer;
 
 /**
- * VerifyForgejoInstanceResponse Class Doc Comment
+ * ForgejoInstanceCheck Class Doc Comment
  *
  * @category Class
  * @package  ForgeDashboard\Generated
@@ -40,7 +40,7 @@ use \ForgeDashboard\Generated\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class VerifyForgejoInstanceResponse implements ModelInterface, ArrayAccess, \JsonSerializable
+class ForgejoInstanceCheck implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -49,7 +49,7 @@ class VerifyForgejoInstanceResponse implements ModelInterface, ArrayAccess, \Jso
      *
      * @var string
      */
-    protected static $openAPIModelName = 'VerifyForgejoInstanceResponse';
+    protected static $openAPIModelName = 'ForgejoInstanceCheck';
 
     /**
      * Array of property to type mappings. Used for (de)serialization
