@@ -1018,7 +1018,7 @@ class SettingsSummary implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets forgejo_skipped_avatar_hosts
      *
-     * @param string[] $forgejo_skipped_avatar_hosts Other hosts a Forgejo avatar was refused for lately: the image proxy only fetches from the saved instance, so an avatar on Gravatar or Libravatar is skipped and the page shows an initial. Lowercase, sorted, at most eight, and never the instance's own host. A host is listed while its avatars keep being asked for and drops off after about ten minutes without one, so the list is empty when nothing is skipped. Held in memory: a restart empties it.
+     * @param string[] $forgejo_skipped_avatar_hosts Other hosts a Forgejo avatar was refused for lately: the image proxy fetches from the saved instance and from Gravatar and Libravatar's own hosts, so an avatar on any other host is skipped and the page shows an initial. Lowercase, sorted, at most eight, and never the instance's own host. A host is listed while its avatars keep being asked for and drops off after about ten minutes without one, so the list is empty when nothing is skipped. Held in memory: a restart empties it.
      *
      * @return self
      */
