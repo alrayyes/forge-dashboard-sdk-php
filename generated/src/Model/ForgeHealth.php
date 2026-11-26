@@ -509,7 +509,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets starting
      *
-     * @param bool|null $starting True while the rows shown for this forge are the ones the last run saved and no fetch from the forge has answered in time since the app started. `reachable` is then false and errorKind is absent: it is not in error, it has not been heard from. A first fetch that passes its deadline, and a pass skipped behind it, leave this entry as it is, and the late answer is dropped. The first fetch that answers in time replaces it. A client says \"starting up, showing data from 3 minutes ago\", and never \"unreachable\".
+     * @param bool|null $starting True while the rows shown for this forge are the ones the last run saved and no fetch from the forge has answered in time since the app started. `reachable` is then false and errorKind is absent: it is not in error, it has not been heard from. A first fetch that passes its deadline, and a pass skipped behind it, leave this entry as it is, and the late answer is dropped. The first fetch that answers in time replaces it. When three passes in a row have gone unanswered, counting deadline and skipped passes together, the flag and the \"starting\" cause go, and errorKind is \"unreachable\", with the saved rows and staleSince kept. While it is true a client says \"starting up, showing data from 3 minutes ago\", and never \"unreachable\".
      *
      * @return self
      */
@@ -536,7 +536,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets cause
      *
-     * @param string|null $cause Why the rows shown for this forge are not from the latest read, while the forge is not down. \"starting\" is the same fact as the `starting` flag: the rows are the ones the last run saved and no fetch from the forge has answered in time since the app started. \"slow\" means the latest pass gave no answer in time (it hit its deadline, or was skipped because the last fetch was still running) and the last good rows are held, with the forge still reachable, until three passes in a row have missed. Any later pass that does not miss clears it, including one that holds a 5xx or does not ask because the rate limit is spent or at its reserve. Absent when the rows are current, and when the forge is shown as down (see errorKind). A client words it, \"slow to answer\" or \"starting up\", and does not call the rows live.
+     * @param string|null $cause Why the rows shown for this forge are not from the latest read, while the forge is not down. \"starting\" is the same fact as the `starting` flag, and goes when that flag does: the rows are the ones the last run saved and no fetch from the forge has answered in time since the app started. \"slow\" means the latest pass gave no answer in time (it hit its deadline, or was skipped because the last fetch was still running) and the last good rows are held, with the forge still reachable, until three passes in a row have missed. Any later pass that does not miss clears it, including one that holds a 5xx or does not ask because the rate limit is spent or at its reserve. Absent when the rows are current, and when the forge is shown as down (see errorKind). A client words it, \"slow to answer\" or \"starting up\", and does not call the rows live.
      *
      * @return self
      */
