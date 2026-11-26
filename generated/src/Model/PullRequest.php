@@ -112,6 +112,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'hidden_until' => '\DateTime',
         'ready_to_merge' => 'bool',
         'failing_ci' => 'bool',
+        'out_of_date' => 'bool',
         'green_behind_base' => 'bool',
         'needs_review' => 'bool',
         'auto_update' => '\ForgeDashboard\Generated\Model\AutoUpdate'
@@ -180,6 +181,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'hidden_until' => 'date-time',
         'ready_to_merge' => null,
         'failing_ci' => null,
+        'out_of_date' => null,
         'green_behind_base' => null,
         'needs_review' => null,
         'auto_update' => null
@@ -246,6 +248,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'hidden_until' => false,
         'ready_to_merge' => false,
         'failing_ci' => false,
+        'out_of_date' => false,
         'green_behind_base' => false,
         'needs_review' => false,
         'auto_update' => false
@@ -392,6 +395,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'hidden_until' => 'hiddenUntil',
         'ready_to_merge' => 'readyToMerge',
         'failing_ci' => 'failingCi',
+        'out_of_date' => 'outOfDate',
         'green_behind_base' => 'greenBehindBase',
         'needs_review' => 'needsReview',
         'auto_update' => 'autoUpdate'
@@ -458,6 +462,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'hidden_until' => 'setHiddenUntil',
         'ready_to_merge' => 'setReadyToMerge',
         'failing_ci' => 'setFailingCi',
+        'out_of_date' => 'setOutOfDate',
         'green_behind_base' => 'setGreenBehindBase',
         'needs_review' => 'setNeedsReview',
         'auto_update' => 'setAutoUpdate'
@@ -524,6 +529,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'hidden_until' => 'getHiddenUntil',
         'ready_to_merge' => 'getReadyToMerge',
         'failing_ci' => 'getFailingCi',
+        'out_of_date' => 'getOutOfDate',
         'green_behind_base' => 'getGreenBehindBase',
         'needs_review' => 'getNeedsReview',
         'auto_update' => 'getAutoUpdate'
@@ -658,6 +664,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('hidden_until', $data ?? [], null);
         $this->setIfExists('ready_to_merge', $data ?? [], null);
         $this->setIfExists('failing_ci', $data ?? [], null);
+        $this->setIfExists('out_of_date', $data ?? [], null);
         $this->setIfExists('green_behind_base', $data ?? [], null);
         $this->setIfExists('needs_review', $data ?? [], null);
         $this->setIfExists('auto_update', $data ?? [], null);
@@ -842,6 +849,9 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if ($this->container['failing_ci'] === null) {
             $invalidProperties[] = "'failing_ci' can't be null";
+        }
+        if ($this->container['out_of_date'] === null) {
+            $invalidProperties[] = "'out_of_date' can't be null";
         }
         if ($this->container['green_behind_base'] === null) {
             $invalidProperties[] = "'green_behind_base' can't be null";
@@ -2428,6 +2438,33 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable failing_ci cannot be null');
         }
         $this->container['failing_ci'] = $failing_ci;
+
+        return $this;
+    }
+
+    /**
+     * Gets out_of_date
+     *
+     * @return bool
+     */
+    public function getOutOfDate()
+    {
+        return $this->container['out_of_date'];
+    }
+
+    /**
+     * Sets out_of_date
+     *
+     * @param bool $out_of_date True when this pull request is behind its base branch with something left to merge, at any CI state, drafts and hidden ones included: what the row's Out of date badge shows and what the Out of date quick filter lists. An empty pull request has nothing to update, so it is false. Always present.
+     *
+     * @return self
+     */
+    public function setOutOfDate($out_of_date)
+    {
+        if (is_null($out_of_date)) {
+            throw new \InvalidArgumentException('non-nullable out_of_date cannot be null');
+        }
+        $this->container['out_of_date'] = $out_of_date;
 
         return $this;
     }
