@@ -62,6 +62,7 @@ src/Model/ForgeApiStats.php
 src/Model/ForgeCapabilities.php
 src/Model/ForgeErrorKind.php
 src/Model/ForgeHealth.php
+src/Model/ForgejoInstanceCheck.php
 src/Model/GetPullRequestRerunnable200Response.php
 src/Model/Health.php
 src/Model/HiddenDraftCounts.php
@@ -133,7 +134,6 @@ src/Model/TimezoneRequest.php
 src/Model/TimezoneResponse.php
 src/Model/UpdateRequest.php
 src/Model/VerifyForgejoInstanceRequest.php
-src/Model/VerifyForgejoInstanceResponse.php
 src/Model/Version.php
 src/Model/WebhookEnsureRequest.php
 src/ObjectSerializer.php
