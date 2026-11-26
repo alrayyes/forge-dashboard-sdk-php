@@ -61,6 +61,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'reachable' => 'bool',
         'starting' => 'bool',
         'cause' => 'string',
+        'rows_read_at' => '\DateTime',
         'stale_since' => '\DateTime',
         'error' => 'string',
         'error_kind' => '\ForgeDashboard\Generated\Model\ForgeErrorKind',
@@ -87,6 +88,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'reachable' => null,
         'starting' => null,
         'cause' => null,
+        'rows_read_at' => 'date-time',
         'stale_since' => 'date-time',
         'error' => null,
         'error_kind' => null,
@@ -111,6 +113,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'reachable' => false,
         'starting' => false,
         'cause' => false,
+        'rows_read_at' => false,
         'stale_since' => false,
         'error' => false,
         'error_kind' => false,
@@ -215,6 +218,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'reachable' => 'reachable',
         'starting' => 'starting',
         'cause' => 'cause',
+        'rows_read_at' => 'rowsReadAt',
         'stale_since' => 'staleSince',
         'error' => 'error',
         'error_kind' => 'errorKind',
@@ -239,6 +243,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'reachable' => 'setReachable',
         'starting' => 'setStarting',
         'cause' => 'setCause',
+        'rows_read_at' => 'setRowsReadAt',
         'stale_since' => 'setStaleSince',
         'error' => 'setError',
         'error_kind' => 'setErrorKind',
@@ -263,6 +268,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         'reachable' => 'getReachable',
         'starting' => 'getStarting',
         'cause' => 'getCause',
+        'rows_read_at' => 'getRowsReadAt',
         'stale_since' => 'getStaleSince',
         'error' => 'getError',
         'error_kind' => 'getErrorKind',
@@ -353,6 +359,7 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('reachable', $data ?? [], null);
         $this->setIfExists('starting', $data ?? [], null);
         $this->setIfExists('cause', $data ?? [], null);
+        $this->setIfExists('rows_read_at', $data ?? [], null);
         $this->setIfExists('stale_since', $data ?? [], null);
         $this->setIfExists('error', $data ?? [], null);
         $this->setIfExists('error_kind', $data ?? [], null);
@@ -556,6 +563,33 @@ class ForgeHealth implements ModelInterface, ArrayAccess, \JsonSerializable
             );
         }
         $this->container['cause'] = $cause;
+
+        return $this;
+    }
+
+    /**
+     * Gets rows_read_at
+     *
+     * @return \DateTime|null
+     */
+    public function getRowsReadAt()
+    {
+        return $this->container['rows_read_at'];
+    }
+
+    /**
+     * Sets rows_read_at
+     *
+     * @param \DateTime|null $rows_read_at Present only while `cause` is \"slow\": about when the held rows were read. It is normally the time of the last full read that answered, including one that could not read some repositories, whose rows are older. When webhook refreshes have made every repository current after a failed full refresh or a restart, it is the time of the last of those, and rows refreshed before it are older. A webhook may also have refreshed single repositories since, so some rows can be newer. `staleSince` is worked out the same way, with the same limits. `rowsReadAt` stays the same through further missed and skipped passes, and goes when `cause` does. `rowsReadAt` is not `staleSince`: the forge is still reachable, and nothing is locked. A client can say \"slow to answer, showing data from 3 minutes ago\".
+     *
+     * @return self
+     */
+    public function setRowsReadAt($rows_read_at)
+    {
+        if (is_null($rows_read_at)) {
+            throw new \InvalidArgumentException('non-nullable rows_read_at cannot be null');
+        }
+        $this->container['rows_read_at'] = $rows_read_at;
 
         return $this;
     }
