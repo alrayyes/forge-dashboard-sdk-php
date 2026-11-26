@@ -112,6 +112,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'hidden_until' => '\DateTime',
         'ready_to_merge' => 'bool',
         'failing_ci' => 'bool',
+        'green_behind_base' => 'bool',
         'needs_review' => 'bool',
         'auto_update' => '\ForgeDashboard\Generated\Model\AutoUpdate'
     ];
@@ -179,6 +180,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'hidden_until' => 'date-time',
         'ready_to_merge' => null,
         'failing_ci' => null,
+        'green_behind_base' => null,
         'needs_review' => null,
         'auto_update' => null
     ];
@@ -244,6 +246,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'hidden_until' => false,
         'ready_to_merge' => false,
         'failing_ci' => false,
+        'green_behind_base' => false,
         'needs_review' => false,
         'auto_update' => false
     ];
@@ -389,6 +392,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'hidden_until' => 'hiddenUntil',
         'ready_to_merge' => 'readyToMerge',
         'failing_ci' => 'failingCi',
+        'green_behind_base' => 'greenBehindBase',
         'needs_review' => 'needsReview',
         'auto_update' => 'autoUpdate'
     ];
@@ -454,6 +458,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'hidden_until' => 'setHiddenUntil',
         'ready_to_merge' => 'setReadyToMerge',
         'failing_ci' => 'setFailingCi',
+        'green_behind_base' => 'setGreenBehindBase',
         'needs_review' => 'setNeedsReview',
         'auto_update' => 'setAutoUpdate'
     ];
@@ -519,6 +524,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'hidden_until' => 'getHiddenUntil',
         'ready_to_merge' => 'getReadyToMerge',
         'failing_ci' => 'getFailingCi',
+        'green_behind_base' => 'getGreenBehindBase',
         'needs_review' => 'getNeedsReview',
         'auto_update' => 'getAutoUpdate'
     ];
@@ -652,6 +658,7 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('hidden_until', $data ?? [], null);
         $this->setIfExists('ready_to_merge', $data ?? [], null);
         $this->setIfExists('failing_ci', $data ?? [], null);
+        $this->setIfExists('green_behind_base', $data ?? [], null);
         $this->setIfExists('needs_review', $data ?? [], null);
         $this->setIfExists('auto_update', $data ?? [], null);
     }
@@ -835,6 +842,9 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if ($this->container['failing_ci'] === null) {
             $invalidProperties[] = "'failing_ci' can't be null";
+        }
+        if ($this->container['green_behind_base'] === null) {
+            $invalidProperties[] = "'green_behind_base' can't be null";
         }
         if ($this->container['needs_review'] === null) {
             $invalidProperties[] = "'needs_review' can't be null";
@@ -2418,6 +2428,33 @@ class PullRequest implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable failing_ci cannot be null');
         }
         $this->container['failing_ci'] = $failing_ci;
+
+        return $this;
+    }
+
+    /**
+     * Gets green_behind_base
+     *
+     * @return bool
+     */
+    public function getGreenBehindBase()
+    {
+        return $this->container['green_behind_base'];
+    }
+
+    /**
+     * Sets green_behind_base
+     *
+     * @param bool $green_behind_base True when this is a green dependency pull request that is behind its base branch with something left to merge, and isn't a draft or hidden: what the \"behind the base branch\" chip lists, and what the Bots menu pill's `behind` number counts. Always present.
+     *
+     * @return self
+     */
+    public function setGreenBehindBase($green_behind_base)
+    {
+        if (is_null($green_behind_base)) {
+            throw new \InvalidArgumentException('non-nullable green_behind_base cannot be null');
+        }
+        $this->container['green_behind_base'] = $green_behind_base;
 
         return $this;
     }
