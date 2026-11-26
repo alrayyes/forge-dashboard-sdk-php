@@ -216,6 +216,7 @@ Class | Method | HTTP request | Description
 - [Dashboard](docs/Model/Dashboard.md)
 - [DetailsBody](docs/Model/DetailsBody.md)
 - [DetailsComment](docs/Model/DetailsComment.md)
+- [DisconnectGitHub200Response](docs/Model/DisconnectGitHub200Response.md)
 - [Error](docs/Model/Error.md)
 - [FailedInstallation](docs/Model/FailedInstallation.md)
 - [Forge](docs/Model/Forge.md)
