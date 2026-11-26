@@ -35,7 +35,7 @@ use \ForgeDashboard\Generated\ObjectSerializer;
  * SettingsResponse Class Doc Comment
  *
  * @category Class
- * @description The signed-in user&#39;s own GitHub/Forgejo configuration. Never includes a forge token&#39;s value — only whether one is currently saved, so the UI can show a \&quot;Configured\&quot; badge without the secret ever reaching the browser. webhookToken/webhookSecret are the exception: they&#39;re ours to hand back in the clear, since the user has to paste them into the forge&#39;s own webhook setup.
+ * @description The signed-in user&#39;s own GitHub/Forgejo configuration. Never includes a forge token&#39;s value — only whether one is currently saved, so the UI can show a \&quot;Configured\&quot; badge without the secret ever reaching the browser. The webhook token and secret stay on the server too: the receivers read them from the store, and the browser never needs them.
  * @package  ForgeDashboard\Generated
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -69,8 +69,6 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'forgejo_o_auth_connected' => 'bool',
         'github_o_auth_configured' => 'bool',
         'github_o_auth_connected' => 'bool',
-        'webhook_token' => 'string',
-        'webhook_secret' => 'string',
         'renovate_rebase_label' => 'string',
         'renovate_authors' => 'string[]',
         'forgejo_skipped_avatar_hosts' => 'string[]',
@@ -100,8 +98,6 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'forgejo_o_auth_connected' => null,
         'github_o_auth_configured' => null,
         'github_o_auth_connected' => null,
-        'webhook_token' => null,
-        'webhook_secret' => null,
         'renovate_rebase_label' => null,
         'renovate_authors' => null,
         'forgejo_skipped_avatar_hosts' => null,
@@ -129,8 +125,6 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'forgejo_o_auth_connected' => false,
         'github_o_auth_configured' => false,
         'github_o_auth_connected' => false,
-        'webhook_token' => false,
-        'webhook_secret' => false,
         'renovate_rebase_label' => false,
         'renovate_authors' => false,
         'forgejo_skipped_avatar_hosts' => false,
@@ -238,8 +232,6 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'forgejo_o_auth_connected' => 'forgejoOAuthConnected',
         'github_o_auth_configured' => 'githubOAuthConfigured',
         'github_o_auth_connected' => 'githubOAuthConnected',
-        'webhook_token' => 'webhookToken',
-        'webhook_secret' => 'webhookSecret',
         'renovate_rebase_label' => 'renovateRebaseLabel',
         'renovate_authors' => 'renovateAuthors',
         'forgejo_skipped_avatar_hosts' => 'forgejoSkippedAvatarHosts',
@@ -267,8 +259,6 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'forgejo_o_auth_connected' => 'setForgejoOAuthConnected',
         'github_o_auth_configured' => 'setGithubOAuthConfigured',
         'github_o_auth_connected' => 'setGithubOAuthConnected',
-        'webhook_token' => 'setWebhookToken',
-        'webhook_secret' => 'setWebhookSecret',
         'renovate_rebase_label' => 'setRenovateRebaseLabel',
         'renovate_authors' => 'setRenovateAuthors',
         'forgejo_skipped_avatar_hosts' => 'setForgejoSkippedAvatarHosts',
@@ -296,8 +286,6 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'forgejo_o_auth_connected' => 'getForgejoOAuthConnected',
         'github_o_auth_configured' => 'getGithubOAuthConfigured',
         'github_o_auth_connected' => 'getGithubOAuthConnected',
-        'webhook_token' => 'getWebhookToken',
-        'webhook_secret' => 'getWebhookSecret',
         'renovate_rebase_label' => 'getRenovateRebaseLabel',
         'renovate_authors' => 'getRenovateAuthors',
         'forgejo_skipped_avatar_hosts' => 'getForgejoSkippedAvatarHosts',
@@ -393,8 +381,6 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('forgejo_o_auth_connected', $data ?? [], null);
         $this->setIfExists('github_o_auth_configured', $data ?? [], null);
         $this->setIfExists('github_o_auth_connected', $data ?? [], null);
-        $this->setIfExists('webhook_token', $data ?? [], null);
-        $this->setIfExists('webhook_secret', $data ?? [], null);
         $this->setIfExists('renovate_rebase_label', $data ?? [], null);
         $this->setIfExists('renovate_authors', $data ?? [], null);
         $this->setIfExists('forgejo_skipped_avatar_hosts', $data ?? [], null);
@@ -464,12 +450,6 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if ($this->container['github_o_auth_connected'] === null) {
             $invalidProperties[] = "'github_o_auth_connected' can't be null";
-        }
-        if ($this->container['webhook_token'] === null) {
-            $invalidProperties[] = "'webhook_token' can't be null";
-        }
-        if ($this->container['webhook_secret'] === null) {
-            $invalidProperties[] = "'webhook_secret' can't be null";
         }
         if ($this->container['renovate_rebase_label'] === null) {
             $invalidProperties[] = "'renovate_rebase_label' can't be null";
@@ -807,60 +787,6 @@ class SettingsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable github_o_auth_connected cannot be null');
         }
         $this->container['github_o_auth_connected'] = $github_o_auth_connected;
-
-        return $this;
-    }
-
-    /**
-     * Gets webhook_token
-     *
-     * @return string
-     */
-    public function getWebhookToken()
-    {
-        return $this->container['webhook_token'];
-    }
-
-    /**
-     * Sets webhook_token
-     *
-     * @param string $webhook_token Identifies this user in a webhook URL (`/api/webhooks/{provider}/{webhookToken}`). Generated on first visit to Settings and stable after that.
-     *
-     * @return self
-     */
-    public function setWebhookToken($webhook_token)
-    {
-        if (is_null($webhook_token)) {
-            throw new \InvalidArgumentException('non-nullable webhook_token cannot be null');
-        }
-        $this->container['webhook_token'] = $webhook_token;
-
-        return $this;
-    }
-
-    /**
-     * Gets webhook_secret
-     *
-     * @return string
-     */
-    public function getWebhookSecret()
-    {
-        return $this->container['webhook_secret'];
-    }
-
-    /**
-     * Sets webhook_secret
-     *
-     * @param string $webhook_secret Pasted into the forge's own webhook \"Secret\" field, used to verify the signature header on incoming webhook deliveries (`X-Hub-Signature-256` on GitHub, `X-Forgejo-Signature` on Forgejo). Never appears in the webhook URL itself.
-     *
-     * @return self
-     */
-    public function setWebhookSecret($webhook_secret)
-    {
-        if (is_null($webhook_secret)) {
-            throw new \InvalidArgumentException('non-nullable webhook_secret cannot be null');
-        }
-        $this->container['webhook_secret'] = $webhook_secret;
 
         return $this;
     }
