@@ -62,6 +62,8 @@ class PullRequestDetails implements ModelInterface, ArrayAccess, \JsonSerializab
         'comments' => '\ForgeDashboard\Generated\Model\DetailsComment[]',
         'comment_count' => 'int',
         'comments_truncated' => 'bool',
+        'review_comment_count' => 'int',
+        'review_comments_truncated' => 'bool',
         'release_notes' => '\ForgeDashboard\Generated\Model\DetailsBody'
     ];
 
@@ -77,6 +79,8 @@ class PullRequestDetails implements ModelInterface, ArrayAccess, \JsonSerializab
         'comments' => null,
         'comment_count' => null,
         'comments_truncated' => null,
+        'review_comment_count' => null,
+        'review_comments_truncated' => null,
         'release_notes' => null
     ];
 
@@ -90,6 +94,8 @@ class PullRequestDetails implements ModelInterface, ArrayAccess, \JsonSerializab
         'comments' => false,
         'comment_count' => false,
         'comments_truncated' => false,
+        'review_comment_count' => false,
+        'review_comments_truncated' => false,
         'release_notes' => true
     ];
 
@@ -183,6 +189,8 @@ class PullRequestDetails implements ModelInterface, ArrayAccess, \JsonSerializab
         'comments' => 'comments',
         'comment_count' => 'commentCount',
         'comments_truncated' => 'commentsTruncated',
+        'review_comment_count' => 'reviewCommentCount',
+        'review_comments_truncated' => 'reviewCommentsTruncated',
         'release_notes' => 'releaseNotes'
     ];
 
@@ -196,6 +204,8 @@ class PullRequestDetails implements ModelInterface, ArrayAccess, \JsonSerializab
         'comments' => 'setComments',
         'comment_count' => 'setCommentCount',
         'comments_truncated' => 'setCommentsTruncated',
+        'review_comment_count' => 'setReviewCommentCount',
+        'review_comments_truncated' => 'setReviewCommentsTruncated',
         'release_notes' => 'setReleaseNotes'
     ];
 
@@ -209,6 +219,8 @@ class PullRequestDetails implements ModelInterface, ArrayAccess, \JsonSerializab
         'comments' => 'getComments',
         'comment_count' => 'getCommentCount',
         'comments_truncated' => 'getCommentsTruncated',
+        'review_comment_count' => 'getReviewCommentCount',
+        'review_comments_truncated' => 'getReviewCommentsTruncated',
         'release_notes' => 'getReleaseNotes'
     ];
 
@@ -273,6 +285,8 @@ class PullRequestDetails implements ModelInterface, ArrayAccess, \JsonSerializab
         $this->setIfExists('comments', $data ?? [], null);
         $this->setIfExists('comment_count', $data ?? [], null);
         $this->setIfExists('comments_truncated', $data ?? [], null);
+        $this->setIfExists('review_comment_count', $data ?? [], null);
+        $this->setIfExists('review_comments_truncated', $data ?? [], null);
         $this->setIfExists('release_notes', $data ?? [], null);
     }
 
@@ -322,6 +336,16 @@ class PullRequestDetails implements ModelInterface, ArrayAccess, \JsonSerializab
 
         if ($this->container['comments_truncated'] === null) {
             $invalidProperties[] = "'comments_truncated' can't be null";
+        }
+        if ($this->container['review_comment_count'] === null) {
+            $invalidProperties[] = "'review_comment_count' can't be null";
+        }
+        if (($this->container['review_comment_count'] < 0)) {
+            $invalidProperties[] = "invalid value for 'review_comment_count', must be bigger than or equal to 0.";
+        }
+
+        if ($this->container['review_comments_truncated'] === null) {
+            $invalidProperties[] = "'review_comments_truncated' can't be null";
         }
         if ($this->container['release_notes'] === null && !$this->isNullableSetToNull('release_notes')) {
             $invalidProperties[] = "'release_notes' is required";
@@ -452,6 +476,64 @@ class PullRequestDetails implements ModelInterface, ArrayAccess, \JsonSerializab
             throw new \InvalidArgumentException('non-nullable comments_truncated cannot be null');
         }
         $this->container['comments_truncated'] = $comments_truncated;
+
+        return $this;
+    }
+
+    /**
+     * Gets review_comment_count
+     *
+     * @return int
+     */
+    public function getReviewCommentCount()
+    {
+        return $this->container['review_comment_count'];
+    }
+
+    /**
+     * Sets review_comment_count
+     *
+     * @param int $review_comment_count How many review comments the pull request has, the ones on a line of code, replies included. Only the number: the comments themselves are not in `comments`, and `commentCount` leaves them out too. A client says how many there are and links to the forge. It counts what the row's `reviewComments` counts, but the two can differ. On GitHub the row reads the first 30 review threads and this reads the first 100, so the row can report fewer with nothing new written. A Forgejo draft's row reports 0. This is also read live, so it can be newer than the row.
+     *
+     * @return self
+     */
+    public function setReviewCommentCount($review_comment_count)
+    {
+        if (is_null($review_comment_count)) {
+            throw new \InvalidArgumentException('non-nullable review_comment_count cannot be null');
+        }
+        if (($review_comment_count < 0)) {
+            throw new \InvalidArgumentException('invalid value for $review_comment_count when calling PullRequestDetails., must be bigger than or equal to 0.');
+        }
+
+        $this->container['review_comment_count'] = $review_comment_count;
+
+        return $this;
+    }
+
+    /**
+     * Gets review_comments_truncated
+     *
+     * @return bool
+     */
+    public function getReviewCommentsTruncated()
+    {
+        return $this->container['review_comments_truncated'];
+    }
+
+    /**
+     * Sets review_comments_truncated
+     *
+     * @param bool $review_comments_truncated True when the forge has more review threads than were counted, so `reviewCommentCount` is a lower bound. GitHub only, past the first 100 threads; always false on Forgejo, where every review is read.
+     *
+     * @return self
+     */
+    public function setReviewCommentsTruncated($review_comments_truncated)
+    {
+        if (is_null($review_comments_truncated)) {
+            throw new \InvalidArgumentException('non-nullable review_comments_truncated cannot be null');
+        }
+        $this->container['review_comments_truncated'] = $review_comments_truncated;
 
         return $this;
     }
