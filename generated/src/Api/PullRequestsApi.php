@@ -1567,7 +1567,7 @@ class PullRequestsApi
      *
      * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \ForgeDashboard\Generated\Model\PullRequestDetails|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error
+     * @return \ForgeDashboard\Generated\Model\PullRequestDetails|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\RateLimitedError|\ForgeDashboard\Generated\Model\Error
      */
     public function getPullRequestDetails($forge, $full_name, $number, string $contentType = self::contentTypes['getPullRequestDetails'][0])
     {
@@ -1587,7 +1587,7 @@ class PullRequestsApi
      *
      * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \ForgeDashboard\Generated\Model\PullRequestDetails|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \ForgeDashboard\Generated\Model\PullRequestDetails|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\RateLimitedError|\ForgeDashboard\Generated\Model\Error, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPullRequestDetailsWithHttpInfo($forge, $full_name, $number, string $contentType = self::contentTypes['getPullRequestDetails'][0])
     {
@@ -1649,7 +1649,7 @@ class PullRequestsApi
                     );
                 case 429:
                     return $this->handleResponseWithDataType(
-                        '\ForgeDashboard\Generated\Model\Error',
+                        '\ForgeDashboard\Generated\Model\RateLimitedError',
                         $request,
                         $response,
                     );
@@ -1726,7 +1726,7 @@ class PullRequestsApi
                 case 429:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\ForgeDashboard\Generated\Model\Error',
+                        '\ForgeDashboard\Generated\Model\RateLimitedError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);

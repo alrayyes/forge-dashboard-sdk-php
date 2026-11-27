@@ -2722,7 +2722,7 @@ class DashboardApi
      *
      * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \ForgeDashboard\Generated\Model\IssueDetails|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error
+     * @return \ForgeDashboard\Generated\Model\IssueDetails|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\RateLimitedError|\ForgeDashboard\Generated\Model\Error
      */
     public function getIssueDetails($forge, $full_name, $number, string $contentType = self::contentTypes['getIssueDetails'][0])
     {
@@ -2742,7 +2742,7 @@ class DashboardApi
      *
      * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \ForgeDashboard\Generated\Model\IssueDetails|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \ForgeDashboard\Generated\Model\IssueDetails|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\RateLimitedError|\ForgeDashboard\Generated\Model\Error, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIssueDetailsWithHttpInfo($forge, $full_name, $number, string $contentType = self::contentTypes['getIssueDetails'][0])
     {
@@ -2804,7 +2804,7 @@ class DashboardApi
                     );
                 case 429:
                     return $this->handleResponseWithDataType(
-                        '\ForgeDashboard\Generated\Model\Error',
+                        '\ForgeDashboard\Generated\Model\RateLimitedError',
                         $request,
                         $response,
                     );
@@ -2881,7 +2881,7 @@ class DashboardApi
                 case 429:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\ForgeDashboard\Generated\Model\Error',
+                        '\ForgeDashboard\Generated\Model\RateLimitedError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3395,7 +3395,7 @@ class DashboardApi
      *
      * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \ForgeDashboard\Generated\Model\ReleaseDetails|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error
+     * @return \ForgeDashboard\Generated\Model\ReleaseDetails|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\RateLimitedError|\ForgeDashboard\Generated\Model\Error
      */
     public function getReleaseDetails($forge, $full_name, $tag, string $contentType = self::contentTypes['getReleaseDetails'][0])
     {
@@ -3415,7 +3415,7 @@ class DashboardApi
      *
      * @throws \ForgeDashboard\Generated\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \ForgeDashboard\Generated\Model\ReleaseDetails|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \ForgeDashboard\Generated\Model\ReleaseDetails|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\Error|\ForgeDashboard\Generated\Model\RateLimitedError|\ForgeDashboard\Generated\Model\Error, HTTP status code, HTTP response headers (array of strings)
      */
     public function getReleaseDetailsWithHttpInfo($forge, $full_name, $tag, string $contentType = self::contentTypes['getReleaseDetails'][0])
     {
@@ -3477,7 +3477,7 @@ class DashboardApi
                     );
                 case 429:
                     return $this->handleResponseWithDataType(
-                        '\ForgeDashboard\Generated\Model\Error',
+                        '\ForgeDashboard\Generated\Model\RateLimitedError',
                         $request,
                         $response,
                     );
@@ -3554,7 +3554,7 @@ class DashboardApi
                 case 429:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\ForgeDashboard\Generated\Model\Error',
+                        '\ForgeDashboard\Generated\Model\RateLimitedError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);

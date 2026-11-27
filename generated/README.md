@@ -267,6 +267,7 @@ Class | Method | HTTP request | Description
 - [QueuedAction](docs/Model/QueuedAction.md)
 - [QueuedActionRequest](docs/Model/QueuedActionRequest.md)
 - [RateLimit](docs/Model/RateLimit.md)
+- [RateLimitedError](docs/Model/RateLimitedError.md)
 - [Reaction](docs/Model/Reaction.md)
 - [Reactions](docs/Model/Reactions.md)
 - [Ready](docs/Model/Ready.md)

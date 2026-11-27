@@ -105,6 +105,7 @@ src/Model/PullRequestStatus.php
 src/Model/QueuedAction.php
 src/Model/QueuedActionRequest.php
 src/Model/RateLimit.php
+src/Model/RateLimitedError.php
 src/Model/Reaction.php
 src/Model/Reactions.php
 src/Model/Ready.php
