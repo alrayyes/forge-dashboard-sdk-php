@@ -379,7 +379,7 @@ class SetupResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets refreshed
      *
-     * @param bool $refreshed Whether the board has finished a refresh since the process started.
+     * @param bool $refreshed Whether the board has finished a refresh since the process started. False while a forge's first read is still running, since its repositories can't be counted yet.
      *
      * @return self
      */
